@@ -26,22 +26,31 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     private fun initListener(){
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            when(destination.id){
-                R.id.loginFragment -> {
-                    binding.containerActivity.setBackgroundResource(R.drawable.image_login_background)
-                    binding.layoutTopbar.visibility = View.GONE
-                }
-                R.id.homeFragment -> {
-                    binding.containerActivity.setBackgroundResource(R.drawable.image_home_background)
-                    binding.layoutTopbar.visibility = View.VISIBLE
-                    binding.imageLogo.visibility = View.VISIBLE
-                    binding.textviewTopbar.visibility = View.GONE
-                }
-                else -> {
-                    binding.containerActivity.setBackgroundResource(R.drawable.image_home_background)
-                    binding.layoutTopbar.visibility = View.VISIBLE
-                    binding.imageLogo.visibility = View.GONE
-                    binding.textviewTopbar.visibility = View.VISIBLE
+            binding.apply {
+                when (destination.id) {
+                    R.id.loginFragment -> {
+                        containerActivity.setBackgroundResource(R.drawable.image_login_background)
+                        layoutTopbar.visibility = View.GONE
+                    }
+
+                    R.id.homeFragment -> {
+                        containerActivity.setBackgroundResource(R.drawable.image_home_background)
+                        layoutTopbar.visibility = View.VISIBLE
+                        imageLogo.visibility = View.VISIBLE
+                        textviewTopbar.visibility = View.GONE
+                    }
+
+                    else -> {
+                        containerActivity.setBackgroundResource(R.drawable.image_home_background)
+                        layoutTopbar.visibility = View.VISIBLE
+                        imageLogo.visibility = View.GONE
+                        textviewTopbar.visibility = View.VISIBLE
+                        when (destination.id) {
+                            R.id.profileFragment -> {
+                                textviewTopbar.text = getString(R.string.title_profile)
+                            }
+                        }
+                    }
                 }
             }
         }

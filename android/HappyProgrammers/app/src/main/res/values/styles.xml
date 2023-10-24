@@ -8,10 +8,17 @@
         <item name="fontFamily">@font/dunggeunmo</item>
     </style>
 
+    <!--dunggeunmo black 16-->
+    <style name="Theme.AppCompat.TextView.dunggeunmo.dark.Size16" parent="@style/Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/_16sdp</item>
+        <item name="fontFamily">@font/dunggeunmo</item>
+    </style>
+
     <!--dunggeunmo white 32-->
-    <style name="Theme.AppCompat.TextView.dunggeunmo.white.Size32" parent="@style/Widget.AppCompat.TextView">
+    <style name="Theme.AppCompat.TextView.dunggeunmo.white.Size24" parent="@style/Widget.AppCompat.TextView">
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">@dimen/_32sdp</item>
+        <item name="android:textSize">@dimen/_24sdp</item>
         <item name="fontFamily">@font/dunggeunmo</item>
     </style>
 
