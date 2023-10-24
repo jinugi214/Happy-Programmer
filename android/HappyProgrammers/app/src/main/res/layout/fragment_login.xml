@@ -113,7 +113,7 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_login"
-                style="@style/Theme.AppCompat.TextView.dunggeunmo.dark.Size24"
+                style="@style/Theme.AppCompat.TextView.dunggeunmo.black.Size24"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"

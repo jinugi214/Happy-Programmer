@@ -46,9 +46,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                         imageLogo.visibility = View.GONE
                         textviewTopbar.visibility = View.VISIBLE
                         when (destination.id) {
-                            R.id.profileFragment -> {
-                                textviewTopbar.text = getString(R.string.title_profile)
-                            }
+                            R.id.profileFragment -> { textviewTopbar.text = getString(R.string.title_profile) }
+                            R.id.itemFragment -> {textviewTopbar.text = getString(R.string.title_item)}
                         }
                     }
                 }

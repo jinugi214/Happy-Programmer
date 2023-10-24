@@ -3,7 +3,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    
     <!--profile-->
     <string name="title_profile">프로필</string>
+
+    <!--item-->
+    <string name="title_item">아이템</string>
+    
 
 </resources>
