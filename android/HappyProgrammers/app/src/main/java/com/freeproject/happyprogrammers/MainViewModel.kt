@@ -1,4 +1,4 @@
-package com.freeproject.happyprogrammers.viewmodel
+package com.freeproject.happyprogrammers
 
 import androidx.lifecycle.ViewModel
 import com.freeproject.happyprogrammers.data.datasource.PreferenceDataSource

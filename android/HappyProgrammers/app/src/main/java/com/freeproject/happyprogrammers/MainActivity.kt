@@ -2,14 +2,16 @@ package com.freeproject.happyprogrammers
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.freeproject.happyprogrammers.viewmodel.MainViewModel
+import com.freeproject.happyprogrammers.base.BaseActivity
+import com.freeproject.happyprogrammers.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
 
     private val mainViewModel: MainViewModel by viewModels()
 
@@ -18,8 +20,31 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         initNavController()
+        initListener()
+    }
+
+    private fun initListener(){
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when(destination.id){
+                R.id.loginFragment -> {
+                    binding.containerActivity.setBackgroundResource(R.drawable.image_login_background)
+                    binding.layoutTopbar.visibility = View.GONE
+                }
+                R.id.homeFragment -> {
+                    binding.containerActivity.setBackgroundResource(R.drawable.image_home_background)
+                    binding.layoutTopbar.visibility = View.VISIBLE
+                    binding.imageLogo.visibility = View.VISIBLE
+                    binding.textviewTopbar.visibility = View.GONE
+                }
+                else -> {
+                    binding.containerActivity.setBackgroundResource(R.drawable.image_home_background)
+                    binding.layoutTopbar.visibility = View.VISIBLE
+                    binding.imageLogo.visibility = View.GONE
+                    binding.textviewTopbar.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 
     private fun initNavController() {
@@ -35,9 +60,6 @@ class MainActivity : AppCompatActivity() {
         }else{ //로그인이 되어 있지 않은 상황
             graph.startDestination = R.id.loginFragment
         }
-
-
-
         val navController = navHostFragment.navController
         navController.setGraph(graph, intent.extras)
     }
