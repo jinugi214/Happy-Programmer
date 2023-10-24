@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TITLE"
-            style = "@style/Theme.AppCompat.TextView.dunggeunmo.white.Size32"
+            style = "@style/Theme.AppCompat.TextView.dunggeunmo.white.Size24"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
