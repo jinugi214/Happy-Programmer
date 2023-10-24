@@ -25,6 +25,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     private fun initListener(){
+
+        binding.apply {
+            buttonBack.setOnClickListener {
+                navController.popBackStack()
+            }
+        }
         navController.addOnDestinationChangedListener { _, destination, _ ->
             binding.apply {
                 when (destination.id) {
@@ -35,6 +41,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
                     R.id.homeFragment -> {
                         containerActivity.setBackgroundResource(R.drawable.image_home_background)
+                        buttonBack.visibility = View.GONE
                         layoutTopbar.visibility = View.VISIBLE
                         imageLogo.visibility = View.VISIBLE
                         textviewTopbar.visibility = View.GONE
@@ -45,6 +52,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                         layoutTopbar.visibility = View.VISIBLE
                         imageLogo.visibility = View.GONE
                         textviewTopbar.visibility = View.VISIBLE
+                        buttonBack.visibility = View.VISIBLE
                         when (destination.id) {
                             R.id.profileFragment -> { textviewTopbar.text = getString(R.string.title_profile) }
                             R.id.itemFragment -> {textviewTopbar.text = getString(R.string.title_item)}
