@@ -23,4 +23,18 @@
     </style>
 
 
+    <!--chip style-->
+    <style name="MyTabLayoutStyle" parent="@style/Widget.Material3.TabLayout">
+        <item name="tabTextColor">@color/gray_alpha60</item>
+        <item name="tabSelectedTextColor">@color/main_blue</item>
+        <item name="tabTextAppearance">@style/Theme.AppCompat.TextView.dunggeunmo.black.Size16</item>
+        <!--밑줄 없애고 배경에 대해서 관여하고 싶으면 android:background를 override 해서 설정해야 한다.-->
+        <item name="android:background">@color/transparent</item>
+        <item name="tabIndicatorColor">@color/main_blue</item>
+        <item name="tabIndicatorHeight">@dimen/_1sdp</item>
+        <item name="tabIndicatorFullWidth">true</item>
+        <item name="tabRippleColor">@color/transparent</item>
+        <item name="tabMode">fixed</item>
+    </style>
+
 </resources>

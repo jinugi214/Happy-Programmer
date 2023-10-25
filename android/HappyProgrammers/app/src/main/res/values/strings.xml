@@ -9,6 +9,9 @@
 
     <!--item-->
     <string name="title_item">아이템</string>
-    
+    <string name="text_total">전체</string>
+    <string name="text_keyboard">키보드</string>
+    <string name="text_mouse">마우스</string>
+    <string name="text_etc">기타</string>
 
 </resources>

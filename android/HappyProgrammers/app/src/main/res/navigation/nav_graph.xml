@@ -35,7 +35,7 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/itemFragment"
-        android:name="com.freeproject.happyprogrammers.ui.ItemFragment"
+        android:name="com.freeproject.happyprogrammers.ui.item.ItemFragment"
         android:label="fragment_item"
         tools:layout="@layout/fragment_item" />
 </navigation>
