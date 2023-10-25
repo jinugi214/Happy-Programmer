@@ -16,17 +16,6 @@ public class CharacterAnimation : MonoBehaviour
         animator.SetFloat("DirX", movement.x);
         animator.SetFloat("DirY", movement.y);
 
-        // 오른쪽은 왼쪽의 flipX을 true 한 것
-        spriteRenderer.flipX = movement.x > 0 || lastmovement.x > 0;
-        bool flipSortingLayer = movement.x > 0 || lastmovement.x > 0;
-        SpriteRenderer[] otherSpriteRenderers = GetComponentsInChildren<SpriteRenderer>();
-
-        foreach (SpriteRenderer sr in otherSpriteRenderers)
-        {
-            if (sr != spriteRenderer) // 현재 스프라이트 렌더러와 동일한 것은 제외합니다.
-                sr.flipX = flipSortingLayer;
-        }
-
         if (movement.magnitude > 0) 
         {
             lastmovement = new Vector2(movement.x ,movement.y);
