@@ -4,15 +4,19 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.freeproject.happyprogrammers.R
 import com.freeproject.happyprogrammers.base.BaseFragment
 import com.freeproject.happyprogrammers.databinding.FragmentLoginBinding
+import com.freeproject.happyprogrammers.util.clickEnterListener
+import com.freeproject.happyprogrammers.util.setTextListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.log
 
@@ -32,21 +36,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
     override fun initListener() {
         binding.apply {
             //ID 입력 받는 LISTENER
-            edittextId.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(value: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-                override fun onTextChanged(value: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-                override fun afterTextChanged(value: Editable?) {
-                    loginViewModel.setId(value.toString())
-                }
-            })
+            edittextId.apply {
+                setTextListener { it -> loginViewModel.setId(it) }
+                clickEnterListener { edittextPw.requestFocus() }
+            }
             //PW 입력 받는 LISTENER
-            edittextPw.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(value: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-                override fun onTextChanged(value: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-                override fun afterTextChanged(value: Editable?) {
-                    loginViewModel.setPw(value.toString())
-                }
-            })
+            edittextPw.setTextListener { it -> loginViewModel.setPw(it) }
 
             buttonLogin.setOnClickListener {
                 Log.d(TAG, "id : ${loginViewModel.getId()} // pw : ${loginViewModel.getPw()}")
