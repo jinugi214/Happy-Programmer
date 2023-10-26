@@ -42,6 +42,18 @@ public class CharacterAnimation : MonoBehaviour
             animator.SetBool("Stand", true);
         }
     }
+
+    public void SetAttackAnimation(bool isAttacking)
+    {
+        if (isAttacking)
+        {
+            animator.SetBool("Attack", true);
+        }
+        else
+        {
+            animator.SetBool("Attack", false);
+        }
+    }
 }
 
 
