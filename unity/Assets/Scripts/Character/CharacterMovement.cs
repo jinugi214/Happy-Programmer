@@ -37,6 +37,11 @@ public class CharacterMovement : MonoBehaviour
             rb.velocity=movement;
         
         characterAnimation.SetMoveAnimation(movement, isRunning);   
-    }  
+    } 
+
+    public void SetAttacking(bool isAttacking)
+    {
+        characterAnimation.SetAttackAnimation(isAttacking);
+    } 
 }
 
