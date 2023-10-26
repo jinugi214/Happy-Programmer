@@ -2,18 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class TransferScences : MonoBehaviour
 {
+    public string transferMapName; // 이동할 맵의 이름
 
-    public void LoginToSignup()
+    public void TranferScene()
     {
-        SceneManager.LoadScene("GameSignup");
-    }
+        if (transferMapName == "GameSetting")
+        {
+            BackButton backButton = new BackButton();
+            backButton.SavePreviousSceneName();
+        }
 
-    public void SignupCancle()
-    {
-        SceneManager.LoadScene("GameLogin");
+        SceneManager.LoadScene(transferMapName);
     }
 }
