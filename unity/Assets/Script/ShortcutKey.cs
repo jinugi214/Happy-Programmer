@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class ShortcutKey : MonoBehaviour
 {
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +20,13 @@ public class ShortcutKey : MonoBehaviour
             BackButton backButton = new BackButton();
             backButton.SavePreviousSceneName();
             SceneManager.LoadScene("GameSetting");
+        }
+
+        if (Input.GetKeyDown(KeyCode.I)) 
+        { 
+            BackButton backbutton = new BackButton();
+            backbutton.SavePreviousSceneName();
+            SceneManager.LoadScene("GameMarket");
         }
     }
 }
