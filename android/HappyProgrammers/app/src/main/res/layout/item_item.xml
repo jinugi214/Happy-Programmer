@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.freeproject.happyprogrammers.util.SquareFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/frame_border_white"
+    android:layout_margin="@dimen/_3sdp"
+    android:padding="@dimen/_3sdp">
+    <ImageView
+    android:id="@+id/image_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:srcCompat="@tools:sample/avatars" />
+</com.freeproject.happyprogrammers.util.SquareFrameLayout>
