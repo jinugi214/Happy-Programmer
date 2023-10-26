@@ -1,4 +1,4 @@
-package api.state.controller;
+package com.ggteam.single.api.state.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
