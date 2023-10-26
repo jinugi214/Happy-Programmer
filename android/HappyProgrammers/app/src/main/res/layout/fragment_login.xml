@@ -72,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/frame_border_gray">
+                android:background="@drawable/frame_border_stroke_gray">
 
                 <EditText
                     android:id="@+id/edittext_id"
@@ -94,7 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/frame_border_gray">
+                android:background="@drawable/frame_border_stroke_gray">
 
                 <EditText
                     android:id="@+id/edittext_pw"
