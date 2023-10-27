@@ -25,11 +25,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     override fun initListener() {
         binding.apply {
             //프로필 상세 화면으로 이동
-            buttonMoveProfileFragment.setOnClickListener {
+            layoutProfile.setOnClickListener {
                 findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
             }
             //아이템 화면으로 이동
-            buttonMoveItemFragment.setOnClickListener {
+            layoutItem.setOnClickListener {
                 findNavController().navigate(R.id.action_homeFragment_to_itemFragment)
             }
         }
