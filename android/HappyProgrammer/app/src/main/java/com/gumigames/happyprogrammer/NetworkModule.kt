@@ -2,6 +2,7 @@ package com.gumigames.happyprogrammer
 
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
+import com.gumigames.data.service.GithubService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -46,10 +47,10 @@ object NetworkModule {
         .client(provideOkHttpClient())
         .build()
 
-//    @Singleton
-//    @Provides
-//    fun provideBusinessService(
-//        retrofit: Retrofit,
-//    ): BusinessService = retrofit.create(BusinessService::class.java)
+    @Singleton
+    @Provides
+    fun provideGithubService(
+        retrofit: Retrofit,
+    ): GithubService = retrofit.create(GithubService::class.java)
 
 }

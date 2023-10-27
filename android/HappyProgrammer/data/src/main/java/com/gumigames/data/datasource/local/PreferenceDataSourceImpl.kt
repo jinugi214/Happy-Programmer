@@ -1,4 +1,4 @@
-package com.gumigames.data.datasource
+package com.gumigames.data.datasource.local
 
 import android.content.Context
 import android.content.SharedPreferences

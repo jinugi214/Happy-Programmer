@@ -3,7 +3,7 @@ package com.gumigames.data.interceptor
 import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.gumigames.data.BuildConfig
-import com.gumigames.data.datasource.PreferenceDataSource
+import com.gumigames.data.datasource.local.PreferenceDataSource
 import com.gumigames.data.entity.response.AuthDto
 import com.gumigames.data.entity.response.ErrorDto
 import kotlinx.coroutines.Dispatchers
