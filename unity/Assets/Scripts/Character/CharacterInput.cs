@@ -1,4 +1,3 @@
-// CharacterInput.cs
 using UnityEngine;
 
 public class CharacterInput : MonoBehaviour
