@@ -2,13 +2,10 @@ package com.freeproject.happyprogrammers.base
 
 import android.app.Dialog
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.DialogFragment
 import androidx.viewbinding.ViewBinding
@@ -28,7 +25,7 @@ abstract class BaseDialogFragment<B : ViewBinding>(
         savedInstanceState: Bundle?
     ): View? {
         _binding = bind(super.onCreateView(inflater, container, savedInstanceState)!!)
-        dialog?.window?.setBackgroundDrawableResource(R.drawable.frame_border_white)
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.frame_border_white30)
         return binding.root
     }
 
