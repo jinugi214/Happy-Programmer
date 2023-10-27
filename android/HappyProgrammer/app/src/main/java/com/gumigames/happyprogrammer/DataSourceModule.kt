@@ -1,8 +1,8 @@
 package com.gumigames.happyprogrammer
 
 import android.content.Context
-import com.gumigames.data.datasource.PreferenceDataSource
-import com.gumigames.data.datasource.PreferenceDataSourceImpl
+import com.gumigames.data.datasource.local.PreferenceDataSource
+import com.gumigames.data.datasource.local.PreferenceDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
