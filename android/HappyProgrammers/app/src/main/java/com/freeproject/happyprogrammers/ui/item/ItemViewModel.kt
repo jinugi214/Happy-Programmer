@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 @HiltViewModel
@@ -78,5 +79,13 @@ class ItemViewModel @Inject constructor(
         }
     }
 
+    //아이템 클릭 리스너 통제 변수
+    private val _itemClickListenerEnabled = AtomicBoolean(true) // 플래그 변수 생성 및 초기화
+    fun getItemClickListenerEnabled(): Boolean{
+        return _itemClickListenerEnabled.get()
+    }
+    fun setItemClickListenerEnabled(value: Boolean){
+        _itemClickListenerEnabled.set(value)
+    }
 
 }
