@@ -9,5 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountDto {
+public class AccountSignUpDto {
+
+    private String accountId;
+    private String password;
+    private String nickname;
+    private String language;
 }
