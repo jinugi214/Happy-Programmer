@@ -9,11 +9,12 @@ import com.freeproject.happyprogrammers.R
 import com.freeproject.happyprogrammers.base.BaseDialogFragment
 import com.freeproject.happyprogrammers.databinding.FragmentItemDetailDialogBinding
 
-class ItemDetailDialogFragment : BaseDialogFragment<FragmentItemDetailDialogBinding>(
+class ItemDetailDialogFragment(
+    private val itemViewModel: ItemViewModel
+) : BaseDialogFragment<FragmentItemDetailDialogBinding>(
     FragmentItemDetailDialogBinding::bind,
     R.layout.fragment_item_detail_dialog
 ) {
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

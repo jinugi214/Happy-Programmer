@@ -44,7 +44,7 @@ class ItemFragment : BaseFragment<FragmentItemBinding>(
                 this.itemClickListner = object: ItemListApdapter.ItemClickListener{
                     override fun onClick(view: View, item: ItemDto) {
                         //해당 아이템 클릭 이벤트
-                        val detailDialog = ItemDetailDialogFragment()
+                        val detailDialog = ItemDetailDialogFragment(itemViewModel)
                         detailDialog.show(childFragmentManager,null)
                     }
                 }

@@ -8,7 +8,7 @@
     tools:context=".ui.item.ItemFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_profile"
+        android:id="@+id/layout_item"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/frame_border_white_alpha60"
