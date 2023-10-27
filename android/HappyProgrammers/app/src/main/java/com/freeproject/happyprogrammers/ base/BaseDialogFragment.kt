@@ -37,6 +37,12 @@ abstract class BaseDialogFragment<B : ViewBinding>(
         _mActivity = context as MainActivity
     }
 
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState)
+        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
+        return dialog
+    }
+
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
