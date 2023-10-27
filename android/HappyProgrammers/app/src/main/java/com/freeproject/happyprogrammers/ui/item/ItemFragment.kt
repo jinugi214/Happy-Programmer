@@ -18,6 +18,7 @@ import com.freeproject.happyprogrammers.util.GridSpacingItemDecoration
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.util.concurrent.atomic.AtomicBoolean
 
 private const val TAG = "차선호"
 class ItemFragment : BaseFragment<FragmentItemBinding>(
@@ -45,14 +46,15 @@ class ItemFragment : BaseFragment<FragmentItemBinding>(
             adapter = itemListAdapter.apply {
                 this.itemClickListner = object: ItemListApdapter.ItemClickListener{
                     override fun onClick(view: View, item: ItemDto) {
-                        //해당 아이템 클릭 이벤트
-                        val detailDialog = ItemDetailDialogFragment(itemViewModel)
-                        detailDialog.show(childFragmentManager,null)
-
+                        if(itemViewModel.getItemClickListenerEnabled()) {
+                            itemViewModel.setItemClickListenerEnabled(false) // 클릭 이벤트 비활성화(다른 아이템 클릭 못하도록)
+                            //해당 아이템 클릭 이벤트
+                            val detailDialog = ItemDetailDialogFragment(itemViewModel)
+                            detailDialog.show(childFragmentManager, null)
+                        }
                     }
                 }
             }
-//            addItemDecoration(GridSpacingItemDecoration(3, mActivity.resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._10sdp)))
             layoutManager = GridLayoutManager(mActivity, 3)
         }
     }
