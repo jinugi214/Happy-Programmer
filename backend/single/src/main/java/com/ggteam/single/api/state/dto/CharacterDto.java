@@ -1,4 +1,4 @@
-package api.state.repository.dto;
+package com.ggteam.single.api.state.dto;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
