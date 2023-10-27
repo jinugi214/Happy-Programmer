@@ -5,6 +5,8 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.view.Window
+import android.view.animation.Animation
+import android.view.animation.ScaleAnimation
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -46,6 +48,7 @@ class ItemFragment : BaseFragment<FragmentItemBinding>(
                         //해당 아이템 클릭 이벤트
                         val detailDialog = ItemDetailDialogFragment(itemViewModel)
                         detailDialog.show(childFragmentManager,null)
+
                     }
                 }
             }
