@@ -72,11 +72,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         val graph = inflater.inflate(R.navigation.nav_graph)
         graph.startDestination = R.id.homeFragment
 
-//        if(mainViewModel.isLogined()){ //로그인이 되어 있는 상황
-//            graph.startDestination = R.id.homeFragment
-//        }else{ //로그인이 되어 있지 않은 상황
-//            graph.startDestination = R.id.loginFragment
-//        }
+        if(mainViewModel.isLogined()){ //로그인이 되어 있는 상황
+            graph.startDestination = R.id.homeFragment
+        }else{ //로그인이 되어 있지 않은 상황
+            graph.startDestination = R.id.loginFragment
+        }
 
         val navController = navHostFragment.navController
         navController.setGraph(graph, intent.extras)
