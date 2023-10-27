@@ -1,8 +1,15 @@
+import org.jetbrains.kotlin.konan.properties.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("dagger.hilt.android.plugin")
     id("kotlin-kapt")
+}
+
+//Properties 객체 생성
+val properties = Properties().apply {
+    load(project.rootProject.file("local.properties").inputStream())
 }
 
 android {
@@ -17,6 +24,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        //BASE_URL
+        buildConfigField("String", "BASE_URL", properties.getProperty("base_url"))
     }
 
     buildTypes {
@@ -34,6 +44,11 @@ android {
     }
     kotlinOptions {
         jvmTarget = "17"
+    }
+
+    //Android 8.0 이후부터는 buildFeatures에도 추가해야 한다.
+    buildFeatures{
+        buildConfig = true
     }
 }
 
