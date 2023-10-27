@@ -9,12 +9,6 @@ public class TransferScences : MonoBehaviour
 
     public void TranferScene()
     {
-        if (transferMapName == "GameSetting")
-        {
-            BackButton backButton = new BackButton();
-            backButton.SavePreviousSceneName();
-        }
-
         SceneManager.LoadScene(transferMapName);
     }
 }

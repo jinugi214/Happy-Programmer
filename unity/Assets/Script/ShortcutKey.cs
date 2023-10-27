@@ -17,16 +17,7 @@ public class ShortcutKey : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            BackButton backButton = new BackButton();
-            backButton.SavePreviousSceneName();
             SceneManager.LoadScene("GameSetting");
-        }
-
-        if (Input.GetKeyDown(KeyCode.I)) 
-        { 
-            BackButton backbutton = new BackButton();
-            backbutton.SavePreviousSceneName();
-            SceneManager.LoadScene("GameMarket");
         }
     }
 }
