@@ -29,7 +29,7 @@ public class Item {
 	private String imgPath;
 
 	@ManyToOne
-	@JoinColumn(name="item_type_id", nullable = false)
+	@JoinColumn(nullable = false)
 	private ItemType itemType;
 
 

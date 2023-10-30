@@ -25,6 +25,6 @@ public class ItemType {
 	@Column(nullable = false, unique = true)
 	private String name;
 
-	@OneToMany(mappedBy = "item")
+	@OneToMany(mappedBy = "itemType")
 	private List<Item> items = new ArrayList<>();
 }
