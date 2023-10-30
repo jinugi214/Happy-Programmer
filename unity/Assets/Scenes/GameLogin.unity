@@ -2743,10 +2743,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: fd140d571a7c33d48aa7a1351a23d5b5, type: 3}
   - {fileID: 21300000, guid: 58551a8fe7148b041b54d5d9a209c737, type: 3}
   - {fileID: 21300000, guid: bc85a0d9523ce3244939b60a9415223a, type: 3}
-  timeOfDay:
-  - 6
-  - 16
-  - 20
 --- !u!1 &1747546654
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class BackgroundManager : MonoBehaviour
 {
     public Sprite[] imageSprites;
-    public float[] timeOfDay;
 
     private Image imageComponent;
 
@@ -21,13 +20,21 @@ public class BackgroundManager : MonoBehaviour
     {
         float currentTime = System.DateTime.Now.Hour;
 
-        for (int i = 0; i < timeOfDay.Length; i++)
+        if (currentTime < 6)
         {
-            if (currentTime < timeOfDay[i])
-            {
-                imageComponent.sprite = imageSprites[i - 1];
-                break;
-            }
+            imageComponent.sprite = imageSprites[2];
+        }
+        else if (currentTime < 16)
+        {
+            imageComponent.sprite = imageSprites[0];
+        }
+        else if (currentTime < 20)
+        {
+            imageComponent.sprite = imageSprites[1];
+        }
+        else
+        {
+            imageComponent.sprite = imageSprites[2];
         }
     }
 }
