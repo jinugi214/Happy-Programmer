@@ -1,4 +1,4 @@
-package com.gumigames.data.util
+package com.gumigames.domain.util
 
 
 sealed class NetworkThrowable(val code: Int, message: String) : Throwable(message) {
