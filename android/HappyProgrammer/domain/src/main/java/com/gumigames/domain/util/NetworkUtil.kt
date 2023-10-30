@@ -8,8 +8,12 @@ private const val TAG = "차선호"
 private fun <T> Response<T>.isDelete(): Boolean {
     return this.raw().request.method == "DELETE"
 }
+
+/**
+ * Data Layer에서 Network 결과를 처리할 함수
+ */
 @Suppress("UNCHECKED_CAST")
-fun <T> Response<T>.getValueOrThrow(): T {
+fun <T> Response<T>.getNetworkResult(): T {
 
     if (this.isSuccessful) {
         if (this.isDelete()) { return Unit as T }
@@ -17,7 +21,7 @@ fun <T> Response<T>.getValueOrThrow(): T {
     }
 
 
-    Log.d(TAG, "getValueOrThrow not successful : ${this.errorBody()?.string()}")
+    Log.d(TAG, "getNetworkResult not successful : ${this.errorBody()?.string()}")
 
     // TODO 서버에 따라 다를수도?
 //    val errorResponse = errorBody()?.string()
@@ -31,7 +35,7 @@ fun <T> Response<T>.getValueOrThrow(): T {
 
 
 
-    Log.e(TAG, "getValueOrThrow: Error code : ${code}, message : ${message}")
+    Log.e(TAG, "getNetworkResult: Error code : ${code}, message : ${message}")
 
     when (code) {
         in 100..199 -> { throw NetworkThrowable.Base100Throwable(code, message) }
@@ -42,3 +46,15 @@ fun <T> Response<T>.getValueOrThrow(): T {
 
     throw NetworkThrowable.IllegalStateThrowable()
 }
+
+/**
+ * throwable 처리하기 전까지 가져갈 함수
+ */
+suspend fun <T> getValueOrThrow(block: suspend () -> T): T{
+    try{
+        return block()
+    }catch (throwable: NetworkThrowable){
+        throw throwable
+    }
+}
+
