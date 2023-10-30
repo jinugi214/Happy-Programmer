@@ -1,6 +1,7 @@
 package com.gumigames.data.datasource.local
 
 interface PreferenceDataSource {
+    fun refreshPreference()
     fun getAccessToken(): String?
     fun setAccessToken(newToken: String)
     fun getRefreshToken(): String?
