@@ -39,6 +39,9 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/enter_from_left"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_homeFragment_to_githubFragment"
+            app:destination="@id/githubFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -50,4 +53,9 @@
         android:name="com.gumigames.presentation.ui.item.ItemFragment"
         android:label="fragment_item"
         tools:layout="@layout/fragment_item" />
+    <fragment
+        android:id="@+id/githubFragment"
+        android:name="com.gumigames.presentation.ui.github.GithubFragment"
+        android:label="fragment_github"
+        tools:layout="@layout/fragment_github" />
 </navigation>
