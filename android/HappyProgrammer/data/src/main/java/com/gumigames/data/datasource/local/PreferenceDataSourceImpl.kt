@@ -50,6 +50,15 @@ class PreferenceDataSourceImpl(
         return prefs.getBoolean(key, false)
     }
 
+    /**
+     * Preference 초기화 (로그아웃 시에 호출해주자)
+     */
+    override fun refreshPreference() {
+        putString(X_ACCESS_TOKEN, null)
+        putString(X_REFRESH_TOKEN, null)
+        putString(IS_LOGINED, null)
+    }
+
     override fun getAccessToken(): String? {
         return getString(X_ACCESS_TOKEN)
     }
@@ -77,4 +86,6 @@ class PreferenceDataSourceImpl(
     override fun setIsLogined(value: Boolean) {
         putBoolean(IS_LOGINED, value)
     }
+
+
 }
