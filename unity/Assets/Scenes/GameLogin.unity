@@ -2658,6 +2658,7 @@ GameObject:
   - component: {fileID: 1710939849}
   - component: {fileID: 1710939851}
   - component: {fileID: 1710939850}
+  - component: {fileID: 1710939852}
   m_Layer: 5
   m_Name: GameLogin
   m_TagString: Untagged
@@ -2726,6 +2727,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1710939848}
   m_CullTransparentMesh: 1
+--- !u!114 &1710939852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710939848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20679d7e954c629469c58e898eefeac0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  imageSprites:
+  - {fileID: 21300000, guid: fd140d571a7c33d48aa7a1351a23d5b5, type: 3}
+  - {fileID: 21300000, guid: 58551a8fe7148b041b54d5d9a209c737, type: 3}
+  - {fileID: 21300000, guid: bc85a0d9523ce3244939b60a9415223a, type: 3}
+  timeOfDay:
+  - 6
+  - 16
+  - 20
 --- !u!1 &1747546654
 GameObject:
   m_ObjectHideFlags: 0
