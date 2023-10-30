@@ -1,25 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AppLayout } from "./layouts/AppLayout";
+import Home from "./pages/Home";
+import GameInfo from "./pages/GameInfo";
+import AppInfo from "./pages/AppInfo";
+import TeamInfo from "./pages/TeamInfo";
+
+import Notice from "./pages/Notice";
+import Notice1 from "./pages/NoticeDetail/Notice1";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <AppLayout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/gameinfo" element={<GameInfo />} />
+          <Route path="/appinfo" element={<AppInfo />} />
+          <Route path="/teaminfo" element={<TeamInfo />} />
+
+          <Route path="/notice" element={<Notice />} />
+          <Route path="/notice/1" element={<Notice1 />} />
+        </Routes>
+      </AppLayout>
+    </BrowserRouter>
   );
 }
 
