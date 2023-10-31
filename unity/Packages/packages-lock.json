@@ -1,16 +1,5 @@
 {
   "dependencies": {
-<<<<<<< HEAD
-    "com.unity.ext.nunit": {
-      "version": "1.0.6",
-      "depth": 2,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.ide.visualstudio": {
-      "version": "2.0.22",
-=======
     "com.unity.2d.animation": {
       "version": "9.0.4",
       "depth": 1,
@@ -171,7 +160,6 @@
     },
     "com.unity.ide.visualstudio": {
       "version": "2.0.21",
->>>>>>> 5f4040287e1ccf79ca47244ce2fd0bbf11fdfc79
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -179,11 +167,6 @@
       },
       "url": "https://packages.unity.com"
     },
-<<<<<<< HEAD
-    "com.unity.test-framework": {
-      "version": "1.1.33",
-      "depth": 1,
-=======
     "com.unity.mathematics": {
       "version": "1.2.6",
       "depth": 2,
@@ -194,7 +177,6 @@
     "com.unity.test-framework": {
       "version": "1.1.33",
       "depth": 0,
->>>>>>> 5f4040287e1ccf79ca47244ce2fd0bbf11fdfc79
       "source": "registry",
       "dependencies": {
         "com.unity.ext.nunit": "1.0.6",
@@ -203,11 +185,6 @@
       },
       "url": "https://packages.unity.com"
     },
-<<<<<<< HEAD
-    "com.unity.ugui": {
-      "version": "1.0.0",
-      "depth": 1,
-=======
     "com.unity.textmeshpro": {
       "version": "3.0.6",
       "depth": 0,
@@ -232,7 +209,6 @@
     "com.unity.ugui": {
       "version": "1.0.0",
       "depth": 0,
->>>>>>> 5f4040287e1ccf79ca47244ce2fd0bbf11fdfc79
       "source": "builtin",
       "dependencies": {
         "com.unity.modules.ui": "1.0.0",
