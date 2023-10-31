@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.freeproject.happyprogrammers.base.BaseFragment
-import com.freeproject.happyprogrammers.base.collectErrorAndToken
 import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentGithubBinding
 import dagger.hilt.android.AndroidEntryPoint
