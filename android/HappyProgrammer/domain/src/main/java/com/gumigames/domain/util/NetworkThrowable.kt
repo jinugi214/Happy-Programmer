@@ -20,12 +20,18 @@ sealed class NetworkThrowable(val code: Int, message: String) : Throwable(messag
 
     class NetworkErrorThrowable : NetworkThrowable(NETWORK_ERROR_CODE, NETWORK_ERROR_MESSAGE)
 
+    // refresh Token이 만료됐을 때의 throwable
+    class RefreshExpireThrowable : NetworkThrowable(REFRESH_EXPIRE_CODE, REFRESH_EXPIRE_MESSAGE)
+
     companion object {
         const val ILLEGAL_STATE_THROWABLE_CODE = 999
         const val ILLEGAL_STATE_THROWABLE_MESSAGE = "잘못된 값입니다."
 
         const val NETWORK_ERROR_CODE = 998
         const val NETWORK_ERROR_MESSAGE = "네트워크 연결을 확인해주세요."
+
+        const val REFRESH_EXPIRE_CODE = 997
+        const val REFRESH_EXPIRE_MESSAGE = "다시 로그인 해주세요"
     }
 }
 

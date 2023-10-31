@@ -3,20 +3,25 @@ package com.gumigames.presentation.ui.github
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.freeproject.happyprogrammers.base.BaseFragment
+import com.freeproject.happyprogrammers.base.collectErrorAndToken
 import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentGithubBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+private const val TAG = "차선호"
 @AndroidEntryPoint
 class GithubFragment : BaseFragment<FragmentGithubBinding>(
     FragmentGithubBinding::bind,
@@ -31,6 +36,7 @@ class GithubFragment : BaseFragment<FragmentGithubBinding>(
         initView()
         initListener()
         initCollect()
+        collectErrorAndToken(githubViewModel)
     }
 
     private fun initView(){
@@ -67,11 +73,6 @@ class GithubFragment : BaseFragment<FragmentGithubBinding>(
         viewLifecycleOwner.lifecycleScope.launch {
             githubViewModel.repoList.collectLatest {
                 githubListAdapter.submitList(it)
-            }
-        }
-        viewLifecycleOwner.lifecycleScope.launch {
-            githubViewModel.error.collectLatest {
-                mActivity.showToast(it.message.toString())
             }
         }
     }
