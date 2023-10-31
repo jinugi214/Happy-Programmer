@@ -108,13 +108,9 @@ NavMeshSettings:
     cellSize: 0.16666666
     manualTileSize: 0
     tileSize: 256
-<<<<<<<< HEAD:unity/Assets/Scenes/CharacterTest.unity
     buildHeightMesh: 0
     maxJobWorkers: 0
     preserveTilesOutsideBounds: 0
-========
-    accuratePlacement: 0
->>>>>>>> 5f4040287e1ccf79ca47244ce2fd0bbf11fdfc79:unity/Assets/TextMesh Pro/Examples & Extras/Scenes/21 - Script Example.unity
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
@@ -156,7 +152,6 @@ Camera:
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
   m_projectionMatrixMode: 1
-<<<<<<<< HEAD:unity/Assets/Scenes/CharacterTest.unity
   m_GateFitMode: 2
   m_FOVAxisMode: 0
   m_Iso: 200
@@ -170,12 +165,6 @@ Camera:
   m_Anamorphism: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-========
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_GateFitMode: 2
-  m_FocalLength: 50
->>>>>>>> 5f4040287e1ccf79ca47244ce2fd0bbf11fdfc79:unity/Assets/TextMesh Pro/Examples & Extras/Scenes/21 - Script Example.unity
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -208,22 +197,15 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<<< HEAD:unity/Assets/Scenes/CharacterTest.unity
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
-========
-  m_GameObject: {fileID: 1079079952}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -28.517307}
->>>>>>>> 5f4040287e1ccf79ca47244ce2fd0bbf11fdfc79:unity/Assets/TextMesh Pro/Examples & Extras/Scenes/21 - Script Example.unity
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<<< HEAD:unity/Assets/Scenes/CharacterTest.unity
 --- !u!1001 &1163878329
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -319,48 +301,3 @@ SceneRoots:
   m_Roots:
   - {fileID: 1163878329}
   - {fileID: 519420032}
-========
---- !u!1 &1888731522
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1888731524}
-  - component: {fileID: 1888731523}
-  m_Layer: 0
-  m_Name: Simple Script
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1888731523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1888731522}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9eff140b25d64601aabc6ba32245d099, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1888731524
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1888731522}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
->>>>>>>> 5f4040287e1ccf79ca47244ce2fd0bbf11fdfc79:unity/Assets/TextMesh Pro/Examples & Extras/Scenes/21 - Script Example.unity

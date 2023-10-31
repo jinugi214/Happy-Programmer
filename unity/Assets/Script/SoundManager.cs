@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
@@ -25,24 +26,9 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void SetVolumn(float _volume) 
-    { 
-        source.volume = _volume;
-    }
-
-    public void Pause()
-    {
-        source.Pause();
-    }
-
-    public void Unpause()
-    {
-        source.UnPause();
-    }
-
     void Start()
     {
-       source = GetComponent<AudioSource>();
+        source = GetComponent<AudioSource>();
     }
 
     public void Play(int _playMusicTrack)
@@ -64,7 +50,7 @@ public class SoundManager : MonoBehaviour
 
     IEnumerator FadeOutMusicCoroutine()
     {
-        for(float i = 1.0f; i >= 0; i-=0.01f)
+        for(float i = 1.0f; i >= 0f; i -= 0.01f)
         {
             source.volume = i;
             yield return waitTime;
