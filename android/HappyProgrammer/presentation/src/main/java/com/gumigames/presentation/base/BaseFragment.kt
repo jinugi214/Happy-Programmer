@@ -70,22 +70,19 @@ abstract class BaseFragment<B : ViewBinding>(
         snackbar.setTextColor(ContextCompat.getColor(requireActivity(), R.color.black))
         snackbar.show()
     }
-
-    fun logout(){
-        // 현재 스택을 모두 지우고 LoginFragment로 이동
-        findNavController().popBackStack(R.id.loginFragment, false)
-    }
 }
 
-fun Fragment.collectErrorAndToken(
+fun BaseFragment<*>.collectErrorAndToken(
     viewModel: BaseViewModel
 ) {
     viewLifecycleOwner.lifecycleScope.launch {
+        //네트워크 통신 시 Toast Message 출력
         viewModel.error.collectLatest {
-            (requireActivity() as MainActivity).showToast(it.message.toString())
+            showCustomToast(it.message.toString())
         }
     }
     viewLifecycleOwner.lifecycleScope.launch {
+        //REFRESH TOKEN 만료 시 로그 아웃
         viewModel.isExpiredRefreshToken.collectLatest {
             if(it) {
                 findNavController().navigate(R.id.loginFragment, null, navOptions{
