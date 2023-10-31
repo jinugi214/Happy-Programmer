@@ -29,9 +29,11 @@ abstract class BaseViewModel: ViewModel() {
                 success(block())
             }catch (throwable: Throwable){
                 if (throwable is NetworkThrowable) {
-                    _error.emit(throwable)
-                }else if(throwable.message == NetworkThrowable.REFRESH_EXPIRE_MESSAGE) {
-                    _isExpiredRefreshToken.emit(true)
+                    if(throwable.message == NetworkThrowable.REFRESH_EXPIRE_MESSAGE){
+                        _isExpiredRefreshToken.emit(true)
+                    }else{
+                        _error.emit(throwable)
+                    }
                 }else {
                     _error.emit(NetworkThrowable.NetworkErrorThrowable())
                 }
