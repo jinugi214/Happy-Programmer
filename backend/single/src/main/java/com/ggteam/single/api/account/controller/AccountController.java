@@ -8,18 +8,19 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/api/account")
+@RequestMapping(value = "/api")
 public class AccountController {
 
     private final AccountService accountService;
 
-    @PostMapping("/sign-up")
+    @PostMapping("/account/sign-up")
     public ResponseEntity<?> signUp(@RequestBody AccountSignUpDto signUpDto) throws Exception {
         accountService.signUp(signUpDto);
+        System.out.println("sibal");
         return ResponseEntity.ok("회원가입 성공");
     }
 
-    @GetMapping("/jwt_test")
+    @GetMapping("/jwt-test")
     public String jwtTest() {
         return "jwt Test 성공";
     }

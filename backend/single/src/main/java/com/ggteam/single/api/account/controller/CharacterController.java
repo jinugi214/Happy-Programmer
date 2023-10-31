@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/api/account")
+@RequestMapping(value = "/api")
 public class CharacterController {
 
     private final AccountService accountService;
 
-    @PostMapping("/signIn")
+    @PostMapping("/character/sign-in")
     public ResponseEntity<?> signIn() {
         return ResponseEntity.ok("Sign In");
     }

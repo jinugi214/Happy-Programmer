@@ -112,7 +112,7 @@ public class JwtService {
 
     // AccessToken 에서 accountId 추출
     // 추출 전에 JWT.require()로 검증기 생성 후 verify로 AccessToken 검증 후
-    // 유효하다면 getClaim() 으로 이메을 추출
+    // 유효하다면 getClaim() 으로 아이디를 추출
     // 유효하지 않다면 빈 Optional 객체 반환
     public Optional<String> extractAccountId(String accessToken) {
         try {
@@ -127,7 +127,7 @@ public class JwtService {
         }
     }
 
-    // RefreshToken DB 저장(업데이트)
+    // RefreshToken DB 업데이트(저장)
     public void updateRefreshToken(String accountId, String refreshToken) {
         accountRepository.findByAccountId(accountId)
                 .ifPresentOrElse(

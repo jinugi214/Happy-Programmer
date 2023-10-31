@@ -32,6 +32,7 @@ public class AccountService {
                 .password(signUpDto.getPassword())
                 .nickname(signUpDto.getNickname())
                 .language(signUpDto.getLanguage())
+                .refreshToken(null)
                 .role(Role.USER)
                 .build();
 
