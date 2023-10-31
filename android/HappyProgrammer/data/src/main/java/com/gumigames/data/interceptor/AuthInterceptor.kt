@@ -6,6 +6,7 @@ import com.gumigames.data.BuildConfig
 import com.gumigames.data.datasource.local.PreferenceDataSource
 import com.gumigames.data.entity.response.AuthDto
 import com.gumigames.data.entity.response.ErrorDto
+import com.gumigames.domain.util.NetworkThrowable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
@@ -41,8 +42,7 @@ class AuthInterceptor(
 
     //Refresh 토큰으로 AccessToken 재발급
     private fun getAccessTokenWithRefresh(accessToken: String): Result<String> {
-        val requestBody = createRefreshRequestBody()
-        val request = createRefreshRequest(requestBody, accessToken)
+        val request = createRefreshRequest()
 
         val auth: AuthDto = requestRefresh(request).getOrElse {
             return Result.failure(it)
@@ -51,18 +51,10 @@ class AuthInterceptor(
         return Result.success(BEARER + auth.accessToken)
     }
 
-    private fun createRefreshRequestBody(): RequestBody {
-        return JSONObject()
-            .put(AUTH_REFRESH_KEY, getRefreshToken())
-            .toString()
-            .toRequestBody(contentType = "application/json".toMediaType())
-    }
-
-    private fun createRefreshRequest(requestBody: RequestBody, accessToken: String): Request {
+    private fun createRefreshRequest(): Request {
         return Request.Builder()
             .url(BuildConfig.BASE_URL + AUTH_REFRESH_PATH)
-            .post(requestBody)
-            .addHeader(AUTHORIZATION, BEARER + accessToken)
+            .addHeader(AUTHORIZATION, BEARER + getRefreshToken())
             .build()
     }
 
@@ -75,8 +67,9 @@ class AuthInterceptor(
         }
         val failedResponse = response.getDto<ErrorDto>()
         if (failedResponse.code == REFRESH_TOKEN_EXPIRE_ERROR) { //accessToken 재발급 하는 것이 실패
-            //TODO Throwable 클래스 만들어서 refreshToken 만료됐을 때 코드에 맞는 Throwable을 throw 해주자
-//            return Result.failure(DataThrowable.AuthorizationThrowable(failedResponse.code, failedResponse.message))
+            //preference 초기화하고 RefrestToken 만료 Throwable throw
+            preferenceDataSource.refreshPreference()
+            return Result.failure(NetworkThrowable.RefreshExpireThrowable())
         }
         return Result.failure(IllegalStateException(REFRESH_FAILURE))
     }

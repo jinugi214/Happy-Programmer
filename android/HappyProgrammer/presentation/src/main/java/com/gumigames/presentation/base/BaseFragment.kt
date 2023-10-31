@@ -2,6 +2,7 @@ package com.freeproject.happyprogrammers.base
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +10,18 @@ import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.Snackbar
 import com.gumigames.presentation.MainActivity
 import com.gumigames.presentation.R
+import com.gumigames.presentation.base.BaseViewModel
+import com.gumigames.presentation.ui.github.GithubViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 abstract class BaseFragment<B : ViewBinding>(
     private val bind: (View) -> B,
@@ -40,7 +49,9 @@ abstract class BaseFragment<B : ViewBinding>(
         _mActivity = context as MainActivity
     }
 
+
     abstract fun initListener()
+
 
     override fun onDestroyView() {
         _binding = null
@@ -51,17 +62,6 @@ abstract class BaseFragment<B : ViewBinding>(
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
 
-//    fun showLoadingDialog(context: Context) {
-//        mLoadingDialog = LoadingDialog(context)
-//        mLoadingDialog.show()
-//    }
-//
-//    fun dismissLoadingDialog() {
-//        if (mLoadingDialog.isShowing) {
-//            mLoadingDialog.dismiss()
-//        }
-//    }
-
     /**
      * 스낵바를 띄웁니다. 커스텀 하려면 type 분기를 추가하고 사용하세요.
      */
@@ -69,5 +69,31 @@ abstract class BaseFragment<B : ViewBinding>(
         val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
         snackbar.setTextColor(ContextCompat.getColor(requireActivity(), R.color.black))
         snackbar.show()
+    }
+
+    fun logout(){
+        // 현재 스택을 모두 지우고 LoginFragment로 이동
+        findNavController().popBackStack(R.id.loginFragment, false)
+    }
+}
+
+fun Fragment.collectErrorAndToken(
+    viewModel: BaseViewModel
+) {
+    viewLifecycleOwner.lifecycleScope.launch {
+        viewModel.error.collectLatest {
+            (requireActivity() as MainActivity).showToast(it.message.toString())
+        }
+    }
+    viewLifecycleOwner.lifecycleScope.launch {
+        viewModel.isExpiredRefreshToken.collectLatest {
+            if(it) {
+                findNavController().navigate(R.id.loginFragment, null, navOptions{
+                    popUpTo(R.id.homeFragment){
+                        inclusive = true
+                    }
+                })
+            }
+        }
     }
 }
