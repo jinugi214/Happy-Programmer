@@ -1,4 +1,4 @@
-package com.ggteam.single.api.inventory.entity;
+package com.ggteam.single.api.guide.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,6 +31,5 @@ public class Item {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private ItemType itemType;
-
 
 }
