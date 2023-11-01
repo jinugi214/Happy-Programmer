@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <stroke android:width="2dp" android:color="@color/gray" /> <!-- 테두리의 선 두께와 색상 설정 -->
+    <corners android:radius="10dp" /> <!-- 테두리를 둥글게 만드는 반지름 값 설정 -->
+</shape>
