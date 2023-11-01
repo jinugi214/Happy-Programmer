@@ -1,7 +1,6 @@
-package com.ggteam.single.api.inventory.dto;
+package com.ggteam.single.api.guide.dto;
 
-import com.ggteam.single.api.guide.entity.Skill;
-import com.ggteam.single.api.inventory.entity.Item;
+import com.ggteam.single.api.guide.entity.Item;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
