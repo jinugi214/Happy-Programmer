@@ -24,4 +24,12 @@ public class MonsterService {
 			.map(MonsterDto::new)
 			.collect(Collectors.toList());
 	}
+
+	// 몬스터 검색하기
+	@Transactional(readOnly = true)
+	public List<MonsterDto> findAllByName(String keyword) {
+		return monsterRepository.findByNameContaining(keyword).stream()
+			.map(MonsterDto::new)
+			.collect(Collectors.toList());
+	}
 }
