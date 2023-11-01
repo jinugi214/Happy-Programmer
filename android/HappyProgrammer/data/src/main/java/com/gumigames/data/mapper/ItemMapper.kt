@@ -1,6 +1,7 @@
 package com.gumigames.data.mapper
 
 import com.gumigames.data.datasource.dao.ItemBookmarkDao
+import com.gumigames.data.model.response.ItemResponse
 import com.gumigames.domain.model.item.ItemDto
 
 /**
@@ -11,3 +12,15 @@ import com.gumigames.domain.model.item.ItemDto
 //
 //    )
 //}
+
+/**
+ * 서버에서 가져온 Response를 domain의 model로 변환
+ */
+fun ItemResponse.toDomain(): ItemDto{
+    return ItemDto(
+        id = -1,
+        name = name,
+        description = description,
+        imagePath = imgPath
+    )
+}

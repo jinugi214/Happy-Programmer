@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.gumigames.domain.model.item.ItemDto
+import com.gumigames.presentation.BuildConfig
 import com.gumigames.presentation.databinding.ItemItemBinding
 
 private const val TAG = "차선호"
@@ -20,14 +22,17 @@ class ItemListApdapter: ListAdapter<ItemDto, ItemListApdapter.ItemListHolder>(
         }
 
         override fun areContentsTheSame(oldItem: ItemDto, newItem: ItemDto): Boolean {
-            return oldItem.id == newItem.id
+//            return oldItem.id == newItem.id
+            return oldItem.name == newItem.name
         }
     }
     inner class ItemListHolder(private val binding: ItemItemBinding): RecyclerView.ViewHolder(binding.root){
         fun bindInfo(item : ItemDto){
             Log.d(TAG, "bindInfo.... $item")
             binding.apply {
-                imageItem.setImageResource(item.imageUrl)
+                Glide.with(binding.root)
+                    .load(BuildConfig.BASE_URL+item.imagePath)
+                    .into(imageItem)
                 imageItem.setOnClickListener {
                     itemClickListner.onClick(it, item)
                 }

@@ -28,6 +28,7 @@ class ItemFragment : BaseFragment<FragmentItemBinding>(
         initListener()
         initCollect()
         init()
+        collectErrorAndToken(itemViewModel)
     }
 
     private fun initView(){

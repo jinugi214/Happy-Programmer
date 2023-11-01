@@ -3,6 +3,7 @@ package com.gumigames.happyprogrammer
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import com.gumigames.data.service.GithubService
+import com.gumigames.data.service.ItemService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -52,5 +53,11 @@ object NetworkModule {
     fun provideGithubService(
         retrofit: Retrofit,
     ): GithubService = retrofit.create(GithubService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideItemService(
+        retrofit: Retrofit
+    ): ItemService = retrofit.create(ItemService::class.java)
 
 }
