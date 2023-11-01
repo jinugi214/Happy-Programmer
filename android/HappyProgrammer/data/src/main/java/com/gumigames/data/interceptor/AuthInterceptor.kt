@@ -3,22 +3,18 @@ package com.gumigames.data.interceptor
 import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.gumigames.data.BuildConfig
-import com.gumigames.data.datasource.local.PreferenceDataSource
-import com.gumigames.data.entity.response.AuthDto
-import com.gumigames.data.entity.response.ErrorDto
+import com.gumigames.data.datasource.sharedpreference.PreferenceDataSource
+import com.gumigames.data.model.response.AuthDto
+import com.gumigames.data.model.response.ErrorDto
 import com.gumigames.domain.util.NetworkThrowable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import okhttp3.Interceptor
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import okhttp3.internal.closeQuietly
-import org.json.JSONObject
 
 class AuthInterceptor(
     private val preferenceDataSource: PreferenceDataSource

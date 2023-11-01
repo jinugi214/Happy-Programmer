@@ -1,11 +1,11 @@
 package com.gumigames.happyprogrammer
 
 import android.content.Context
-import com.gumigames.data.datasource.local.PreferenceDataSource
-import com.gumigames.data.datasource.local.PreferenceDataSourceImpl
-import com.gumigames.data.datasource.remote.GithubDataSource
-import com.gumigames.data.datasource.remote.GithubDataSourceImpl
-import com.gumigames.data.service.GithubService
+import androidx.room.Room
+import com.gumigames.data.datasource.dao.ItemBookmarkDao
+import com.gumigames.data.datasource.db.BookmarkDatabase
+import com.gumigames.data.datasource.sharedpreference.PreferenceDataSource
+import com.gumigames.data.datasource.sharedpreference.PreferenceDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,8 +25,13 @@ object DataSourceModule {
 
     @Singleton
     @Provides
-    fun provideGithubDatasource(
-        githubService: GithubService
-    ): GithubDataSource = GithubDataSourceImpl(githubService)
+    fun provideBookmarkDatabase(
+        @ApplicationContext context: Context
+    ): BookmarkDatabase = Room
+        .databaseBuilder(context, BookmarkDatabase::class.java, "bookmarks.db")
+        .build()
+    @Singleton
+    @Provides
+    fun provideAlbumDao(bookmarkDatabase: BookmarkDatabase): ItemBookmarkDao = bookmarkDatabase.itemBookmarkDao()
 
 }

@@ -1,4 +1,4 @@
-package com.gumigames.data.entity.response
+package com.gumigames.data.model.response
 
 import com.google.gson.annotations.SerializedName
 
