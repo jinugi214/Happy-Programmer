@@ -26,3 +26,21 @@ INSERT INTO item (name, description, img_path, item_type_id) VALUES
      ('3G 피처폰', 'LTE 사용이 불가능한 구형 3G 피처폰이다.', 'images/item/weapon/Phone_1.png', 2),
      ('보급형 스마트폰', '버벅임이 심한 보급형 스마트폰이다.', 'images/item/weapon/Phone_2.png', 2),
      ('플래그쉽 스마트폰', '빠르고 강력한 성능을 가진 스마트폰이다.', 'images/item/weapon/Phone_3.png', 2);
+
+INSERT INTO level (name, hp, mp, atk, def, need_exp) VALUES
+    ('인턴', 100, 50, 10, 10, 100),
+    ('사원', 200, 100, 20, 20, 200),
+    ('대리', 300, 200, 30, 30, 300),
+    ('과장', 400, 250, 40, 40, 400),
+    ('차장', 500, 300, 50, 50, 500),
+    ('부장', 600, 350, 60, 60, 600),
+    ('본부장', 700, 400, 70, 70, 700),
+    ('이사', 800, 450, 80, 80, 800),
+    ('전무', 900, 500, 90, 90, 900),
+    ('사장', 1000, 600, 100, 100, 999999999);
+
+INSERT INTO skill (name, description, img_path) VALUES
+    ('앵그리 타이핑', '분노의 타이핑으로 인해 아드레날린이 분비되어 공격속도와 이동속도가 증가한다.', 'images/skill/angry-typing.png'),
+    ('빅 포인터', '마우스 광클로 인해 커다란 마우스 포인터가 발사된다.', 'images/skill/big-pointer.png'),
+    ('일렉트릭 쇼크', '스마트폰 과다 사용으로 발생한 전자파가 발사된다.', 'images/skill/electric-shock.png'),
+    ('빅데이터 웨이브', '응축된 데이터를 에너지로 만들어서 발사한다.', 'images/skill/bigdata-wave.png');
