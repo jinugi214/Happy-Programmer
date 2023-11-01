@@ -9,10 +9,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.freeproject.happyprogrammers.base.BaseFragment
-import com.freeproject.happyprogrammers.util.clickEnterListener
-import com.freeproject.happyprogrammers.util.setTextListener
 import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentLoginBinding
+import com.gumigames.presentation.util.clickEnterListener
+import com.gumigames.presentation.util.setTextListener
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "차선호"

@@ -27,39 +27,54 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tablayout_item"
-            style="@style/MyTabLayoutStyle"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_search"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.05"
+            app:layout_constraintHeight_percent="0.06"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/space1"
             app:layout_constraintWidth_percent="0.95">
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_total" />
+            <LinearLayout
+                android:id="@+id/layout__edittext_search"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintWidth_percent="0.8"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@drawable/frame_border_black10">
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_keyboard" />
+                <EditText
+                    android:id="@+id/edittext_search"
+                    style="@style/Theme.AppCompat.TextView.dunggeunmo.black.Size16"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:background="@android:color/transparent"
+                    android:hint="검색어를 입력해주세요"
+                    android:inputType="text"
+                    android:imeOptions="actionSearch"
+                    android:maxLength="1"/>
+            </LinearLayout>
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_mouse" />
+            <ImageView
+                android:id="@+id/image_search"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintWidth_percent="0.9"
+                app:layout_constraintHeight_percent="0.9"
+                android:src="@drawable/image_search"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/layout__edittext_search"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_etc" />
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </com.google.android.material.tabs.TabLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_item"
@@ -67,7 +82,7 @@
             android:layout_height="0dp"
             app:layout_constraintWidth_percent="0.95"
             app:layout_constraintHeight_percent="0.9"
-            app:layout_constraintTop_toBottomOf="@id/tablayout_item"
+            app:layout_constraintTop_toBottomOf="@id/layout_search"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>

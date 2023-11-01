@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -28,17 +29,21 @@ class ItemFragment : BaseFragment<FragmentItemBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initRecyclerView()
+        initView()
         initListener()
         initCollect()
         init()
+    }
+
+    private fun initView(){
+        initItemRecyclerView()
     }
 
     private fun init(){
         itemViewModel.getTotalItemList()
     }
 
-    private fun initRecyclerView(){
+    private fun initItemRecyclerView(){
         itemListAdapter = ItemListApdapter()
         binding.recyclerviewItem.apply {
             adapter = itemListAdapter.apply {
@@ -58,22 +63,6 @@ class ItemFragment : BaseFragment<FragmentItemBinding>(
     }
     override fun initListener() {
         binding.apply {
-            tablayoutItem.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    when(tab!!.position){
-                        //전체 아이템 조회
-                        0 -> {itemViewModel.getTotalItemList()}
-                        //키보드 아이템 조회
-                        1 -> {itemViewModel.getKeyboardItemList()}
-                        //마우스 아이템 조회
-                        2 -> {itemViewModel.getMouseItemList()}
-                        //기타 아이템 조회
-                        3 -> {itemViewModel.getEtcItemList()}
-                    }
-                }
-                override fun onTabUnselected(tab: TabLayout.Tab?) {}
-                override fun onTabReselected(tab: TabLayout.Tab?) {}
-            })
         }
     }
 

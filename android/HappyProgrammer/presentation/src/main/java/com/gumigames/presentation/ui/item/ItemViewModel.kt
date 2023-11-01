@@ -40,44 +40,6 @@ class ItemViewModel @Inject constructor(
         }
     }
 
-    fun getKeyboardItemList(){
-        //TODO 원래라면 Repository를 통해 키보드 아이템 조회
-        viewModelScope.launch {
-            _currentItemList.emit(
-                listOf(
-                    ItemDto(id = 5, imageUrl = R.drawable.image_keyboard1),
-                    ItemDto(id = 6, imageUrl = R.drawable.image_keyboard2),
-                    ItemDto(id = 7, imageUrl = R.drawable.image_keyboard3)
-                )
-            )
-        }
-    }
-
-    fun getMouseItemList(){
-        //TODO 원래라면 Repository를 통해 마우스 아이템 조회
-        viewModelScope.launch {
-            _currentItemList.emit(
-                listOf(
-                    ItemDto(id = 8, imageUrl = R.drawable.image_mouse1),
-                    ItemDto(id = 9, imageUrl = R.drawable.image_mouse2),
-                    ItemDto(id = 9, imageUrl = R.drawable.image_mouse3)
-                )
-            )
-        }
-    }
-
-    fun getEtcItemList(){
-        //TODO 원래라면 Repository를 통해 기타 아이템 조회
-        viewModelScope.launch {
-            _currentItemList.emit(
-                listOf(
-                    ItemDto(id = 13, imageUrl = R.drawable.image_phone1),
-                    ItemDto(id = 14, imageUrl = R.drawable.image_phone2),
-                    ItemDto(id = 15, imageUrl = R.drawable.image_headphone)
-                )
-            )
-        }
-    }
 
     //아이템 클릭 리스너 통제 변수
     private val _itemClickListenerEnabled = AtomicBoolean(true) // 플래그 변수 생성 및 초기화
