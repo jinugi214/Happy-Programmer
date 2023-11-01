@@ -1,4 +1,4 @@
-package com.freeproject.happyprogrammers.util
+package com.gumigames.presentation.util
 
 import android.text.Editable
 import android.text.TextWatcher
