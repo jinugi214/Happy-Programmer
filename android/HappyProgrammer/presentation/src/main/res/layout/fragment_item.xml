@@ -35,42 +35,34 @@
             app:layout_constraintHeight_percent="0.06"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/space1"
-            app:layout_constraintWidth_percent="0.95">
+            app:layout_constraintWidth_percent="0.95"
+            android:padding="@dimen/_5sdp"
+            android:background="@drawable/frame_border_black10">
 
-            <LinearLayout
-                android:id="@+id/layout__edittext_search"
+            <EditText
+                android:id="@+id/edittext_search"
+                style="@style/Theme.AppCompat.TextView.dunggeunmo.black.Size16"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 app:layout_constraintWidth_percent="0.8"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:background="@drawable/frame_border_black10">
-
-                <EditText
-                    android:id="@+id/edittext_search"
-                    style="@style/Theme.AppCompat.TextView.dunggeunmo.black.Size16"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="@dimen/_5sdp"
-                    android:background="@android:color/transparent"
-                    android:hint="검색어를 입력해주세요"
-                    android:inputType="text"
-                    android:imeOptions="actionSearch"
-                    android:maxLength="1"/>
-            </LinearLayout>
+                android:background="@android:color/transparent"
+                android:hint="검색어를 입력해주세요"
+                android:inputType="text"
+                android:imeOptions="actionSearch"
+                android:maxLines="1"/>
 
             <ImageView
                 android:id="@+id/image_search"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintWidth_percent="0.9"
-                app:layout_constraintHeight_percent="0.9"
-                android:src="@drawable/image_search"
+                app:layout_constraintWidth_percent="0.1"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/layout__edittext_search"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:src="@drawable/image_search"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

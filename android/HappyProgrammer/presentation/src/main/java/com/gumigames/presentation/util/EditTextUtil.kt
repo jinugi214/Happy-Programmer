@@ -1,11 +1,14 @@
 package com.gumigames.presentation.util
 
+import android.app.Activity
+import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.View.OnFocusChangeListener
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 
 
@@ -48,4 +51,16 @@ fun EditText.clickEnterListener(
             false
         }
     }
+}
+
+//키보드 숨기기
+fun hideKeyboard(activity: Activity){
+    val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(activity.window.decorView.applicationWindowToken, 0)
+}
+
+//키보드 올리기
+fun showKeyboard(activity: Activity, editText: EditText){
+    val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.showSoftInput(editText, 0)
 }
