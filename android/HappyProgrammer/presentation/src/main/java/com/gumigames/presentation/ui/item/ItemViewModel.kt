@@ -3,7 +3,9 @@ package com.gumigames.presentation.ui.item
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gumigames.domain.model.item.ItemDto
+import com.gumigames.domain.usecase.litem.GetAllItemsUseCase
 import com.gumigames.presentation.R
+import com.gumigames.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -14,8 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ItemViewModel @Inject constructor(
-
-): ViewModel() {
+    private val getAllItemsUseCase: GetAllItemsUseCase
+): BaseViewModel() {
 
     private var _currentItemList = MutableSharedFlow<List<ItemDto>>()
 
@@ -25,18 +27,9 @@ class ItemViewModel @Inject constructor(
     fun getTotalItemList(){
         //TODO 원래라면 Repository를 통해 전체 아이템 조회
         viewModelScope.launch {
-            _currentItemList.emit(
-                listOf(
-                    ItemDto(id = 0, imageUrl = R.drawable.image_keyboard1),
-                    ItemDto(id = 1, imageUrl = R.drawable.image_keyboard2),
-                    ItemDto(id = 2, imageUrl = R.drawable.image_keyboard3),
-                    ItemDto(id = 3, imageUrl = R.drawable.image_mouse1),
-                    ItemDto(id = 4, imageUrl = R.drawable.image_mouse2),
-                    ItemDto(id = 10, imageUrl = R.drawable.image_phone1),
-                    ItemDto(id = 11, imageUrl = R.drawable.image_phone2),
-                    ItemDto(id = 12, imageUrl = R.drawable.image_headphone)
-                )
-            )
+            getApiResult( block = {getAllItemsUseCase.invoke()}){
+                _currentItemList.emit(it)
+            }
         }
     }
 
