@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import com.freeproject.happyprogrammers.base.BaseFragment
 import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentMonsterBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MonsterFragment : BaseFragment<FragmentMonsterBinding>(
     FragmentMonsterBinding::bind,
     R.layout.fragment_monster

@@ -20,4 +20,8 @@
     <!--monster-->
     <string name="title_monster">몬스터</string>
 
+    <!--search-->
+    <string name="text_search_record">검색 기록</string>
+    <string name="text_search_delete">모두 지우기</string>
+
 </resources>
