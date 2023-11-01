@@ -17,6 +17,7 @@ import com.gumigames.presentation.databinding.FragmentSkillBinding
 import com.gumigames.presentation.ui.common.SearchListAdapter
 import com.gumigames.presentation.ui.item.ItemDetailDialogFragment
 import com.gumigames.presentation.ui.item.ItemListApdapter
+import com.gumigames.presentation.util.clickEnterListener
 import com.gumigames.presentation.util.setFocusListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -40,36 +41,18 @@ class SkillFragment : BaseFragment<FragmentSkillBinding>(
     }
 
     private fun initView(){
-        initSearchRecycerView()
-    }
-
-    private fun initSearchRecycerView(){
-        searchListAdapter = SearchListAdapter()
-        binding.recyclerviewSearch.apply {
-            adapter = searchListAdapter.apply {
-                this.itemClickListner = object: SearchListAdapter.ItemClickListener{
-                    override fun onClick(view: View, text: String) {
-                    }
-                }
-            }
-            layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
+        binding.apply {
         }
     }
 
+
     override fun initListener() {
         binding.apply {
-            edittextSearch.setFocusListener(
-                onFocus = {frameSearchResult.visibility = View.VISIBLE},
-                onClear = {frameSearchResult.visibility = View.GONE}
-            )
+            edittextSearch.clickEnterListener {
+                //여기에 검색 실행 로직
+            }
             imageSearch.setOnClickListener {
-                skillViewModel.setSearchTextList(
-                    listOf(
-                        "검색 결과 1",
-                        "검색 결과 2",
-                        "검색 결과 3",
-                    )
-                )
+                //여기에 검색 실행 로직
             }
         }
     }
