@@ -42,6 +42,12 @@
         <action
             android:id="@+id/action_homeFragment_to_githubFragment"
             app:destination="@id/githubFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_skillFragment"
+            app:destination="@id/skillFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_monsterFragment"
+            app:destination="@id/monsterFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -58,4 +64,14 @@
         android:name="com.gumigames.presentation.ui.github.GithubFragment"
         android:label="fragment_github"
         tools:layout="@layout/fragment_github" />
+    <fragment
+        android:id="@+id/skillFragment"
+        android:name="com.gumigames.presentation.ui.skill.SkillFragment"
+        android:label="fragment_skill"
+        tools:layout="@layout/fragment_skill" />
+    <fragment
+        android:id="@+id/monsterFragment"
+        android:name="com.gumigames.presentation.ui.monster.MonsterFragment"
+        android:label="fragment_monster"
+        tools:layout="@layout/fragment_monster" />
 </navigation>
