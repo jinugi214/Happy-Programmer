@@ -22,6 +22,13 @@
         <item name="fontFamily">@font/dunggeunmo</item>
     </style>
 
+    <!--dunggeunmo black 10-->
+    <style name="Theme.AppCompat.TextView.dunggeunmo.black.Size10" parent="@style/Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
+        <item name="fontFamily">@font/dunggeunmo</item>
+    </style>
+
 
     <!--dunggeunmo black 08-->
     <style name="Theme.AppCompat.TextView.dunggeunmo.black.Size08" parent="@style/Widget.AppCompat.TextView">

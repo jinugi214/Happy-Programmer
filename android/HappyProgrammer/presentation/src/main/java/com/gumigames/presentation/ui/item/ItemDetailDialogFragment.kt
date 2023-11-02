@@ -18,6 +18,7 @@ class ItemDetailDialogFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initListener()
     }
 
     private fun initView(){
@@ -27,6 +28,27 @@ class ItemDetailDialogFragment(
             Glide.with(this.root)
                 .load(itemViewModel.selectedItem.value?.imagePath)
                 .into(imageItem)
+            //TODO 아이템의 isBookmarked를 보고 분기 태워야 함
+            buttonSelcetedBookmark.visibility = View.GONE
+        }
+    }
+
+    private fun initListener(){
+        binding.apply {
+            //확인 버튼 이벤트
+            buttonConfirm.setOnClickListener {
+                dismiss()
+            }
+            //즐겨찾기 해제 이벤트
+            buttonSelcetedBookmark.setOnClickListener {
+                buttonSelcetedBookmark.visibility = View.GONE
+                buttonUnselcetedBookmark.visibility = View.VISIBLE
+            }
+            //즐겨찾기 등록 이벤트
+            buttonUnselcetedBookmark.setOnClickListener {
+                buttonUnselcetedBookmark.visibility = View.GONE
+                buttonSelcetedBookmark.visibility = View.VISIBLE
+            }
         }
     }
 
