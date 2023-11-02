@@ -30,7 +30,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             }
             //아이템 화면으로 이동
             layoutItem.setOnClickListener {
-                findNavController().navigate(R.id.action_homeFragment_to_itemFragment)
+                findNavController().navigate(R.id.action_homeFragment_to_dogamFragment)
             }
             //스테이지 화면으로 이동 TODO 지금은 GITHUB 화면으로 테스트 중
             layoutStage.setOnClickListener{

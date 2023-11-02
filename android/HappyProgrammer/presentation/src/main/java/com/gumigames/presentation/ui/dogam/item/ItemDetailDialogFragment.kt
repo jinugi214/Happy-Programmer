@@ -1,4 +1,4 @@
-package com.gumigames.presentation.ui.item
+package com.gumigames.presentation.ui.dogam.item
 
 import android.content.DialogInterface
 import android.os.Bundle
@@ -7,10 +7,10 @@ import com.bumptech.glide.Glide
 import com.freeproject.happyprogrammers.base.BaseDialogFragment
 import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentItemDetailDialogBinding
-import kotlinx.coroutines.flow.single
+import com.gumigames.presentation.ui.dogam.DogamViewModel
 
 class ItemDetailDialogFragment(
-    private val itemViewModel: ItemViewModel
+    private val dogamViewModel: DogamViewModel
 ) : BaseDialogFragment<FragmentItemDetailDialogBinding>(
     FragmentItemDetailDialogBinding::bind,
     R.layout.fragment_item_detail_dialog
@@ -23,10 +23,10 @@ class ItemDetailDialogFragment(
 
     private fun initView(){
         binding.apply {
-            textviewItemName.text = itemViewModel.selectedItem.value?.name.toString()
-            textviewItemExplain.text = itemViewModel.selectedItem.value?.description.toString()
+            textviewItemName.text = dogamViewModel.selectedItem.value?.name.toString()
+            textviewItemExplain.text = dogamViewModel.selectedItem.value?.description.toString()
             Glide.with(this.root)
-                .load(itemViewModel.selectedItem.value?.imagePath)
+                .load(dogamViewModel.selectedItem.value?.imagePath)
                 .into(imageItem)
             //TODO 아이템의 isBookmarked를 보고 분기 태워야 함
             buttonSelcetedBookmark.visibility = View.GONE
@@ -54,7 +54,7 @@ class ItemDetailDialogFragment(
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        itemViewModel.setItemClickListenerEnabled(true)
-        itemViewModel.setSelectedItem(null)
+        dogamViewModel.setItemClickListenerEnabled(true)
+        dogamViewModel.setSelectedItem(null)
     }
 }

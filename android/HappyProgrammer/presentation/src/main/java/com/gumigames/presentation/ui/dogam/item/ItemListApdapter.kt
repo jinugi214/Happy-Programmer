@@ -1,6 +1,5 @@
-package com.gumigames.presentation.ui.item
+package com.gumigames.presentation.ui.dogam.item
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +8,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gumigames.domain.model.item.ItemDto
-import com.gumigames.presentation.databinding.ItemItemBinding
-import com.intuit.sdp.BuildConfig
+import com.gumigames.presentation.databinding.ItemDogamBinding
 
-private const val TAG = "차선호"
 class ItemListApdapter: ListAdapter<ItemDto, ItemListApdapter.ItemListHolder>(
     ItemListComparator
 ) {
@@ -26,7 +23,7 @@ class ItemListApdapter: ListAdapter<ItemDto, ItemListApdapter.ItemListHolder>(
             return oldItem.name == newItem.name
         }
     }
-    inner class ItemListHolder(private val binding: ItemItemBinding): RecyclerView.ViewHolder(binding.root){
+    inner class ItemListHolder(private val binding: ItemDogamBinding): RecyclerView.ViewHolder(binding.root){
         fun bindInfo(item : ItemDto){
             binding.apply {
                 Glide.with(binding.root)
@@ -39,7 +36,7 @@ class ItemListApdapter: ListAdapter<ItemDto, ItemListApdapter.ItemListHolder>(
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemListHolder {
-        val binding = ItemItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemDogamBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemListHolder(binding)
     }
 

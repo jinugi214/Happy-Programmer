@@ -10,8 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="@dimen/_250sdp"
         android:layout_height="@dimen/_350sdp"
-        tools:context=".ui.dogam.item.ItemDetailDialogFragment">
-<!--        android:background="@drawable/frame_border_white">-->
+        tools:context=".ui.dogam.item.MonsterDetailDialogFragment">
+        <!--        android:background="@drawable/frame_border_white">-->
 
 
 

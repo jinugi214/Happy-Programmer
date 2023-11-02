@@ -60,7 +60,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                         buttonBack.visibility = View.VISIBLE
                         when (destination.id) {
                             R.id.profileFragment -> { textviewTopbar.text = getString(R.string.title_profile) }
-                            R.id.itemFragment -> {textviewTopbar.text = getString(R.string.title_item)}
+                            R.id.dogamFragment -> {textviewTopbar.text = getString(R.string.title_dogam)}
                         }
                     }
                 }

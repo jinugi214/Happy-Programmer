@@ -1,10 +1,9 @@
 package com.gumigames.data.service
 
-import com.gumigames.data.model.response.ItemResponse
-import com.moneyminions.mvvmtemplate.dto.RepoResponse
+import com.gumigames.data.model.response.dogam.ItemResponse
+import com.gumigames.data.model.response.dogam.MonsterResponse
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ItemService {

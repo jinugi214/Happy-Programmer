@@ -1,11 +1,15 @@
-package com.gumigames.data.model.response
+package com.gumigames.data.model.response.dogam
 
 
 import com.google.gson.annotations.SerializedName
 
-data class ItemResponse(
+data class MonsterResponse(
+    @SerializedName("id")
+    val id: Int,
     @SerializedName("description")
     val description: String,
+    @SerializedName("hp")
+    val hp: Int,
     @SerializedName("imgPath")
     val imgPath: String,
     @SerializedName("name")

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:background="@drawable/image_home_background"
-    tools:context=".ui.item.ItemFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.dogam.DogamFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_item"
@@ -23,9 +22,44 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.025"
+            app:layout_constraintHeight_percent="0.015"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tablayout_item"
+            style="@style/MyTabLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/space1"
+            app:layout_constraintWidth_percent="0.95">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/text_item" />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/text_skill" />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/text_monster" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <Space
+            android:id="@+id/space2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.01"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tablayout_item"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_search"
@@ -34,7 +68,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.06"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/space1"
+            app:layout_constraintTop_toBottomOf="@id/space2"
             app:layout_constraintWidth_percent="0.95"
             android:padding="@dimen/_5sdp"
             android:background="@drawable/frame_border_black10">
@@ -69,11 +103,11 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_item"
+            android:id="@+id/recyclerview_dogam"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintWidth_percent="0.95"
-            app:layout_constraintHeight_percent="0.9"
+            app:layout_constraintHeight_percent="0.825"
             app:layout_constraintTop_toBottomOf="@id/layout_search"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -81,6 +115,5 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
