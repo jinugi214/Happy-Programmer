@@ -1,16 +1,12 @@
 package com.gumigames.presentation.ui.common
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.gumigames.domain.model.item.ItemDto
-import com.gumigames.presentation.databinding.ItemItemBinding
 import com.gumigames.presentation.databinding.ItemStringBinding
-import com.gumigames.presentation.ui.item.ItemListApdapter
 
 
 private const val TAG = "차선호"

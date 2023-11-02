@@ -1,10 +1,11 @@
 package com.gumigames.data.mapper
 
 import com.gumigames.data.BuildConfig
-import com.gumigames.data.datasource.dao.ItemBookmarkDao
 import com.gumigames.data.datasource.entity.ItemBookmarkEntity
-import com.gumigames.data.model.response.ItemResponse
+import com.gumigames.data.model.response.dogam.ItemResponse
+import com.gumigames.data.model.response.dogam.MonsterResponse
 import com.gumigames.domain.model.item.ItemDto
+import com.gumigames.domain.model.item.MonsterDto
 
 /**
  * 로컬에서 가져온 Entity를 domain의 model로 변환
@@ -20,12 +21,23 @@ import com.gumigames.domain.model.item.ItemDto
  */
 fun ItemResponse.toDomain(): ItemDto{
     return ItemDto(
-        id = -1,
+        id = id,
         name = name,
         description = description,
         imagePath = BuildConfig.BASE_URL + imgPath
     )
 }
+fun MonsterResponse.toDomain(): MonsterDto{
+    return MonsterDto(
+        id = id,
+        name = name,
+        hp = hp,
+        description = description,
+        imagePath = BuildConfig.BASE_URL + imgPath
+    )
+}
+
+
 
 /**
  * domain의 dto를 로컬 db의 ItemBookmarkEntity로

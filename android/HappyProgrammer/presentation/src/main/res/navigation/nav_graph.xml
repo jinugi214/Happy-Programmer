@@ -33,13 +33,6 @@
             app:popEnterAnim="@anim/enter_from_left"
             app:popExitAnim="@anim/fade_out" />
         <action
-            android:id="@+id/action_homeFragment_to_itemFragment"
-            app:destination="@id/itemFragment"
-            app:enterAnim="@anim/enter_from_right"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/enter_from_left"
-            app:popExitAnim="@anim/fade_out" />
-        <action
             android:id="@+id/action_homeFragment_to_githubFragment"
             app:destination="@id/githubFragment" />
         <action
@@ -48,17 +41,19 @@
         <action
             android:id="@+id/action_homeFragment_to_monsterFragment"
             app:destination="@id/monsterFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_dogamFragment"
+            app:destination="@id/dogamFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.gumigames.presentation.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
-    <fragment
-        android:id="@+id/itemFragment"
-        android:name="com.gumigames.presentation.ui.item.ItemFragment"
-        android:label="fragment_item"
-        tools:layout="@layout/fragment_item" />
     <fragment
         android:id="@+id/githubFragment"
         android:name="com.gumigames.presentation.ui.github.GithubFragment"
@@ -74,4 +69,8 @@
         android:name="com.gumigames.presentation.ui.monster.MonsterFragment"
         android:label="fragment_monster"
         tools:layout="@layout/fragment_monster" />
+    <fragment
+        android:id="@+id/dogamFragment"
+        android:name="com.gumigames.presentation.ui.dogam.DogamFragment"
+        android:label="DogamFragment" />
 </navigation>
