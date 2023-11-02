@@ -1,5 +1,6 @@
 package com.gumigames.data.mapper
 
+import com.gumigames.data.BuildConfig
 import com.gumigames.data.datasource.dao.ItemBookmarkDao
 import com.gumigames.data.model.response.ItemResponse
 import com.gumigames.domain.model.item.ItemDto
@@ -21,6 +22,6 @@ fun ItemResponse.toDomain(): ItemDto{
         id = -1,
         name = name,
         description = description,
-        imagePath = imgPath
+        imagePath = BuildConfig.BASE_URL + imgPath
     )
 }
