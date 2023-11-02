@@ -54,7 +54,7 @@ fun MonsterResponse.toDomain(): MonsterDto{
  */
 fun ItemDto.toData(): ItemBookmarkEntity{
     return ItemBookmarkEntity(
-        id = -1,
+        id = id,
         name = name,
         description = description,
         imagePath = imgPath

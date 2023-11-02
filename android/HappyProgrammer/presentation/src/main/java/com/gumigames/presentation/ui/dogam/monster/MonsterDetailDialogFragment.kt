@@ -12,6 +12,7 @@ import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentItemDetailDialogBinding
 import com.gumigames.presentation.databinding.FragmentMonsterDetailDialogBinding
 import com.gumigames.presentation.ui.dogam.DogamViewModel
+import com.gumigames.presentation.util.clickAnimation
 
 class MonsterDetailDialogFragment(
     private val dogamViewModel: DogamViewModel
@@ -41,15 +42,20 @@ class MonsterDetailDialogFragment(
         binding.apply {
             //확인 버튼 이벤트
             buttonConfirm.setOnClickListener {
+                it.clickAnimation(viewLifecycleOwner)
                 dismiss()
             }
             //즐겨찾기 해제 이벤트
             buttonSelcetedBookmark.setOnClickListener {
+                buttonUnselcetedBookmark.clickAnimation(viewLifecycleOwner)
+                buttonSelcetedBookmark.clickAnimation(viewLifecycleOwner)
                 buttonSelcetedBookmark.visibility = View.GONE
                 buttonUnselcetedBookmark.visibility = View.VISIBLE
             }
             //즐겨찾기 등록 이벤트
             buttonUnselcetedBookmark.setOnClickListener {
+                buttonUnselcetedBookmark.clickAnimation(viewLifecycleOwner)
+                buttonSelcetedBookmark.clickAnimation(viewLifecycleOwner)
                 buttonUnselcetedBookmark.visibility = View.GONE
                 buttonSelcetedBookmark.visibility = View.VISIBLE
             }
