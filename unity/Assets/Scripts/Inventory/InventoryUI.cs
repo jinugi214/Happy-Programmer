@@ -4,64 +4,127 @@ using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
-    public GameObject inventoryPanel;
-    // InventoryUI 오프젝트 담을 요소
-
     bool activeInventory = false;
 
-    public List<InventorySlot> slots;
-    // slots : slot을 담을 요소
-    public Transform slotHolder;
-    // slotHolder : content 넣을 것
-    public GameObject slotPrefab;
+    [SerializeField]
+    public GameObject inventoryBase;
+    // InventoryUI 오프젝트 담을 요소
+
+    [SerializeField] 
+    private GameObject SlotContent;  
+    // Slot들의 부모인 Grid Setting 
+
+    private Slot[] slots;
+    // 슬롯들 배열
 
 
-    private void Start()
+private void Start()
+{
+    inventoryBase.SetActive(activeInventory);
+    slots = SlotContent.GetComponentsInChildren<Slot>();
+    for (int i = 0; i < slots.Length; i++)
     {
-        slots = new List<InventorySlot>(slotHolder.GetComponentsInChildren<InventorySlot>());
-        // GetComponentsInChildren : 자식 오브젝트 가져옴
-        inventoryPanel.SetActive(activeInventory);
+        slots[i].item = null;  // 슬롯의 item 필드를 null로 초기화
     }
+}
 
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.I))
         {
             activeInventory = !activeInventory;
-            inventoryPanel.SetActive(activeInventory);
+            inventoryBase.SetActive(activeInventory);
         }
     }
 
-    public void CreateSlot(Item item)
+
+public void AcquireItem(Item _item, int _count = 1)
 {
-    GameObject slot = Instantiate(slotPrefab, slotHolder);
-    Debug.Log(slot);
-    InventorySlot inventorySlot = slot.GetComponent<InventorySlot>();
-    inventorySlot.AddItem(item);
-    slots.Add(inventorySlot);
+    if(_item.itemType == Item.ItemType.Food) 
+    {
+        Debug.Log("음식 더하기");
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].item != null)  
+            {
+                if (slots[i].item.itemName == _item.itemName)
+                {
+                    slots[i].SetSlotCount(_count);
+                    return;
+                }
+            }
+        }
+
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].item == null)  
+            {
+                slots[i].AddItem(_item, _count);  
+                return;
+            }
+        }
+    }
+    else if(_item.itemType == Item.ItemType.Equipment)
+    {
+        Debug.Log("장비 더하기");
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].item != null)  
+            {
+                if (slots[i].item.itemName == _item.itemName)
+                {
+                    return;  // 같은 아이템이 이미 있으므로 아무것도 추가하지 않고 메서드를 종료합니다.
+                }
+            }
+        }
+
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].item == null) 
+            {
+                slots[i].AddItem(_item, _count);
+                return;
+            }
+        }
+    }
 }
 
-        // 인벤토리를 업데이트하는 메서드
-    public void UpdateInventory(List<Item> items)
+public void FilterInventory(Item.ItemType? itemType = null)
 {
-    for (int i = 0; i < items.Count; i++)
+    foreach (Slot slot in slots)
     {
-        if (i < slots.Count)
+        // 'All' 카테고리가 선택된 경우, 모든 슬롯을 보이게 합니다.
+        if (itemType == null)
         {
-            slots[i].AddItem(items[i]);
+            slot.gameObject.SetActive(true);
         }
         else
         {
-            Debug.Log("Creating new slot for item: " + items[i].itemName);  // 이 부분 추가
-            CreateSlot(items[i]);
+            // 해당 슬롯의 아이템이 선택한 카테고리에 속하면 보이게, 아니면 숨기게 합니다.
+            if (slot.item != null)  
+            {
+                slot.gameObject.SetActive(slot.item.itemType == itemType);
+            }
         }
     }
-    while (slots.Count > items.Count)
-    {
-        InventorySlot slotToRemove = slots[slots.Count - 1];
-        slots.Remove(slotToRemove);
-        Destroy(slotToRemove.gameObject);
-    }
 }
+
+public void FilterAll()
+{
+    FilterInventory(null);
+}
+
+public void FilterEquipment()
+{
+    FilterInventory(Item.ItemType.Equipment);
+}
+
+public void FilterFood()
+{
+    FilterInventory(Item.ItemType.Food);
+}
+
+
+
 
 }
