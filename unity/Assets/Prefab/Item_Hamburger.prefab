@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1156037601112506527}
   - component: {fileID: 4063632314319881918}
   m_Layer: 0
-  m_Name: Hamburger_Item
+  m_Name: Item_Hamburger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
