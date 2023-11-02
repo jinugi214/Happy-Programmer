@@ -24,7 +24,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 
-    private static final String NO_CHECK_URL_PREFIX = "/api/account";  // "/login"으로 들어오는 요청은 Filter 작동 X
+    private static final String NO_CHECK_URL = "/api/account/login";  // "/api/account"로 들어오는 요청은 Filter 작동 X
 
     private final JwtService jwtService;
     private final AccountRepository accountRepository;
@@ -34,16 +34,14 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
         throws ServletException, IOException {
-        if (request.getRequestURI().startsWith(NO_CHECK_URL_PREFIX)) {
+        if (request.getRequestURI().startsWith(NO_CHECK_URL)) {
+            filterChain.doFilter(request, response);  // 위의 요청이 온다면 다음 필터 호출
             return;  // return 으로 이후 현재 필터의 진행 막기
-        } else if (request.getRequestURI().equals("/login")) {
-            filterChain.doFilter(request, response);  // "/login" 요청이 들어오면 다음 필터 호출
-            return;
         }
 
         // 사용자 요청이 헤더에서 RefreshToken 추출
         // -> RefreshToken이 없거나 유효하지 않다면(DB에 저장된 RefreshToken과 다르다면) null을 반환
-        // 사용자의 요청 헤더에 RefreshToken이 있는 경우는, AccessTOken이 만료되어 요청한 경우 밖에 없다.
+        // 사용자의 요청 헤더에 RefreshToken이 있는 경우는, AccessToken이 만료되어 요청한 경우 밖에 없다.
         // 따라서 위의 경우를 제외하면 추출한 refreshToken은 모두 null
         String refreshToken = jwtService.extractRefreshToken(request)
                 .filter(jwtService::isTokenValid)
