@@ -1,4 +1,4 @@
-package com.gumigames.presentation.ui.monster
+package com.gumigames.presentation.ui.bookmark
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.freeproject.happyprogrammers.base.BaseFragment
 import com.gumigames.presentation.R
-import com.gumigames.presentation.databinding.FragmentMonsterBinding
+import com.gumigames.presentation.databinding.FragmentBookmarkBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MonsterFragment : BaseFragment<FragmentMonsterBinding>(
-    FragmentMonsterBinding::bind,
-    R.layout.fragment_monster
+class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(
+    FragmentBookmarkBinding::bind,
+    R.layout.fragment_bookmark
 ) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

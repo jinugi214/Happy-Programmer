@@ -100,7 +100,7 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
 
         }
         binding.apply {
-            tablayoutItem.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
+            tablayoutDogam.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     when(tab!!.position){
                         //아이템 조회

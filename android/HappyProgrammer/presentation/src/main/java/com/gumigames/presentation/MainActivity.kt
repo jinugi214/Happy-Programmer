@@ -61,6 +61,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                         when (destination.id) {
                             R.id.profileFragment -> { textviewTopbar.text = getString(R.string.title_profile) }
                             R.id.dogamFragment -> {textviewTopbar.text = getString(R.string.title_dogam)}
+                            R.id.bookmarkFragment -> {textviewTopbar.text = getString(R.string.text_bookmark)}
                         }
                     }
                 }

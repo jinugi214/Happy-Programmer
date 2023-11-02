@@ -38,11 +38,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             }
             //스킬 화면으로 이동
             layoutSkill.setOnClickListener {
-                findNavController().navigate(R.id.action_homeFragment_to_skillFragment)
+                findNavController().navigate(R.id.action_homeFragment_to_bookmarkFragment)
             }
-            //몬스터 화면으로 이동
+            //화면으로 이동
             layoutMonster.setOnClickListener {
-                findNavController().navigate(R.id.action_homeFragment_to_monsterFragment)
             }
         }
     }
