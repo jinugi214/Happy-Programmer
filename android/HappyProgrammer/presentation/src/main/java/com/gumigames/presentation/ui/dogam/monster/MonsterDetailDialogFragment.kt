@@ -30,7 +30,7 @@ class MonsterDetailDialogFragment(
             textviewItemName.text = dogamViewModel.selectedMonster.value?.name.toString()
             textviewItemExplain.text = dogamViewModel.selectedMonster.value?.description.toString()
             Glide.with(this.root)
-                .load(dogamViewModel.selectedMonster.value?.imagePath)
+                .load(dogamViewModel.selectedMonster.value?.imgPath)
                 .into(imageItem)
             //TODO 아이템의 isBookmarked를 보고 분기 태워야 함
             buttonSelcetedBookmark.visibility = View.GONE
@@ -59,6 +59,6 @@ class MonsterDetailDialogFragment(
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         dogamViewModel.setItemClickListenerEnabled(true)
-        dogamViewModel.setSelectedItem(null)
+        dogamViewModel.setSelectedMonster(null)
     }
 }

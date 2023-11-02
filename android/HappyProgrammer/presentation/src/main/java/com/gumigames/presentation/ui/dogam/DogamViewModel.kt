@@ -3,11 +3,14 @@ package com.gumigames.presentation.ui.dogam
 import androidx.lifecycle.viewModelScope
 import com.gumigames.domain.model.item.ItemDto
 import com.gumigames.domain.model.item.MonsterDto
+import com.gumigames.domain.model.item.SkillDto
 import com.gumigames.domain.usecase.dogam.litem.AddBookmarkItemUseCase
 import com.gumigames.domain.usecase.dogam.litem.GetAllItemsUseCase
 import com.gumigames.domain.usecase.dogam.litem.GetSearchItemsUseCase
 import com.gumigames.domain.usecase.dogam.monster.GetAllMonstersUseCase
 import com.gumigames.domain.usecase.dogam.monster.GetSearchMonstersUseCase
+import com.gumigames.domain.usecase.dogam.skill.GetAllSkillsUseCase
+import com.gumigames.domain.usecase.dogam.skill.GetSearchSkillsUseCase
 import com.gumigames.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -24,6 +27,8 @@ class DogamViewModel @Inject constructor(
     private val getAllItemsUseCase: GetAllItemsUseCase,
     private val getSearchItemsUseCase: GetSearchItemsUseCase,
     private val addBookmarkItemUseCase: AddBookmarkItemUseCase,
+    private val getAllSkillsUseCase: GetAllSkillsUseCase,
+    private val getSearchSkillsUseCase: GetSearchSkillsUseCase,
     private val getAllMonstersUseCase: GetAllMonstersUseCase,
     private val getSearchMonstersUseCase: GetSearchMonstersUseCase
 ): BaseViewModel() {
@@ -84,10 +89,43 @@ class DogamViewModel @Inject constructor(
 
     /////////////////////////////////////////////스킬////////////////////////////////////////////////////
 
+    //현재 몬스터 리스트
+    private var _currentSkillList = MutableSharedFlow<List<SkillDto>>()
+
+    val currentSkillList: SharedFlow<List<SkillDto>>
+        get() = _currentSkillList.asSharedFlow()
+
+    //현재 선택된 몬스터
+    private var _selectedSkill = MutableStateFlow<SkillDto?>(null)
+    val selectedSkill = _selectedSkill.asStateFlow()
+    fun setSelectedSkill(skill: SkillDto?){
+        viewModelScope.launch {
+            _selectedSkill.emit(skill)
+        }
+    }
+
     //전체 스킬 조회
     fun getAllSkills(){
         viewModelScope.launch {
-
+            getApiResult(block = {getAllSkillsUseCase.invoke()}){
+                _currentSkillList.emit(it)
+            }
+        }
+    }
+    //스킬 검색
+    fun getSearchSkills(){
+        viewModelScope.launch {
+            viewModelScope.launch {
+                if(_searchKeyword==""){ //아무것도 입력 안하면 전체 아이템 조회
+                    getApiResult(block = {getAllSkillsUseCase.invoke()}){
+                        _currentSkillList.emit(it)
+                    }
+                }else{
+                    getApiResult(block = {getSearchSkillsUseCase.invoke(_searchKeyword)}){
+                        _currentSkillList.emit(it)
+                    }
+                }
+            }
         }
     }
 
@@ -153,7 +191,7 @@ class DogamViewModel @Inject constructor(
     fun searchKeyword(){
         when(_currentTab){
             "item" -> {getSearchItems()}
-            "skill" -> {}
+            "skill" -> {getSearchSkills()}
             "monster" -> {getSearchMonsters()}
         }
     }

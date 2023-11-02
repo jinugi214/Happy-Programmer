@@ -8,6 +8,7 @@ import com.gumigames.data.repository.LoginRepositoryImpl
 import com.gumigames.data.service.GithubService
 import com.gumigames.data.service.ItemService
 import com.gumigames.data.service.MonsterService
+import com.gumigames.data.service.SkillService
 import com.gumigames.domain.repository.GithubRepository
 import com.gumigames.domain.repository.DogamRepository
 import com.gumigames.domain.repository.LoginRepository
@@ -35,8 +36,18 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun providedogamRepository(itemBookmarkDao: ItemBookmarkDao, itemService: ItemService, monsterService: MonsterService): DogamRepository {
-        return DogamRepositoryImpl(itemBookmarkDao = itemBookmarkDao, itemService = itemService, monsterService = monsterService)
+    fun providedogamRepository(
+        itemBookmarkDao: ItemBookmarkDao,
+        itemService: ItemService,
+        skillService: SkillService,
+        monsterService: MonsterService,
+        ): DogamRepository {
+        return DogamRepositoryImpl(
+            itemBookmarkDao = itemBookmarkDao,
+            itemService = itemService,
+            skillService = skillService,
+            monsterService = monsterService
+        )
     }
 
 }
