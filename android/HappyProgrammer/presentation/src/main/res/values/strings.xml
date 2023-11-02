@@ -24,4 +24,9 @@
     <string name="text_search_record">검색 기록</string>
     <string name="text_search_delete">모두 지우기</string>
 
+    <!--common-->
+    <string name="text_confirm">확인</string>
+    <string name="text_cancel">취소</string>
+    <string name="text_regist">등록</string>
+
 </resources>
