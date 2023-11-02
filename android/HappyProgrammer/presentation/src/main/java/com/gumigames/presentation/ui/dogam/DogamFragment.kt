@@ -53,9 +53,7 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
     private fun init(){
         dogamViewModel.getAllItems()
         itemListAdapter = ItemListApdapter()
-        dogamViewModel.getAllSkills()
         skillListAdapter = SkillListAdapter()
-        dogamViewModel.getAllMonsters()
         monsterListAdapter = MonsterListAdapter()
     }
 
