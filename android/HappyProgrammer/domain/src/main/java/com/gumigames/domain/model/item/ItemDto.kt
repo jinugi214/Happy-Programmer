@@ -4,6 +4,6 @@ data class ItemDto(
     val id: Int,
     val name: String,
     val description: String,
-    val imagePath: String
+    val imgPath: String
 )
 

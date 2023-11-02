@@ -27,7 +27,7 @@ class ItemListApdapter: ListAdapter<ItemDto, ItemListApdapter.ItemListHolder>(
         fun bindInfo(item : ItemDto){
             binding.apply {
                 Glide.with(binding.root)
-                    .load(item.imagePath)
+                    .load(item.imgPath)
                     .into(imageItem)
                 imageItem.setOnClickListener {
                     itemClickListner.onClick(it, item)

@@ -9,12 +9,15 @@ import com.freeproject.happyprogrammers.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
 import com.gumigames.domain.model.item.ItemDto
 import com.gumigames.domain.model.item.MonsterDto
+import com.gumigames.domain.model.item.SkillDto
 import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentDogamBinding
 import com.gumigames.presentation.ui.dogam.item.ItemDetailDialogFragment
 import com.gumigames.presentation.ui.dogam.item.ItemListApdapter
 import com.gumigames.presentation.ui.dogam.monster.MonsterDetailDialogFragment
 import com.gumigames.presentation.ui.dogam.monster.MonsterListAdapter
+import com.gumigames.presentation.ui.dogam.skill.SkillDetailDialogFragment
+import com.gumigames.presentation.ui.dogam.skill.SkillListAdapter
 import com.gumigames.presentation.util.clickEnterListener
 import com.gumigames.presentation.util.hideKeyboard
 import com.gumigames.presentation.util.setTextListener
@@ -30,6 +33,8 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
     private val dogamViewModel: DogamViewModel by viewModels()
     private lateinit var itemListAdapter: ItemListApdapter
     private lateinit var monsterListAdapter: MonsterListAdapter
+    private lateinit var skillListAdapter: SkillListAdapter
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,6 +52,8 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
     private fun init(){
         dogamViewModel.getAllItems()
         itemListAdapter = ItemListApdapter()
+        dogamViewModel.getAllSkills()
+        skillListAdapter = SkillListAdapter()
         dogamViewModel.getAllMonsters()
         monsterListAdapter = MonsterListAdapter()
     }
@@ -67,6 +74,17 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
                     dogamViewModel.setSelectedItem(item)
                 }
             }
+        }
+        //스킬 클릭 이벤트
+        skillListAdapter.itemClickListner = object: SkillListAdapter.ItemClickListener{
+            override fun onClick(view: View, skill: SkillDto) {
+                if(dogamViewModel.getItemClickListenerEnabled()) {
+                    dogamViewModel.setItemClickListenerEnabled(false) // 클릭 이벤트 비활성화(다른 아이템 클릭 못하도록)
+                    //해당 몬스터 클릭 이벤트
+                    dogamViewModel.setSelectedSkill(skill)
+                }
+            }
+
         }
         //몬스터 클릭 이벤트
         monsterListAdapter.itemClickListner = object: MonsterListAdapter.ItemClickListener{
@@ -92,6 +110,7 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
                         }
                         //스킬 조회
                         1 -> {
+                            binding.recyclerviewDogam.adapter = skillListAdapter
                             dogamViewModel.getAllSkills()
                             dogamViewModel.setCurrentTab("skill")
                             edittextSearch.text.clear()
@@ -141,6 +160,21 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
                     if(it != null) {
                         addBookmarkItemInLocal(it) //이거 나중에 itemDetailDialogFragment로 빼라
                         val detailDialog = ItemDetailDialogFragment(dogamViewModel)
+                        detailDialog.show(childFragmentManager, null)
+                    }
+                }
+            }
+            //현재 스킬 리스트 관찰
+            viewLifecycleOwner.lifecycleScope.launch {
+                currentSkillList.collectLatest {
+                    skillListAdapter.submitList(it)
+                }
+            }
+            //스킬 선택 관찰
+            viewLifecycleOwner.lifecycleScope.launch {
+                selectedSkill.collectLatest {
+                    if(it != null) {
+                        val detailDialog = SkillDetailDialogFragment(dogamViewModel)
                         detailDialog.show(childFragmentManager, null)
                     }
                 }

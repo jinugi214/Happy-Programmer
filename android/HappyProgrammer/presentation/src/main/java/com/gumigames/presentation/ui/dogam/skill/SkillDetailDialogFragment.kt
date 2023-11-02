@@ -1,19 +1,22 @@
-package com.gumigames.presentation.ui.dogam.item
+package com.gumigames.presentation.ui.dogam.skill
 
 import android.content.DialogInterface
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.freeproject.happyprogrammers.base.BaseDialogFragment
 import com.gumigames.presentation.R
-import com.gumigames.presentation.databinding.FragmentItemDetailDialogBinding
+import com.gumigames.presentation.databinding.FragmentMonsterDetailDialogBinding
 import com.gumigames.presentation.ui.dogam.DogamViewModel
 
-class ItemDetailDialogFragment(
+class SkillDetailDialogFragment(
     private val dogamViewModel: DogamViewModel
-) : BaseDialogFragment<FragmentItemDetailDialogBinding>(
-    FragmentItemDetailDialogBinding::bind,
-    R.layout.fragment_item_detail_dialog
+) : BaseDialogFragment<FragmentMonsterDetailDialogBinding>(
+    FragmentMonsterDetailDialogBinding::bind,
+    R.layout.fragment_monster_detail_dialog
 ) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -23,10 +26,10 @@ class ItemDetailDialogFragment(
 
     private fun initView(){
         binding.apply {
-            textviewItemName.text = dogamViewModel.selectedItem.value?.name.toString()
-            textviewItemExplain.text = dogamViewModel.selectedItem.value?.description.toString()
+            textviewItemName.text = dogamViewModel.selectedSkill.value?.name.toString()
+            textviewItemExplain.text = dogamViewModel.selectedSkill.value?.description.toString()
             Glide.with(this.root)
-                .load(dogamViewModel.selectedItem.value?.imgPath)
+                .load(dogamViewModel.selectedSkill.value?.imgPath)
                 .into(imageItem)
             //TODO 아이템의 isBookmarked를 보고 분기 태워야 함
             buttonSelcetedBookmark.visibility = View.GONE
@@ -55,6 +58,6 @@ class ItemDetailDialogFragment(
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         dogamViewModel.setItemClickListenerEnabled(true)
-        dogamViewModel.setSelectedItem(null)
+        dogamViewModel.setSelectedSkill(null)
     }
 }

@@ -4,8 +4,10 @@ import com.gumigames.data.BuildConfig
 import com.gumigames.data.datasource.entity.ItemBookmarkEntity
 import com.gumigames.data.model.response.dogam.ItemResponse
 import com.gumigames.data.model.response.dogam.MonsterResponse
+import com.gumigames.data.model.response.dogam.SkillResponse
 import com.gumigames.domain.model.item.ItemDto
 import com.gumigames.domain.model.item.MonsterDto
+import com.gumigames.domain.model.item.SkillDto
 
 /**
  * 로컬에서 가져온 Entity를 domain의 model로 변환
@@ -24,7 +26,15 @@ fun ItemResponse.toDomain(): ItemDto{
         id = id,
         name = name,
         description = description,
-        imagePath = BuildConfig.BASE_URL + imgPath
+        imgPath = BuildConfig.BASE_URL + imgPath
+    )
+}
+fun SkillResponse.toDomain(): SkillDto{
+    return SkillDto(
+        id = id,
+        name = name,
+        description = description,
+        imgPath = BuildConfig.BASE_URL + imgPath
     )
 }
 fun MonsterResponse.toDomain(): MonsterDto{
@@ -33,7 +43,7 @@ fun MonsterResponse.toDomain(): MonsterDto{
         name = name,
         hp = hp,
         description = description,
-        imagePath = BuildConfig.BASE_URL + imgPath
+        imgPath = BuildConfig.BASE_URL + imgPath
     )
 }
 
@@ -47,6 +57,6 @@ fun ItemDto.toData(): ItemBookmarkEntity{
         id = -1,
         name = name,
         description = description,
-        imagePath = imagePath
+        imagePath = imgPath
     )
 }

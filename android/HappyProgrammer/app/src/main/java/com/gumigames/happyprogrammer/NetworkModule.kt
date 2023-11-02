@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder
 import com.gumigames.data.service.GithubService
 import com.gumigames.data.service.ItemService
 import com.gumigames.data.service.MonsterService
+import com.gumigames.data.service.SkillService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -66,5 +67,11 @@ object NetworkModule {
     fun provideMonsterService(
         retrofit: Retrofit
     ): MonsterService = retrofit.create(MonsterService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideSkillService(
+        retrofit: Retrofit
+    ): SkillService = retrofit.create(SkillService::class.java)
 
 }

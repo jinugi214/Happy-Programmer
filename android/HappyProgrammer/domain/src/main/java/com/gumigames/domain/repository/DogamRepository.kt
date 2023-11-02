@@ -2,6 +2,7 @@ package com.gumigames.domain.repository
 
 import com.gumigames.domain.model.item.ItemDto
 import com.gumigames.domain.model.item.MonsterDto
+import com.gumigames.domain.model.item.SkillDto
 
 interface DogamRepository {
     /**
@@ -16,6 +17,14 @@ interface DogamRepository {
      * 즐겨찾기 아이템 로컬에 저장
      */
     suspend fun addBookmarkItem(itemDto: ItemDto)
+    /**
+     * 스킬 전체 조회
+     */
+    suspend fun getAllSkills(): List<SkillDto>
+    /**
+     * 스킬 검색
+     */
+    suspend fun getSearchSkills(keyword: String): List<SkillDto>
     /**
      * 몬스터 전체 조회
      */
