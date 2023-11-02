@@ -13,7 +13,6 @@ import com.gumigames.domain.model.item.SkillDto
 import com.gumigames.domain.repository.DogamRepository
 
 class DogamRepositoryImpl(
-    private val itemBookmarkDao: ItemBookmarkDao,
     private val itemService: ItemService,
     private val skillService: SkillService,
     private val monsterService: MonsterService
@@ -30,13 +29,6 @@ class DogamRepositoryImpl(
      */
     override suspend fun getSearchItems(keyword: String): List<ItemDto> {
         return handleApi { itemService.getSearchItems(keyword) }.map { it.toDomain() }
-    }
-
-    /**
-     * 즐겨찾기 아이템 로컬에 저장
-     */
-    override suspend fun addBookmarkItem(itemDto: ItemDto) {
-        itemBookmarkDao.addBookmarkItem(itemDto.toData())
     }
 
     /**

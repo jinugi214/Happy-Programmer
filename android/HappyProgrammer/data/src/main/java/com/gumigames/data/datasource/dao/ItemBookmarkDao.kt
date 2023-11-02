@@ -11,7 +11,7 @@ import com.gumigames.data.datasource.entity.ItemBookmarkEntity
 interface ItemBookmarkDao {
 
     @Query("SELECT * FROM table_item_bookmark")
-    suspend fun getAllBookmarkItem(): List<ItemBookmarkEntity>
+    suspend fun getAllBookmarkItemLocal(): List<ItemBookmarkEntity>
 
     // bookmark 저장 - 중복 값 충돌 발생 시 새로 들어온 데이터로 교체.
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.gumigames.domain.model.item.ItemDto
 import com.gumigames.domain.model.item.MonsterDto
 import com.gumigames.domain.model.item.SkillDto
-import com.gumigames.domain.usecase.dogam.litem.AddBookmarkItemUseCase
+import com.gumigames.domain.usecase.bookmark.item.AddBookmarkItemUseCase
 import com.gumigames.domain.usecase.dogam.litem.GetAllItemsUseCase
 import com.gumigames.domain.usecase.dogam.litem.GetSearchItemsUseCase
 import com.gumigames.domain.usecase.dogam.monster.GetAllMonstersUseCase

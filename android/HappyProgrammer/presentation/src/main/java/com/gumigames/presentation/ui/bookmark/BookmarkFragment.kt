@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.freeproject.happyprogrammers.base.BaseFragment
 import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentBookmarkBinding
@@ -16,8 +17,11 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(
     R.layout.fragment_bookmark
 ) {
 
+    private val bookmarkViewModel: BookmarkViewModel by viewModels()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        bookmarkViewModel.getAllBookmarkItemsLocal()
         initListener()
     }
     override fun initListener() {
