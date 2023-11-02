@@ -1,4 +1,4 @@
-package com.gumigames.presentation.ui.dogam.item
+package com.gumigames.presentation.ui.common.item
 
 import android.view.LayoutInflater
 import android.view.View

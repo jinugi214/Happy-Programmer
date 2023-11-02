@@ -1,15 +1,11 @@
-package com.gumigames.presentation.ui.dogam.monster
+package com.gumigames.presentation.ui.common.monster
 
 import android.content.DialogInterface
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.freeproject.happyprogrammers.base.BaseDialogFragment
 import com.gumigames.presentation.R
-import com.gumigames.presentation.databinding.FragmentItemDetailDialogBinding
 import com.gumigames.presentation.databinding.FragmentMonsterDetailDialogBinding
 import com.gumigames.presentation.ui.dogam.DogamViewModel
 import com.gumigames.presentation.util.clickAnimation

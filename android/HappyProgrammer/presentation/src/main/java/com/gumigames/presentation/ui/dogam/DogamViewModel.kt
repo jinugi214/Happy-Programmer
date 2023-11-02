@@ -33,13 +33,39 @@ class DogamViewModel @Inject constructor(
     private val getSearchMonstersUseCase: GetSearchMonstersUseCase
 ): BaseViewModel() {
 
+
+    ////////////////////////////////////// 공통 ////////////////////////////////////////////////
+
     //현재 탭
     private var _currentTab: String = "item"
     fun setCurrentTab(tab: String){
         _currentTab = tab
     }
 
-    //////////////////////////////////////////////아이템///////////////////////////////////////////////////////
+    //아이템 클릭 리스너 통제 변수
+    private val _itemClickListenerEnabled = AtomicBoolean(true) // 플래그 변수 생성 및 초기화
+    fun getItemClickListenerEnabled(): Boolean{
+        return _itemClickListenerEnabled.get()
+    }
+    fun setItemClickListenerEnabled(value: Boolean){
+        _itemClickListenerEnabled.set(value)
+    }
+
+    //검색 키워드
+    private var _searchKeyword: String = ""
+    fun setSearchKeyword(keyword: String){
+        _searchKeyword = keyword
+    }
+
+    fun searchKeyword(){
+        when(_currentTab){
+            "item" -> {getSearchItems()}
+            "skill" -> {getSearchSkills()}
+            "monster" -> {getSearchMonsters()}
+        }
+    }
+
+    ////////////////////////////////////////////// 아이템 ///////////////////////////////////////////////////////
 
     //현재 아이템 리스트
     private var _currentItemList = MutableSharedFlow<List<ItemDto>>()
@@ -87,7 +113,7 @@ class DogamViewModel @Inject constructor(
         }
     }
 
-    /////////////////////////////////////////////스킬////////////////////////////////////////////////////
+    ///////////////////////////////////////////// 스킬 ////////////////////////////////////////////////////
 
     //현재 몬스터 리스트
     private var _currentSkillList = MutableSharedFlow<List<SkillDto>>()
@@ -130,7 +156,7 @@ class DogamViewModel @Inject constructor(
     }
 
 
-    /////////////////////////////////////////////몬스터//////////////////////////////////////////////////
+    ///////////////////////////////////////////// 몬스터 //////////////////////////////////////////////////
 
     //현재 몬스터 리스트
     private var _currentMonsterList = MutableSharedFlow<List<MonsterDto>>()
@@ -170,31 +196,7 @@ class DogamViewModel @Inject constructor(
         }
     }
 
-    //////////////////////////////////////공통////////////////////////////////////////////////
 
-
-    //아이템 클릭 리스너 통제 변수
-    private val _itemClickListenerEnabled = AtomicBoolean(true) // 플래그 변수 생성 및 초기화
-    fun getItemClickListenerEnabled(): Boolean{
-        return _itemClickListenerEnabled.get()
-    }
-    fun setItemClickListenerEnabled(value: Boolean){
-        _itemClickListenerEnabled.set(value)
-    }
-
-    //검색 키워드
-    private var _searchKeyword: String = ""
-    fun setSearchKeyword(keyword: String){
-        _searchKeyword = keyword
-    }
-
-    fun searchKeyword(){
-        when(_currentTab){
-            "item" -> {getSearchItems()}
-            "skill" -> {getSearchSkills()}
-            "monster" -> {getSearchMonsters()}
-        }
-    }
 
 
 
