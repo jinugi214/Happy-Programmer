@@ -42,7 +42,6 @@ public void AcquireItem(Item _item, int _count = 1)
 {
     if(_item.itemType == Item.ItemType.Food) 
     {
-        Debug.Log("음식 더하기");
         for (int i = 0; i < slots.Length; i++)
         {
             if (slots[i].item != null)  
@@ -66,14 +65,13 @@ public void AcquireItem(Item _item, int _count = 1)
     }
     else if(_item.itemType == Item.ItemType.Equipment)
     {
-        Debug.Log("장비 더하기");
         for (int i = 0; i < slots.Length; i++)
         {
             if (slots[i].item != null)  
             {
                 if (slots[i].item.itemName == _item.itemName)
                 {
-                    return;  // 같은 아이템이 이미 있으므로 아무것도 추가하지 않고 메서드를 종료합니다.
+                    return;  // 같은 아이템 있으면 추가 X
                 }
             }
         }
@@ -93,14 +91,14 @@ public void FilterInventory(Item.ItemType? itemType = null)
 {
     foreach (Slot slot in slots)
     {
-        // 'All' 카테고리가 선택된 경우, 모든 슬롯을 보이게 합니다.
+        // 'All' 카테고리
         if (itemType == null)
         {
             slot.gameObject.SetActive(true);
         }
         else
         {
-            // 해당 슬롯의 아이템이 선택한 카테고리에 속하면 보이게, 아니면 숨기게 합니다.
+            // 선택한 카테고리에 속하면 보임, 아니면 숨김
             if (slot.item != null)  
             {
                 slot.gameObject.SetActive(slot.item.itemType == itemType);
@@ -123,8 +121,6 @@ public void FilterFood()
 {
     FilterInventory(Item.ItemType.Food);
 }
-
-
 
 
 }

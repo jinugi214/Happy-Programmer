@@ -24,7 +24,6 @@ public class Slot : MonoBehaviour
     // 인벤토리에 새로운 아이템 슬롯 추가
     public void AddItem(Item _item, int _count = 1)
     {
-        Debug.Log("아이템 더하기");
         item = _item;
         itemCount = _count;
         itemImage.sprite = item.itemImage;
@@ -61,4 +60,57 @@ public class Slot : MonoBehaviour
 
         text_Count.text = "0";
     }
+
+    public void UpdateSlot()
+{
+    if (item != null)
+    {
+        // 아이템이 있을 경우, 이미지/개수 표시
+        itemImage.sprite = item.itemImage;
+        SetColor(1);
+
+        if(item.itemType != Item.ItemType.Equipment)
+        {
+            text_Count.text = itemCount.ToString();
+        } 
+        else 
+        {
+            text_Count.text = "0";
+        }
+    }
+    else
+    {
+        // 아이템이 없을 경우, 이미지/개수 숨기기
+        itemImage.sprite = null;
+        SetColor(0);
+        text_Count.text = "";
+    }
+
+}
+
+
+    public void UseItem()
+{
+    if (item != null)
+    {
+        if (item.itemType == Item.ItemType.Equipment)
+        {
+            // 장비 장착 로직
+            Debug.Log("장비 장착");
+        }
+        else if (item.itemType == Item.ItemType.Food)
+        {
+            // 음식 사용 로직
+            Debug.Log("음식 냠냠");
+            itemCount--;
+            if (itemCount <= 0)
+            {
+                // 아이템 개수가 0이면 아이템을 제거
+                item = null;
+            }
+            UpdateSlot();
+        }
+    }
+}
+
 }
