@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,8 +39,6 @@ public class GuideController {
 	private final LevelService levelService;
 	private final ItemService itemService;
 	private final AccountService accountService;
-
-	private Long accountId = 1L;
 
 	// 컨트롤러에서 유저정보가져오기
 	// id 값 추출 -> AccountService로 유저 객체 나온 것 service 파라미터로 넘겨주기
@@ -87,8 +86,7 @@ public class GuideController {
 
 	@Operation(summary = "아이템 즐겨찾기")
 	@PostMapping("/items/favorite")
-	public ResponseEntity<?> itemAddFavorite(@PathVariable Integer itemId){
-		Account account = accountService.findById(1L);
+	public ResponseEntity<?> itemAddFavorite(@AuthenticationPrincipal Account account, @PathVariable Integer itemId){
 		itemService.addItemFavorite(ItemFavoriteRequest.builder()
 			.account(account)
 			.itemId(itemId)

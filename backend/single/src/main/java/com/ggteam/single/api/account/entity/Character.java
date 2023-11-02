@@ -16,23 +16,24 @@ import javax.persistence.*;
 @Table(name = "\"character\"")
 public class Character {
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String name;
+    private String name;
 
-	@Column(columnDefinition = "char(1) default 'M'")
-	private char gender;
+    @Column(columnDefinition = "char(1) default 'M'")
+    private char gender;
 
-	private int exp;
+    private int exp;
 
-	private int level;
+    private int level;
 
-	private int savepoint;
+    private int savepoint;
 
-	private String imgPath;
+    private String imgPath;
 
-	@OneToOne(mappedBy = "character")
-	@JsonBackReference
-	private Account account;
+    @OneToOne(mappedBy = "character")
+    @JsonBackReference
+    private Account account;
+
 }
