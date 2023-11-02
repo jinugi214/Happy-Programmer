@@ -1,17 +1,13 @@
 package com.freeproject.happyprogrammers.base
 
-import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
-import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
-import com.gumigames.presentation.databinding.FragmentSkillBinding
-import com.gumigames.presentation.ui.skill.SkillFragment
 import com.gumigames.presentation.util.hideKeyboard
 
 // 액티비티의 기본을 작성, 뷰 바인딩 활용
