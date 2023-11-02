@@ -3,6 +3,7 @@ package com.gumigames.presentation.ui.item
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gumigames.domain.model.item.ItemDto
+import com.gumigames.domain.usecase.litem.AddBookmarkItemUseCase
 import com.gumigames.domain.usecase.litem.GetAllItemsUseCase
 import com.gumigames.domain.usecase.litem.GetSearchItemsUseCase
 import com.gumigames.presentation.R
@@ -20,7 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ItemViewModel @Inject constructor(
     private val getAllItemsUseCase: GetAllItemsUseCase,
-    private val getSearchItemsUseCase: GetSearchItemsUseCase
+    private val getSearchItemsUseCase: GetSearchItemsUseCase,
+    private val addBookmarkItemUseCase: AddBookmarkItemUseCase
 ): BaseViewModel() {
 
     //현재 아이템 리스트
@@ -74,6 +76,13 @@ class ItemViewModel @Inject constructor(
                     _currentItemList.emit(it)
                 }
             }
+        }
+    }
+
+    //로컬에 북마크 아이템 추가
+    fun addBookmarkItemInLocal(item: ItemDto){
+        viewModelScope.launch {
+            addBookmarkItemUseCase.invoke(item)
         }
     }
 

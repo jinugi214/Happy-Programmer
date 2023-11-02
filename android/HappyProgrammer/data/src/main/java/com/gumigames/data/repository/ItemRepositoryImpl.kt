@@ -1,6 +1,7 @@
 package com.gumigames.data.repository
 
 import com.gumigames.data.datasource.dao.ItemBookmarkDao
+import com.gumigames.data.mapper.toData
 import com.gumigames.data.mapper.toDomain
 import com.gumigames.data.service.ItemService
 import com.gumigames.data.util.handleApi
@@ -17,6 +18,10 @@ class ItemRepositoryImpl(
 
     override suspend fun getSearchItems(keyword: String): List<ItemDto> {
         return handleApi { itemService.getSearchItems(keyword) }.map { it.toDomain() }
+    }
+
+    override suspend fun addBookmarkItem(itemDto: ItemDto) {
+        itemBookmarkDao.addBookmarkItem(itemDto.toData())
     }
 
 }

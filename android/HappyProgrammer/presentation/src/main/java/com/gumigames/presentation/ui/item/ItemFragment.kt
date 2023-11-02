@@ -91,6 +91,7 @@ class ItemFragment : BaseFragment<FragmentItemBinding>(
             viewLifecycleOwner.lifecycleScope.launch { 
                 selectedItem.collectLatest {
                     if(it != null) {
+                        addBookmarkItemInLocal(it)
                         val detailDialog = ItemDetailDialogFragment(itemViewModel)
                         detailDialog.show(childFragmentManager, null)
                     }

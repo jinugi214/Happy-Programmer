@@ -2,6 +2,7 @@ package com.gumigames.data.mapper
 
 import com.gumigames.data.BuildConfig
 import com.gumigames.data.datasource.dao.ItemBookmarkDao
+import com.gumigames.data.datasource.entity.ItemBookmarkEntity
 import com.gumigames.data.model.response.ItemResponse
 import com.gumigames.domain.model.item.ItemDto
 
@@ -23,5 +24,17 @@ fun ItemResponse.toDomain(): ItemDto{
         name = name,
         description = description,
         imagePath = BuildConfig.BASE_URL + imgPath
+    )
+}
+
+/**
+ * domain의 dto를 로컬 db의 ItemBookmarkEntity로
+ */
+fun ItemDto.toData(): ItemBookmarkEntity{
+    return ItemBookmarkEntity(
+        id = -1,
+        name = name,
+        description = description,
+        imagePath = imagePath
     )
 }

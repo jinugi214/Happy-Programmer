@@ -9,5 +9,5 @@ data class ItemBookmarkEntity(
     val id: Int,
     val name: String,
     val description: String,
-    val imageRes: String
+    val imagePath: String
 )
