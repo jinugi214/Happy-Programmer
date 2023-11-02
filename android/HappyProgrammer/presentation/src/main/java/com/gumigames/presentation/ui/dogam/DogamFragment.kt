@@ -18,6 +18,7 @@ import com.gumigames.presentation.ui.dogam.monster.MonsterDetailDialogFragment
 import com.gumigames.presentation.ui.dogam.monster.MonsterListAdapter
 import com.gumigames.presentation.ui.dogam.skill.SkillDetailDialogFragment
 import com.gumigames.presentation.ui.dogam.skill.SkillListAdapter
+import com.gumigames.presentation.util.clickAnimation
 import com.gumigames.presentation.util.clickEnterListener
 import com.gumigames.presentation.util.hideKeyboard
 import com.gumigames.presentation.util.setTextListener
@@ -68,6 +69,7 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
         //아이템 클릭 이벤트
         itemListAdapter.itemClickListner = object: ItemListApdapter.ItemClickListener{
             override fun onClick(view: View, item: ItemDto) {
+                (view.parent as View).clickAnimation(viewLifecycleOwner)
                 if(dogamViewModel.getItemClickListenerEnabled()) {
                     dogamViewModel.setItemClickListenerEnabled(false) // 클릭 이벤트 비활성화(다른 아이템 클릭 못하도록)
                     //해당 아이템 클릭 이벤트
@@ -78,6 +80,7 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
         //스킬 클릭 이벤트
         skillListAdapter.itemClickListner = object: SkillListAdapter.ItemClickListener{
             override fun onClick(view: View, skill: SkillDto) {
+                (view.parent as View).clickAnimation(viewLifecycleOwner)
                 if(dogamViewModel.getItemClickListenerEnabled()) {
                     dogamViewModel.setItemClickListenerEnabled(false) // 클릭 이벤트 비활성화(다른 아이템 클릭 못하도록)
                     //해당 몬스터 클릭 이벤트
@@ -89,6 +92,7 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
         //몬스터 클릭 이벤트
         monsterListAdapter.itemClickListner = object: MonsterListAdapter.ItemClickListener{
             override fun onClick(view: View, monster: MonsterDto) {
+                (view.parent as View).clickAnimation(viewLifecycleOwner)
                 if(dogamViewModel.getItemClickListenerEnabled()) {
                     dogamViewModel.setItemClickListenerEnabled(false) // 클릭 이벤트 비활성화(다른 아이템 클릭 못하도록)
                     //해당 몬스터 클릭 이벤트
