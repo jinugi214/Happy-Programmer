@@ -25,23 +25,5 @@ public class LoginService implements UserDetailsService {
                 .roles(account.getRole().name())
                 .build();
     }
-
-//    public ResponseEntity<?> login(@RequestBody LoginRequestDto loginRequestDto) {
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(loginRequestDto.getAccountId(), loginRequestDto.getPassword())
-//        );
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        UserDetails userDetails = loadUserByUsername(loginRequestDto.getAccountId());
-//        String accessToken = jwtService.createAccessToken(userDetails.getUsername());
-//        String refreshToken = jwtService.createRefreshToken();
-//
-//        jwtService.updateRefreshToken(userDetails.getUsername(), refreshToken);
-//
-//        LoginResponseDto loginResponseDto = LoginResponseDto.builder()
-//                .accessToken(accessToken)
-//                .refreshToken(refreshToken)
-//                .build();
-//
-//        return ResponseEntity.ok(loginResponseDto);
-//    }
+    
 }
