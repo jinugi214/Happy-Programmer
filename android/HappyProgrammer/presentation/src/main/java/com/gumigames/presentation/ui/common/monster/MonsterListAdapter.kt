@@ -1,4 +1,4 @@
-package com.gumigames.presentation.ui.dogam.monster
+package com.gumigames.presentation.ui.common.monster
 
 import android.view.LayoutInflater
 import android.view.View

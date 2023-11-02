@@ -12,12 +12,12 @@ import com.gumigames.domain.model.item.MonsterDto
 import com.gumigames.domain.model.item.SkillDto
 import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentDogamBinding
-import com.gumigames.presentation.ui.dogam.item.ItemDetailDialogFragment
-import com.gumigames.presentation.ui.dogam.item.ItemListApdapter
-import com.gumigames.presentation.ui.dogam.monster.MonsterDetailDialogFragment
-import com.gumigames.presentation.ui.dogam.monster.MonsterListAdapter
-import com.gumigames.presentation.ui.dogam.skill.SkillDetailDialogFragment
-import com.gumigames.presentation.ui.dogam.skill.SkillListAdapter
+import com.gumigames.presentation.ui.common.item.ItemDetailDialogFragment
+import com.gumigames.presentation.ui.common.item.ItemListApdapter
+import com.gumigames.presentation.ui.common.monster.MonsterDetailDialogFragment
+import com.gumigames.presentation.ui.common.monster.MonsterListAdapter
+import com.gumigames.presentation.ui.common.skill.SkillDetailDialogFragment
+import com.gumigames.presentation.ui.common.skill.SkillListAdapter
 import com.gumigames.presentation.util.clickAnimation
 import com.gumigames.presentation.util.clickEnterListener
 import com.gumigames.presentation.util.hideKeyboard
@@ -161,7 +161,7 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
                 selectedItem.collectLatest {
                     if(it != null) {
                         addBookmarkItemInLocal(it) //이거 나중에 itemDetailDialogFragment로 빼라
-                        val detailDialog = ItemDetailDialogFragment(dogamViewModel)
+                        val detailDialog = ItemDetailDialogFragment(dogamViewModel = dogamViewModel, bookmarkViewModel = null)
                         detailDialog.show(childFragmentManager, null)
                     }
                 }

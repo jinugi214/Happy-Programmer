@@ -1,19 +1,18 @@
 package com.gumigames.presentation.ui.bookmark
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.bumptech.glide.Glide.init
 import com.freeproject.happyprogrammers.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
+import com.gumigames.domain.model.item.ItemDto
 import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentBookmarkBinding
-import com.gumigames.presentation.ui.dogam.item.ItemListApdapter
+import com.gumigames.presentation.ui.common.item.ItemDetailDialogFragment
+import com.gumigames.presentation.ui.common.item.ItemListApdapter
+import com.gumigames.presentation.util.clickAnimation
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -54,6 +53,17 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(
     }
 
     override fun initListener() {
+        //북마크 아이템 클릭 이벤트
+        itemListAdapter.itemClickListner = object: ItemListApdapter.ItemClickListener{
+            override fun onClick(view: View, item: ItemDto) {
+                (view.parent as View).clickAnimation(viewLifecycleOwner)
+                if(bookmarkViewModel.getItemClickListenerEnabled()) {
+                    bookmarkViewModel.setItemClickListenerEnabled(false) // 클릭 이벤트 비활성화(다른 아이템 클릭 못하도록)
+                    //해당 아이템 클릭 이벤트
+                    bookmarkViewModel.setSelectedBookmarkItem(item)
+                }
+            }
+        }
         binding.apply {
             tablayoutBookmark.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -86,6 +96,15 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(
             viewLifecycleOwner.lifecycleScope.launch {
                 currentBookmarkItemList.collectLatest {
                     itemListAdapter.submitList(it)
+                }
+            }
+            //아이템 선택 관찰
+            viewLifecycleOwner.lifecycleScope.launch {
+                selectedBookmarkItem.collectLatest {
+                    if(it != null) {
+                        val detailDialog = ItemDetailDialogFragment(dogamViewModel = null, bookmarkViewModel = bookmarkViewModel)
+                        detailDialog.show(childFragmentManager, null)
+                    }
                 }
             }
         }

@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 private const val TAG = "차선호"
@@ -20,13 +21,24 @@ class BookmarkViewModel @Inject constructor(
     private val getAllBookmarkItemsLocalUseCase: GetAllBookmarkItemsLocalUseCase
 ): BaseViewModel(){
 
+    ////////////////////////////////////////////////// 공통 ////////////////////////////////////////////////////
+
     //현재 탭
     private var _currentTab: String = "item"
     fun setCurrentTab(tab: String){
         _currentTab = tab
     }
 
+    //아이템 클릭 리스너 통제 변수
+    private val _itemClickListenerEnabled = AtomicBoolean(true) // 플래그 변수 생성 및 초기화
+    fun getItemClickListenerEnabled(): Boolean{
+        return _itemClickListenerEnabled.get()
+    }
+    fun setItemClickListenerEnabled(value: Boolean){
+        _itemClickListenerEnabled.set(value)
+    }
 
+    ///////////////////////////////////////////////// 아이템 /////////////////////////////////////////////////////
 
     //현재 아이템 북마크 리스트
     private var _currentBookmarkItemList = MutableSharedFlow<List<ItemDto>>()

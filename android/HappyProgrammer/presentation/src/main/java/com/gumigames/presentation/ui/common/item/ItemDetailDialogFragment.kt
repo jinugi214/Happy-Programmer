@@ -1,38 +1,44 @@
-package com.gumigames.presentation.ui.dogam.skill
+package com.gumigames.presentation.ui.common.item
 
 import android.content.DialogInterface
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.freeproject.happyprogrammers.base.BaseDialogFragment
+import com.gumigames.domain.model.item.ItemDto
 import com.gumigames.presentation.R
-import com.gumigames.presentation.databinding.FragmentMonsterDetailDialogBinding
-import com.gumigames.presentation.databinding.FragmentSkillDetailDialogBinding
+import com.gumigames.presentation.databinding.FragmentItemDetailDialogBinding
+import com.gumigames.presentation.ui.bookmark.BookmarkViewModel
 import com.gumigames.presentation.ui.dogam.DogamViewModel
 import com.gumigames.presentation.util.clickAnimation
-import kotlinx.coroutines.delay
 
-class SkillDetailDialogFragment(
-    private val dogamViewModel: DogamViewModel
-) : BaseDialogFragment<FragmentSkillDetailDialogBinding>(
-    FragmentSkillDetailDialogBinding::bind,
-    R.layout.fragment_skill_detail_dialog
+class ItemDetailDialogFragment(
+    private val dogamViewModel: DogamViewModel?,
+    private val bookmarkViewModel: BookmarkViewModel?
+) : BaseDialogFragment<FragmentItemDetailDialogBinding>(
+    FragmentItemDetailDialogBinding::bind,
+    R.layout.fragment_item_detail_dialog
 ) {
+
+    private lateinit var item: ItemDto
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        init()
         initView()
         initListener()
     }
 
+    private fun init(){
+        item = (dogamViewModel?.selectedItem?.value) ?: bookmarkViewModel!!.selectedBookmarkItem.value!!
+    }
+
     private fun initView(){
         binding.apply {
-            textviewItemName.text = dogamViewModel.selectedSkill.value?.name.toString()
-            textviewItemExplain.text = dogamViewModel.selectedSkill.value?.description.toString()
+            textviewItemName.text = item.name.toString()
+            textviewItemExplain.text = item.description.toString()
             Glide.with(this.root)
-                .load(dogamViewModel.selectedSkill.value?.imgPath)
+                .load(item.imgPath)
                 .into(imageItem)
             //TODO 아이템의 isBookmarked를 보고 분기 태워야 함
             buttonSelcetedBookmark.visibility = View.GONE
@@ -65,7 +71,12 @@ class SkillDetailDialogFragment(
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        dogamViewModel.setItemClickListenerEnabled(true)
-        dogamViewModel.setSelectedSkill(null)
+        if(dogamViewModel != null) {
+            dogamViewModel.setItemClickListenerEnabled(true)
+            dogamViewModel.setSelectedItem(null)
+        }else{
+            bookmarkViewModel!!.setItemClickListenerEnabled(true)
+            bookmarkViewModel!!.setSelectedBookmarkItem(null)
+        }
     }
 }
