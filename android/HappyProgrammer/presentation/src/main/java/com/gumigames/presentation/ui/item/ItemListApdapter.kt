@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gumigames.domain.model.item.ItemDto
-import com.gumigames.presentation.BuildConfig
 import com.gumigames.presentation.databinding.ItemItemBinding
+import com.intuit.sdp.BuildConfig
 
 private const val TAG = "차선호"
 class ItemListApdapter: ListAdapter<ItemDto, ItemListApdapter.ItemListHolder>(
@@ -28,10 +28,9 @@ class ItemListApdapter: ListAdapter<ItemDto, ItemListApdapter.ItemListHolder>(
     }
     inner class ItemListHolder(private val binding: ItemItemBinding): RecyclerView.ViewHolder(binding.root){
         fun bindInfo(item : ItemDto){
-            Log.d(TAG, "bindInfo.... $item")
             binding.apply {
                 Glide.with(binding.root)
-                    .load(BuildConfig.BASE_URL+item.imagePath)
+                    .load(item.imagePath)
                     .into(imageItem)
                 imageItem.setOnClickListener {
                     itemClickListner.onClick(it, item)

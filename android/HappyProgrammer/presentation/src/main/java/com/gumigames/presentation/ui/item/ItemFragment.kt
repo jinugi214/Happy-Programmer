@@ -1,6 +1,7 @@
 package com.gumigames.presentation.ui.item
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -9,11 +10,14 @@ import com.freeproject.happyprogrammers.base.BaseFragment
 import com.gumigames.domain.model.item.ItemDto
 import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentItemBinding
+import com.gumigames.presentation.util.clickEnterListener
+import com.gumigames.presentation.util.hideKeyboard
+import com.gumigames.presentation.util.setTextListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-
+private const val TAG = "차선호"
 @AndroidEntryPoint
 class ItemFragment : BaseFragment<FragmentItemBinding>(
     FragmentItemBinding::bind,
@@ -36,37 +40,60 @@ class ItemFragment : BaseFragment<FragmentItemBinding>(
     }
 
     private fun init(){
-        itemViewModel.getTotalItemList()
+        itemViewModel.getAllItems()
     }
 
     private fun initItemRecyclerView(){
         itemListAdapter = ItemListApdapter()
         binding.recyclerviewItem.apply {
-            adapter = itemListAdapter.apply {
-                this.itemClickListner = object: ItemListApdapter.ItemClickListener{
-                    override fun onClick(view: View, item: ItemDto) {
-                        if(itemViewModel.getItemClickListenerEnabled()) {
-                            itemViewModel.setItemClickListenerEnabled(false) // 클릭 이벤트 비활성화(다른 아이템 클릭 못하도록)
-                            //해당 아이템 클릭 이벤트
-                            val detailDialog = ItemDetailDialogFragment(itemViewModel)
-                            detailDialog.show(childFragmentManager, null)
-                        }
-                    }
-                }
-            }
+            adapter = itemListAdapter
             layoutManager = GridLayoutManager(mActivity, 3)
         }
     }
     override fun initListener() {
+        //아이템 클릭 이벤트
+        itemListAdapter.itemClickListner = object: ItemListApdapter.ItemClickListener{
+            override fun onClick(view: View, item: ItemDto) {
+                if(itemViewModel.getItemClickListenerEnabled()) {
+                    itemViewModel.setItemClickListenerEnabled(false) // 클릭 이벤트 비활성화(다른 아이템 클릭 못하도록)
+                    //해당 아이템 클릭 이벤트
+                    itemViewModel.setSelectedItem(item)
+                }
+            }
+        }
         binding.apply {
+            edittextSearch.setTextListener {
+                //검색 키워드 갱신
+                itemViewModel.setSearchKeyword(it)
+            }
+            edittextSearch.clickEnterListener {
+                //아이템 검색 이벤트
+                itemViewModel.getSearchItems()
+                hideKeyboard(mActivity)
+            }
+            imageSearch.setOnClickListener {
+                //아이템 검색 이벤트
+                itemViewModel.getSearchItems()
+                hideKeyboard(mActivity)
+            }
         }
     }
 
     private fun initCollect(){
         itemViewModel.apply {
+            //아이템 리스트 관찰
             viewLifecycleOwner.lifecycleScope.launch {
                 currentItemList.collectLatest {
                     itemListAdapter.submitList(it)
+                }
+            }
+            //아이템 선택 관찰
+            viewLifecycleOwner.lifecycleScope.launch { 
+                selectedItem.collectLatest {
+                    if(it != null) {
+                        val detailDialog = ItemDetailDialogFragment(itemViewModel)
+                        detailDialog.show(childFragmentManager, null)
+                    }
                 }
             }
         }

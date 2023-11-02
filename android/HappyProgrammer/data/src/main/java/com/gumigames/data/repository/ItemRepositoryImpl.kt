@@ -15,4 +15,8 @@ class ItemRepositoryImpl(
         return handleApi { itemService.getAllItems() }.map { it.toDomain() }
     }
 
+    override suspend fun getSearchItems(keyword: String): List<ItemDto> {
+        return handleApi { itemService.getSearchItems(keyword) }.map { it.toDomain() }
+    }
+
 }
