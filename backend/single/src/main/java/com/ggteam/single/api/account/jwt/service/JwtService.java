@@ -2,16 +2,23 @@ package com.ggteam.single.api.account.jwt.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.ggteam.single.api.account.exception.InvalidTokenException;
 import com.ggteam.single.api.account.repository.AccountRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -55,16 +62,6 @@ public class JwtService {
                 .sign(Algorithm.HMAC512(secretKey)); // HMAC512 알고리즘 사용, application-jwt.yml에서 지정한 secret 키로 암호화
     }
 
-    // AccessToken 헤더 설정
-    public void setAccessTokenHeader(HttpServletResponse response, String accessToken) {
-        response.setHeader(accessHeader, accessToken);
-    }
-
-    // RefreshToken 헤더 설정
-    public void setRefreshTokenHeader(HttpServletResponse response, String refreshToken) {
-        response.setHeader(refreshHeader, refreshToken);
-    }
-
     // RefreshToken 생성 메서드
     // refreshToken은 Claim에 accountId를 넣지 않으므로 withClaim() X
     public String createRefreshToken() {
@@ -75,12 +72,23 @@ public class JwtService {
                 .sign(Algorithm.HMAC512(secretKey));
     }
 
+    // AccessToken 헤더 설정
+    public void setAccessTokenHeader(HttpServletResponse response, String accessToken) {
+        response.setHeader(accessHeader, accessToken);
+    }
+
+    // RefreshToken 헤더 설정
+    public void setRefreshTokenHeader(HttpServletResponse response, String refreshToken) {
+        response.setHeader(refreshHeader, refreshToken);
+    }
+
+
     // AccessToken 헤더에 실어서 보내기
-    public void sendAccessToken(HttpServletResponse response, String accessToekn) {
+    public void sendAccessToken(HttpServletResponse response, String accessToken) {
         response.setStatus(HttpServletResponse.SC_OK);
 
-        response.setHeader(accessHeader, accessToekn);
-        log.info("재발급된 Access Token : {}", accessToekn);
+        response.setHeader(accessHeader, accessToken);
+        log.info("재발급된 Access Token : {}", accessToken);
     }
 
     // AccessToken + RefreshToken 헤더에 실어 보내기
@@ -116,13 +124,15 @@ public class JwtService {
     // 유효하지 않다면 빈 Optional 객체 반환
     public Optional<String> extractAccountId(String accessToken) {
         try {
-            return Optional.ofNullable(JWT.require(Algorithm.HMAC512(secretKey))
-                    .build()
-                    .verify(accessToken)
-                    .getClaim(ACCOUNT_ID_CLAIM)
-                    .asString());
+            return Optional.of(
+                    JWT.require(Algorithm.HMAC512(secretKey))
+                            .build()
+                            .verify(accessToken)
+                            .getClaim(ACCOUNT_ID_CLAIM)
+                            .asString()
+            );
         } catch (Exception e) {
-            log.error("Invalid Access Token");
+            log.error("Error extracting accountId from Access Token");
             return Optional.empty();
         }
     }
@@ -140,9 +150,26 @@ public class JwtService {
         try {
             JWT.require(Algorithm.HMAC512(secretKey)).build().verify(token);
             return true;
+        } catch (TokenExpiredException e) {
+            log.error("Expired Access Token");
+            errorClassify("Auth001", "Expired Access Token");
+            return false;
+        } catch (JWTVerificationException e) {
+            log.error("Invalid Access Token");
+            errorClassify("Auth004", "Invalid Access Token");
+            return false;
         } catch (Exception e) {
-            log.error("Invalid Token. {}", e.getMessage());
+            log.error("Unexpected Error");
+            errorClassify("Auth999", "Unexpected Error");
             return false;
         }
+    }
+
+    public ResponseEntity<Map<String, String>> errorClassify(String errorCode, String definition) {
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("errorCode", errorCode);
+        errorMap.put("definition", definition);
+
+        return new ResponseEntity<>(errorMap, HttpStatus.UNAUTHORIZED);
     }
 }
