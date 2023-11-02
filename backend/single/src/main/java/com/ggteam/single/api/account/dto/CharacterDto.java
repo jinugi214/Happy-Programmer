@@ -19,6 +19,6 @@ public class CharacterDto {
     private int exp;
     private int level;
     private int savepoint;
-    private String characterImgPath;
+    private String imgPath;
 
 }

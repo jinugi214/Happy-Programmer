@@ -74,11 +74,11 @@ public class SecurityConfig {
                 //== URL별 권한 관리 옵션 ==//
                 .authorizeRequests()
 
-                .antMatchers("/api/account/**").permitAll() // 회원가입 접근 가능
+                .antMatchers("/api/account/login").permitAll() // 해당 주소를 가지는 url 접근 가능
                 // 아이콘, css, js 관련
                 // 기본 페이지, css, image, js 하위 폴더에 있는 자료들은 모두 접근 가능
-                //.antMatchers("/","/css/**","/images/**","/js/**","/favicon.ico").permitAll()
-                //.anyRequest().authenticated(); // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
+                .antMatchers("/","/css/**","/images/**","/js/**","/favicon.ico").permitAll()
+                .anyRequest().authenticated() // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
 
                 .and()
                 // 원래 스프링 시큐리티 필터 순서가 LogoutFilter 이후에 로그인 필터 동작

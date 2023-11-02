@@ -30,7 +30,7 @@ public class Character {
 
     private int savepoint;
 
-    private String characterImgPath;
+    private String imgPath;
 
     @OneToOne(mappedBy = "character")
     @JsonBackReference
