@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">HappyProgrammers</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!--profile-->
+    <string name="title_profile">프로필</string>
+
+    <!--item-->
+    <string name="title_item">아이템</string>
+    <string name="text_total">전체</string>
+    <string name="text_keyboard">키보드</string>
+    <string name="text_mouse">마우스</string>
+    <string name="text_etc">기타</string>
+
+    <!--skill-->
+    <string name="title_skill">스킬</string>
+
+    <!--monster-->
+    <string name="title_monster">몬스터</string>
+
+</resources>
