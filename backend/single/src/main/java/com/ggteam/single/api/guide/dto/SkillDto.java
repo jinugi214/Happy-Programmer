@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SkillDto {
 
+	private Integer id;
 	private String name;
-
 	private String description;
-
 	private String imgPath;
 
 	public SkillDto(Skill entity){
+		this.id = entity.getId();
 		this.name = entity.getName();
 		this.description = entity.getDescription();
 		this.imgPath = entity.getImgPath();
