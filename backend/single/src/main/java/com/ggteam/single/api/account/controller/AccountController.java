@@ -35,10 +35,6 @@ public class AccountController {
         return ResponseEntity.ok("회원가입 성공");
     }
 
-//    @PostMapping("/account/login")
-//    public ResponseEntity<?> login(@RequestBody LoginRequestDto loginRequestDto) {
-//        return loginService.login(loginRequestDto);
-//    }
 
     @GetMapping("/account/jwt-test")
     public String jwtTest() {
