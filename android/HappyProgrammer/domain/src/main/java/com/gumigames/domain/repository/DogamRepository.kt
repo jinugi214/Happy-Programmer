@@ -14,10 +14,6 @@ interface DogamRepository {
      */
     suspend fun getSearchItems(keyword: String): List<ItemDto>
     /**
-     * 즐겨찾기 아이템 로컬에 저장
-     */
-    suspend fun addBookmarkItem(itemDto: ItemDto)
-    /**
      * 스킬 전체 조회
      */
     suspend fun getAllSkills(): List<SkillDto>

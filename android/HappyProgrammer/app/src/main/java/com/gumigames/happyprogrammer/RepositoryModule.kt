@@ -2,6 +2,7 @@ package com.gumigames.happyprogrammer
 
 import com.gumigames.data.datasource.dao.ItemBookmarkDao
 import com.gumigames.data.datasource.sharedpreference.PreferenceDataSource
+import com.gumigames.data.repository.BookmarkRepositoryImpl
 import com.gumigames.data.repository.GithubRepositoryImpl
 import com.gumigames.data.repository.DogamRepositoryImpl
 import com.gumigames.data.repository.LoginRepositoryImpl
@@ -9,6 +10,7 @@ import com.gumigames.data.service.GithubService
 import com.gumigames.data.service.ItemService
 import com.gumigames.data.service.MonsterService
 import com.gumigames.data.service.SkillService
+import com.gumigames.domain.repository.BookmarkRepository
 import com.gumigames.domain.repository.GithubRepository
 import com.gumigames.domain.repository.DogamRepository
 import com.gumigames.domain.repository.LoginRepository
@@ -36,17 +38,25 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun providedogamRepository(
-        itemBookmarkDao: ItemBookmarkDao,
+    fun provideDogamRepository(
         itemService: ItemService,
         skillService: SkillService,
         monsterService: MonsterService,
-        ): DogamRepository {
+    ): DogamRepository {
         return DogamRepositoryImpl(
-            itemBookmarkDao = itemBookmarkDao,
             itemService = itemService,
             skillService = skillService,
             monsterService = monsterService
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideBookmarkRepository(
+        itemBookmarkDao: ItemBookmarkDao
+    ): BookmarkRepository{
+        return BookmarkRepositoryImpl(
+            itemBookmarkDao = itemBookmarkDao
         )
     }
 

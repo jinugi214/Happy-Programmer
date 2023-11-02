@@ -9,14 +9,7 @@ import com.gumigames.domain.model.item.ItemDto
 import com.gumigames.domain.model.item.MonsterDto
 import com.gumigames.domain.model.item.SkillDto
 
-/**
- * 로컬에서 가져온 Entity를 domain의 model로 변환
- */
-//fun ItemBookmarkDao.toDomain(): ItemDto{
-//    return ItemDto(
-//
-//    )
-//}
+
 
 /**
  * 서버에서 가져온 Response를 domain의 model로 변환
@@ -49,14 +42,3 @@ fun MonsterResponse.toDomain(): MonsterDto{
 
 
 
-/**
- * domain의 dto를 로컬 db의 ItemBookmarkEntity로
- */
-fun ItemDto.toData(): ItemBookmarkEntity{
-    return ItemBookmarkEntity(
-        id = id,
-        name = name,
-        description = description,
-        imagePath = imgPath
-    )
-}
