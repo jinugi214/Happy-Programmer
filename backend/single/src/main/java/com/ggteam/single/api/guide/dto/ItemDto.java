@@ -1,7 +1,6 @@
-package com.ggteam.single.api.inventory.dto;
+package com.ggteam.single.api.guide.dto;
 
-import com.ggteam.single.api.guide.entity.Skill;
-import com.ggteam.single.api.inventory.entity.Item;
+import com.ggteam.single.api.guide.entity.Item;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,11 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ItemDto {
 
+	private Integer id;
 	private String name;
 	private String description;
 	private String imgPath;
 
 	public ItemDto(Item entity){
+		this.id = entity.getId();
 		this.name = entity.getName();
 		this.description = entity.getDescription();
 		this.imgPath = entity.getImgPath();
