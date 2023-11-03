@@ -78,7 +78,29 @@ class PreferenceDataSourceImpl(
     override fun resetToken() {
         TODO("Not yet implemented")
     }
+    override fun setPermissionRejected(key: String, value: Boolean) {
+        putBoolean(key, value)
+    }
 
+    override fun getPermissionRejected(key: String): Boolean {
+        return getBoolean(key)
+    }
+
+    override fun setIsShowedPermissionDialog(key: String, value: Boolean) {
+        putBoolean(key, value)
+    }
+
+    override fun getIsShowedPermissionDialog(key: String): Boolean {
+        return getBoolean(key)
+    }
+
+    override fun getIsAlreadyShowedDialog(): Boolean {
+        return getBoolean(IS_SHOWED_PERMISSION_DIALOG)
+    }
+
+    override fun setIsAlreadyShowedDialog(value: Boolean) {
+        putBoolean(IS_SHOWED_PERMISSION_DIALOG, value)
+    }
     override fun getIsLogined(): Boolean {
         return getBoolean(IS_LOGINED)
     }

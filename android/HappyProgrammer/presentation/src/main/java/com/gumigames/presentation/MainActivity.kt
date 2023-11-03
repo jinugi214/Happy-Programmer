@@ -1,5 +1,6 @@
 package com.gumigames.presentation
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,10 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.freeproject.happyprogrammers.base.BaseActivity
 import com.gumigames.presentation.databinding.ActivityMainBinding
+import com.gumigames.presentation.util.PERMISSION_LIST_UNDER32
+import com.gumigames.presentation.util.PERMISSION_LIST_UP33
+import com.gumigames.presentation.util.checkAllPermission
+import com.gumigames.presentation.util.showPermissionDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -25,8 +30,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestPermission()
         initNavController()
         initListener()
+        initCollector()
+    }
+    private fun requestPermission(){
+        mainViewModel.setIsAlreadyShowedDialog(false)
+        checkAllPermission(
+            fragment = null,
+            activity = this,
+            permissionList = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) PERMISSION_LIST_UP33 else PERMISSION_LIST_UNDER32,
+            getPermissionRejected = {it -> mainViewModel.getPermissionRejected(it)},
+            setPermissionRejected = {it -> mainViewModel.setPermissionRejected(it)},
+            getIsShowedPermissionDialog = {it -> mainViewModel.getIsShowedPermissionDialog(it+"show")},
+            setIsShowedPermissionDialog = {it -> mainViewModel.setIsShowedPermissionDialog(it+"show")},
+            isShowDialog = {if(!mainViewModel.isShowPermissionDialog.value) mainViewModel.setIsShowPermissionDialog(true)}
+        )
     }
 
     private fun initListener(){
@@ -86,5 +106,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
         val navController = navHostFragment.navController
         navController.setGraph(graph, intent.extras)
+    }
+
+    private fun initCollector(){
+        mainViewModel.apply {
+            lifecycleScope.launch {
+                isShowPermissionDialog.collectLatest {
+                    Log.d(TAG, "isShowPermissionDialog collect... $it")
+                    if(it){
+                        showPermissionDialog(this@MainActivity)
+                        setIsShowPermissionDialog(false)
+                    }
+                }
+            }
+        }
     }
 }
