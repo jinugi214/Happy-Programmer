@@ -4,8 +4,7 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
-import com.bumptech.glide.Glide.init
-import com.freeproject.happyprogrammers.base.BaseDialogFragment
+import com.freeproject.happyprogrammers.base.BaseBorderDialogFragment
 import com.gumigames.domain.model.common.MonsterDto
 import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentMonsterDetailDialogBinding
@@ -16,7 +15,7 @@ import com.gumigames.presentation.util.clickAnimation
 class MonsterDetailDialogFragment(
     private val dogamViewModel: DogamViewModel?,
     private val bookmarkViewModel: BookmarkViewModel?
-) : BaseDialogFragment<FragmentMonsterDetailDialogBinding>(
+) : BaseBorderDialogFragment<FragmentMonsterDetailDialogBinding>(
     FragmentMonsterDetailDialogBinding::bind,
     R.layout.fragment_monster_detail_dialog
 ) {
