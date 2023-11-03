@@ -1,6 +1,7 @@
 package com.gumigames.happyprogrammer
 
 import com.gumigames.data.datasource.dao.ItemBookmarkDao
+import com.gumigames.data.datasource.dao.SkillBookmarkDao
 import com.gumigames.data.datasource.sharedpreference.PreferenceDataSource
 import com.gumigames.data.repository.BookmarkRepositoryImpl
 import com.gumigames.data.repository.GithubRepositoryImpl
@@ -53,10 +54,12 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideBookmarkRepository(
-        itemBookmarkDao: ItemBookmarkDao
+        itemBookmarkDao: ItemBookmarkDao,
+        bookmarkDao: SkillBookmarkDao
     ): BookmarkRepository{
         return BookmarkRepositoryImpl(
-            itemBookmarkDao = itemBookmarkDao
+            itemBookmarkDao = itemBookmarkDao,
+            bookmarkDao = bookmarkDao
         )
     }
 

@@ -8,6 +8,6 @@ class GetAllBookmarkItemsLocalUseCase @Inject constructor(
     private val bookmarkRepository: BookmarkRepository
 ) {
     suspend operator fun invoke(): List<ItemDto>{
-        return bookmarkRepository.getAllBookmarkItemLocal()
+        return bookmarkRepository.getAllBookmarkItemsLocal()
     }
 }

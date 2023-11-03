@@ -4,7 +4,8 @@ import androidx.lifecycle.viewModelScope
 import com.gumigames.domain.model.item.ItemDto
 import com.gumigames.domain.model.item.MonsterDto
 import com.gumigames.domain.model.item.SkillDto
-import com.gumigames.domain.usecase.bookmark.item.AddBookmarkItemUseCase
+import com.gumigames.domain.usecase.bookmark.item.AddBookmarkItemLocalUseCase
+import com.gumigames.domain.usecase.bookmark.skill.AddBookmarkSkillLocalUseCase
 import com.gumigames.domain.usecase.dogam.litem.GetAllItemsUseCase
 import com.gumigames.domain.usecase.dogam.litem.GetSearchItemsUseCase
 import com.gumigames.domain.usecase.dogam.monster.GetAllMonstersUseCase
@@ -26,9 +27,10 @@ import javax.inject.Inject
 class DogamViewModel @Inject constructor(
     private val getAllItemsUseCase: GetAllItemsUseCase,
     private val getSearchItemsUseCase: GetSearchItemsUseCase,
-    private val addBookmarkItemUseCase: AddBookmarkItemUseCase,
+    private val addBookmarkItemUseCase: AddBookmarkItemLocalUseCase,
     private val getAllSkillsUseCase: GetAllSkillsUseCase,
     private val getSearchSkillsUseCase: GetSearchSkillsUseCase,
+    private val addBookmarkSkillLocalUseCase: AddBookmarkSkillLocalUseCase,
     private val getAllMonstersUseCase: GetAllMonstersUseCase,
     private val getSearchMonstersUseCase: GetSearchMonstersUseCase
 ): BaseViewModel() {
@@ -107,7 +109,7 @@ class DogamViewModel @Inject constructor(
     }
 
     //로컬에 북마크 아이템 추가
-    fun addBookmarkItemInLocal(item: ItemDto){
+    fun addBookmarkItemLocal(item: ItemDto){
         viewModelScope.launch {
             addBookmarkItemUseCase.invoke(item)
         }
@@ -115,13 +117,13 @@ class DogamViewModel @Inject constructor(
 
     ///////////////////////////////////////////// 스킬 ////////////////////////////////////////////////////
 
-    //현재 몬스터 리스트
+    //현재 스킬 리스트
     private var _currentSkillList = MutableSharedFlow<List<SkillDto>>()
 
     val currentSkillList: SharedFlow<List<SkillDto>>
         get() = _currentSkillList.asSharedFlow()
 
-    //현재 선택된 몬스터
+    //현재 선택된 스킬
     private var _selectedSkill = MutableStateFlow<SkillDto?>(null)
     val selectedSkill = _selectedSkill.asStateFlow()
     fun setSelectedSkill(skill: SkillDto?){
@@ -152,6 +154,13 @@ class DogamViewModel @Inject constructor(
                     }
                 }
             }
+        }
+    }
+
+    //로컬에 북마크 스킬 추가
+    fun addBookmarkSkillLocal(skill: SkillDto){
+        viewModelScope.launch {
+            addBookmarkSkillLocalUseCase.invoke(skill)
         }
     }
 
