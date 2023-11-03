@@ -1263,7 +1263,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 814446330231819345, guid: a6ce6109111fb4842aa7faf95bb03456, type: 3}
       propertyPath: m_Color.a
-      value: 0.5882353
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 814446330231819345, guid: a6ce6109111fb4842aa7faf95bb03456, type: 3}
       propertyPath: m_Color.b
@@ -1353,6 +1353,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3217191479509438677, guid: a6ce6109111fb4842aa7faf95bb03456, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4311298421099447188, guid: a6ce6109111fb4842aa7faf95bb03456, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1374,12 +1378,16 @@ PrefabInstance:
       value: GameSetting
       objectReference: {fileID: 0}
     - target: {fileID: 4502788714237486819, guid: a6ce6109111fb4842aa7faf95bb03456, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4502788714237486819, guid: a6ce6109111fb4842aa7faf95bb03456, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5589627262447594966, guid: a6ce6109111fb4842aa7faf95bb03456, type: 3}
       propertyPath: m_Color.a
-      value: 0.5882353
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6097835624121447976, guid: a6ce6109111fb4842aa7faf95bb03456, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1437,6 +1445,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7357312187307423897, guid: a6ce6109111fb4842aa7faf95bb03456, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 363080479}
     - target: {fileID: 9064210237028260007, guid: a6ce6109111fb4842aa7faf95bb03456, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
