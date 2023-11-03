@@ -1,9 +1,9 @@
-package com.gumigames.domain.model.item
+package com.gumigames.domain.model.common
 
-data class MonsterDto(
+data class ItemDto(
     val id: Int,
     val name: String,
-    val hp: Int,
     val description: String,
     val imgPath: String
 )
+

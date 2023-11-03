@@ -1,7 +1,8 @@
 package com.gumigames.domain.repository
 
-import com.gumigames.domain.model.item.ItemDto
-import com.gumigames.domain.model.item.SkillDto
+import com.gumigames.domain.model.common.ItemDto
+import com.gumigames.domain.model.common.MonsterDto
+import com.gumigames.domain.model.common.SkillDto
 
 interface BookmarkRepository {
     /**
@@ -20,4 +21,12 @@ interface BookmarkRepository {
      * 즐겨찾기 스킬 로컬에 저장
      */
     suspend fun addBookmarkSkillLocal(skillDto: SkillDto)
+    /**
+     * 로컬에 있는 즐겨찾기 몬스터 조회
+     */
+    suspend fun getAllBookmarkMonstersLocal(): List<MonsterDto>
+    /**
+     * 즐겨찾기 몬스터 조회
+     */
+    suspend fun addBookmarkMonsterLocal(monsterDto: MonsterDto)
 }

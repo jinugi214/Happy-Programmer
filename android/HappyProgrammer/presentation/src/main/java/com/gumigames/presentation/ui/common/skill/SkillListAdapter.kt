@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.gumigames.domain.model.item.SkillDto
+import com.gumigames.domain.model.common.SkillDto
 import com.gumigames.presentation.databinding.ItemDogamBinding
 
 class SkillListAdapter: ListAdapter<SkillDto, SkillListAdapter.SkillrListHolder>(

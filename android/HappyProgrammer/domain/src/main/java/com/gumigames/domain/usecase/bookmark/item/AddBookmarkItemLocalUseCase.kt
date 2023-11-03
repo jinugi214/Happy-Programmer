@@ -1,6 +1,6 @@
 package com.gumigames.domain.usecase.bookmark.item
 
-import com.gumigames.domain.model.item.ItemDto
+import com.gumigames.domain.model.common.ItemDto
 import com.gumigames.domain.repository.BookmarkRepository
 import javax.inject.Inject
 

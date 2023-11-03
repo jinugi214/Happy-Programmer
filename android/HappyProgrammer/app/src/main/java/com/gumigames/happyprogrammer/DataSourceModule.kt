@@ -3,6 +3,7 @@ package com.gumigames.happyprogrammer
 import android.content.Context
 import androidx.room.Room
 import com.gumigames.data.datasource.dao.ItemBookmarkDao
+import com.gumigames.data.datasource.dao.MonsterBookmarkDao
 import com.gumigames.data.datasource.dao.SkillBookmarkDao
 import com.gumigames.data.datasource.db.BookmarkDatabase
 import com.gumigames.data.datasource.sharedpreference.PreferenceDataSource
@@ -38,5 +39,9 @@ object DataSourceModule {
     @Singleton
     @Provides
     fun provideSkillBookmarkDao(bookmarkDatabase: BookmarkDatabase): SkillBookmarkDao = bookmarkDatabase.skillBookmarkDao()
+
+    @Singleton
+    @Provides
+    fun provideMonsterBookmarkDao(bookmarkDatabase: BookmarkDatabase): MonsterBookmarkDao = bookmarkDatabase.monsterBookmarkDao()
 
 }

@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
 import com.freeproject.happyprogrammers.base.BaseDialogFragment
-import com.gumigames.domain.model.item.ItemDto
+import com.gumigames.domain.model.common.ItemDto
 import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentItemDetailDialogBinding
 import com.gumigames.presentation.ui.bookmark.BookmarkViewModel
@@ -76,7 +76,7 @@ class ItemDetailDialogFragment(
             dogamViewModel.setSelectedItem(null)
         }else{
             bookmarkViewModel!!.setItemClickListenerEnabled(true)
-            bookmarkViewModel!!.setSelectedBookmarkItem(null)
+            bookmarkViewModel.setSelectedBookmarkItem(null)
         }
     }
 }

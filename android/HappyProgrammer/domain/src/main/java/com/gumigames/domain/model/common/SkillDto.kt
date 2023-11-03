@@ -1,7 +1,5 @@
-package com.gumigames.domain.model.item
+package com.gumigames.domain.model.common
 
-
-import com.google.gson.annotations.SerializedName
 
 data class SkillDto(
     val id: Int,

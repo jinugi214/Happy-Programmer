@@ -7,9 +7,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.freeproject.happyprogrammers.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
-import com.gumigames.domain.model.item.ItemDto
-import com.gumigames.domain.model.item.MonsterDto
-import com.gumigames.domain.model.item.SkillDto
+import com.gumigames.domain.model.common.ItemDto
+import com.gumigames.domain.model.common.MonsterDto
+import com.gumigames.domain.model.common.SkillDto
 import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentDogamBinding
 import com.gumigames.presentation.ui.common.item.ItemDetailDialogFragment
@@ -192,7 +192,8 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
             viewLifecycleOwner.lifecycleScope.launch {
                 selectedMonster.collectLatest {
                     if(it != null){
-                        val detailDialog = MonsterDetailDialogFragment(dogamViewModel)
+                        addBookmarkMonsterLocal(it) //이거 나중에 skillDetailDialogFragment로 빼라
+                        val detailDialog = MonsterDetailDialogFragment(dogamViewModel = dogamViewModel, bookmarkViewModel = null)
                         detailDialog.show(childFragmentManager, null)
                     }
                 }
