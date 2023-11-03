@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.ggteam.single.api.guide.entity.Item;
 import com.ggteam.single.api.guide.entity.Monster;
-import com.ggteam.single.api.guide.entity.Skill;
 
 @Repository
-public interface SkillRepository extends JpaRepository<Skill, Long> {
-	// 스킬 이름 검색
-	List<Skill> findByNameContaining(String keyword);
+public interface ItemRepository extends JpaRepository<Item, Long> {
+
+	List<Item> findByNameContaining(String keyword);
 }

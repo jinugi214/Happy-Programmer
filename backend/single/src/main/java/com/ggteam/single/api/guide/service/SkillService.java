@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ggteam.single.api.guide.dto.MonsterDto;
 import com.ggteam.single.api.guide.dto.SkillDto;
 import com.ggteam.single.api.guide.repository.SkillRepository;
 
@@ -21,6 +22,14 @@ public class SkillService {
 	@Transactional(readOnly = true)
 	public List<SkillDto> findAll(){
 		return skillRepository.findAll().stream()
+			.map(SkillDto::new)
+			.collect(Collectors.toList());
+	}
+
+	// 스킬 검색하기
+	@Transactional(readOnly = true)
+	public List<SkillDto> findAllByName(String keyword) {
+		return skillRepository.findByNameContaining(keyword).stream()
 			.map(SkillDto::new)
 			.collect(Collectors.toList());
 	}

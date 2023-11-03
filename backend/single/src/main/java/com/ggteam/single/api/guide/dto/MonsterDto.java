@@ -9,15 +9,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MonsterDto {
 
+	private Integer id;
 	private String name;
-
 	private String description;
-
 	private int hp;
-
 	private String imgPath;
 
 	public MonsterDto(Monster entity){
+		this.id = entity.getId();
 		this.name = entity.getName();
 		this.description = entity.getDescription();
 		this.hp = entity.getHp();
