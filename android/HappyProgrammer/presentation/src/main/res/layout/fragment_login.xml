@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@drawable/image_login_background"
+    tools:context=".ui.login.LoginFragment">
+
+    <Space
+        android:id="@+id/space1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_logo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/image_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/space1"
+        app:layout_constraintWidth_percent="0.75"/>
+
+    <Space
+        android:id="@+id/space2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_logo"/>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_login"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/space2"
+        app:layout_constraintWidth_percent="0.8">
+
+        <FrameLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.6"
+            android:background="@drawable/frame_border_white30" />
+
+        <LinearLayout
+            android:id="@+id/layout_login"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@id/container_login"
+            app:layout_constraintEnd_toEndOf="@id/container_login"
+            app:layout_constraintHeight_percent="0.6"
+            app:layout_constraintStart_toStartOf="@id/container_login"
+            app:layout_constraintTop_toTopOf="@id/container_login"
+            app:layout_constraintWidth_percent="0.8">
+
+            <LinearLayout
+                android:id="@+id/layout_edittext_id"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/frame_border_stroke_gray">
+
+                <EditText
+                    android:id="@+id/edittext_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:background="@android:color/transparent"
+                    android:hint="ID"
+                    style="@style/Theme.AppCompat.TextView.dunggeunmo.black.Size16"/>
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5" />
+
+            <LinearLayout
+                android:id="@+id/layout_edittext_pw"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/frame_border_stroke_gray">
+
+                <EditText
+                    android:id="@+id/edittext_pw"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:background="@android:color/transparent"
+                    android:hint="PW"
+                    style="@style/Theme.AppCompat.TextView.dunggeunmo.black.Size16"
+                    android:inputType="textPassword" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_login"
+                style="@style/Theme.AppCompat.TextView.dunggeunmo.black.Size24"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/frame_border_pink"
+                android:text="login" />
+
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
