@@ -9,9 +9,16 @@ public class Slot : MonoBehaviour
     public int itemCount; // 획득한 아이템의 개수
     public Image itemImage;  // 아이템의 이미지
 
+    public CharacterAppear characterAppear; 
+
     [SerializeField]
     private Text text_Count;
     [SerializeField]
+
+        void Start()
+    {
+        characterAppear = FindObjectOfType<CharacterAppear>();
+    }
 
     // 아이템 이미지의 투명도 조절
     private void SetColor(float _alpha)
@@ -34,7 +41,7 @@ public class Slot : MonoBehaviour
         }
         else
         {
-            text_Count.text = "0";
+            text_Count.text = "";
         }
 
         SetColor(1);
@@ -89,15 +96,61 @@ public class Slot : MonoBehaviour
 }
 
 
-    public void UseItem()
+public void UseItem()
 {
     if (item != null)
     {
         if (item.itemType == Item.ItemType.Equipment)
         {
             // 장비 장착 로직
-            Debug.Log("장비 장착");
+            switch(item.itemName)
+            {
+                case "keyboard1":
+                    characterAppear.EquipKeyboard1();
+                    break;
+                case "keyboard2":
+                    characterAppear.EquipKeyboard2();
+                    break;
+                case "keyboard3":
+                    characterAppear.EquipKeyboard3();
+                    break;
+
+                case "mouse1":
+                    characterAppear.EquipMouse1();
+                    break;
+                case "mouse2":
+                    characterAppear.EquipMouse2();
+                    break;
+                case "mouse3":
+                    characterAppear.EquipMouse3();
+                    break;
+                
+                case "phone1":
+                    characterAppear.EquipPhone1();
+                    break;
+                case "phone2":
+                    characterAppear.EquipPhone2();
+                    break;
+                case "phone3":
+                    characterAppear.EquipPhone3();
+                    break;
+
+                case "helmet1":
+                    characterAppear.EquipHelmet1();
+                    break;
+                case "helmet2":
+                    characterAppear.EquipHelmet2();
+                    break;
+                case "helmet3":
+                    characterAppear.EquipHelmet3();
+                    break;
+
+                default:
+                    Debug.Log("미등록 장비");
+                    break;
+            }   
         }
+
         else if (item.itemType == Item.ItemType.Food)
         {
             // 음식 사용 로직
