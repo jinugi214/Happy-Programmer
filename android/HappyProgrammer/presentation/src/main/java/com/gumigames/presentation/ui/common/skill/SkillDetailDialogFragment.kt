@@ -4,30 +4,42 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
+import com.bumptech.glide.Glide.init
 import com.freeproject.happyprogrammers.base.BaseDialogFragment
+import com.gumigames.domain.model.item.SkillDto
 import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentSkillDetailDialogBinding
+import com.gumigames.presentation.ui.bookmark.BookmarkViewModel
 import com.gumigames.presentation.ui.dogam.DogamViewModel
 import com.gumigames.presentation.util.clickAnimation
 
 class SkillDetailDialogFragment(
-    private val dogamViewModel: DogamViewModel
+    private val dogamViewModel: DogamViewModel?,
+    private val bookmarkViewModel: BookmarkViewModel?
 ) : BaseDialogFragment<FragmentSkillDetailDialogBinding>(
     FragmentSkillDetailDialogBinding::bind,
     R.layout.fragment_skill_detail_dialog
 ) {
+
+    private lateinit var skill: SkillDto
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        init()
         initView()
         initListener()
     }
 
+    private fun init(){
+        skill = (dogamViewModel?.selectedSkill?.value) ?: bookmarkViewModel!!.selectedBookmarkSkill.value!!
+    }
+
     private fun initView(){
         binding.apply {
-            textviewItemName.text = dogamViewModel.selectedSkill.value?.name.toString()
-            textviewItemExplain.text = dogamViewModel.selectedSkill.value?.description.toString()
+            textviewItemName.text = skill.name.toString()
+            textviewItemExplain.text = skill.description.toString()
             Glide.with(this.root)
-                .load(dogamViewModel.selectedSkill.value?.imgPath)
+                .load(skill.imgPath)
                 .into(imageItem)
             //TODO 아이템의 isBookmarked를 보고 분기 태워야 함
             buttonSelcetedBookmark.visibility = View.GONE
@@ -60,7 +72,12 @@ class SkillDetailDialogFragment(
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        dogamViewModel.setItemClickListenerEnabled(true)
-        dogamViewModel.setSelectedSkill(null)
+        if(dogamViewModel != null) {
+            dogamViewModel.setItemClickListenerEnabled(true)
+            dogamViewModel.setSelectedSkill(null)
+        }else{
+            bookmarkViewModel!!.setItemClickListenerEnabled(true)
+            bookmarkViewModel.setSelectedBookmarkSkill(null)
+        }
     }
 }

@@ -8,10 +8,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.freeproject.happyprogrammers.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
 import com.gumigames.domain.model.item.ItemDto
+import com.gumigames.domain.model.item.SkillDto
 import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentBookmarkBinding
 import com.gumigames.presentation.ui.common.item.ItemDetailDialogFragment
 import com.gumigames.presentation.ui.common.item.ItemListApdapter
+import com.gumigames.presentation.ui.common.skill.SkillDetailDialogFragment
+import com.gumigames.presentation.ui.common.skill.SkillListAdapter
 import com.gumigames.presentation.util.clickAnimation
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -25,6 +28,7 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(
 
     private val bookmarkViewModel: BookmarkViewModel by viewModels()
     private lateinit var itemListAdapter: ItemListApdapter
+    private lateinit var skillListAdapter: SkillListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,6 +43,7 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(
     private fun init(){
         bookmarkViewModel.getAllBookmarkItemsLocal()
         itemListAdapter = ItemListApdapter()
+        skillListAdapter = SkillListAdapter()
     }
 
     private fun initView(){
@@ -64,6 +69,18 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(
                 }
             }
         }
+        //북마크 스킬 클릭 이벤트
+        skillListAdapter.itemClickListner = object: SkillListAdapter.ItemClickListener{
+            override fun onClick(view: View, skill: SkillDto) {
+                (view.parent as View).clickAnimation(viewLifecycleOwner)
+                if(bookmarkViewModel.getItemClickListenerEnabled()) {
+                    bookmarkViewModel.setItemClickListenerEnabled(false) // 클릭 이벤트 비활성화(다른 아이템 클릭 못하도록)
+                    //해당 몬스터 클릭 이벤트
+                    bookmarkViewModel.setSelectedBookmarkSkill(skill)
+                }
+            }
+
+        }
         binding.apply {
             tablayoutBookmark.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -76,6 +93,8 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(
                         }
                         //스킬 조회
                         1 -> {
+                            binding.recyclerviewBookmark.adapter = skillListAdapter
+                            bookmarkViewModel.getAllBookmarkSkillsLocal()
                             bookmarkViewModel.setCurrentTab("skill")
                         }
                         //몬스터 조회
@@ -103,6 +122,21 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(
                 selectedBookmarkItem.collectLatest {
                     if(it != null) {
                         val detailDialog = ItemDetailDialogFragment(dogamViewModel = null, bookmarkViewModel = bookmarkViewModel)
+                        detailDialog.show(childFragmentManager, null)
+                    }
+                }
+            }
+            //현재 북마크 스킬 리스트 관찰
+            viewLifecycleOwner.lifecycleScope.launch {
+                currentBookmarkSkillList.collectLatest {
+                    skillListAdapter.submitList(it)
+                }
+            }
+            //스킬 선택 관찰
+            viewLifecycleOwner.lifecycleScope.launch {
+                selectedBookmarkSkill.collectLatest {
+                    if(it != null){
+                        val detailDialog = SkillDetailDialogFragment(dogamViewModel = null, bookmarkViewModel = bookmarkViewModel)
                         detailDialog.show(childFragmentManager, null)
                     }
                 }
