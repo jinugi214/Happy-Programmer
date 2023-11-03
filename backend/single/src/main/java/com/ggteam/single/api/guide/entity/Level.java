@@ -1,12 +1,13 @@
-package com.ggteam.single.api.inventory.entity;
+package com.ggteam.single.api.guide.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.lang.Nullable;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,23 +15,27 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Item {
+public class Level {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 
-	@Column(nullable = false, unique = true)
+	@NotNull
 	private String name;
 
-	@Column(nullable = false)
-	private String description;
+	@NotNull
+	private int hp;
 
-	private String imgPath;
+	@NotNull
+	private int mp;
 
-	@ManyToOne
-	@JoinColumn(nullable = false)
-	private ItemType itemType;
+	@NotNull
+	private int atk;
 
+	@NotNull
+	private int def;
 
+	@NotNull
+	private int needExp;
 }

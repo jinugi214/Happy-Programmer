@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Monster {
+public class Item {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +23,13 @@ public class Monster {
 	@Column(nullable = false, unique = true)
 	private String name;
 
+	@Column(nullable = false)
 	private String description;
 
-	private int hp;
-
 	private String imgPath;
+
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private ItemType itemType;
 
 }

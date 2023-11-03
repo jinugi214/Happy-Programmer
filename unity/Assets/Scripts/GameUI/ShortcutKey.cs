@@ -1,23 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ShortcutKey : MonoBehaviour
 {
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject gameSettingPanel; // 프리팹으로 만든 게임 설정 패널
 
     // Update is called once per frame
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene("GameSetting");
+            if (gameSettingPanel != null)
+            {
+                gameSettingPanel.SetActive(!gameSettingPanel.activeSelf);
+            }
         }
     }
 }
