@@ -38,54 +38,58 @@ public class GuideController {
 	private final SkillService skillService;
 	private final LevelService levelService;
 	private final ItemService itemService;
-	private final AccountService accountService;
 
-	// 컨트롤러에서 유저정보가져오기
-	// id 값 추출 -> AccountService로 유저 객체 나온 것 service 파라미터로 넘겨주기
 	@Operation(summary = "몬스터 정보 전체 조회")
 	@GetMapping("/monsters")
 	public ResponseEntity<List<MonsterResponse>> monsterList() {
-		List<MonsterResponse> responseDto = monsterService.findAll();
-		return new ResponseEntity<>(responseDto, HttpStatus.OK);
+		List<MonsterResponse> response = monsterService.findAll();
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 	@Operation(summary = "몬스터 검색")
 	@GetMapping("/monsters/search")
 	public ResponseEntity<List<MonsterResponse>> monsterSearchList(@RequestParam("keyword") String keyword) {
-		List<MonsterResponse> responseDto = monsterService.findAllByName(keyword);
-		return new ResponseEntity<>(responseDto, HttpStatus.OK);
+		List<MonsterResponse> response = monsterService.findAllByName(keyword);
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 	@Operation(summary = "스킬 정보 전체 조회")
 	@GetMapping("/skills")
 	public ResponseEntity<List<SkillResponse>> skillList() {
-		List<SkillResponse> responseDto = skillService.findAll();
-		return new ResponseEntity<>(responseDto, HttpStatus.OK);
+		List<SkillResponse> response = skillService.findAll();
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 	@Operation(summary = "스킬 검색")
 	@GetMapping("/skills/search")
 	public ResponseEntity<List<SkillResponse>> skillSearchList(@RequestParam("keyword") String keyword) {
-		List<SkillResponse> responseDto = skillService.findAllByName(keyword);
-		return new ResponseEntity<>(responseDto, HttpStatus.OK);
+		List<SkillResponse> response = skillService.findAllByName(keyword);
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 	@Operation(summary = "아이템 정보 전체 조회")
 	@GetMapping("/items")
 	public ResponseEntity<List<ItemResponse>> itemList() {
-		List<ItemResponse> responseDto = itemService.findAll();
-		return new ResponseEntity<>(responseDto, HttpStatus.OK);
+		List<ItemResponse> response = itemService.findItemList();
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 	@Operation(summary = "아이템 검색")
 	@GetMapping("/items/search")
 	public ResponseEntity<List<ItemResponse>> itemSearchList(@RequestParam("keyword") String keyword) {
-		List<ItemResponse> responseDto = itemService.findAllByName(keyword);
-		return new ResponseEntity<>(responseDto, HttpStatus.OK);
+		List<ItemResponse> response = itemService.findItemListByKeyword(keyword);
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
-	@Operation(summary = "아이템 즐겨찾기")
-	@PostMapping("/items/favorite")
+	@Operation(summary = "즐겨찾기한 아이템 조회하기")
+	@GetMapping("/items/favorite")
+	public ResponseEntity<?> itemFavoriteList(@AuthenticationPrincipal Account account){
+		List<ItemResponse> response = itemService.findItemFavoriteListByAccount(account);
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
+	@Operation(summary = "아이템 즐겨찾기하기", description = "이미 즐겨찾기 되어 있으면 취소된다.")
+	@PostMapping("/items/favorite/{itemId}")
 	public ResponseEntity<?> itemAddFavorite(@AuthenticationPrincipal Account account, @PathVariable Integer itemId){
 		itemService.addItemFavorite(ItemFavoriteRequest.builder()
 			.account(account)
