@@ -9,11 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ItemDto {
 
+	private Integer id;
 	private String name;
 	private String description;
 	private String imgPath;
 
 	public ItemDto(Item entity){
+		this.id = entity.getId();
 		this.name = entity.getName();
 		this.description = entity.getDescription();
 		this.imgPath = entity.getImgPath();
