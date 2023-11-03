@@ -85,4 +85,7 @@ dependencies {
 
     //sdp
     implementation ("com.intuit.sdp:sdp-android:1.1.0")
+
+    //lottie
+    implementation ("com.airbnb.android:lottie:6.0.0")
 }

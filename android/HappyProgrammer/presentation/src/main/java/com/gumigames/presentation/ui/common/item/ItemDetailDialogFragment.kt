@@ -4,7 +4,7 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
-import com.freeproject.happyprogrammers.base.BaseDialogFragment
+import com.freeproject.happyprogrammers.base.BaseBorderDialogFragment
 import com.gumigames.domain.model.common.ItemDto
 import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentItemDetailDialogBinding
@@ -15,7 +15,7 @@ import com.gumigames.presentation.util.clickAnimation
 class ItemDetailDialogFragment(
     private val dogamViewModel: DogamViewModel?,
     private val bookmarkViewModel: BookmarkViewModel?
-) : BaseDialogFragment<FragmentItemDetailDialogBinding>(
+) : BaseBorderDialogFragment<FragmentItemDetailDialogBinding>(
     FragmentItemDetailDialogBinding::bind,
     R.layout.fragment_item_detail_dialog
 ) {

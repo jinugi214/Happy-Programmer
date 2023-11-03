@@ -1,12 +1,18 @@
 package com.freeproject.happyprogrammers.base
 
+import android.content.Context
 import android.graphics.Rect
+import android.os.Build
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.MotionEvent
+import android.view.View
+import android.view.WindowManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.viewbinding.ViewBinding
 import com.gumigames.presentation.util.hideKeyboard
 
@@ -23,6 +29,19 @@ abstract class BaseActivity<B : ViewBinding>(private val inflate: (LayoutInflate
         binding = inflate(layoutInflater)
         setContentView(binding.root)
     }
+
+//    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
+//        window.apply {
+//            setFlags(
+//                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+//                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+//            )
+//        }
+//        if(Build.VERSION.SDK_INT >= 30) {	// API 30 에 적용
+//            WindowCompat.setDecorFitsSystemWindows(window, false)
+//        }
+//        return super.onCreateView(name, context, attrs)
+//    }
 
     // 토스트를 쉽게 띄울 수 있게 해줌.
     fun showToast(message: String) {
