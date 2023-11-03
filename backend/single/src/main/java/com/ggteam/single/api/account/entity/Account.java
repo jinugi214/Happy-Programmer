@@ -50,6 +50,10 @@ public class Account {
         this.nickname = newNickname;
     }
 
+    public void updateLanguage(String newLanguage) {
+        this.language = newLanguage;
+    }
+
     public void updatePassword(String newPassword, PasswordEncoder passwordEncoder) {
         this.password = passwordEncoder.encode(newPassword);
     }
