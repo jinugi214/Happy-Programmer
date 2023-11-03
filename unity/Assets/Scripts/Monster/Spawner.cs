@@ -6,7 +6,9 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public Transform[] spawnPoint;
+    public SpawnData[] spawnData;
 
+    int level;
     float timer;
 
     void Awake()
@@ -17,8 +19,9 @@ public class Spawner : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
+        level = Mathf.Min(Mathf.FloorToInt(MiniGameManager.instance.gameTime / 10f), spawnData.Length - 1);
 
-        if(timer > 2.5f)
+        if (timer > spawnData[level].spawnTime)
         {
             timer = 0f;
             Spawn();
@@ -28,8 +31,23 @@ public class Spawner : MonoBehaviour
 
     void Spawn()
     {
-        GameObject monster = MiniGameManager.instance.pool.Get(0);
-        monster.transform.position = spawnPoint[UnityEngine.Random.Range(1, spawnPoint.Length)].position;
+       
+        GameObject monster = MiniGameManager.instance.pool.Get(Random.Range(1, level));
+        monster.transform.position = spawnPoint[Random.Range(1, spawnPoint.Length)].position;
     
     }
+
+
+
+}
+
+
+[System.Serializable]
+public class SpawnData
+{
+    public int spriteType;
+    public float spawnTime;
+    public int health;
+    public float speed;
+
 }
