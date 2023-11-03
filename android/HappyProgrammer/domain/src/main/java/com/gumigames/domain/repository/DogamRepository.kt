@@ -1,8 +1,8 @@
 package com.gumigames.domain.repository
 
-import com.gumigames.domain.model.item.ItemDto
-import com.gumigames.domain.model.item.MonsterDto
-import com.gumigames.domain.model.item.SkillDto
+import com.gumigames.domain.model.common.ItemDto
+import com.gumigames.domain.model.common.MonsterDto
+import com.gumigames.domain.model.common.SkillDto
 
 interface DogamRepository {
     /**

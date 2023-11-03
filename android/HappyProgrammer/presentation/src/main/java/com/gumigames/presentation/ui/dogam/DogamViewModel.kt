@@ -1,10 +1,11 @@
 package com.gumigames.presentation.ui.dogam
 
 import androidx.lifecycle.viewModelScope
-import com.gumigames.domain.model.item.ItemDto
-import com.gumigames.domain.model.item.MonsterDto
-import com.gumigames.domain.model.item.SkillDto
+import com.gumigames.domain.model.common.ItemDto
+import com.gumigames.domain.model.common.MonsterDto
+import com.gumigames.domain.model.common.SkillDto
 import com.gumigames.domain.usecase.bookmark.item.AddBookmarkItemLocalUseCase
+import com.gumigames.domain.usecase.bookmark.monster.AddBookmarkMonsterLocalUseCase
 import com.gumigames.domain.usecase.bookmark.skill.AddBookmarkSkillLocalUseCase
 import com.gumigames.domain.usecase.dogam.litem.GetAllItemsUseCase
 import com.gumigames.domain.usecase.dogam.litem.GetSearchItemsUseCase
@@ -32,7 +33,8 @@ class DogamViewModel @Inject constructor(
     private val getSearchSkillsUseCase: GetSearchSkillsUseCase,
     private val addBookmarkSkillLocalUseCase: AddBookmarkSkillLocalUseCase,
     private val getAllMonstersUseCase: GetAllMonstersUseCase,
-    private val getSearchMonstersUseCase: GetSearchMonstersUseCase
+    private val getSearchMonstersUseCase: GetSearchMonstersUseCase,
+    private val addBookmarkMonsterLocalUseCase: AddBookmarkMonsterLocalUseCase
 ): BaseViewModel() {
 
 
@@ -190,7 +192,7 @@ class DogamViewModel @Inject constructor(
             }
         }
     }
-    //아이템 검색
+    //몬스터 검색
     fun getSearchMonsters(){
         viewModelScope.launch {
             if(_searchKeyword==""){ //아무것도 입력 안하면 전체 아이템 조회
@@ -205,7 +207,12 @@ class DogamViewModel @Inject constructor(
         }
     }
 
-
+    //로컬에 북마크 스킬 추가
+    fun addBookmarkMonsterLocal(monster: MonsterDto){
+        viewModelScope.launch {
+            addBookmarkMonsterLocalUseCase.invoke(monster)
+        }
+    }
 
 
 

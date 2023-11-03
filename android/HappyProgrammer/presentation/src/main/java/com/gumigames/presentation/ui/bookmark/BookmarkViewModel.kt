@@ -1,10 +1,13 @@
 package com.gumigames.presentation.ui.bookmark
 
 import androidx.lifecycle.viewModelScope
-import com.gumigames.domain.model.item.ItemDto
-import com.gumigames.domain.model.item.SkillDto
+import com.gumigames.domain.model.common.ItemDto
+import com.gumigames.domain.model.common.MonsterDto
+import com.gumigames.domain.model.common.SkillDto
 import com.gumigames.domain.usecase.bookmark.item.AddBookmarkItemLocalUseCase
 import com.gumigames.domain.usecase.bookmark.item.GetAllBookmarkItemsLocalUseCase
+import com.gumigames.domain.usecase.bookmark.monster.AddBookmarkMonsterLocalUseCase
+import com.gumigames.domain.usecase.bookmark.monster.GetAllBookmarkMonstersLocalUseCase
 import com.gumigames.domain.usecase.bookmark.skill.AddBookmarkSkillLocalUseCase
 import com.gumigames.domain.usecase.bookmark.skill.GetAllBookmarkSkillsLocalUseCase
 import com.gumigames.presentation.base.BaseViewModel
@@ -24,7 +27,9 @@ class BookmarkViewModel @Inject constructor(
     private val getAllBookmarkItemsLocalUseCase: GetAllBookmarkItemsLocalUseCase,
     private val addBookmarkItemLocalUseCase: AddBookmarkItemLocalUseCase,
     private val getAllBookmarkSkillsLocalUseCase: GetAllBookmarkSkillsLocalUseCase,
-    private val addBookmarkSkillLocalUseCase: AddBookmarkSkillLocalUseCase
+    private val addBookmarkSkillLocalUseCase: AddBookmarkSkillLocalUseCase,
+    private val getAllBookmarkMonstersLocalUseCase: GetAllBookmarkMonstersLocalUseCase,
+    private val addBookmarkMonsterLocalUseCase: AddBookmarkMonsterLocalUseCase
 
 ): BaseViewModel(){
 
@@ -90,6 +95,30 @@ class BookmarkViewModel @Inject constructor(
     fun getAllBookmarkSkillsLocal(){
         viewModelScope.launch {
             _currentBookmarkSkillList.emit(getAllBookmarkSkillsLocalUseCase.invoke())
+        }
+    }
+
+    ///////////////////////////////////////////////// 몬스터 /////////////////////////////////////////////////////
+
+    //현재 몬스터 북마크 리스트
+    private var _currentBookmarkMonsterList = MutableSharedFlow<List<MonsterDto>>()
+
+    val currentBookmarkMonsterList: SharedFlow<List<MonsterDto>>
+        get() = _currentBookmarkMonsterList.asSharedFlow()
+
+    //현재 선택된 몬스터
+    private var _selectedBookmarkMonster = MutableStateFlow<MonsterDto?>(null)
+    val selectedBookmarkMonster = _selectedBookmarkMonster.asStateFlow()
+    fun setSelectedBookmarkMonster(monster: MonsterDto?){
+        viewModelScope.launch {
+            _selectedBookmarkMonster.emit(monster)
+        }
+    }
+
+    //전체 몬스터 조회
+    fun getAllBookmarkMonstersLocal(){
+        viewModelScope.launch {
+            _currentBookmarkMonsterList.emit(getAllBookmarkMonstersLocalUseCase.invoke())
         }
     }
 

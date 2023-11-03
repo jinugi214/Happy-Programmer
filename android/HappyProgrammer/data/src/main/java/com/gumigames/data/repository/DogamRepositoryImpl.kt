@@ -1,15 +1,13 @@
 package com.gumigames.data.repository
 
-import com.gumigames.data.datasource.dao.ItemBookmarkDao
-import com.gumigames.data.mapper.toData
 import com.gumigames.data.mapper.toDomain
 import com.gumigames.data.service.ItemService
 import com.gumigames.data.service.MonsterService
 import com.gumigames.data.service.SkillService
 import com.gumigames.data.util.handleApi
-import com.gumigames.domain.model.item.ItemDto
-import com.gumigames.domain.model.item.MonsterDto
-import com.gumigames.domain.model.item.SkillDto
+import com.gumigames.domain.model.common.ItemDto
+import com.gumigames.domain.model.common.MonsterDto
+import com.gumigames.domain.model.common.SkillDto
 import com.gumigames.domain.repository.DogamRepository
 
 class DogamRepositoryImpl(

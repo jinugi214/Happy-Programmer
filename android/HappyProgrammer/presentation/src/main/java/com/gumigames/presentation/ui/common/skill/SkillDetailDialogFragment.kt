@@ -4,9 +4,8 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
-import com.bumptech.glide.Glide.init
 import com.freeproject.happyprogrammers.base.BaseDialogFragment
-import com.gumigames.domain.model.item.SkillDto
+import com.gumigames.domain.model.common.SkillDto
 import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentSkillDetailDialogBinding
 import com.gumigames.presentation.ui.bookmark.BookmarkViewModel

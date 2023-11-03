@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.gumigames.domain.model.item.MonsterDto
+import com.gumigames.domain.model.common.MonsterDto
 import com.gumigames.presentation.databinding.ItemDogamBinding
 
 class MonsterListAdapter: ListAdapter<MonsterDto, MonsterListAdapter.MonsterListHolder>(
