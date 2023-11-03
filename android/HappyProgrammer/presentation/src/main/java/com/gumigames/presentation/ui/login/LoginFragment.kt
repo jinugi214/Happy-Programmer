@@ -72,8 +72,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
             viewLifecycleOwner.lifecycleScope.launch {
                 isBroughtUserInfo.collectLatest {
                     if(it) {
-                        bringUserInfoLoadingDialogFragment.dismiss()
+//                        bringUserInfoLoadingDialogFragment.dismiss()
                         findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                        bringUserInfoLoadingDialogFragment.dismiss()
                     }
 
                 }
