@@ -5,16 +5,13 @@ import com.gumigames.data.datasource.dao.MonsterBookmarkDao
 import com.gumigames.data.datasource.dao.SkillBookmarkDao
 import com.gumigames.data.datasource.sharedpreference.PreferenceDataSource
 import com.gumigames.data.repository.BookmarkRepositoryImpl
-import com.gumigames.data.repository.GithubRepositoryImpl
 import com.gumigames.data.repository.DogamRepositoryImpl
 import com.gumigames.data.repository.LoginRepositoryImpl
 import com.gumigames.data.repository.PreferenceRepositoryImpl
-import com.gumigames.data.service.GithubService
 import com.gumigames.data.service.ItemService
 import com.gumigames.data.service.MonsterService
 import com.gumigames.data.service.SkillService
 import com.gumigames.domain.repository.BookmarkRepository
-import com.gumigames.domain.repository.GithubRepository
 import com.gumigames.domain.repository.DogamRepository
 import com.gumigames.domain.repository.LoginRepository
 import com.gumigames.domain.repository.PreferenceRepository
@@ -32,12 +29,6 @@ object RepositoryModule {
     @Provides
     fun providePreferenceRepository(preferenceDataSource: PreferenceDataSource): PreferenceRepository{
         return PreferenceRepositoryImpl(preferenceDataSource)
-    }
-
-    @Singleton
-    @Provides
-    fun provideGithubRepository(githubService: GithubService): GithubRepository {
-        return GithubRepositoryImpl(githubService)
     }
 
     @Singleton

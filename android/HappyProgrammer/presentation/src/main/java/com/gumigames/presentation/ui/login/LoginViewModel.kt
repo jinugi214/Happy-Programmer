@@ -2,6 +2,7 @@ package com.gumigames.presentation.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gumigames.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -12,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
 
-): ViewModel() {
+): BaseViewModel() {
 
     private var _id: String = ""
     fun setId(id: String){

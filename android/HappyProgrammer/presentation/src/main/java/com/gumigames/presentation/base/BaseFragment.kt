@@ -19,7 +19,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.gumigames.presentation.MainActivity
 import com.gumigames.presentation.R
 import com.gumigames.presentation.base.BaseViewModel
-import com.gumigames.presentation.ui.github.GithubViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

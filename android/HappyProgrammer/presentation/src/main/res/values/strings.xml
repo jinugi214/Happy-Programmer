@@ -36,4 +36,7 @@
     <!--bookmark-->
     <string name="text_bookmark">즐겨찾기</string>
 
+    <!--mission-->
+    <string name="text_mission">미션</string>
+
 </resources>

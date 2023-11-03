@@ -34,14 +34,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             }
             //스테이지 화면으로 이동 TODO 지금은 GITHUB 화면으로 테스트 중
             layoutStage.setOnClickListener{
-                findNavController().navigate(R.id.action_homeFragment_to_githubFragment)
             }
             //스킬 화면으로 이동
             layoutSkill.setOnClickListener {
                 findNavController().navigate(R.id.action_homeFragment_to_bookmarkFragment)
             }
-            //화면으로 이동
+            //미션 화면으로 이동
             layoutMonster.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_missionFragment)
             }
         }
     }

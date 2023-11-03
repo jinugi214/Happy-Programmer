@@ -2,7 +2,6 @@ package com.gumigames.happyprogrammer
 
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
-import com.gumigames.data.service.GithubService
 import com.gumigames.data.service.ItemService
 import com.gumigames.data.service.MonsterService
 import com.gumigames.data.service.SkillService
@@ -49,12 +48,6 @@ object NetworkModule {
         )
         .client(provideOkHttpClient())
         .build()
-
-    @Singleton
-    @Provides
-    fun provideGithubService(
-        retrofit: Retrofit,
-    ): GithubService = retrofit.create(GithubService::class.java)
 
     @Singleton
     @Provides
