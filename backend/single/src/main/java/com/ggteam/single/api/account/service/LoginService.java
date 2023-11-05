@@ -16,11 +16,11 @@ public class LoginService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String accountId) throws UsernameNotFoundException {
-        Account account = accountRepository.findByAccountId(accountId)
+        Account account = accountRepository.findByUsername(accountId)
                 .orElseThrow(() -> new UsernameNotFoundException("해당 계정이 존재하지 않습니다."));
 
         return org.springframework.security.core.userdetails.User.builder()
-                .username(account.getAccountId())
+                .username(account.getUsername())
                 .password(account.getPassword())
                 .roles(account.getRole().name())
                 .build();

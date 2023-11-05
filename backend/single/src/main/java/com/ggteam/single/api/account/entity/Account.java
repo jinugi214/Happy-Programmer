@@ -18,7 +18,7 @@ public class Account {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String accountId;
+    private String username;
     private String password;
     private String nickname;
     private String language;
@@ -48,6 +48,10 @@ public class Account {
 
     public void updateNickname(String newNickname) {
         this.nickname = newNickname;
+    }
+
+    public void updateLanguage(String newLanguage) {
+        this.language = newLanguage;
     }
 
     public void updatePassword(String newPassword, PasswordEncoder passwordEncoder) {
