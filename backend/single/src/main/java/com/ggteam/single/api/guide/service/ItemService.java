@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.ggteam.single.api.guide.dto.res.ItemWithFavoriteResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,10 +27,21 @@ public class ItemService {
 
 	// 아이템 전체 불러오기 (즐겨찾기했는지 포함해서 보내기)
 	@Transactional(readOnly = true)
-	public List<ItemResponse> findItemList(){
+	public List<ItemWithFavoriteResponse> findItemListWithFavorite(Account account) {
 		return itemRepository.findAll().stream()
-			.map(ItemResponse::new)
-			.collect(Collectors.toList());
+				.map(item -> {
+					boolean isFavorite = checkItemFavorite(account, item);
+					return new ItemWithFavoriteResponse(item, isFavorite);
+				})
+				.collect(Collectors.toList());
+	}
+
+	private boolean checkItemFavorite(Account account, Item item){
+		if (itemFavoriteRepository.findByAccountAndItem(account, item).isPresent()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	// 아이템 검색하기
