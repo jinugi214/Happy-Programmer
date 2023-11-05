@@ -38,5 +38,6 @@
 
     <!--mission-->
     <string name="text_mission">미션</string>
+    <string name="text_camera">카메라</string>
 
 </resources>
