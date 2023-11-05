@@ -9,7 +9,7 @@ function MemberBox({ imgName, name, position }: MemberBoxProps) {
 
   return (
     <div className="">
-      <img src={imgUrl} alt={name} className="h-24 mb-6"/>
+      <img src={imgUrl} alt={name} className="h-36 mb-6"/>
       <div className="text-center">
         <div className="text-s mb-4">{name}</div>
         <div>{position}</div>
