@@ -35,7 +35,7 @@ public class AccountController {
     }
 
     @GetMapping("/my-account/{id}")
-    @Operation(summary = "내 계정 정보 확인", description = "URL endpoint에 id(아이디(accountId) 아님)필요")
+    @Operation(summary = "내 계정 정보 확인", description = "URL endpoint에 id(username 아님)필요")
     public ResponseEntity<?> myAccount(@PathVariable Long id) {
         return accountService.myAccount(id);
     }
@@ -47,7 +47,7 @@ public class AccountController {
     }
 
     @PutMapping("/change-password")
-    @Operation(summary = "비밀번호 변경", description = "JSON으로 이이디(accountId), 원래 비밀번호(curPassword), " +
+    @Operation(summary = "비밀번호 변경", description = "JSON으로 이이디(username), 원래 비밀번호(curPassword), " +
             "변경할 비밀번호(newPassword) 필요, 모두 String")
     public ResponseEntity<?> passwordChange(@RequestBody PasswordDto passwordDto) {
         return accountService.changePassword(passwordDto);
