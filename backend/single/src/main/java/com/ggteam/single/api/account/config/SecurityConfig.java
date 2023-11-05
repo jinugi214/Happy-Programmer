@@ -74,8 +74,10 @@ public class SecurityConfig {
                 //== URL별 권한 관리 옵션 ==//
                 .authorizeRequests()
 
-                .antMatchers("/api/account/login").permitAll() // 해당 주소를 가지는 url 접근 가능
-                .antMatchers("/api/account/sign-up").permitAll() // 해당 주소를 가지는 url 접근 가능
+                // 해당 주소를 가지는 url 접근 가능
+                .antMatchers("/api/account/login").permitAll()
+                .antMatchers("/api/account/sign-up").permitAll()
+                
                 // 아이콘, css, js 관련
                 // 기본 페이지, css, image, js 하위 폴더에 있는 자료들은 모두 접근 가능
                 .antMatchers("/","/css/**","/images/**","/js/**","/favicon.ico").permitAll()
