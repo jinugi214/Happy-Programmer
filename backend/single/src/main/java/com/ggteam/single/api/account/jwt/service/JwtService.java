@@ -42,28 +42,28 @@ public class JwtService {
     @Value("${jwt.refresh.header}")
     private String refreshHeader;
 
-    // JWT의 Subject와 Claim으로 accountId를 사용 ->: 클레임의 name을 "accountId"로 설정
+    // JWT의 Subject와 Claim으로 username를 사용 ->: 클레임의 name을 "username"로 설정
     // JWT의 헤더에 들어오는 값 : 'Authorization(Key) = Bearer (토큰) (Value)' 형식
 
     private static final String ACCESS_TOKEN_SUBJECT = "AccessToken";
     private static final String REFRESH_TOKEN_SUBJECT = "RefreshToken";
-    private static final String ACCOUNT_ID_CLAIM = "accountId";
+    private static final String ACCOUNT_ID_CLAIM = "username";
     private static final String BEARER = "Bearer";
 
     private final AccountRepository accountRepository;
 
     // AccessToken 생성 메서드
-    public String createAccessToken(String accountId) {
+    public String createAccessToken(String username) {
         Date now = new Date();
         return JWT.create() // JWT 토큰을 생성하는 빌더 반환
                 .withSubject(ACCESS_TOKEN_SUBJECT) // JWT의 Subject 지정 -> AccessToken이므로 AccessToken
                 .withExpiresAt(new Date(now.getTime() + accessTokenExpirationPeriod)) // 토큰 만료 시간 설정
-                .withClaim(ACCOUNT_ID_CLAIM, accountId)
+                .withClaim(ACCOUNT_ID_CLAIM, username)
                 .sign(Algorithm.HMAC512(secretKey)); // HMAC512 알고리즘 사용, application-jwt.yml에서 지정한 secret 키로 암호화
     }
 
     // RefreshToken 생성 메서드
-    // refreshToken은 Claim에 accountId를 넣지 않으므로 withClaim() X
+    // refreshToken은 Claim에 username을 넣지 않으므로 withClaim() X
     public String createRefreshToken() {
         Date now = new Date();
         return JWT.create()
@@ -118,11 +118,11 @@ public class JwtService {
                 .map(refreshToken -> refreshToken.replace(BEARER, ""));
     }
 
-    // AccessToken 에서 accountId 추출
+    // AccessToken 에서 username 추출
     // 추출 전에 JWT.require()로 검증기 생성 후 verify로 AccessToken 검증 후
     // 유효하다면 getClaim() 으로 아이디를 추출
     // 유효하지 않다면 빈 Optional 객체 반환
-    public Optional<String> extractAccountId(String accessToken) {
+    public Optional<String> extractUsername(String accessToken) {
         try {
             return Optional.of(
                     JWT.require(Algorithm.HMAC512(secretKey))
@@ -132,14 +132,14 @@ public class JwtService {
                             .asString()
             );
         } catch (Exception e) {
-            log.error("Error extracting accountId from Access Token");
+            log.error("Error extracting username from Access Token");
             return Optional.empty();
         }
     }
 
     // RefreshToken DB 업데이트(저장)
-    public void updateRefreshToken(String accountId, String refreshToken) {
-        accountRepository.findByAccountId(accountId)
+    public void updateRefreshToken(String username, String refreshToken) {
+        accountRepository.findByUsername(username)
                 .ifPresentOrElse(
                         account -> account.updateRefreshToken(refreshToken),
                         () -> new Exception("일치하는 회원이 없습니다.")
