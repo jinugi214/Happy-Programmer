@@ -2,6 +2,7 @@ package com.ggteam.single.api.guide.controller;
 
 import java.util.List;
 
+import com.ggteam.single.api.guide.dto.res.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,11 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ggteam.single.api.account.entity.Account;
 import com.ggteam.single.api.account.service.AccountService;
-import com.ggteam.single.api.guide.dto.res.ItemResponse;
 import com.ggteam.single.api.guide.dto.req.ItemFavoriteRequest;
-import com.ggteam.single.api.guide.dto.res.LevelResponse;
-import com.ggteam.single.api.guide.dto.res.MonsterResponse;
-import com.ggteam.single.api.guide.dto.res.SkillResponse;
 import com.ggteam.single.api.guide.service.ItemService;
 import com.ggteam.single.api.guide.service.LevelService;
 import com.ggteam.single.api.guide.service.MonsterService;
@@ -69,8 +66,9 @@ public class GuideController {
 
 	@Operation(summary = "아이템 정보 전체 조회")
 	@GetMapping("/items")
-	public ResponseEntity<List<ItemResponse>> itemList() {
-		List<ItemResponse> response = itemService.findItemList();
+	public ResponseEntity<List<ItemWithFavoriteResponse>> itemList(@AuthenticationPrincipal Account account) {
+		System.out.println(account);
+		List<ItemWithFavoriteResponse> response = itemService.findItemListWithFavorite(account);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
