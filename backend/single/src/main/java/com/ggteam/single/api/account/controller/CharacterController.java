@@ -17,10 +17,10 @@ public class CharacterController {
     private final CharacterService characterService;
 
     // 내 캐릭터 정보 가져오기
-    @GetMapping("/character/{accountId}")
-    @Operation(summary = "캐릭터 정보", description = "내 캐릭터 정보를 가져온다")
-    public ResponseEntity<?> myCharacter(@PathVariable String accountId) {
-        return characterService.myCharacter(accountId);
+    @GetMapping("/character/{id}")
+    @Operation(summary = "캐릭터 정보", description = "내 캐릭터 정보를 가져온다. 엔드포인트에 해당 캐릭터의 id를 입력")
+    public ResponseEntity<?> myCharacter(@PathVariable Long id) {
+        return characterService.myCharacter(id);
     }
 
     // 캐릭터 정보 저장

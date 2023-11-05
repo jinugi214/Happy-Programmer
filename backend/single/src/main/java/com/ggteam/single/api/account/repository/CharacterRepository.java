@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface CharacterRepository extends JpaRepository<Character, Long> {
 
-    List<Character> findAllByAccountIdByAccountId(String accountId);
+    List<Character> findAllByAccountId(Long id);
 }

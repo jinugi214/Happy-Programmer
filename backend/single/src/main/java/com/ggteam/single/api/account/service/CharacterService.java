@@ -20,19 +20,18 @@ public class CharacterService {
 
     private final CharacterRepository characterRepository;
 
-    public ResponseEntity<?> myCharacter(String accountId) {
-        List<Character> characters = characterRepository.findAllByAccountIdByAccountId(accountId);
-        Character myCharacter = characters.get(1);
+    public ResponseEntity<?> myCharacter(Long id) {
+        Character character = characterRepository.findById(id).orElseThrow(null);
 
         CharacterDto characterDto = CharacterDto.builder()
-                .name(myCharacter.getName())
-                .gender(myCharacter.getGender())
-                .level(myCharacter.getLevel())
-                .exp(myCharacter.getExp())
-                .savepoint(myCharacter.getSavepoint())
-                .point(myCharacter.getPoint())
-                .storyProgress(myCharacter.getStoryProgress())
-                .imgPath(myCharacter.getImgPath())
+                .name(character.getName())
+                .gender(character.getGender())
+                .level(character.getLevel())
+                .exp(character.getExp())
+                .savepoint(character.getSavepoint())
+                .point(character.getPoint())
+                .storyProgress(character.getStoryProgress())
+                .imgPath(character.getImgPath())
                 .build();
 
         return ResponseEntity.ok(characterDto);

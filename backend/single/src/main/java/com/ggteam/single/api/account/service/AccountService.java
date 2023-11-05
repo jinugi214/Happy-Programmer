@@ -22,7 +22,7 @@ public class AccountService {
     private final PasswordEncoder passwordEncoder;
 
     public ResponseEntity<String> signUp(AccountDto signUpDto) throws Exception {
-        if (accountRepository.findByAccountId(signUpDto.getAccountId()).isPresent()) {
+        if (accountRepository.findByUsername(signUpDto.getUsername()).isPresent()) {
             throw new Exception("이미 존재하는 아이디입니다.");
         }
 
@@ -31,7 +31,7 @@ public class AccountService {
         }
 
         Account account = Account.builder()
-                .accountId(signUpDto.getAccountId())
+                .username(signUpDto.getUsername())
                 .password(signUpDto.getPassword())
                 .nickname(signUpDto.getNickname())
                 .language(signUpDto.getLanguage())
@@ -48,7 +48,7 @@ public class AccountService {
         Account myAccount = accountRepository.findById(id).orElseThrow(
                 () -> new NoSuchElementException("해당 id의 account가 존재하지 않습니다."));
         AccountDto accountDto = AccountDto.builder()
-                .accountId(myAccount.getAccountId())
+                .username(myAccount.getUsername())
                 .nickname(myAccount.getNickname())
                 .language(myAccount.getLanguage())
                 .build();
@@ -56,7 +56,7 @@ public class AccountService {
     }
 
     public ResponseEntity<?> editAccount(AccountDto accountDto) {
-        Account myAccount = accountRepository.findByAccountId(accountDto.getAccountId()).orElseThrow(
+        Account myAccount = accountRepository.findByUsername(accountDto.getUsername()).orElseThrow(
                 () -> new NoSuchElementException("해당 id의 account가 존재하지 않습니다."));
 
         myAccount.updateNickname(accountDto.getNickname());
@@ -66,7 +66,7 @@ public class AccountService {
     }
 
     public ResponseEntity<?> changePassword(PasswordDto passwordDto) {
-        Account account = accountRepository.findByAccountId(passwordDto.getAccountId()).orElseThrow(
+        Account account = accountRepository.findByUsername(passwordDto.getUsername()).orElseThrow(
                 () -> new NoSuchElementException("해당 아이디가 존재하지 않습니다."));
         if (!passwordEncoder.matches(passwordDto.getCurPassword(), account.getPassword())) {
             throw new IllegalArgumentException("현재 비밀번호가 일치하지 않습니다.");
