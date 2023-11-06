@@ -183,7 +183,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f53c774652677ff4793a2b1d92529188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animCon: []
+  animCon:
+  - {fileID: 9100000, guid: e54f0bf88cf03e640b158c50fb9ae2e1, type: 2}
+  - {fileID: 9100000, guid: 1a3837e950212ed419f65536bf6f51e5, type: 2}
   health: 0
   maxHealth: 0
   speed: 2
