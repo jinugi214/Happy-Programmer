@@ -18,11 +18,16 @@ public class Account {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
     private String username;
+    @Column
     private String password;
+    @Column
     private String nickname;
+    @Column
     private String language;
 
+    @Column
     private String refreshToken;
 
     @Enumerated(EnumType.STRING)
