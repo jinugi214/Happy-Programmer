@@ -122,7 +122,7 @@ public class DialogueManager : MonoBehaviour
             count++;
             text.text = "";
 
-            if (count == listSentences.Count - 1)
+            if (count == listSentences.Count)
             {
                 StopAllCoroutines();
                 ExitDialogue();
