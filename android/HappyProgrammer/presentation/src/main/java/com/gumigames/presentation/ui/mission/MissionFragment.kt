@@ -53,6 +53,7 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
 
     override fun initListener() {
         binding.apply {
+            //카메라 버튼 클릭
             buttonCamera.setOnClickListener {
                 if(mActivity.hasPermissions(CAMERA_PERMISSION_REJECTED)){
                     /**
@@ -66,8 +67,16 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
                     cameraActivityResult.launch(intent) //카메라 앱을 실행 한 후 결과를 받기 위해서 launch
                 }else{
-                    showCustomToast("설정에서 카메라 권한을 허용해주세요")
+                    showCustomToast("설정에서 카메라 권한을 허용해 주세요")
                     return@setOnClickListener
+                }
+            }
+            // 전송 버튼 클릭
+            buttonSend.setOnClickListener {
+                if(missionViewModel.isPossibleSendPhoto()){
+                    missionViewModel.sendPhoto()
+                }else{
+                    showCustomToast("사진을 다시 제출해 주세요")
                 }
             }
         }
@@ -78,6 +87,11 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
             viewLifecycleOwner.lifecycleScope.launch {
                 multipartBody.collectLatest {
                     Log.d(TAG, "multipart : $it")
+                }
+            }
+            viewLifecycleOwner.lifecycleScope.launch {
+                resultMessage.collectLatest {
+                    showCustomToast(it)
                 }
             }
         }

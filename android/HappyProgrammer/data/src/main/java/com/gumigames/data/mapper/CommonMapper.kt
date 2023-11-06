@@ -1,9 +1,9 @@
 package com.gumigames.data.mapper
 
 import com.gumigames.data.BuildConfig
-import com.gumigames.data.model.response.dogam.ItemResponse
-import com.gumigames.data.model.response.dogam.MonsterResponse
-import com.gumigames.data.model.response.dogam.SkillResponse
+import com.gumigames.data.model.response.common.ItemResponse
+import com.gumigames.data.model.response.common.MonsterResponse
+import com.gumigames.data.model.response.common.SkillResponse
 import com.gumigames.domain.model.common.ItemDto
 import com.gumigames.domain.model.common.MonsterDto
 import com.gumigames.domain.model.common.SkillDto

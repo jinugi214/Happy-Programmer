@@ -104,6 +104,22 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/button_send"
+                android:elevation="@dimen/_15sdp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_send"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/frame_border_pink10"
+                android:text="@string/text_send"
+                style="@style/Theme.AppCompat.TextView.dunggeunmo.black.Size12"
+                android:gravity="center"
+                app:layout_constraintWidth_percent="0.3"
+                app:layout_constraintHeight_percent="0.7"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/button_camera"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:elevation="@dimen/_15sdp"/>
 

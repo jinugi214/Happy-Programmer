@@ -1,8 +1,8 @@
-package com.gumigames.data.model.response
+package com.gumigames.data.model.response.basic
 
 import com.google.gson.annotations.SerializedName
 
-data class ErrorDto(
+data class ErrorResponse(
     @SerializedName("code")
     val code: Int,
     @SerializedName("message")

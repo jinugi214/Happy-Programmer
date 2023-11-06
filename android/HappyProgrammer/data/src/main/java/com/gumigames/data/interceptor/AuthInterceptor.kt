@@ -4,8 +4,8 @@ import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.gumigames.data.BuildConfig
 import com.gumigames.data.datasource.sharedpreference.PreferenceDataSource
-import com.gumigames.data.model.response.AuthDto
-import com.gumigames.data.model.response.ErrorDto
+import com.gumigames.data.model.response.basic.AuthResponse
+import com.gumigames.data.model.response.basic.ErrorResponse
 import com.gumigames.domain.util.NetworkThrowable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -40,7 +40,7 @@ class AuthInterceptor(
     private fun getAccessTokenWithRefresh(accessToken: String): Result<String> {
         val request = createRefreshRequest()
 
-        val auth: AuthDto = requestRefresh(request).getOrElse {
+        val auth: AuthResponse = requestRefresh(request).getOrElse {
             return Result.failure(it)
         }
         storeToken(auth.accessToken, auth.refreshToken)
@@ -54,14 +54,14 @@ class AuthInterceptor(
             .build()
     }
 
-    private fun requestRefresh(request: Request): Result<AuthDto> {
+    private fun requestRefresh(request: Request): Result<AuthResponse> {
         val response: Response = runBlocking {
             withContext(Dispatchers.IO) { client.newCall(request).execute() }
         }
         if (response.isSuccessful) {
-            return Result.success(response.getDto<AuthDto>())
+            return Result.success(response.getDto<AuthResponse>())
         }
-        val failedResponse = response.getDto<ErrorDto>()
+        val failedResponse = response.getDto<ErrorResponse>()
         if (failedResponse.code == REFRESH_TOKEN_EXPIRE_ERROR) { //accessToken 재발급 하는 것이 실패
             //preference 초기화하고 RefrestToken 만료 Throwable throw
             preferenceDataSource.refreshPreference()
