@@ -25,7 +25,8 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 /**
- * 카메라로 찍은 사진을 사진파일로 만듭니다.
+ * 카메라 사용할 경우
+ * 카메라로 찍은 사진을 저장할 사진파일로 만듭니다.
  */
 fun createImageFile(
     context: Context
@@ -44,6 +45,29 @@ fun createImageFile(
 }
 
 /**
+ * 저장된 사진 파일의 body를 가져옵니다
+ */
+private fun createRequestBodyFromFile(file: File): RequestBody {
+    val MEDIA_TYPE_IMAGE = "multipart/form-data".toMediaTypeOrNull()
+    val inputStream: InputStream = FileInputStream(file)
+    val byteArray = inputStream.readBytes()
+    return RequestBody.create(MEDIA_TYPE_IMAGE, byteArray)
+}
+
+
+/**
+ * file로 multipart 객체를 만듭니다.
+ */
+fun createMultipartFromFile(
+    file: File
+): MultipartBody.Part{
+    val requestFile: RequestBody = createRequestBodyFromFile(file)
+    return MultipartBody.Part.createFormData("multipartFiles", file.name, requestFile)
+}
+
+
+/**
+ * 갤러리 사용할 경우
  * 만들어진 uri를 파일로 변환합니다
  */
 @SuppressLint("Range")
@@ -70,6 +94,7 @@ fun uriToFilePath(context: Context, uri: Uri): String? {
 
 
 /**
+ * 갤러리 사용할 경우
  * uri로 사진 파일을 가져옵니다
  * createMultipartFromUri로 결과값을 반환합니다
  */
@@ -79,22 +104,16 @@ fun getFileFromUri(context: Context, uri: Uri): File? {
 }
 
 /**
- * 저장된 사진 파일의 body를 가져옵니다
+ * 갤러리 사용할 경우
+ * uri로 multipart 객체를 만듭니다.
  */
-private fun createRequestBodyFromFile(file: File): RequestBody {
-    val MEDIA_TYPE_IMAGE = "multipart/form-data".toMediaTypeOrNull()
-    val inputStream: InputStream = FileInputStream(file)
-    val byteArray = inputStream.readBytes()
-    return RequestBody.create(MEDIA_TYPE_IMAGE, byteArray)
-}
+fun createMultipartFromUri(context: Context, uri: Uri): MultipartBody.Part? {
+    val file: File? = getFileFromUri(context, uri)
+    if (file == null) {
+        // 파일을 가져오지 못한 경우 처리할 로직을 작성하세요.
+        return null
+    }
 
-
-/**
- * file로 multipart 객체를 만듭니다.
- */
-fun createMultipartFromFile(
-    file: File
-): MultipartBody.Part{
     val requestFile: RequestBody = createRequestBodyFromFile(file)
     return MultipartBody.Part.createFormData("multipartFiles", file.name, requestFile)
 }
