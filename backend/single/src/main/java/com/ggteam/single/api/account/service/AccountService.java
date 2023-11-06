@@ -54,7 +54,6 @@ public class AccountService {
                 .nickname(myAccount.getNickname())
                 .language(myAccount.getLanguage())
                 .build();
-        System.out.println("aaaaaaaaaaaaaaaa");
         return ResponseEntity.ok(accountDto);
     }
 
@@ -67,8 +66,8 @@ public class AccountService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("아이디를 입력해주세요.");
         }
 
-        myAccount.updateNickname(accountDto.getNickname());
-        myAccount.updateLanguage(accountDto.getLanguage());
+        if (accountDto.getNickname() != null) myAccount.updateNickname(accountDto.getNickname());
+        if (accountDto.getLanguage() != null) myAccount.updateLanguage(accountDto.getLanguage());
         accountRepository.save(myAccount);
         return ResponseEntity.ok("Edit Complete");
     }
@@ -77,8 +76,13 @@ public class AccountService {
     public ResponseEntity<?> changePassword(PasswordDto passwordDto) {
         Account account = accountRepository.findByUsername(passwordDto.getUsername()).orElseThrow(
                 () -> new NoSuchElementException("해당 아이디가 존재하지 않습니다."));
+
         if (!passwordEncoder.matches(passwordDto.getCurPassword(), account.getPassword())) {
             throw new IllegalArgumentException("현재 비밀번호가 일치하지 않습니다.");
+        }
+
+        if (passwordEncoder.matches(passwordDto.getCurPassword(), account.getPassword())) {
+            throw new IllegalArgumentException("바꾸려는 비밀번호는 현재 비밀번호와 달라야합니다.");
         }
 
         account.updatePassword(passwordDto.getNewPassword(), passwordEncoder);
