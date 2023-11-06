@@ -15,22 +15,32 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.FileProvider
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.freeproject.happyprogrammers.base.BaseFragment
 import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentMissionBinding
 import com.gumigames.presentation.util.CAMERA_PERMISSION_REJECTED
 import com.gumigames.presentation.util.createImageFile
+import com.gumigames.presentation.util.createMultipartFromUri
 import com.gumigames.presentation.util.hasPermissions
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import java.io.File
 import java.security.Permission
 
 
 private const val TAG = "차선호"
+@AndroidEntryPoint
 class MissionFragment: BaseFragment<FragmentMissionBinding>(
     FragmentMissionBinding::bind,
     R.layout.fragment_mission
 ){
+
+    private val missionViewModel: MissionViewModel by viewModels()
     private lateinit var currentPhotoPath: String
     private lateinit var file: File
 
@@ -38,6 +48,7 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListener()
+        initCollect()
     }
 
 
@@ -65,6 +76,16 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
         }
     }
 
+    private fun initCollect(){
+        missionViewModel.apply {
+            viewLifecycleOwner.lifecycleScope.launch {
+                multipartBody.collectLatest {
+                    Log.d(TAG, "multipart : $it")
+                }
+            }
+        }
+    }
+
 
     private val cameraActivityResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -86,6 +107,15 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
                     )
                 }
                 binding.imageMission.setImageBitmap(bitmap)
+                missionViewModel.setMultipartBody(
+                    createMultipartFromUri(
+                        context = mActivity,
+//                        uri = Uri.parse(currentPhotoPath)
+                        filePath = currentPhotoPath
+                    )
+                ){
+                    showCustomToast("파일을 생성하는 데 실패했습니다. 다시 촬영해주세요")
+                }
             }
         }
 
