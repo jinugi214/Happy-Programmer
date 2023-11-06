@@ -47,8 +47,8 @@ public class JwtService {
 
     private static final String ACCESS_TOKEN_SUBJECT = "AccessToken";
     private static final String REFRESH_TOKEN_SUBJECT = "RefreshToken";
-    private static final String ACCOUNT_ID_CLAIM = "username";
-    private static final String BEARER = "Bearer";
+    private static final String USERNAME_CLAIM = "username";
+    private static final String BEARER = "Bearer ";
 
     private final AccountRepository accountRepository;
 
@@ -58,7 +58,7 @@ public class JwtService {
         return JWT.create() // JWT 토큰을 생성하는 빌더 반환
                 .withSubject(ACCESS_TOKEN_SUBJECT) // JWT의 Subject 지정 -> AccessToken이므로 AccessToken
                 .withExpiresAt(new Date(now.getTime() + accessTokenExpirationPeriod)) // 토큰 만료 시간 설정
-                .withClaim(ACCOUNT_ID_CLAIM, username)
+                .withClaim(USERNAME_CLAIM, username)
                 .sign(Algorithm.HMAC512(secretKey)); // HMAC512 알고리즘 사용, application-jwt.yml에서 지정한 secret 키로 암호화
     }
 
@@ -88,7 +88,7 @@ public class JwtService {
         response.setStatus(HttpServletResponse.SC_OK);
 
         response.setHeader(accessHeader, accessToken);
-        log.info("재발급된 Access Token : {}", accessToken);
+        log.info("(재)발급된 Access Token : {}", accessToken);
     }
 
     // AccessToken + RefreshToken 헤더에 실어 보내기
@@ -128,7 +128,7 @@ public class JwtService {
                     JWT.require(Algorithm.HMAC512(secretKey))
                             .build()
                             .verify(accessToken)
-                            .getClaim(ACCOUNT_ID_CLAIM)
+                            .getClaim(USERNAME_CLAIM)
                             .asString()
             );
         } catch (Exception e) {
@@ -165,11 +165,21 @@ public class JwtService {
         }
     }
 
+//    public boolean isTokenValid(String token) {
+//        try {
+//            JWT.require(Algorithm.HMAC512(secretKey)).build().verify(token);
+//            return true;
+//        } catch (Exception e) {
+//            log.error("유효하지 않은 토큰입니다. {}", e.getMessage());
+//            return false;
+//        }
+//    }
+
     public ResponseEntity<Map<String, String>> errorClassify(String errorCode, String definition) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("errorCode", errorCode);
         errorMap.put("definition", definition);
 
-        return new ResponseEntity<>(errorMap, HttpStatus.UNAUTHORIZED);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMap);
     }
 }

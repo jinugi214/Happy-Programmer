@@ -41,7 +41,8 @@ public class AccountController {
     }
 
     @PutMapping("/edit-account")
-    @Operation(summary = "계정 정보 수정", description = "JSON으로 바꾸려는 닉네임(nickname), 사용 언어(language) 필요, 모두 String")
+    @Operation(summary = "계정 정보 수정", description = "JSON으로 나의 아이디(username), 바꾸려는 닉네임(nickname)," +
+            " 사용 언어(language) 필요, 모두 String")
     public ResponseEntity<?> editAccount(@RequestBody AccountDto accountDto) {
         return accountService.editAccount(accountDto);
     }
