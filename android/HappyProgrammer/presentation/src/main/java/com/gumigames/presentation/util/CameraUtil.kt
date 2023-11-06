@@ -28,8 +28,7 @@ import java.util.Date
  * 카메라로 찍은 사진을 사진파일로 만듭니다.
  */
 fun createImageFile(
-    context: Context,
-    savePath: (String) -> Unit
+    context: Context
 ): File {
     val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
     val storageDir: File =
@@ -40,8 +39,7 @@ fun createImageFile(
         ".jpg", /* suffix */
         storageDir /* directory */
     ).apply {
-        // Save a file: path
-        savePath(absolutePath)
+        // 여기서 absolutePath 변수가 현재 filePath 필요하면 써라
     }
 }
 
@@ -92,20 +90,11 @@ private fun createRequestBodyFromFile(file: File): RequestBody {
 
 
 /**
- * filePath로 multipart 객체를 만듭니다.
+ * file로 multipart 객체를 만듭니다.
  */
-fun createMultipartFromUri(
-    context: Context,
-//    uri: Uri
-    filePath: String
-): MultipartBody.Part? {
-//    val file: File? = getFileFromUri(context, uri)
-    val file: File? = File(filePath)
-    if (file == null) {
-        // 파일을 가져오지 못한 경우 처리할 로직을 작성하세요.
-        return null
-    }
-
+fun createMultipartFromFile(
+    file: File
+): MultipartBody.Part{
     val requestFile: RequestBody = createRequestBodyFromFile(file)
     return MultipartBody.Part.createFormData("multipartFiles", file.name, requestFile)
 }
