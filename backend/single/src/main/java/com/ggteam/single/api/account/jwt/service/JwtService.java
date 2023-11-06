@@ -4,7 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.ggteam.single.api.account.exception.InvalidTokenException;
+import com.ggteam.single.api.account.exception.TokenException;
 import com.ggteam.single.api.account.repository.AccountRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -146,22 +146,38 @@ public class JwtService {
                 );
     }
 
+//    public boolean isTokenValid(String token) {
+//        try {
+//            JWT.require(Algorithm.HMAC512(secretKey)).build().verify(token);
+//            return true;
+//        } catch (TokenExpiredException e) {
+//            log.error("Expired Token");
+//            errorClassify("Auth001", "Expired Token");
+//            return false;
+//        } catch (JWTVerificationException e) {
+//            log.error("Invalid Token");
+//            errorClassify("Auth004", "Invalid Token");
+//            return false;
+//        } catch (Exception e) {
+//            log.error("Unexpected Error");
+//            errorClassify("Auth999", "Unexpected Error");
+//            return false;
+//        }
+//    }
+
     public boolean isTokenValid(String token) {
         try {
             JWT.require(Algorithm.HMAC512(secretKey)).build().verify(token);
             return true;
         } catch (TokenExpiredException e) {
-            log.error("Expired Access Token");
-            errorClassify("Auth001", "Expired Access Token");
-            return false;
+            log.error("Expired Token");
+            throw new TokenException("Auth001", "Expired Access Token");
         } catch (JWTVerificationException e) {
-            log.error("Invalid Access Token");
-            errorClassify("Auth004", "Invalid Access Token");
-            return false;
+            log.error("Invalid Token");
+            throw new TokenException("Auth004", "Invalid Access Token");
         } catch (Exception e) {
             log.error("Unexpected Error");
-            errorClassify("Auth999", "Unexpected Error");
-            return false;
+            throw new TokenException("Auth999", "Unexpected Error");
         }
     }
 

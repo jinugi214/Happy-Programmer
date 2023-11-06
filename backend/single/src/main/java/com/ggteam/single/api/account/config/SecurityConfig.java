@@ -77,6 +77,7 @@ public class SecurityConfig {
                 // 해당 주소를 가지는 url 접근 가능
                 .antMatchers("/api/account/login").permitAll()
                 .antMatchers("/api/account/sign-up").permitAll()
+                .antMatchers("swagger-ui/index.html").permitAll()
                 
                 // 아이콘, css, js 관련
                 // 기본 페이지, css, image, js 하위 폴더에 있는 자료들은 모두 접근 가능
