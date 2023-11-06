@@ -24,7 +24,7 @@ import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentMissionBinding
 import com.gumigames.presentation.util.CAMERA_PERMISSION_REJECTED
 import com.gumigames.presentation.util.createImageFile
-import com.gumigames.presentation.util.createMultipartFromUri
+import com.gumigames.presentation.util.createMultipartFromFile
 import com.gumigames.presentation.util.hasPermissions
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -41,7 +41,6 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
 ){
 
     private val missionViewModel: MissionViewModel by viewModels()
-    private lateinit var currentPhotoPath: String
     private lateinit var file: File
 
 
@@ -59,9 +58,7 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
                     /**
                      * 카메라 앱을 띄워 사진을 받아옵니다.
                      */
-                    file = createImageFile(mActivity){
-                        currentPhotoPath = it
-                    }
+                    file = createImageFile(mActivity)
                     //AndroidMenifest에 설정된 URI와 동일한 값으로 설정한다.
                     val photoUri =
                         FileProvider.getUriForFile(mActivity, "com.gumigames.happyprogrammer.fileprovider", file)
@@ -108,11 +105,7 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
                 }
                 binding.imageMission.setImageBitmap(bitmap)
                 missionViewModel.setMultipartBody(
-                    createMultipartFromUri(
-                        context = mActivity,
-//                        uri = Uri.parse(currentPhotoPath)
-                        filePath = currentPhotoPath
-                    )
+                    createMultipartFromFile(file = file)
                 ){
                     showCustomToast("파일을 생성하는 데 실패했습니다. 다시 촬영해주세요")
                 }
