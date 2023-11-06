@@ -9,19 +9,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LevelDto {
 
+	private Integer id;
 	private String name;
-
 	private int hp;
-
 	private int mp;
-
 	private int atk;
-
 	private int def;
-
 	private int needExp;
 
 	public LevelDto(Level entity) {
+		this.id = entity.getId();
 		this.name = entity.getName();
 		this.hp = entity.getHp();
 		this.mp = entity.getMp();

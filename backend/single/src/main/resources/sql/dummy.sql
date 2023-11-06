@@ -20,9 +20,9 @@ INSERT INTO item (name, description, img_path, item_type_id) VALUES
      ('문방구 키보드', '조금만 만져도 부서질 것 같은 키보드다.', 'images/item/weapon/Keyboard_1.png', 2),
      ('기계식 키보드', '깔끔한 디자인을 가진 기계식 키보드다.' , 'images/item/weapon/Keyboard_2.png', 2),
      ('게이밍 키보드', '좋은 반응속도를 가진 게이밍 키보드다.', 'images/item/weapon/Keyboard_3.png', 2),
-     ('문방구 마우스', '금방이라도 부서질 것 같은 마우스다.', 'images/item/weapon/Mouse_1.png', 2),
-     ('게이밍 마우스', '좋은 반응속도를 가진 게이밍 마우스다.', 'images/item/weapon/Mouse_2.png', 2),
-     ('한정판 마우스', '커스텀 특별제작으로 만들어진 마우스다.', 'images/item/weapon/Mouse_3.png', 2),
+     ('문방구 마우스', '금방이라도 부서질 것 같은 마우스다.', 'images/item/weapon/Mouse_1.gif', 2),
+     ('게이밍 마우스', '좋은 반응속도를 가진 게이밍 마우스다.', 'images/item/weapon/Mouse_2.gif', 2),
+     ('한정판 마우스', '커스텀 특별제작으로 만들어진 마우스다.', 'images/item/weapon/Mouse_3.gif', 2),
      ('3G 피처폰', 'LTE 사용이 불가능한 구형 3G 피처폰이다.', 'images/item/weapon/Phone_1.png', 2),
      ('보급형 스마트폰', '버벅임이 심한 보급형 스마트폰이다.', 'images/item/weapon/Phone_2.png', 2),
      ('플래그쉽 스마트폰', '빠르고 강력한 성능을 가진 스마트폰이다.', 'images/item/weapon/Phone_3.png', 2);
