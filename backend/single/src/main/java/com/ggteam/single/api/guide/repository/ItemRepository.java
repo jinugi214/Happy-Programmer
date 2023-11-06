@@ -1,6 +1,7 @@
 package com.ggteam.single.api.guide.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,4 +19,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
 	@Query("SELECT i FROM ItemFavorite if JOIN Item i ON if.item.id = i.id WHERE if.account.id = :accountId")
 	List<Item> findItemFavoriteByAccount(@Param("accountId") Long accountId);
+
+	Optional<Item> findById(Integer itemId);
 }

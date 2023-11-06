@@ -1,11 +1,15 @@
 package com.ggteam.single.api.guide.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import com.ggteam.single.api.guide.dto.res.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +39,7 @@ public class GuideController {
 	private final SkillService skillService;
 	private final LevelService levelService;
 	private final ItemService itemService;
+	private final AccountService accountService;
 
 	@Operation(summary = "몬스터 정보 전체 조회")
 	@GetMapping("/monsters")
@@ -66,31 +71,33 @@ public class GuideController {
 
 	@Operation(summary = "아이템 정보 전체 조회")
 	@GetMapping("/items")
-	public ResponseEntity<List<ItemWithFavoriteResponse>> itemList(@AuthenticationPrincipal Account account) {
-		System.out.println(account);
-		List<ItemWithFavoriteResponse> response = itemService.findItemListWithFavorite(account);
+	public ResponseEntity<List<ItemWithFavoriteResponse>> itemList(Principal principal) {
+		String username = principal.getName();
+		List<ItemWithFavoriteResponse> response = itemService.findItemListWithFavorite(username);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 	@Operation(summary = "아이템 검색")
 	@GetMapping("/items/search")
-	public ResponseEntity<List<ItemResponse>> itemSearchList(@RequestParam("keyword") String keyword) {
-		List<ItemResponse> response = itemService.findItemListByKeyword(keyword);
+	public ResponseEntity<List<ItemResponse>> itemSearchList(Principal principal, @RequestParam("keyword") String keyword) {
+		String username = principal.getName();
+		List<ItemResponse> response = itemService.findItemListByKeyword(username, keyword);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 	@Operation(summary = "즐겨찾기한 아이템 조회하기")
 	@GetMapping("/items/favorite")
-	public ResponseEntity<?> itemFavoriteList(@AuthenticationPrincipal Account account){
-		List<ItemResponse> response = itemService.findItemFavoriteListByAccount(account);
+	public ResponseEntity<?> itemFavoriteList(Principal principal){
+		String username = principal.getName();
+		List<ItemResponse> response = itemService.findItemFavoriteListByAccount(username);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 	@Operation(summary = "아이템 즐겨찾기하기", description = "이미 즐겨찾기 되어 있으면 취소된다.")
 	@PostMapping("/items/favorite/{itemId}")
-	public ResponseEntity<?> itemAddFavorite(@AuthenticationPrincipal Account account, @PathVariable Integer itemId){
+	public ResponseEntity<?> itemAddFavorite(Principal principal, @PathVariable Integer itemId){
 		itemService.addItemFavorite(ItemFavoriteRequest.builder()
-			.account(account)
+			.username(principal.getName())
 			.itemId(itemId)
 			.build());
 		return ResponseEntity.ok().build();
