@@ -47,7 +47,7 @@ class LoginViewModel @Inject constructor(
     //사용자 정보 조회 시작
     fun bringUserInfo(){
         viewModelScope.launch {
-            delay(3000)
+            delay(300)
             _isBroughtUserInfo.emit(true)
         }
     }
