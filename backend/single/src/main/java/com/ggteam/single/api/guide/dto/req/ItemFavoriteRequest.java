@@ -12,12 +12,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ItemFavoriteRequest {
 
-	private Account account;
+	private String username;
 	private Integer itemId;
 
 	@Builder
-	public ItemFavoriteRequest(Account account, Integer itemId){
-		this.account = account;
+	public ItemFavoriteRequest(String username, Integer itemId){
+		this.username = username;
 		this.itemId = itemId;
 	}
 
