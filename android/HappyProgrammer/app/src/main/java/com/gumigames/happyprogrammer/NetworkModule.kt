@@ -3,6 +3,7 @@ package com.gumigames.happyprogrammer
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import com.gumigames.data.service.ItemService
+import com.gumigames.data.service.MissionService
 import com.gumigames.data.service.MonsterService
 import com.gumigames.data.service.SkillService
 import dagger.Module
@@ -66,5 +67,11 @@ object NetworkModule {
     fun provideSkillService(
         retrofit: Retrofit
     ): SkillService = retrofit.create(SkillService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideMissionService(
+        retrofit: Retrofit
+    ): MissionService = retrofit.create(MissionService::class.java)
 
 }
