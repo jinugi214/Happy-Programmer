@@ -3,6 +3,7 @@ package com.ggteam.single.api.state.dto;
 
 import javax.persistence.*;
 
+
 // @Entity(name = "inventory")
 public class InventoryDto {
 
