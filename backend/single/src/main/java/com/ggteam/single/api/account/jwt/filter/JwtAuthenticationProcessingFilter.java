@@ -32,6 +32,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         acceptPath = new HashSet<>();
         acceptPath.add("/api/account/login");
         acceptPath.add("/api/account/sign-up");
+        acceptPath.add("swagger-ui/index.html");
     }
 
     private final JwtService jwtService;
@@ -62,14 +63,13 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         // -> 같이 받은 RefreshToken가 DB의 RefreshToken과 일치하는지 확인하고 일치하면 AccessToken을 재발급
         if (refreshToken != null) {
             checkRefreshTokenAndReIssueAccessToken(response, refreshToken);
+            return;
         }
 
         // RefreshToken이 없거나 유효하지 않다면, AccessToken을 검사하고 인증을 처리하는 로직 수행
         // AccessToken이 없거나 유효하지 않다면, 인증 객체가 담기지 않은 상태로 다음 필터로 넘어가기 때문에 403 에러 발생
         // AccessToken이 유효하다면, 인증 객체가 담긴 상태로 다음 필터로 넘어가기 때문에 인증 성공
-        if (refreshToken == null) {
-            checkAccessTokenAndAuthentication(request, response, filterChain);
-        }
+        checkAccessTokenAndAuthentication(request, response, filterChain);
     }
 
     // 인증 허가 메서드
