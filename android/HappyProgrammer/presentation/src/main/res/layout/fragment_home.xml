@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollview"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="match_parent">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     tools:background="@drawable/image_home_background"
     tools:context=".ui.home.HomeFragment">
 
     <Space
         android:id="@+id/space1"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.025"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_profile"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_240sdp"
         android:background="@drawable/frame_border_white_alpha60"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/space1"
         app:layout_constraintWidth_percent="0.9">
@@ -85,19 +88,17 @@
     <Space
         android:id="@+id/space2"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.025"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_profile" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_stage"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_60sdp"
         android:background="@drawable/frame_border_white_alpha60"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/space2"
         app:layout_constraintWidth_percent="0.9">
@@ -107,19 +108,17 @@
     <Space
         android:id="@+id/space3"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.025"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_stage" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_item"
+        android:id="@+id/layout_dogam"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_60sdp"
         android:background="@drawable/frame_border_white_alpha60"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/space3"
         app:layout_constraintWidth_percent="0.9">
@@ -134,7 +133,7 @@
             app:layout_constraintWidth_percent="0.9">
 
             <TextView
-                android:id="@+id/textview_item"
+                android:id="@+id/textview_dogam"
                 style="@style/Theme.AppCompat.TextView.dunggeunmo.black.Size16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -159,19 +158,17 @@
     <Space
         android:id="@+id/space4"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.025"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_item" />
+        app:layout_constraintTop_toBottomOf="@id/layout_dogam" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_skill"
+        android:id="@+id/layout_bookmark"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_60sdp"
         android:background="@drawable/frame_border_white_alpha60"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/space4"
         app:layout_constraintWidth_percent="0.9">
@@ -186,7 +183,7 @@
             app:layout_constraintWidth_percent="0.9">
 
             <TextView
-                android:id="@+id/textview_skill"
+                android:id="@+id/textview_bookmark"
                 style="@style/Theme.AppCompat.TextView.dunggeunmo.black.Size16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -211,19 +208,17 @@
     <Space
         android:id="@+id/space5"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.025"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_skill" />
+        app:layout_constraintTop_toBottomOf="@id/layout_bookmark" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_monster"
+        android:id="@+id/layout_mission"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_60sdp"
         android:background="@drawable/frame_border_white_alpha60"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/space5"
         app:layout_constraintWidth_percent="0.9">
@@ -238,7 +233,7 @@
             app:layout_constraintWidth_percent="0.9">
 
             <TextView
-                android:id="@+id/textview_monster"
+                android:id="@+id/textview_mission"
                 style="@style/Theme.AppCompat.TextView.dunggeunmo.black.Size16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -260,5 +255,14 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <Space
+        android:id="@+id/space6"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_15sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_mission" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

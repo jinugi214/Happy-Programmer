@@ -39,6 +39,14 @@
     </style>
 
 
+    <!--dunggeunmo gray 12-->
+    <style name="Theme.AppCompat.TextView.dunggeunmo.gray.Size12" parent="@style/Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">@dimen/_12sdp</item>
+        <item name="fontFamily">@font/dunggeunmo</item>
+    </style>
+
+
     <!--dunggeunmo white 32-->
     <style name="Theme.AppCompat.TextView.dunggeunmo.white.Size24" parent="@style/Widget.AppCompat.TextView">
         <item name="android:textColor">@color/white</item>
@@ -74,5 +82,18 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+
+    <!--chip-->
+    <!--chip style-->
+    <style name="MyChipStyle" parent="@style/Widget.MaterialComponents.Chip.Choice">
+        <!-- 원하는 속성들을 추가/변경할 수 있습니다 -->
+        <item name="android:textColor">@color/selector_chip</item>
+        <item name="rippleColor">@color/main_pink</item>
+        <!-- 원하는 다른 속성들 ... -->
+        <item name="android:textAppearance">@style/Theme.AppCompat.TextView.dunggeunmo.gray.Size12</item>
+    </style>
+
+
+
 
 </resources>

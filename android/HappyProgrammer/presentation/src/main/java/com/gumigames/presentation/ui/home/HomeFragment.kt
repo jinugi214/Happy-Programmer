@@ -28,19 +28,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             layoutProfile.setOnClickListener {
                 findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
             }
-            //아이템 화면으로 이동
-            layoutItem.setOnClickListener {
+            //도감 화면으로 이동
+            layoutDogam.setOnClickListener {
                 findNavController().navigate(R.id.action_homeFragment_to_dogamFragment)
             }
             //스테이지 화면으로 이동 TODO 지금은 GITHUB 화면으로 테스트 중
             layoutStage.setOnClickListener{
             }
-            //스킬 화면으로 이동
-            layoutSkill.setOnClickListener {
+            //즐겨찾기 화면으로 이동
+            layoutBookmark.setOnClickListener {
                 findNavController().navigate(R.id.action_homeFragment_to_bookmarkFragment)
             }
             //미션 화면으로 이동
-            layoutMonster.setOnClickListener {
+            layoutMission.setOnClickListener {
                 findNavController().navigate(R.id.action_homeFragment_to_missionFragment)
             }
         }
