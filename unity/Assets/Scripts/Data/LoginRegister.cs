@@ -3,6 +3,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using System.Collections.Generic;
 
 public class LoginRegister : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class LoginRegister : MonoBehaviour
 
     public InputField username;
     public InputField password;
+    public InputField nickname;
+    public InputField language;
     public Button registerButton;
 
     void Awake()
@@ -27,7 +30,9 @@ public class LoginRegister : MonoBehaviour
     {
         string username = this.username.text;
         string password = this.password.text;
-        StartCoroutine(Register(username, password));
+        string nickname = this.nickname.text;
+        string language = this.language.text;
+        StartCoroutine(Register(username, password, nickname, language));
     }
 
 
@@ -35,11 +40,10 @@ public class LoginRegister : MonoBehaviour
     {
         if (username == null || password == null)
         {
-            
+            Debug.LogError("아이디와 패스워드를 모두 입력해주세요");
         }
         // JSON으로 변환하기
         string json = JsonUtility.ToJson(new { username = username, password = password });
-
 
         // POST 요청 보내기
         using (UnityWebRequest www = new UnityWebRequest(serverUrl + "/login", "POST"))
@@ -60,11 +64,19 @@ public class LoginRegister : MonoBehaviour
             {
                 // 로그인 성공시 처리하는 로직 작성란
                 Debug.Log("Login Success");
+
+                // accountId 파싱
+                string responseText = www.downloadHandler.text;
+                var data = JsonUtility.FromJson<Dictionary<string, string>>(responseText);
+                string accountId = data["accountId"];
+
+                StartCoroutine(ServerManager.instance.LoadCharacterData(accountId));
             }
         }
     }
 
-    IEnumerator Register(string username, string password)
+
+    IEnumerator Register(string username, string password, string nickname, string language)
     {
 
         // JSON으로 변환하기
@@ -83,7 +95,7 @@ public class LoginRegister : MonoBehaviour
 
             if (www.result != UnityWebRequest.Result.Success)
             {
-                // 로그인 실패시
+                // 회원가입 실패시
                 Debug.Log(www.error);
             }
             else
