@@ -32,8 +32,9 @@ public class Spawner : MonoBehaviour
     void Spawn()
     {
        
-        GameObject monster = MiniGameManager.instance.pool.Get(Random.Range(1, level));
+        GameObject monster = MiniGameManager.instance.pool.Get(0);
         monster.transform.position = spawnPoint[Random.Range(1, spawnPoint.Length)].position;
+        monster.GetComponent<FatalController>().Init(spawnData[level]);
     
     }
 
