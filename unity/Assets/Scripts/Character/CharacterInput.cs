@@ -3,8 +3,9 @@ using UnityEngine;
 public class CharacterInput : MonoBehaviour
 {
     private CharacterMovement characterMovement;
-    private bool isAttacking;
     private bool isRunning;
+    private bool isAttacking;
+
 
     private void Start()
     {
@@ -32,6 +33,8 @@ public class CharacterInput : MonoBehaviour
         }
 
         characterMovement.SetAttacking(isAttacking);
+
     }
+
 }
 
