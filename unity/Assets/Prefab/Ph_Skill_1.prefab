@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4070443970753587682}
   - component: {fileID: 3740201679868233218}
   - component: {fileID: 6055588290229603565}
+  - component: {fileID: 5712891372552345883}
   m_Layer: 7
   m_Name: Ph_Skill_1
   m_TagString: Untagged
@@ -105,6 +106,7 @@ MonoBehaviour:
   speed: 3
   direction: {x: 0, y: 0}
   effectPrefab: {fileID: 1179103934829467699, guid: 911aaa1d2d3f19145a1bf9d58013d041, type: 3}
+  weaponType: 0
 --- !u!61 &6055588290229603565
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -150,3 +152,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3, y: 4.202252}
   m_EdgeRadius: 0
+--- !u!95 &5712891372552345883
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6023495660498031551}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e73d83e001b8c9141a4546dab1d597ea, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
