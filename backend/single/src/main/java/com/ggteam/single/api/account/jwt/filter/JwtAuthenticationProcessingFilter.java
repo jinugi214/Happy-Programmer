@@ -33,6 +33,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         acceptPath.add("/api/account/login");
         acceptPath.add("/api/account/sign-up");
         acceptPath.add("/swagger-ui/*");
+
     }
 
     private final JwtService jwtService;
