@@ -32,9 +32,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             layoutDogam.setOnClickListener {
                 findNavController().navigate(R.id.action_homeFragment_to_dogamFragment)
             }
-            //스테이지 화면으로 이동 TODO 지금은 GITHUB 화면으로 테스트 중
-            layoutStage.setOnClickListener{
-            }
             //즐겨찾기 화면으로 이동
             layoutBookmark.setOnClickListener {
                 findNavController().navigate(R.id.action_homeFragment_to_bookmarkFragment)
@@ -42,6 +39,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             //미션 화면으로 이동
             layoutMission.setOnClickListener {
                 findNavController().navigate(R.id.action_homeFragment_to_missionFragment)
+            }
+            //설정 화면으로 이동
+            layoutSetting.setOnClickListener{
+                findNavController().navigate(R.id.action_homeFragment_to_settingFragment)
             }
         }
     }
