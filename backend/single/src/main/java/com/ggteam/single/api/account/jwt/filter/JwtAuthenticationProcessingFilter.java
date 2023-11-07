@@ -18,13 +18,22 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Slf4j
 @RequiredArgsConstructor
 public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 
-    private static final String NO_CHECK_URL = "/api/account/login";  // "/api/account"로 들어오는 요청은 Filter 작동 X
+    private Set<String> acceptPath;
+
+    {
+        acceptPath = new HashSet<>();
+        acceptPath.add("/api/account/login");
+        acceptPath.add("/api/account/sign-up");
+        acceptPath.add("swagger-ui/index.html");
+    }
 
     private final JwtService jwtService;
     private final AccountRepository accountRepository;
@@ -34,7 +43,10 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
         throws ServletException, IOException {
-        if (request.getRequestURI().startsWith(NO_CHECK_URL)) {
+
+        String path = request.getServletPath();
+
+        if (acceptPath.contains(path)) {
             filterChain.doFilter(request, response);  // 위의 요청이 온다면 다음 필터 호출
             return;  // return 으로 이후 현재 필터의 진행 막기
         }
@@ -51,14 +63,20 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         // -> 같이 받은 RefreshToken가 DB의 RefreshToken과 일치하는지 확인하고 일치하면 AccessToken을 재발급
         if (refreshToken != null) {
             checkRefreshTokenAndReIssueAccessToken(response, refreshToken);
+            return;
         }
+
+        // RefreshToken이 없거나 유효하지 않다면, AccessToken을 검사하고 인증을 처리하는 로직 수행
+        // AccessToken이 없거나 유효하지 않다면, 인증 객체가 담기지 않은 상태로 다음 필터로 넘어가기 때문에 403 에러 발생
+        // AccessToken이 유효하다면, 인증 객체가 담긴 상태로 다음 필터로 넘어가기 때문에 인증 성공
+        checkAccessTokenAndAuthentication(request, response, filterChain);
     }
 
     // 인증 허가 메서드
     // 파라미터의 유저 : 우리가 만든 회원 객체 / 빌더의 유저 : UserDetails의 Account 객체
     //
-    // new AccountIdPasswordAuthenticationToken() 으로 인증 객체인 Authenticaiton 객체 생성
-    // AccountIdPasswordAuthenticationToken의 파라미터
+    // new UsernamePasswordAuthenticationToken() 으로 인증 객체인 Authenticaiton 객체 생성
+    // UsernamePasswordAuthenticationToken의 파라미터
     // 1. 위에서 만든 UserDetailsAccount 객체 (유저 정보)
     // 2. credential(보통 비밀번호로, 인증 시에는 보통 null로 제거)
     // 3. Collection < ? extends GrantedAuthority>로, UserDetails의 Account 객체 안에 Set<GrantedAuthority> authorities가
@@ -70,7 +88,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         String password = myAccount.getPassword();
 
         UserDetails userDetailsAccount = org.springframework.security.core.userdetails.User.builder()
-                .username(myAccount.getAccountId())
+                .username(myAccount.getUsername())
                 .password(password)
                 .roles(myAccount.getRole().name())
                 .build();
@@ -91,7 +109,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         accountRepository.findByRefreshToken(refreshToken)
                 .ifPresent(account -> {
                     String reIssuedRefreshToken = reIssueRefreshToken(account);
-                    jwtService.sendAccessAndRefreshToken(response, jwtService.createAccessToken(account.getAccountId()),
+                    jwtService.sendAccessAndRefreshToken(response, jwtService.createAccessToken(account.getUsername()),
                             reIssuedRefreshToken);
                 });
     }
@@ -108,7 +126,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 
     // AccessToken 체크 & 인증 처리 메서드
     // request 에서 extractAccessToken()으로 AccessToken 추출 후, isTokenValid() 로 유효한 토큰인지 검증
-    // 유효한 토큰이면, AccessToken에서 extractAccountId로 AccountId를 추출한 후 findByAccountId()로 해당 아이디를 사용하는 유저 객체 반환
+    // 유효한 토큰이면, AccessToken에서 extractUsername로 Username을 추출한 후 findByUsername()로 해당 아이디를 사용하는 유저 객체 반환
     // 그 유저 객체를 saveAuthentication()으로 인증 처리하여
     // 인증 허기 처리된 객체를 SecurityContextHolder에 담은 후 다음 인증 필터로 진행
     public void checkAccessTokenAndAuthentication(HttpServletRequest request, HttpServletResponse response,
@@ -116,9 +134,11 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         log.info("checkAccessTokenAndAuthentication() 호출");
         jwtService.extractAccessToken(request)
                 .filter(jwtService::isTokenValid)
-                .ifPresent(accessToken -> jwtService.extractAccountId(accessToken)
-                        .ifPresent(accountId -> accountRepository.findByAccountId(accountId)
+                .ifPresent(accessToken -> jwtService.extractUsername(accessToken)
+                        .ifPresent(username -> accountRepository.findByUsername(username)
                                 .ifPresent(this::saveAuthentication)));
+
+        filterChain.doFilter(request, response);
     }
 
 }

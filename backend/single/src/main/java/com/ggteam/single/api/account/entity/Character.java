@@ -30,6 +30,10 @@ public class Character {
 
     private int savepoint;
 
+    private int point;
+
+    private int storyProgress;
+
     private String imgPath;
 
     @OneToOne(mappedBy = "character")

@@ -18,6 +18,8 @@ public class CharacterDto {
     private char gender;
     private int exp;
     private int level;
+    private int point;
+    private int storyProgress;
     private int savepoint;
     private String imgPath;
 

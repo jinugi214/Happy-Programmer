@@ -18,11 +18,16 @@ public class Account {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String accountId;
+    @Column
+    private String username;
+    @Column
     private String password;
+    @Column
     private String nickname;
+    @Column
     private String language;
 
+    @Column
     private String refreshToken;
 
     @Enumerated(EnumType.STRING)
@@ -48,6 +53,10 @@ public class Account {
 
     public void updateNickname(String newNickname) {
         this.nickname = newNickname;
+    }
+
+    public void updateLanguage(String newLanguage) {
+        this.language = newLanguage;
     }
 
     public void updatePassword(String newPassword, PasswordEncoder passwordEncoder) {
