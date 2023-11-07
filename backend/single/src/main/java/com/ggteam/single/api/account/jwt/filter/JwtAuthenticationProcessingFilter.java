@@ -32,7 +32,8 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         acceptPath = new HashSet<>();
         acceptPath.add("/api/account/login");
         acceptPath.add("/api/account/sign-up");
-        acceptPath.add("swagger-ui/index.html");
+        acceptPath.add("/swagger-ui/*");
+
     }
 
     private final JwtService jwtService;
