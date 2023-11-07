@@ -14,7 +14,7 @@ import com.freeproject.happyprogrammers.base.BaseActivity
 import com.gumigames.presentation.databinding.ActivityMainBinding
 import com.gumigames.presentation.util.PERMISSION_LIST_UNDER32
 import com.gumigames.presentation.util.PERMISSION_LIST_UP33
-import com.gumigames.presentation.util.checkAllPermission
+import com.gumigames.presentation.util.createPermissionLauncher
 import com.gumigames.presentation.util.showPermissionDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -39,7 +39,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
     private fun requestPermission(){
         mainViewModel.setIsAlreadyShowedDialog(false)
-        permissionLauncher = checkAllPermission(
+        permissionLauncher = createPermissionLauncher(
             fragment = null,
             activity = this,
             getPermissionRejected = {it -> mainViewModel.getPermissionRejected(it)},

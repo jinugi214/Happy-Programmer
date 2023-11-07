@@ -26,7 +26,8 @@ import com.gumigames.presentation.MainViewModel
 import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentMissionBinding
 import com.gumigames.presentation.util.CAMERA_PERMISSION_REJECTED
-import com.gumigames.presentation.util.checkAllPermission
+import com.gumigames.presentation.util.createCameraLauncher
+import com.gumigames.presentation.util.createPermissionLauncher
 import com.gumigames.presentation.util.createImageFile
 import com.gumigames.presentation.util.createMultipartFromFile
 import com.gumigames.presentation.util.hasPermissions
@@ -49,10 +50,12 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
     private val missionViewModel: MissionViewModel by viewModels()
     private lateinit var file: File
     private lateinit var cameraPermissionLauncher: ActivityResultLauncher<Array<String>>
+    private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initPermissionLauncher()
+        initCameraLauncher()
         initListener()
         initCollect()
     }
@@ -64,16 +67,13 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
             buttonCamera.setOnClickListener {
                 cameraPermissionLauncher.launch(arrayOf(CAMERA_PERMISSION_REJECTED))
                 if(mActivity.hasPermissions(CAMERA_PERMISSION_REJECTED)){
-                    /**
-                     * 카메라 앱을 띄워 사진을 받아옵니다.
-                     */
-                    file = createImageFile(mActivity)
-                    //AndroidMenifest에 설정된 URI와 동일한 값으로 설정한다.
+
+                    //카메라 앱을 띄워 사진을 받아옵니다.
                     val photoUri =
                         FileProvider.getUriForFile(mActivity, "com.gumigames.happyprogrammer.fileprovider", file)
                     val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
-                    cameraActivityResult.launch(intent) //카메라 앱을 실행 한 후 결과를 받기 위해서 launch
+                    cameraLauncher.launch(intent) //카메라 앱을 실행 한 후 결과를 받기 위해서 launch
                 }else{
                     if(mainViewModel.getIsShowedPermissionDialog(CAMERA_PERMISSION_REJECTED)){
                         showCustomToast("설정에서 카메라 권한을 허용해 주세요")
@@ -108,7 +108,7 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
     }
 
     private fun initPermissionLauncher(){
-        cameraPermissionLauncher = checkAllPermission(
+        cameraPermissionLauncher = createPermissionLauncher(
             fragment = this,
             activity = mActivity,
             getPermissionRejected = {it -> mainViewModel.getPermissionRejected(it)},
@@ -122,31 +122,22 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
         )
     }
 
-    private val cameraActivityResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == Activity.RESULT_OK) {
-                var bitmap: Bitmap
-
-                if (Build.VERSION.SDK_INT >= 29) {
-                    val source: ImageDecoder.Source = ImageDecoder.createSource(
-                        requireContext().contentResolver,
-                        Uri.fromFile(file)
-                    )
-                    Log.d(TAG, "source : $source")
-                    bitmap = ImageDecoder.decodeBitmap(source)
-
-                } else {
-                    bitmap = MediaStore.Images.Media.getBitmap(
-                        requireContext().contentResolver,
-                        Uri.fromFile(file)
-                    )
-                }
-                binding.imageMission.setImageBitmap(bitmap)
-                missionViewModel.setMultipartBody(
-                    createMultipartFromFile(file = file)
-                ){
-                    showCustomToast("파일을 생성하는 데 실패했습니다. 다시 촬영해주세요")
-                }
+    private fun initCameraLauncher(){
+        //파일 생성
+        file = createImageFile(mActivity)
+        //카메라 launcher 생성
+        cameraLauncher = createCameraLauncher(
+            fragment = this@MissionFragment,
+            activity = mActivity,
+            file = file,
+            onLoadBitmap = {binding.imageMission.setImageBitmap(it)}
+        ){
+            missionViewModel.setMultipartBody(
+                createMultipartFromFile(file = file)
+            ){
+                showCustomToast("파일을 생성하는 데 실패했습니다. 다시 촬영해주세요")
             }
         }
+    }
+
 }
