@@ -28,6 +28,16 @@ import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.Date
 
+fun createCameraIntent(
+    context: Context,
+    file: File
+): Intent{
+    val photoUri =
+        FileProvider.getUriForFile(context, "com.gumigames.happyprogrammer.fileprovider", file)
+    val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+    intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
+    return intent
+}
 
 fun createCameraLauncher(
     fragment: Fragment?,

@@ -26,6 +26,7 @@ import com.gumigames.presentation.MainViewModel
 import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentMissionBinding
 import com.gumigames.presentation.util.CAMERA_PERMISSION_REJECTED
+import com.gumigames.presentation.util.createCameraIntent
 import com.gumigames.presentation.util.createCameraLauncher
 import com.gumigames.presentation.util.createPermissionLauncher
 import com.gumigames.presentation.util.createImageFile
@@ -50,6 +51,7 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
     private val missionViewModel: MissionViewModel by viewModels()
     private lateinit var file: File
     private lateinit var cameraPermissionLauncher: ActivityResultLauncher<Array<String>>
+    private lateinit var cameraIntent: Intent
     private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,13 +69,12 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
             buttonCamera.setOnClickListener {
                 cameraPermissionLauncher.launch(arrayOf(CAMERA_PERMISSION_REJECTED))
                 if(mActivity.hasPermissions(CAMERA_PERMISSION_REJECTED)){
-
                     //카메라 앱을 띄워 사진을 받아옵니다.
-                    val photoUri =
-                        FileProvider.getUriForFile(mActivity, "com.gumigames.happyprogrammer.fileprovider", file)
-                    val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
-                    cameraLauncher.launch(intent) //카메라 앱을 실행 한 후 결과를 받기 위해서 launch
+                    cameraIntent = createCameraIntent(
+                        context = mActivity,
+                        file = file
+                    )
+                    cameraLauncher.launch(cameraIntent) //카메라 앱을 실행 한 후 결과를 받기 위해서 launch
                 }else{
                     if(mainViewModel.getIsShowedPermissionDialog(CAMERA_PERMISSION_REJECTED)){
                         showCustomToast("설정에서 카메라 권한을 허용해 주세요")
