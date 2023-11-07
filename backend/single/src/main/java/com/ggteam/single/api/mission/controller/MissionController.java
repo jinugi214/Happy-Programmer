@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,11 +23,9 @@ import java.util.Map;
 public class MissionController {
 
     @Operation(summary = "AI 객체 인식")
-    @GetMapping("/picture")
+    @PostMapping(value = "/picture", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @CrossOrigin(origins = "*")
     public Map<String, String> detectObject(@RequestPart(name = "file") MultipartFile image){
-
-
 
         String[] objects = MissionService.detectObject(image);
         Map<String, String> result = new HashMap<>();
