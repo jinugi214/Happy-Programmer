@@ -18,13 +18,22 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Slf4j
 @RequiredArgsConstructor
 public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 
-    private static final String NO_CHECK_URL = "/api/account/login";  // "/api/account"로 들어오는 요청은 Filter 작동 X
+    private Set<String> acceptPath;
+
+    {
+        acceptPath = new HashSet<>();
+        acceptPath.add("/api/account/login");
+        acceptPath.add("/api/account/sign-up");
+        acceptPath.add("/swagger-ui/*");
+    }
 
     private final JwtService jwtService;
     private final AccountRepository accountRepository;
@@ -34,8 +43,10 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
         throws ServletException, IOException {
-        if (request.getRequestURI().startsWith("/api/account/login") ||
-                request.getRequestURI().startsWith("/api/account/sign-up")) {
+
+        String path = request.getServletPath();
+
+        if (acceptPath.contains(path)) {
             filterChain.doFilter(request, response);  // 위의 요청이 온다면 다음 필터 호출
             return;  // return 으로 이후 현재 필터의 진행 막기
         }
@@ -52,7 +63,13 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         // -> 같이 받은 RefreshToken가 DB의 RefreshToken과 일치하는지 확인하고 일치하면 AccessToken을 재발급
         if (refreshToken != null) {
             checkRefreshTokenAndReIssueAccessToken(response, refreshToken);
+            return;
         }
+
+        // RefreshToken이 없거나 유효하지 않다면, AccessToken을 검사하고 인증을 처리하는 로직 수행
+        // AccessToken이 없거나 유효하지 않다면, 인증 객체가 담기지 않은 상태로 다음 필터로 넘어가기 때문에 403 에러 발생
+        // AccessToken이 유효하다면, 인증 객체가 담긴 상태로 다음 필터로 넘어가기 때문에 인증 성공
+        checkAccessTokenAndAuthentication(request, response, filterChain);
     }
 
     // 인증 허가 메서드
@@ -120,6 +137,8 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
                 .ifPresent(accessToken -> jwtService.extractUsername(accessToken)
                         .ifPresent(username -> accountRepository.findByUsername(username)
                                 .ifPresent(this::saveAuthentication)));
+
+        filterChain.doFilter(request, response);
     }
 
 }

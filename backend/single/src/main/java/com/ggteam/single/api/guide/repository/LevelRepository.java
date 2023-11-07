@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.ggteam.single.api.guide.entity.Level;
 
 @Repository
-public interface LevelRepository extends JpaRepository<Level, Long> {
+public interface LevelRepository extends JpaRepository<Level, Integer> {
 }
