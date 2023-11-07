@@ -68,11 +68,11 @@ class PreferenceDataSourceImpl(
     }
 
     override fun getRefreshToken(): String? {
-        TODO("Not yet implemented")
+        return getString(X_REFRESH_TOKEN)
     }
 
     override fun setRefreshToken(newToken: String) {
-        TODO("Not yet implemented")
+        putString(X_REFRESH_TOKEN, newToken)
     }
 
     override fun resetToken() {
