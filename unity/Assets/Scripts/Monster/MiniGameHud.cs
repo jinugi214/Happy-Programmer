@@ -17,4 +17,24 @@ public class MiniGameHud : MonoBehaviour
         myText = GetComponent<Text>();
         mySlider = GetComponent<Slider>();
     }
+
+    void LateUpdate()
+    {
+        switch (type)
+        {
+            case InfoType.EXP:
+                float curExp = MiniGameManager.instance.exp;
+                break;
+            case InfoType.Level:
+                break;
+            case InfoType.kill:
+                break;
+            case InfoType.Time:
+                break;
+            case InfoType.Health:
+                break;
+
+
+        }
+    }
 }
