@@ -52,7 +52,7 @@ fun Context.hasPermissions(permission: String): Boolean{
  * setIsShowedPermissionDialog -> 해당 권한에 대해서 설정으로 이동하는 dialog를 보여줘야 한다고 값 갱신하는 함수
  * isShowDialog -> 다이얼로그를 총 한 번만 띄우기 위해 실행하는 함수
  */
-fun checkAllPermission(
+fun createPermissionLauncher(
     fragment: Fragment?,
     activity: MainActivity,
     getPermissionRejected: (String) -> Boolean,
@@ -80,7 +80,7 @@ fun checkAllPermission(
             // 다이얼로그 띄워야 한다면
             if(lastResult){
                 //여기서 다이얼로그 띄우는 변수 갱신
-                Log.d(TAG, "checkAllPermission에서 isShowDialog 실행되야 함")
+                Log.d(TAG, "createPermissionLauncher에서 isShowDialog 실행되야 함")
                 isShowDialog()
             }
         }

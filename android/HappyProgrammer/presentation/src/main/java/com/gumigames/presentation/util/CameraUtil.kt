@@ -12,8 +12,12 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.util.Log
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.FileProvider
+import androidx.fragment.app.Fragment
+import com.gumigames.presentation.MainActivity
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -25,7 +29,38 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 
+fun createCameraLauncher(
+    fragment: Fragment?,
+    activity: MainActivity,
+    file: File, //찍은 사진을 담을 파일
+    onLoadBitmap: (Bitmap) -> Unit, //찍은 사진을 bitmap으로 반환해서 사용해라
+    onSuccess: () -> Unit? //찍은 사진을 가지고 수행할 로직
+): ActivityResultLauncher<Intent>{
+    val cameraActivityResult =
+        (fragment?:activity).registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                var bitmap: Bitmap
 
+                if (Build.VERSION.SDK_INT >= 29) {
+                    val source: ImageDecoder.Source = ImageDecoder.createSource(
+                        activity.contentResolver,
+                        Uri.fromFile(file)
+                    )
+                    bitmap = ImageDecoder.decodeBitmap(source)
+
+                } else {
+                    bitmap = MediaStore.Images.Media.getBitmap(
+                        activity.contentResolver,
+                        Uri.fromFile(file)
+                    )
+                }
+                onLoadBitmap(bitmap)
+                onSuccess()
+
+            }
+        }
+    return cameraActivityResult
+}
 
 
 /**
