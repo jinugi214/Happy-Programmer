@@ -28,6 +28,7 @@ abstract class BaseViewModel: ViewModel() {
             try {
                 success(block())
             }catch (throwable: Throwable){
+                Log.d(TAG, "getApiResult throwable : $throwable")
                 if (throwable is NetworkThrowable) {
                     if(throwable.message == NetworkThrowable.REFRESH_EXPIRE_MESSAGE){
                         _isExpiredRefreshToken.emit(true)

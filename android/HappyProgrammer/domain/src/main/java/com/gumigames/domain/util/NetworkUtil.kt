@@ -20,8 +20,8 @@ fun <T> Response<T>.getNetworkResult(): T {
         return this.body() ?: throw NetworkThrowable.IllegalStateThrowable()
     }
 
-
-    Log.d(TAG, "getNetworkResult not successful : ${this.errorBody()?.string()}")
+    Log.d(TAG, "getNetworkResult not successful : $this")
+    Log.d(TAG, "getNetworkResult not successful : ${this.errorBody()}")
 
     // TODO 서버에 따라 다를수도?
 //    val errorResponse = errorBody()?.string()
@@ -31,7 +31,7 @@ fun <T> Response<T>.getNetworkResult(): T {
 
     //Github API에서는 단순히 Response{protocol=h2, code=404, message=, url=https://api.github.com/users//repos} 이렇게 반환해줌
     val code = this.code()
-    val message = this.message()
+    val message = this.errorBody()?.string() ?: ""
 
 
 

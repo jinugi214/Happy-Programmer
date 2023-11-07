@@ -1,8 +1,7 @@
 package com.gumigames.presentation
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gumigames.domain.usecase.login.GetIsLoginedUseCase
+import com.gumigames.domain.usecase.preference.GetIsLoginedUseCase
 import com.gumigames.domain.usecase.preference.GetIsShowedPermissionDialogUseCase
 import com.gumigames.domain.usecase.preference.GetPermissionRejectedUseCase
 import com.gumigames.domain.usecase.preference.SetIsAlreadyShowedDialogUseCase

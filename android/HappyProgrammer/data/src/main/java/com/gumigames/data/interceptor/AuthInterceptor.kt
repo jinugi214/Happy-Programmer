@@ -1,5 +1,6 @@
 package com.gumigames.data.interceptor
 
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.gumigames.data.BuildConfig
@@ -16,6 +17,7 @@ import okhttp3.Request
 import okhttp3.Response
 import okhttp3.internal.closeQuietly
 
+private const val TAG = "차선호"
 class AuthInterceptor(
     private val preferenceDataSource: PreferenceDataSource
 ): Interceptor {
@@ -23,6 +25,7 @@ class AuthInterceptor(
     private val client = OkHttpClient.Builder().build()
 
     override fun intercept(chain: Interceptor.Chain): Response {
+        Log.d(TAG, "현재 accessToken : ${getAccessToken()}")
         val accessToken = getAccessToken() ?: return chain.proceed(chain.request()) //accessToken이 null이면 바로 통신(최초 로그인 경우)
 
         val headerAddedRequest = chain.request().newBuilder().addHeader(AUTHORIZATION, BEARER + accessToken).build() //헤더에 ACCESS 토큰 저장

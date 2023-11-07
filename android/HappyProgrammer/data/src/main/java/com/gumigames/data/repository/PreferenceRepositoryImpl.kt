@@ -15,11 +15,11 @@ class PreferenceRepositoryImpl(
     }
 
     override fun getRefreshToken(): String? {
-        TODO("Not yet implemented")
+        return preferenceDataSource.getRefreshToken()
     }
 
     override fun setRefreshToken(newToken: String) {
-        TODO("Not yet implemented")
+        preferenceDataSource.setRefreshToken(newToken)
     }
 
     override fun resetToken() {
@@ -48,5 +48,13 @@ class PreferenceRepositoryImpl(
 
     override fun setIsAlreadyShowedDialog(value: Boolean) {
         preferenceDataSource.setIsAlreadyShowedDialog(value)
+    }
+
+    override fun getIsLogined(): Boolean {
+        return preferenceDataSource.getIsLogined()
+    }
+
+    override fun setIsLogined(value: Boolean) {
+        preferenceDataSource.setIsLogined(value)
     }
 }

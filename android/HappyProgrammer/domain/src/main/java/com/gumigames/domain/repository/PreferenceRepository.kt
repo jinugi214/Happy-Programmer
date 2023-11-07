@@ -12,4 +12,6 @@ interface PreferenceRepository {
     fun getIsShowedPermissionDialog(key: String): Boolean
     fun getIsAlreadyShowedDialog(): Boolean
     fun setIsAlreadyShowedDialog(value: Boolean)
+    fun getIsLogined(): Boolean
+    fun setIsLogined(value: Boolean)
 }

@@ -18,6 +18,7 @@ import com.gumigames.presentation.util.setTextListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlin.math.log
 
 private const val TAG = "차선호"
 @AndroidEntryPoint
@@ -33,6 +34,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
         super.onViewCreated(view, savedInstanceState)
         initListener()
         initCollect()
+        collectErrorAndToken(loginViewModel)
     }
 
     override fun initListener() {

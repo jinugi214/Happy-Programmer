@@ -8,6 +8,7 @@ import com.gumigames.data.service.ItemService
 import com.gumigames.data.service.MissionService
 import com.gumigames.data.service.MonsterService
 import com.gumigames.data.service.SkillService
+import com.gumigames.data.service.UserService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -75,5 +76,11 @@ object NetworkModule {
     fun provideMissionService(
         retrofit: Retrofit
     ): MissionService = retrofit.create(MissionService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideUserService(
+        retrofit: Retrofit
+    ): UserService = retrofit.create(UserService::class.java)
 
 }

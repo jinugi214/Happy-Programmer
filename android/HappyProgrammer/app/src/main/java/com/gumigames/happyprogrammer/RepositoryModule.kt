@@ -6,16 +6,17 @@ import com.gumigames.data.datasource.dao.SkillBookmarkDao
 import com.gumigames.data.datasource.sharedpreference.PreferenceDataSource
 import com.gumigames.data.repository.BookmarkRepositoryImpl
 import com.gumigames.data.repository.DogamRepositoryImpl
-import com.gumigames.data.repository.LoginRepositoryImpl
+import com.gumigames.data.repository.UserRepositoryImpl
 import com.gumigames.data.repository.MissionRepositoryImpl
 import com.gumigames.data.repository.PreferenceRepositoryImpl
 import com.gumigames.data.service.ItemService
 import com.gumigames.data.service.MissionService
 import com.gumigames.data.service.MonsterService
 import com.gumigames.data.service.SkillService
+import com.gumigames.data.service.UserService
 import com.gumigames.domain.repository.BookmarkRepository
 import com.gumigames.domain.repository.DogamRepository
-import com.gumigames.domain.repository.LoginRepository
+import com.gumigames.domain.repository.UserRepository
 import com.gumigames.domain.repository.MissionRepository
 import com.gumigames.domain.repository.PreferenceRepository
 import dagger.Module
@@ -36,8 +37,14 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideLoginRepository(preferenceDataSource: PreferenceDataSource): LoginRepository {
-        return LoginRepositoryImpl(preferenceDataSource)
+    fun provideLoginRepository(
+        preferenceDataSource: PreferenceDataSource,
+        userService: UserService
+    ): UserRepository {
+        return UserRepositoryImpl(
+            preferenceDataSource = preferenceDataSource,
+            userService = userService
+        )
     }
 
     @Singleton
