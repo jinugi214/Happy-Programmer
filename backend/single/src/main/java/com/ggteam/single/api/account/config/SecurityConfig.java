@@ -36,7 +36,7 @@ public class SecurityConfig {
     // 로그인 성공 시 호출되는 LoginSuccessJWTProviderHandler 빈 등록
     @Bean
     public LoginSuccessHandler loginSuccessHandler() {
-        return new LoginSuccessHandler(jwtService, accountRepository);
+        return new LoginSuccessHandler(jwtService, accountRepository, objectMapper);
     }
 
     // 로그인 실패 시 호출되는 LoginFailureHandler 빈 등록
