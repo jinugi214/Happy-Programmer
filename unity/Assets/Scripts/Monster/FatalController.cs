@@ -52,4 +52,15 @@ public class FatalController : MonoBehaviour
         maxHealth = data.health;
         health = data.health;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(health <= 0)
+        {
+            isLive = false;
+
+            MiniGameManager.instance.kill++;
+            MiniGameManager.instance.GetExp();
+        }
+    }
 }
