@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 
 import com.ggteam.single.api.account.entity.Account;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,8 +22,14 @@ public class MonsterFavorite {
 	private Integer id;
 
 	@ManyToOne
-	private Monster monster;
+	private Account account;
 
 	@ManyToOne
-	private Account account;
+	private Monster monster;
+
+	@Builder
+	public MonsterFavorite(Account account, Monster monster){
+		this.account = account;
+		this.monster = monster;
+	}
 }

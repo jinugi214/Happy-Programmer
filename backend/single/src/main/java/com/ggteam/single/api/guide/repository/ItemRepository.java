@@ -13,7 +13,7 @@ import com.ggteam.single.api.guide.entity.Item;
 import com.ggteam.single.api.guide.entity.Monster;
 
 @Repository
-public interface ItemRepository extends JpaRepository<Item, Long> {
+public interface ItemRepository extends JpaRepository<Item, Integer> {
 
 	List<Item> findByNameContaining(String keyword);
 

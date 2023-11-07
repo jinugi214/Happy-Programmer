@@ -48,12 +48,15 @@ public class ItemService {
 
 	// 아이템 검색하기
 	@Transactional(readOnly = true)
-	public List<ItemResponse> findItemListByKeyword(String username, String keyword) {
+	public List<ItemWithFavoriteResponse> findItemListByKeyword(String username, String keyword) {
 		Account account = accountRepository.findByUsername(username)
 			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계정입니다."));
 
 		return itemRepository.findByNameContaining(keyword).stream()
-			.map(ItemResponse::new)
+			.map(item -> {
+				boolean isFavorite = checkItemFavorite(account, item);
+				return new ItemWithFavoriteResponse(item, isFavorite);
+			})
 			.collect(Collectors.toList());
 	}
 
