@@ -6,6 +6,9 @@ public class CharacterAppear : MonoBehaviour
 {
     private int weaponType; // 1: 키보드, 2: 마우스, 3: 폰
     public int mouseNumber;
+    public int keyboardNumber;
+    public int phoneNumber;
+
 
     public GameObject weapon;
     public GameObject keyboard;
@@ -34,9 +37,9 @@ public class CharacterAppear : MonoBehaviour
     }
 
     public int GetMouseNumber()
-{
-    return mouseNumber;
-}
+    {
+        return mouseNumber;
+    }
 
 
     // 키보드
@@ -51,6 +54,8 @@ public class CharacterAppear : MonoBehaviour
         keyboard3.SetActive(false);
 
         weaponType = 1;
+
+        keyboardNumber = 1;
     }
 
     public void EquipKeyboard2()
@@ -64,6 +69,8 @@ public class CharacterAppear : MonoBehaviour
         keyboard3.SetActive(false);
 
         weaponType = 1;
+
+        keyboardNumber = 2;
     }
 
     public void EquipKeyboard3()
@@ -77,6 +84,8 @@ public class CharacterAppear : MonoBehaviour
         keyboard3.SetActive(true);
 
         weaponType = 1;
+
+        keyboardNumber = 3;
     }
 
     // 마우스
@@ -137,6 +146,8 @@ public class CharacterAppear : MonoBehaviour
         phone3.SetActive(false);
 
         weaponType = 3;
+
+        phoneNumber = 1;
     }
 
     public void EquipPhone2()
@@ -150,6 +161,8 @@ public class CharacterAppear : MonoBehaviour
         phone3.SetActive(false);
 
         weaponType = 3;
+
+        phoneNumber = 2;
     }
 
     public void EquipPhone3()
@@ -163,6 +176,8 @@ public class CharacterAppear : MonoBehaviour
         phone3.SetActive(true);
 
         weaponType = 3;
+        
+        phoneNumber = 3;
     }
 
 
