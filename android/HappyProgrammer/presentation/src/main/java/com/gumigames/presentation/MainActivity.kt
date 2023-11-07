@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -27,6 +28,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var navController: NavController
+    private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,16 +39,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
     private fun requestPermission(){
         mainViewModel.setIsAlreadyShowedDialog(false)
-        checkAllPermission(
+        permissionLauncher = checkAllPermission(
             fragment = null,
             activity = this,
-            permissionList = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) PERMISSION_LIST_UP33 else PERMISSION_LIST_UNDER32,
             getPermissionRejected = {it -> mainViewModel.getPermissionRejected(it)},
             setPermissionRejected = {it -> mainViewModel.setPermissionRejected(it)},
             getIsShowedPermissionDialog = {it -> mainViewModel.getIsShowedPermissionDialog(it+"show")},
             setIsShowedPermissionDialog = {it -> mainViewModel.setIsShowedPermissionDialog(it+"show")},
             isShowDialog = {if(!mainViewModel.isShowPermissionDialog.value) mainViewModel.setIsShowPermissionDialog(true)}
         )
+        permissionLauncher.launch(if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) PERMISSION_LIST_UP33 else PERMISSION_LIST_UNDER32)
     }
 
     private fun initListener(){

@@ -8,11 +8,15 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.util.Log
+import androidx.activity.result.ActivityResultCaller
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.gumigames.presentation.MainActivity
+import com.gumigames.presentation.MainViewModel
 
 private const val TAG = "차선호"
 
@@ -51,13 +55,12 @@ fun Context.hasPermissions(permission: String): Boolean{
 fun checkAllPermission(
     fragment: Fragment?,
     activity: MainActivity,
-    permissionList: Array<String>,
     getPermissionRejected: (String) -> Boolean,
     setPermissionRejected: (String) -> Unit,
     getIsShowedPermissionDialog: (String) -> Boolean,
     setIsShowedPermissionDialog: (String) -> Unit,
     isShowDialog: () -> Unit
-){
+): ActivityResultLauncher<Array<String>>{
     val requestMultiplePermission =
         (fragment?:activity).registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { results ->
             var lastResult = false // 초기값을 false 설정
@@ -67,6 +70,7 @@ fun checkAllPermission(
                         setPermissionRejected(it.key) //거절했다고 값 갱신
                     }else{
                         if(!getIsShowedPermissionDialog(it.key)) { //두 번 거절해서 다이얼로그 띄운 적 없으면
+                            Log.d(TAG, "두 번째 거절 : ${it.key}")
                             setIsShowedPermissionDialog(it.key) //해당 권한에 대해서 다이얼로그 띄워야 한다고 값 갱신
                             lastResult = true // 다이얼로그 총 한 번만 띄우기 위해 값 저장
                         }
@@ -76,10 +80,11 @@ fun checkAllPermission(
             // 다이얼로그 띄워야 한다면
             if(lastResult){
                 //여기서 다이얼로그 띄우는 변수 갱신
+                Log.d(TAG, "checkAllPermission에서 isShowDialog 실행되야 함")
                 isShowDialog()
             }
         }
-    requestMultiplePermission.launch(permissionList)
+    return requestMultiplePermission
 }
 
 // 다이얼로그를 띄우기 위한 함수
