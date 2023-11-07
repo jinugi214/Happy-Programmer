@@ -21,19 +21,19 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) {
-        String accountId = extractUsername(authentication);  // 인증 정보에서 Username(accountId) 추출
-        String accessToken = jwtService.createAccessToken(accountId);  // JwtService의 메서드로 AccessToken을 발급.
+        String username = extractUsername(authentication);  // 인증 정보에서 Username(accountId) 추출
+        String accessToken = jwtService.createAccessToken(username);  // JwtService의 메서드로 AccessToken을 발급.
         String refreshToken = jwtService.createRefreshToken();  // JwtService의 메서드로 RefreshToken 발급.
 
         jwtService.sendAccessAndRefreshToken(response, accessToken, refreshToken);  // 응답 헤더에 둘을 담아서 전송
 
-        accountRepository.findByAccountId(accountId)
+        accountRepository.findByUsername(username)
                 .ifPresent(account -> {
                     account.updateRefreshToken(refreshToken);
                     accountRepository.saveAndFlush(account);
                 });
 
-        log.info("로그인에 성공하였습니다. 계정 : {}", accountId);
+        log.info("로그인에 성공하였습니다. 계정 : {}", username);
     }
 
     private String extractUsername(Authentication authentication) {
