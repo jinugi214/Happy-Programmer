@@ -24,6 +24,10 @@ import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.Date
 
+
+
+
+
 /**
  * 카메라 사용할 경우
  * 카메라로 찍은 사진을 저장할 사진파일로 만듭니다.

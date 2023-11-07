@@ -14,18 +14,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.FileProvider
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.freeproject.happyprogrammers.base.BaseFragment
+import com.gumigames.presentation.MainViewModel
 import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentMissionBinding
 import com.gumigames.presentation.util.CAMERA_PERMISSION_REJECTED
+import com.gumigames.presentation.util.checkAllPermission
 import com.gumigames.presentation.util.createImageFile
 import com.gumigames.presentation.util.createMultipartFromFile
 import com.gumigames.presentation.util.hasPermissions
+import com.gumigames.presentation.util.showPermissionDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -40,12 +45,14 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
     R.layout.fragment_mission
 ){
 
+    private val mainViewModel: MainViewModel by activityViewModels()
     private val missionViewModel: MissionViewModel by viewModels()
     private lateinit var file: File
-
+    private lateinit var cameraPermissionLauncher: ActivityResultLauncher<Array<String>>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initPermissionLauncher()
         initListener()
         initCollect()
     }
@@ -55,6 +62,7 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
         binding.apply {
             //카메라 버튼 클릭
             buttonCamera.setOnClickListener {
+                cameraPermissionLauncher.launch(arrayOf(CAMERA_PERMISSION_REJECTED))
                 if(mActivity.hasPermissions(CAMERA_PERMISSION_REJECTED)){
                     /**
                      * 카메라 앱을 띄워 사진을 받아옵니다.
@@ -67,7 +75,9 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
                     cameraActivityResult.launch(intent) //카메라 앱을 실행 한 후 결과를 받기 위해서 launch
                 }else{
-                    showCustomToast("설정에서 카메라 권한을 허용해 주세요")
+                    if(mainViewModel.getIsShowedPermissionDialog(CAMERA_PERMISSION_REJECTED)){
+                        showCustomToast("설정에서 카메라 권한을 허용해 주세요")
+                    }
                     return@setOnClickListener
                 }
             }
@@ -97,6 +107,20 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
         }
     }
 
+    private fun initPermissionLauncher(){
+        cameraPermissionLauncher = checkAllPermission(
+            fragment = this,
+            activity = mActivity,
+            getPermissionRejected = {it -> mainViewModel.getPermissionRejected(it)},
+            setPermissionRejected = {it -> mainViewModel.setPermissionRejected(it)},
+            getIsShowedPermissionDialog = {it -> mainViewModel.getIsShowedPermissionDialog(it+"show")},
+            setIsShowedPermissionDialog = {it -> mainViewModel.setIsShowedPermissionDialog(it+"show")},
+            isShowDialog = {
+                Log.d(TAG, "missionfragment에서 ${mainViewModel.isShowPermissionDialog.value}")
+                if(!mainViewModel.isShowPermissionDialog.value) mainViewModel.setIsShowPermissionDialog(true)
+            }
+        )
+    }
 
     private val cameraActivityResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -125,5 +149,4 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
                 }
             }
         }
-
 }

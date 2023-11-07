@@ -1,5 +1,6 @@
 package com.gumigames.presentation
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.gumigames.domain.usecase.preference.GetIsLoginedUseCase
 import com.gumigames.domain.usecase.preference.GetIsShowedPermissionDialogUseCase
@@ -14,7 +15,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Singleton
 
+private const val TAG = "차선호"
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getPermissionRejectedUseCase: GetPermissionRejectedUseCase,
@@ -53,6 +56,7 @@ class MainViewModel @Inject constructor(
     }
     fun setIsShowPermissionDialog(value: Boolean){
         viewModelScope.launch {
+            Log.d(TAG, "setIsShowPermissionDialog true로 변경")
             _isShowPermissionDialog.emit(value)
         }
     }

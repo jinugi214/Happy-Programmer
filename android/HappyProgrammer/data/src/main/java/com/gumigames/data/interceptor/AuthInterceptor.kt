@@ -31,6 +31,7 @@ class AuthInterceptor(
         val headerAddedRequest = chain.request().newBuilder().addHeader(AUTHORIZATION, BEARER + accessToken).build() //헤더에 ACCESS 토큰 저장
         val response: Response = chain.proceed(headerAddedRequest) //Response 받기
 
+        Log.d(TAG, "현재 response : $response")
         if (response.code == AUTH_TOKEN_EXPIRE_ERROR) { //ACCESS_TOKEN이 만료라면
             val newAccessToken = getAccessTokenWithRefresh(accessToken).getOrElse { return response }
             response.closeQuietly()
@@ -93,9 +94,9 @@ class AuthInterceptor(
 
     companion object {
         private const val AUTHORIZATION = "Authorization" //ACCESS_TOEKN KEY 이름
-        private const val AUTH_REFRESH_KEY = "refreshToken" //REFRESH_TOKEN KEY 이름
+        private const val AUTH_REFRESH_KEY = "Authorization-Refresh" //REFRESH_TOKEN KEY 이름
 
-        private const val AUTH_REFRESH_PATH = "/auth/refresh" //서버에서 주는 accessToken 재발급 하는 api 주소
+        private const val AUTH_REFRESH_PATH = "/api/account/new/access-token" //서버에서 주는 accessToken 재발급 하는 api 주소
 
         private const val BEARER = "Bearer "
 
