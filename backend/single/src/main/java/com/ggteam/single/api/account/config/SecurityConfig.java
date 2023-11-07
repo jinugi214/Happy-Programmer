@@ -1,6 +1,7 @@
 package com.ggteam.single.api.account.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ggteam.single.api.account.component.CustomAuthenticationEntryPoint;
 import com.ggteam.single.api.account.filter.CustomLoginAuthFilter;
 import com.ggteam.single.api.account.handler.LoginFailureHandler;
 import com.ggteam.single.api.account.handler.LoginSuccessHandler;
@@ -23,7 +24,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 
-//@Configuration
+@Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
@@ -32,6 +33,7 @@ public class SecurityConfig {
     private final JwtService jwtService;
     private final AccountRepository accountRepository;
     private final ObjectMapper objectMapper;
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
     // 로그인 성공 시 호출되는 LoginSuccessJWTProviderHandler 빈 등록
     @Bean
@@ -61,6 +63,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+//                .exceptionHandling()
+//                .authenticationEntryPoint(customAuthenticationEntryPoint)
+//
+//                .and()
+
                 .formLogin().disable() // FormLogin 사용 X
                 .httpBasic().disable() // httpBasic 사용 X
                 .csrf().disable() // csrf 보안 사용 X

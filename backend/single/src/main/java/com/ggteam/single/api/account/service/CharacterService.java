@@ -20,8 +20,8 @@ public class CharacterService {
 
     private final CharacterRepository characterRepository;
 
-    public ResponseEntity<?> myCharacter(Long id) {
-        Character character = characterRepository.findById(id).orElseThrow(null);
+    public ResponseEntity<?> myCharacter(String username) {
+        Character character = characterRepository.findByAccount_Username(username).orElseThrow(null);
 
         CharacterDto characterDto = CharacterDto.builder()
                 .name(character.getName())
