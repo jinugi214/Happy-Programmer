@@ -38,7 +38,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         initCollector()
     }
     private fun requestPermission(){
-        mainViewModel.setIsAlreadyShowedDialog(false)
+//        mainViewModel.setIsAlreadyShowedDialog(false)
         permissionLauncher = createPermissionLauncher(
             fragment = null,
             activity = this,

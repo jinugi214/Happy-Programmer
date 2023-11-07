@@ -9,7 +9,7 @@ class PreferenceDataSourceImpl(
     context: Context
 ): PreferenceDataSource {
     companion object{
-        private const val AUTH_ENCRYPTED_PREFERENCE = "mvvm_template"
+        private const val AUTH_ENCRYPTED_PREFERENCE = "happy_programmer"
         private const val X_ACCESS_TOKEN = "access_token"
         private const val X_REFRESH_TOKEN = "refresh_token"
         private const val X_ROLE = "role"
