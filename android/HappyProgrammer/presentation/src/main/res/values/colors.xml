@@ -7,6 +7,7 @@
     <color name="gray_alpha60">#99837F7F</color>
     <color name="white">#FFFFFFFF</color>
     <color name="white_alpha60">#99FFFFFF</color>
+    <color name="white_alpha70">#B3FFFFFF</color>
     <color name="main_pink">#F4C4DA</color>
     <color name="main_blue">#515893</color>
 </resources>

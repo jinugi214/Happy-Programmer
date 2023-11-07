@@ -83,7 +83,7 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
-    <!--chip-->
+
     <!--chip style-->
     <style name="MyChipStyle" parent="@style/Widget.MaterialComponents.Chip.Choice">
         <!-- 원하는 속성들을 추가/변경할 수 있습니다 -->
@@ -91,6 +91,20 @@
         <item name="rippleColor">@color/main_pink</item>
         <!-- 원하는 다른 속성들 ... -->
         <item name="android:textAppearance">@style/Theme.AppCompat.TextView.dunggeunmo.gray.Size12</item>
+    </style>
+
+    <!--tab style-->
+    <style name="MySmallTabStyle" parent="@style/Widget.MaterialComponents.TabLayout">
+        <item name="tabTextColor">@color/gray_alpha60</item>
+        <item name="tabSelectedTextColor">@color/main_blue</item>
+        <item name="tabTextAppearance">@style/Theme.AppCompat.TextView.dunggeunmo.black.Size12</item>
+        <!--밑줄 없애고 배경에 대해서 관여하고 싶으면 android:background를 override 해서 설정해야 한다.-->
+        <item name="android:background">@color/transparent</item>
+        <item name="tabIndicatorColor">@color/main_blue</item>
+        <item name="tabIndicatorHeight">@dimen/_1sdp</item>
+        <item name="tabIndicatorFullWidth">false</item>
+        <item name="tabRippleColor">@color/transparent</item>
+        <item name="tabMode">fixed</item>
     </style>
 
 
