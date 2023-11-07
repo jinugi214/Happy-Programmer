@@ -94,33 +94,13 @@
         app:layout_constraintTop_toBottomOf="@id/layout_profile" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_stage"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_60sdp"
-        android:background="@drawable/frame_border_white_alpha60"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/space2"
-        app:layout_constraintWidth_percent="0.9">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <Space
-        android:id="@+id/space3"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_15sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_stage" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_dogam"
         android:layout_width="0dp"
         android:layout_height="@dimen/_60sdp"
         android:background="@drawable/frame_border_white_alpha60"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/space3"
+        app:layout_constraintTop_toBottomOf="@id/space2"
         app:layout_constraintWidth_percent="0.9">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -156,7 +136,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Space
-        android:id="@+id/space4"
+        android:id="@+id/space3"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -170,7 +150,7 @@
         android:background="@drawable/frame_border_white_alpha60"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/space4"
+        app:layout_constraintTop_toBottomOf="@id/space3"
         app:layout_constraintWidth_percent="0.9">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -205,8 +185,9 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
     <Space
-        android:id="@+id/space5"
+        android:id="@+id/space4"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -220,7 +201,7 @@
         android:background="@drawable/frame_border_white_alpha60"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/space5"
+        app:layout_constraintTop_toBottomOf="@id/space4"
         app:layout_constraintWidth_percent="0.9">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -255,13 +236,34 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+    <Space
+        android:id="@+id/space5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_15sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_mission" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_setting"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_60sdp"
+        android:background="@drawable/frame_border_white_alpha60"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/space5"
+        app:layout_constraintWidth_percent="0.9">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <Space
         android:id="@+id/space6"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_mission" />
+        app:layout_constraintTop_toBottomOf="@id/layout_setting" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
