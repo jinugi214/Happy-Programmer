@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 
 import com.ggteam.single.api.account.entity.Account;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,8 +22,14 @@ public class SkillFavorite {
 	private Integer id;
 
 	@ManyToOne
-	private Skill skill;
+	private Account account;
 
 	@ManyToOne
-	private Account account;
+	private Skill skill;
+
+	@Builder
+	public SkillFavorite(Account account, Skill skill){
+		this.account = account;
+		this.skill = skill;
+	}
 }
