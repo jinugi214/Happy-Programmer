@@ -44,10 +44,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
             }
             //PW 입력 받는 LISTENER
             edittextPw.setTextListener { it -> loginViewModel.setPw(it) }
-
+            //로그인 클릭
             buttonLogin.setOnClickListener {
                 loginViewModel.login()
-//                Log.d(TAG, "id : ${loginViewModel.getId()} // pw : ${loginViewModel.getPw()}")
             }
         }
     }

@@ -23,15 +23,15 @@ class AuthInterceptor(
     private val client = OkHttpClient.Builder().build()
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val accessToken = getAccessToken() ?: return chain.proceed(chain.request()) //accessToken이 null이면 바로 통신
+        val accessToken = getAccessToken() ?: return chain.proceed(chain.request()) //accessToken이 null이면 바로 통신(최초 로그인 경우)
 
-        val headerAddedRequest = chain.request().newBuilder().addHeader(AUTHORIZATION, BEARER + accessToken).build() //헤더에 토큰 저장
+        val headerAddedRequest = chain.request().newBuilder().addHeader(AUTHORIZATION, BEARER + accessToken).build() //헤더에 ACCESS 토큰 저장
         val response: Response = chain.proceed(headerAddedRequest) //Response 받기
 
-        if (response.code == AUTH_TOKEN_EXPIRE_ERROR) {
+        if (response.code == AUTH_TOKEN_EXPIRE_ERROR) { //ACCESS_TOKEN이 만료라면
             val newAccessToken = getAccessTokenWithRefresh(accessToken).getOrElse { return response }
             response.closeQuietly()
-            return chain.proceed(chain.request().newBuilder().addHeader(AUTHORIZATION, BEARER + newAccessToken).build())
+            return chain.proceed(chain.request().newBuilder().addHeader(AUTHORIZATION, BEARER + newAccessToken).build()) //재발급 받은 ACCESS TOKEN 헤더에 넣고 최초에 시도했던 통신 재개
         }
         return response
     }
@@ -49,20 +49,20 @@ class AuthInterceptor(
 
     private fun createRefreshRequest(): Request {
         return Request.Builder()
-            .url(BuildConfig.BASE_URL + AUTH_REFRESH_PATH)
-            .addHeader(AUTHORIZATION, BEARER + getRefreshToken())
+            .url(BuildConfig.BASE_URL + AUTH_REFRESH_PATH) //ACCESS TOKEN 재발급 통신
+            .addHeader(AUTH_REFRESH_KEY, BEARER + getRefreshToken()) //여기에 이제 REFRESH TOKEN을 헤더에 넣어라
             .build()
     }
 
     private fun requestRefresh(request: Request): Result<AuthResponse> {
         val response: Response = runBlocking {
-            withContext(Dispatchers.IO) { client.newCall(request).execute() }
+            withContext(Dispatchers.IO) { client.newCall(request).execute() } //재발급 하는 통신 실행
         }
-        if (response.isSuccessful) {
-            return Result.success(response.getDto<AuthResponse>())
+        if (response.isSuccessful) { //재발급 성공
+            return Result.success(response.getDto<AuthResponse>()) // 새로운 AuthResponse 반환
         }
         val failedResponse = response.getDto<ErrorResponse>()
-        if (failedResponse.code == REFRESH_TOKEN_EXPIRE_ERROR) { //accessToken 재발급 하는 것이 실패
+        if (failedResponse.code == REFRESH_TOKEN_EXPIRE_ERROR) { //REFRESH TOKEN 만료로 accessToken 재발급 하는 것이 실패
             //preference 초기화하고 RefrestToken 만료 Throwable throw
             preferenceDataSource.refreshPreference()
             return Result.failure(NetworkThrowable.RefreshExpireThrowable())
@@ -89,8 +89,8 @@ class AuthInterceptor(
     }
 
     companion object {
-        private const val AUTHORIZATION = "Authorization"
-        private const val AUTH_REFRESH_KEY = "refreshToken"
+        private const val AUTHORIZATION = "Authorization" //ACCESS_TOEKN KEY 이름
+        private const val AUTH_REFRESH_KEY = "refreshToken" //REFRESH_TOKEN KEY 이름
 
         private const val AUTH_REFRESH_PATH = "/auth/refresh" //서버에서 주는 accessToken 재발급 하는 api 주소
 
