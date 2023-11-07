@@ -4,7 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.ggteam.single.api.account.exception.InvalidTokenException;
+import com.ggteam.single.api.account.exception.TokenException;
 import com.ggteam.single.api.account.repository.AccountRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -47,8 +47,8 @@ public class JwtService {
 
     private static final String ACCESS_TOKEN_SUBJECT = "AccessToken";
     private static final String REFRESH_TOKEN_SUBJECT = "RefreshToken";
-    private static final String ACCOUNT_ID_CLAIM = "username";
-    private static final String BEARER = "Bearer";
+    private static final String USERNAME_CLAIM = "username";
+    private static final String BEARER = "Bearer ";
 
     private final AccountRepository accountRepository;
 
@@ -58,7 +58,7 @@ public class JwtService {
         return JWT.create() // JWT 토큰을 생성하는 빌더 반환
                 .withSubject(ACCESS_TOKEN_SUBJECT) // JWT의 Subject 지정 -> AccessToken이므로 AccessToken
                 .withExpiresAt(new Date(now.getTime() + accessTokenExpirationPeriod)) // 토큰 만료 시간 설정
-                .withClaim(ACCOUNT_ID_CLAIM, username)
+                .withClaim(USERNAME_CLAIM, username)
                 .sign(Algorithm.HMAC512(secretKey)); // HMAC512 알고리즘 사용, application-jwt.yml에서 지정한 secret 키로 암호화
     }
 
@@ -88,7 +88,7 @@ public class JwtService {
         response.setStatus(HttpServletResponse.SC_OK);
 
         response.setHeader(accessHeader, accessToken);
-        log.info("재발급된 Access Token : {}", accessToken);
+        log.info("(재)발급된 Access Token : {}", accessToken);
     }
 
     // AccessToken + RefreshToken 헤더에 실어 보내기
@@ -128,7 +128,7 @@ public class JwtService {
                     JWT.require(Algorithm.HMAC512(secretKey))
                             .build()
                             .verify(accessToken)
-                            .getClaim(ACCOUNT_ID_CLAIM)
+                            .getClaim(USERNAME_CLAIM)
                             .asString()
             );
         } catch (Exception e) {
@@ -146,30 +146,56 @@ public class JwtService {
                 );
     }
 
+//    public boolean isTokenValid(String token) {
+//        try {
+//            JWT.require(Algorithm.HMAC512(secretKey)).build().verify(token);
+//            return true;
+//        } catch (TokenExpiredException e) {
+//            log.error("Expired Token");
+//            errorClassify("Auth001", "Expired Token");
+//            return false;
+//        } catch (JWTVerificationException e) {
+//            log.error("Invalid Token");
+//            errorClassify("Auth004", "Invalid Token");
+//            return false;
+//        } catch (Exception e) {
+//            log.error("Unexpected Error");
+//            errorClassify("Auth999", "Unexpected Error");
+//            return false;
+//        }
+//    }
+
     public boolean isTokenValid(String token) {
         try {
             JWT.require(Algorithm.HMAC512(secretKey)).build().verify(token);
             return true;
         } catch (TokenExpiredException e) {
-            log.error("Expired Access Token");
-            errorClassify("Auth001", "Expired Access Token");
-            return false;
+            log.error("Expired Token");
+            throw new TokenException("Auth001", "Expired Access Token");
         } catch (JWTVerificationException e) {
-            log.error("Invalid Access Token");
-            errorClassify("Auth004", "Invalid Access Token");
-            return false;
+            log.error("Invalid Token");
+            throw new TokenException("Auth004", "Invalid Access Token");
         } catch (Exception e) {
             log.error("Unexpected Error");
-            errorClassify("Auth999", "Unexpected Error");
-            return false;
+            throw new TokenException("Auth999", "Unexpected Error");
         }
     }
+
+//    public boolean isTokenValid(String token) {
+//        try {
+//            JWT.require(Algorithm.HMAC512(secretKey)).build().verify(token);
+//            return true;
+//        } catch (Exception e) {
+//            log.error("유효하지 않은 토큰입니다. {}", e.getMessage());
+//            return false;
+//        }
+//    }
 
     public ResponseEntity<Map<String, String>> errorClassify(String errorCode, String definition) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("errorCode", errorCode);
         errorMap.put("definition", definition);
 
-        return new ResponseEntity<>(errorMap, HttpStatus.UNAUTHORIZED);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMap);
     }
 }

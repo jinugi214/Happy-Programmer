@@ -6,8 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ggteam.single.api.guide.dto.LevelDto;
-import com.ggteam.single.api.guide.dto.MonsterDto;
+import com.ggteam.single.api.guide.dto.res.LevelResponse;
 import com.ggteam.single.api.guide.repository.LevelRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -20,9 +19,9 @@ public class LevelService {
 
 	// 레벨 전체 조회
 	@Transactional(readOnly = true)
-	public List<LevelDto> findAll() {
+	public List<LevelResponse> findAll() {
 		return levelRepository.findAll().stream()
-			.map(LevelDto::new)
+			.map(LevelResponse::new)
 			.collect(Collectors.toList());
 	}
 }
