@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CharacterMovement : MonoBehaviour 
+public class CharacterMovement : MonoBehaviour
 {
     static public CharacterMovement instance;
 
@@ -11,8 +11,9 @@ public class CharacterMovement : MonoBehaviour
     public InventoryUI inventoryUI; // 인벤토리
 
     private Rigidbody2D rb;
-    private Vector2 movement;
-    
+    public Vector2 movement;
+    public Vector2 lastDirection; // 캐릭터가 마지막으로 움직인 방향
+
     private CharacterAnimation characterAnimation;
 
     private void Start() 
@@ -32,31 +33,36 @@ public class CharacterMovement : MonoBehaviour
 
     public void ProcessInput(float moveX, float moveY)
     {
-        if (moveX != 0 && moveY != 0) 
+        if (moveX != 0 && moveY != 0)
         {
             if (Mathf.Abs(moveX) > Mathf.Abs(moveY))
-                moveY=0f;
-            else 
-                moveX=0f;
+                moveY = 0f;
+            else
+                moveX = 0f;
         }
 
-        movement = new Vector2(moveX,moveY).normalized * moveSpeed;
-    }   
+        movement = new Vector2(moveX, moveY).normalized * moveSpeed;
+        if (movement != Vector2.zero) // 캐릭터가 움직이는 경우에만 lastDirection을 업데이트합니다.
+    {
+        lastDirection = movement;
+    }
+    }
 
     public void SetRunning(bool isRunning)
-    {   
-        if(isRunning)
-            rb.velocity=movement * runMultiplier;       
-        else  
-            rb.velocity=movement;
-        
-        characterAnimation.SetMoveAnimation(movement, isRunning);   
-    } 
+    {
+        if (isRunning)
+            rb.velocity = movement * runMultiplier;
+        else
+            rb.velocity = movement;
+
+        characterAnimation.SetMoveAnimation(movement, isRunning);
+    }
 
     public void SetAttacking(bool isAttacking)
     {
-        characterAnimation.SetAttackAnimation(isAttacking);
-    } 
+        characterAnimation.SetAttacking(isAttacking);
+    }
+
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -66,7 +72,6 @@ public class CharacterMovement : MonoBehaviour
             // 아이템을 인벤토리에 추가
             ItemPickup itemPickup = collision.gameObject.GetComponent<ItemPickup>();
 
-            
             if (itemPickup != null)
             {
                 inventoryUI.AcquireItem(itemPickup.item);
