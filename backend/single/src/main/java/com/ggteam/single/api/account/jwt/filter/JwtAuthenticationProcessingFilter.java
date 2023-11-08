@@ -1,13 +1,11 @@
 package com.ggteam.single.api.account.jwt.filter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ggteam.single.api.account.entity.Account;
 import com.ggteam.single.api.account.jwt.service.JwtService;
 import com.ggteam.single.api.account.repository.AccountRepository;
 import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
@@ -72,7 +70,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         try {
             checkAccessTokenAndAuthentication(request, response, filterChain);
         } catch (JwtException e) {
-            setErrorResponse(request, response, e);
+            jwtService.setErrorResponse(request, response, e);
         }
     }
 
@@ -145,19 +143,4 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-
-    private void setErrorResponse(HttpServletRequest request, HttpServletResponse response, Throwable e)
-            throws IOException {
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-
-        final Map<String, Object> errorBody = new HashMap<>();
-        errorBody.put("error", "Unauthorized");
-        errorBody.put("errorCode", e.getMessage());
-        errorBody.put("status", HttpServletResponse.SC_UNAUTHORIZED);
-        errorBody.put("path", request.getServletPath());
-
-        final ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.writeValue(response.getOutputStream(), errorBody);
-    }
 }
