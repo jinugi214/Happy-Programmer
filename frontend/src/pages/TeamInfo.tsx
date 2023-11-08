@@ -14,14 +14,14 @@ const TeamInfo: React.FC = () => {
 
         <div className="flex justify-center w-full space-x-32 mb-10">
           <MemberBox imgName="m_jw" name="정진욱" position="팀장" />
-          <MemberBox imgName="m_sm" name="김수민" position="팀원" />
+          <MemberBox imgName="m_he4" name="김수민" position="팀원" />
           <MemberBox imgName="m1" name="김슬기" position="팀원" />
         </div>
 
         <div className="flex justify-center w-full space-x-32">
           <MemberBox imgName="m_jb" name="손준배" position="팀원" />
           <MemberBox imgName="m_he" name="차선호" position="팀원" />
-          <MemberBox imgName="m_he3" name="황하음" position="팀원" />
+          <MemberBox imgName="m_he" name="황하음" position="팀원" />
         </div>
 
       </div>
