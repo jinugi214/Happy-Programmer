@@ -24,7 +24,6 @@ suspend fun ItemResponse.toDomain(): ItemDto{
         name = name,
         description = description,
         imageBitmap = withContext(Dispatchers.IO){ urlToBitmap(BuildConfig.BASE_URL + imgPath)!!},
-//        imgPath = BuildConfig.BASE_URL + imgPath,
         isBookmarked = isBookmarked
     )
 }
