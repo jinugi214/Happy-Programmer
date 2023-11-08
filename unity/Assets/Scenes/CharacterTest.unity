@@ -6428,6 +6428,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mo_Skill_3
       objectReference: {fileID: 0}
+    - target: {fileID: 4406038636789021572, guid: a242da6a11446d24fbbd61cdd1493371, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5026578222237685895, guid: a242da6a11446d24fbbd61cdd1493371, type: 3}
+      propertyPath: skillSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 5e17750202cc81d49b37e8e79c0c05cd, type: 3}
     - target: {fileID: 5026578222237685895, guid: a242da6a11446d24fbbd61cdd1493371, type: 3}
       propertyPath: effectPrefab
       value: 
@@ -6740,6 +6748,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Key_Skill_2
       objectReference: {fileID: 0}
+    - target: {fileID: 3222823639359637973, guid: cf2624e723871c945b0d1ea50d9da5b3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3487007146302222870, guid: cf2624e723871c945b0d1ea50d9da5b3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -6834,12 +6846,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 1619496084}
     m_Modifications:
     - target: {fileID: 2137305800596043787, guid: 4eb717bf8c545b144ae02c7f3b0bfb87, type: 3}
+      propertyPath: skillSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 5e17750202cc81d49b37e8e79c0c05cd, type: 3}
+    - target: {fileID: 2137305800596043787, guid: 4eb717bf8c545b144ae02c7f3b0bfb87, type: 3}
       propertyPath: effectPrefab
       value: 
       objectReference: {fileID: 950501356}
     - target: {fileID: 5421362443400734516, guid: 4eb717bf8c545b144ae02c7f3b0bfb87, type: 3}
       propertyPath: m_Name
       value: Mo_Skill_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5421362443400734516, guid: 4eb717bf8c545b144ae02c7f3b0bfb87, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7903058009832314756, guid: 4eb717bf8c545b144ae02c7f3b0bfb87, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7175,6 +7195,10 @@ PrefabInstance:
     - target: {fileID: 6658388414633675693, guid: 96a073191e96c5b4e98a2c6e51665c5a, type: 3}
       propertyPath: m_Name
       value: Key_Skill_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6658388414633675693, guid: 96a073191e96c5b4e98a2c6e51665c5a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7795,6 +7819,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mo_Skill_1
       objectReference: {fileID: 0}
+    - target: {fileID: 4952763750466850447, guid: 4067a786cda7ae8428c04b07b660c212, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7257752143779240135, guid: 4067a786cda7ae8428c04b07b660c212, type: 3}
+      propertyPath: skillSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 5e17750202cc81d49b37e8e79c0c05cd, type: 3}
     - target: {fileID: 7257752143779240135, guid: 4067a786cda7ae8428c04b07b660c212, type: 3}
       propertyPath: effectPrefab
       value: 
@@ -8008,6 +8040,10 @@ PrefabInstance:
     - target: {fileID: 5913524708500179016, guid: 96aae42a847c88243bb64febfed0320a, type: 3}
       propertyPath: m_Name
       value: Key_Skill_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5913524708500179016, guid: 96aae42a847c88243bb64febfed0320a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
