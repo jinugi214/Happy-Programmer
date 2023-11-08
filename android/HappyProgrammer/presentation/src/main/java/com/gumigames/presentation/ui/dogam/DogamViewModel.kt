@@ -5,12 +5,15 @@ import com.gumigames.domain.model.common.ItemDto
 import com.gumigames.domain.model.common.MonsterDto
 import com.gumigames.domain.model.common.SkillDto
 import com.gumigames.domain.usecase.dogam.litem.AddBookmarkItemLocalUseCase
+import com.gumigames.domain.usecase.dogam.litem.GetAllItemsLocalUseCase
 import com.gumigames.domain.usecase.dogam.monster.AddBookmarkMonsterLocalUseCase
 import com.gumigames.domain.usecase.dogam.skill.AddBookmarkSkillLocalUseCase
 import com.gumigames.domain.usecase.dogam.litem.GetAllItemsUseCase
 import com.gumigames.domain.usecase.dogam.litem.GetSearchItemsUseCase
+import com.gumigames.domain.usecase.dogam.monster.GetAllMonstersLocalUseCase
 import com.gumigames.domain.usecase.dogam.monster.GetAllMonstersUseCase
 import com.gumigames.domain.usecase.dogam.monster.GetSearchMonstersUseCase
+import com.gumigames.domain.usecase.dogam.skill.GetAllSkillsLocalUseCase
 import com.gumigames.domain.usecase.dogam.skill.GetAllSkillsUseCase
 import com.gumigames.domain.usecase.dogam.skill.GetSearchSkillsUseCase
 import com.gumigames.presentation.base.BaseViewModel
@@ -32,6 +35,9 @@ class DogamViewModel @Inject constructor(
     private val getSearchSkillsUseCase: GetSearchSkillsUseCase,
     private val getAllMonstersUseCase: GetAllMonstersUseCase,
     private val getSearchMonstersUseCase: GetSearchMonstersUseCase,
+    private val getAllItemsLocalUseCase: GetAllItemsLocalUseCase,
+    private val getAllSkillsLocalUseCase: GetAllSkillsLocalUseCase,
+    private val getAllMonstersLocalUseCase: GetAllMonstersLocalUseCase
 ): BaseViewModel() {
 
 
@@ -87,9 +93,10 @@ class DogamViewModel @Inject constructor(
     fun getAllItems(){
         //TODO 원래라면 Repository를 통해 전체 아이템 조회
         viewModelScope.launch {
-            getApiResult( block = {getAllItemsUseCase.invoke()}){
-                _currentItemList.emit(it)
-            }
+//            getApiResult( block = {getAllItemsUseCase.invoke()}){
+//                _currentItemList.emit(it)
+//            }
+            _currentItemList.emit(getAllItemsLocalUseCase.invoke())
         }
     }
     //아이템 검색
@@ -128,9 +135,10 @@ class DogamViewModel @Inject constructor(
     //전체 스킬 조회
     fun getAllSkills(){
         viewModelScope.launch {
-            getApiResult(block = {getAllSkillsUseCase.invoke()}){
-                _currentSkillList.emit(it)
-            }
+//            getApiResult(block = {getAllSkillsUseCase.invoke()}){
+//                _currentSkillList.emit(it)
+//            }
+            _currentSkillList.emit(getAllSkillsLocalUseCase.invoke())
         }
     }
     //스킬 검색
@@ -171,9 +179,10 @@ class DogamViewModel @Inject constructor(
     //전체 몬스터 조회
     fun getAllMonsters(){
         viewModelScope.launch {
-            getApiResult(block = {getAllMonstersUseCase.invoke()}){
-                _currentMonsterList.emit(it)
-            }
+//            getApiResult(block = {getAllMonstersUseCase.invoke()}){
+//                _currentMonsterList.emit(it)
+//            }
+            _currentMonsterList.emit(getAllMonstersLocalUseCase.invoke())
         }
     }
     //몬스터 검색
