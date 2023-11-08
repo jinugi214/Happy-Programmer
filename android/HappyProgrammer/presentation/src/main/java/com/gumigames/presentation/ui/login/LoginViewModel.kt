@@ -87,17 +87,26 @@ class LoginViewModel @Inject constructor(
             getApiResult(block = {getAllItemsUseCase.invoke()}){
                 insertAllItemsLocalUseCase.invoke(it)
                 _isBroughtItemsInfo = true
-                if(checkGetAllGameInfo()) _isBroughtGameInfo.emit(true)
+                if(checkGetAllGameInfo()) {
+                    _isBroughtGameInfo.emit(true)
+                    setIsLoginedUseCase.invoke(true)
+                }
             }
             getApiResult(block = {getAllSkillsUseCase.invoke()}){
                 insertAllSkillsLocalUseCase.invoke(it)
                 _isBroughtSkillsInfo = true
-                if(checkGetAllGameInfo()) _isBroughtGameInfo.emit(true)
+                if(checkGetAllGameInfo()) {
+                    _isBroughtGameInfo.emit(true)
+                    setIsLoginedUseCase.invoke(true)
+                }
             }
             getApiResult(block = {getAllMonstersUseCase.invoke()}){
                 insertAllMonstersLocalUseCase.invoke(it)
                 _isBroughtMonstersInfo = true
-                if(checkGetAllGameInfo()) _isBroughtGameInfo.emit(true)
+                if(checkGetAllGameInfo()) {
+                    _isBroughtGameInfo.emit(true)
+                    setIsLoginedUseCase.invoke(true)
+                }
             }
         }
     }
