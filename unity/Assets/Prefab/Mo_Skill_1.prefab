@@ -105,6 +105,7 @@ MonoBehaviour:
   weaponType: 0
   skillAudioSource: {fileID: 0}
   skillSound: {fileID: 8300000, guid: 5e17750202cc81d49b37e8e79c0c05cd, type: 3}
+  effectSound: {fileID: 8300000, guid: 9b31cbb5eaad45247b10da9fc8f8f863, type: 3}
 --- !u!61 &8672805360006233209
 BoxCollider2D:
   m_ObjectHideFlags: 0
