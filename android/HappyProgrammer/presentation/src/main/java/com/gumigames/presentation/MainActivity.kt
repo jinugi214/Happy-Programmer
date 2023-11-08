@@ -110,7 +110,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
                 },
                 onNotConnect = { //네트워크 연결 안되어 있음 -> 그냥 home으로 가라
-                    
+
                 }
             )
             graph.startDestination = R.id.homeFragment
