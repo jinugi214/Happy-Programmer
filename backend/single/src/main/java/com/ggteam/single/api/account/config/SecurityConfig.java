@@ -23,7 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 
-//@Configuration
+@Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
@@ -90,6 +90,7 @@ public class SecurityConfig {
                 // 순서 : LogoutFilter -> JwtAuthenticationProcessingFilter -> CustomJsonUsernamePasswordAuthenticationFilter
                 .addFilterAfter(customLoginAuthFilter(), LogoutFilter.class)
                 .addFilterBefore(jwtAuthenticationProcessingFilter(), CustomLoginAuthFilter.class);
+//                .addFilterBefore(jwtExceptionFilter(), JwtExceptionFilter.class);
 
 
         return http.build();
@@ -115,6 +116,11 @@ public class SecurityConfig {
     public JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter() {
         return new JwtAuthenticationProcessingFilter(jwtService, accountRepository);
     }
+
+//    @Bean
+//    public JwtExceptionFilter jwtExceptionFilter() {
+//        return new JwtExceptionFilter(jwtService);
+//    }
 
     @Bean
     public WebSecurityCustomizer ignoringCustomizer() {
