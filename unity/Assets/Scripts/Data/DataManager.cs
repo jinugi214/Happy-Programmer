@@ -1,9 +1,19 @@
 using UnityEngine;
 
 [System.Serializable]
+
+
+public class AccountData
+{
+    public string username;
+    public string nickname;
+    public string language;
+}
+
+
 public class CharacterData
 {
-     public string name;
+    public string name;
     public string gender;
     public int exp;
     public int level;
@@ -37,7 +47,9 @@ public class DataManager : MonoBehaviour
         #endregion
     }
 
+    public AccountData accountData;
     public CharacterData characterData;
+
 
 
     public string[] var_name;

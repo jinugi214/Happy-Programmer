@@ -1,7 +1,9 @@
 package com.ggteam.single.api.guide.controller;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -80,7 +82,11 @@ public class GuideController {
 			.username(principal.getName())
 			.itemId(itemId)
 			.build());
-		return ResponseEntity.ok().build();
+
+		Map<String, String> response = new HashMap<>();
+		response.put("result", "성공");
+
+		return ResponseEntity.ok(response);
 	}
 
 	// -------------몬스터---------------
@@ -116,7 +122,11 @@ public class GuideController {
 			.username(principal.getName())
 			.monsterId(monsterId)
 			.build());
-		return ResponseEntity.ok().build();
+
+		Map<String, String> response = new HashMap<>();
+		response.put("result", "성공");
+
+		return ResponseEntity.ok(response);
 	}
 
 	// -------------스킬---------------
@@ -152,6 +162,10 @@ public class GuideController {
 			.username(principal.getName())
 			.skillId(skillId)
 			.build());
-		return ResponseEntity.ok().build();
+
+		Map<String, String> response = new HashMap<>();
+		response.put("result", "성공");
+
+		return ResponseEntity.ok(response);
 	}
 }
