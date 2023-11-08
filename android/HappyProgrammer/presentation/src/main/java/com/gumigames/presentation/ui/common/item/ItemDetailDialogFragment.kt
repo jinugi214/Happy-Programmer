@@ -37,10 +37,8 @@ class ItemDetailDialogFragment(
         binding.apply {
             textviewItemName.text = item.name.toString()
             textviewItemExplain.text = item.description.toString()
-            imageItem.setImageBitmap(item.imageBitmap)
-//            Glide.with(this.root)
-//                .load(item.imgPath)
-//                .into(imageItem)
+            if(item.imageBitmap!=null) imageItem.setImageBitmap(item.imageBitmap)
+            else imageItem.setImageResource(R.drawable.image_tool_profile) //TODO 추후에 로딩 이미지로 바꿔라
             //TODO 아이템의 isBookmarked를 보고 분기 태워야 함
             buttonSelcetedBookmark.visibility = View.GONE
         }

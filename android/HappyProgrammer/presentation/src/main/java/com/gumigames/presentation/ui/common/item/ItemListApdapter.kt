@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gumigames.domain.model.common.ItemDto
+import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.ItemDogamBinding
 
 class ItemListApdapter: ListAdapter<ItemDto, ItemListApdapter.ItemListHolder>(
@@ -26,10 +27,8 @@ class ItemListApdapter: ListAdapter<ItemDto, ItemListApdapter.ItemListHolder>(
     inner class ItemListHolder(private val binding: ItemDogamBinding): RecyclerView.ViewHolder(binding.root){
         fun bindInfo(item : ItemDto){
             binding.apply {
-                imageItem.setImageBitmap(item.imageBitmap)
-//                Glide.with(binding.root)
-//                    .load(item.imgPath)
-//                    .into(imageItem)
+                if(item.imageBitmap!=null) imageItem.setImageBitmap(item.imageBitmap)
+                else imageItem.setImageResource(R.drawable.image_tool_profile) //TODO 추후에 로딩 이미지로 바꿔라
                 imageItem.setOnClickListener {
                     itemClickListner.onClick(it, item)
                 }
