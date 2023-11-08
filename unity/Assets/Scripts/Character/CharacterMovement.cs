@@ -62,4 +62,30 @@ public class CharacterMovement : MonoBehaviour
             }
         }
     }
+
+
+
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!MiniGameManager.instance.isLive)
+            return;
+
+
+        MiniGameManager.instance.health -= collision.gameObject.GetComponent<FatalController>().monsterATK;
+        Debug.Log("체력 감소 " + MiniGameManager.instance.health);
+
+
+
+        if (MiniGameManager.instance.health < 0)
+        {
+            for (int index = 9; index < transform.childCount; index++)
+            {
+                transform.GetChild(index).gameObject.SetActive(false);
+            }
+
+
+        }
+
+    }
 }
