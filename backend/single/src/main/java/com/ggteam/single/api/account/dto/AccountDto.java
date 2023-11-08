@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AccountDto {
 
+    private Long id;
     private String username;
     private String password;
     private String nickname;

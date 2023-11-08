@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ggteam.single.api.account.entity.Account;
 import com.ggteam.single.api.account.repository.AccountRepository;
 import com.ggteam.single.api.guide.dto.req.ItemFavoriteRequest;
+import com.ggteam.single.api.guide.dto.res.FavoriteResponse;
 import com.ggteam.single.api.guide.dto.res.ItemResponse;
 import com.ggteam.single.api.guide.dto.res.ItemWithFavoriteResponse;
 import com.ggteam.single.api.guide.entity.Item;
@@ -74,16 +75,20 @@ public class ItemService {
 
 	// 아이템 즐겨찾기 추가 및 해제
 	@Transactional
-	public void addItemFavorite(ItemFavoriteRequest requestDto){
+	public FavoriteResponse addItemFavorite(ItemFavoriteRequest requestDto){
 		Account account = accountRepository.findByUsername(requestDto.getUsername())
 			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계정입니다."));
 		Item item = itemRepository.findById(requestDto.getItemId())
 			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아이템입니다."));
+
 		// 아이템 즐겨찾기 여부 확인 후 삭제 및 저장
 		if (itemFavoriteRepository.findByAccountAndItem(account, item).isPresent()){
 			itemFavoriteRepository.delete(requestDto.toEntity(account, item));
+			return new FavoriteResponse(false);
 		} else {
 			itemFavoriteRepository.save(requestDto.toEntity(account, item));
+			return new FavoriteResponse(true);
 		}
+
 	}
 }

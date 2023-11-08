@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.security.Principal;
 import java.util.NoSuchElementException;
 
 @Service
@@ -46,9 +47,9 @@ public class AccountService {
     }
 
     @Transactional
-    public ResponseEntity<?> myAccount(Long id) {
-        Account myAccount = accountRepository.findById(id).orElseThrow(
-                () -> new NoSuchElementException("해당 id의 account가 존재하지 않습니다."));
+    public ResponseEntity<?> myAccount(String username) {
+        Account myAccount = accountRepository.findByUsername(username).orElseThrow(
+                () -> new NoSuchElementException("존재하지 않는 아이디입니다."));
         AccountDto accountDto = AccountDto.builder()
                 .username(myAccount.getUsername())
                 .nickname(myAccount.getNickname())
