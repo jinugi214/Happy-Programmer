@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,10 +41,10 @@ public class AccountController {
         // Swagger 확인용
     }
 
-    @GetMapping("/my-account/{id}")
-    @Operation(summary = "내 계정 정보 확인", description = "URL endpoint에 id(username 아님)필요")
-    public ResponseEntity<?> myAccount(@PathVariable Long id) {
-        return accountService.myAccount(id);
+    @GetMapping("/my-account")
+    @Operation(summary = "내 계정 정보 확인", description = "로그인 상태(토큰필요)에서 요청 시 정보가져옴")
+    public ResponseEntity<?> myAccount(Principal principal) {
+        return accountService.myAccount(principal.getName());
     }
 
     @PutMapping("/edit-account")
@@ -71,5 +72,11 @@ public class AccountController {
         responseBody.put("accessToken", accessToken);
 
         return ResponseEntity.ok(responseBody);
+    }
+
+    @DeleteMapping("/quit")
+    @Operation
+    public ResponseEntity<?> deleteAccount() {
+        return ResponseEntity.ok("deleted");
     }
 }
