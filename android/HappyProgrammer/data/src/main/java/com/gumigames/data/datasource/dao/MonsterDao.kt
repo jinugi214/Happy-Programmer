@@ -14,6 +14,9 @@ interface MonsterDao {
     @Query("SELECT * FROM table_monster")
     suspend fun getAllMonstersLocal(): List<MonsterEntity>
 
+    @Query("SELECT * FROM table_monster WHERE name LIKE '%' || :keyword || '%'")
+    suspend fun searchMonstersLocal(keyword: String): List<MonsterEntity>
+
     @Query("SELECT * FROM table_monster WHERE isBookmarked = 1")
     suspend fun getAllBookmarkMonstersLocal(): List<MonsterEntity>
 

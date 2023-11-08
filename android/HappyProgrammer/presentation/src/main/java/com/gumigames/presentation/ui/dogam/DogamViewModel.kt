@@ -10,12 +10,15 @@ import com.gumigames.domain.usecase.dogam.monster.AddBookmarkMonsterLocalUseCase
 import com.gumigames.domain.usecase.dogam.skill.AddBookmarkSkillLocalUseCase
 import com.gumigames.domain.usecase.dogam.litem.GetAllItemsUseCase
 import com.gumigames.domain.usecase.dogam.litem.GetSearchItemsUseCase
+import com.gumigames.domain.usecase.dogam.litem.SearchItemsLocalUseCase
 import com.gumigames.domain.usecase.dogam.monster.GetAllMonstersLocalUseCase
 import com.gumigames.domain.usecase.dogam.monster.GetAllMonstersUseCase
 import com.gumigames.domain.usecase.dogam.monster.GetSearchMonstersUseCase
+import com.gumigames.domain.usecase.dogam.monster.SearchMonstersLocalUseCase
 import com.gumigames.domain.usecase.dogam.skill.GetAllSkillsLocalUseCase
 import com.gumigames.domain.usecase.dogam.skill.GetAllSkillsUseCase
 import com.gumigames.domain.usecase.dogam.skill.GetSearchSkillsUseCase
+import com.gumigames.domain.usecase.dogam.skill.SearchSkillsLocalUseCase
 import com.gumigames.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -37,7 +40,10 @@ class DogamViewModel @Inject constructor(
     private val getSearchMonstersUseCase: GetSearchMonstersUseCase,
     private val getAllItemsLocalUseCase: GetAllItemsLocalUseCase,
     private val getAllSkillsLocalUseCase: GetAllSkillsLocalUseCase,
-    private val getAllMonstersLocalUseCase: GetAllMonstersLocalUseCase
+    private val getAllMonstersLocalUseCase: GetAllMonstersLocalUseCase,
+    private val searchItemsLocalUseCase: SearchItemsLocalUseCase,
+    private val searchSkillsLocalUseCase: SearchSkillsLocalUseCase,
+    private val searchMonstersLocalUseCase: SearchMonstersLocalUseCase
 ): BaseViewModel() {
 
 
@@ -103,13 +109,15 @@ class DogamViewModel @Inject constructor(
     fun getSearchItems(){
         viewModelScope.launch {
             if(_searchKeyword==""){ //아무것도 입력 안하면 전체 아이템 조회
-                getApiResult(block = {getAllItemsUseCase.invoke()}){
-                    _currentItemList.emit(it)
-                }
+//                getApiResult(block = {getAllItemsUseCase.invoke()}){
+//                    _currentItemList.emit(it)
+//                }
+                _currentItemList.emit(getAllItemsLocalUseCase.invoke())
             }else{
-                getApiResult(block = {getSearchItemsUseCase.invoke(_searchKeyword)}){
-                    _currentItemList.emit(it)
-                }
+//                getApiResult(block = {getSearchItemsUseCase.invoke(_searchKeyword)}){
+//                    _currentItemList.emit(it)
+//                }
+                _currentItemList.emit(searchItemsLocalUseCase.invoke(_searchKeyword))
             }
         }
     }
@@ -146,13 +154,15 @@ class DogamViewModel @Inject constructor(
         viewModelScope.launch {
             viewModelScope.launch {
                 if(_searchKeyword==""){ //아무것도 입력 안하면 전체 아이템 조회
-                    getApiResult(block = {getAllSkillsUseCase.invoke()}){
-                        _currentSkillList.emit(it)
-                    }
+//                    getApiResult(block = {getAllSkillsUseCase.invoke()}){
+//                        _currentSkillList.emit(it)
+//                    }
+                    _currentSkillList.emit(getAllSkillsLocalUseCase.invoke())
                 }else{
-                    getApiResult(block = {getSearchSkillsUseCase.invoke(_searchKeyword)}){
-                        _currentSkillList.emit(it)
-                    }
+//                    getApiResult(block = {getSearchSkillsUseCase.invoke(_searchKeyword)}){
+//                        _currentSkillList.emit(it)
+//                    }
+                    _currentSkillList.emit(searchSkillsLocalUseCase.invoke(_searchKeyword))
                 }
             }
         }
@@ -189,13 +199,15 @@ class DogamViewModel @Inject constructor(
     fun getSearchMonsters(){
         viewModelScope.launch {
             if(_searchKeyword==""){ //아무것도 입력 안하면 전체 아이템 조회
-                getApiResult(block = {getAllMonstersUseCase.invoke()}){
-                    _currentMonsterList.emit(it)
-                }
+//                getApiResult(block = {getAllMonstersUseCase.invoke()}){
+//                    _currentMonsterList.emit(it)
+//                }
+                _currentMonsterList.emit(getAllMonstersLocalUseCase.invoke())
             }else{
-                getApiResult(block = {getSearchMonstersUseCase.invoke(_searchKeyword)}){
-                    _currentMonsterList.emit(it)
-                }
+//                getApiResult(block = {getSearchMonstersUseCase.invoke(_searchKeyword)}){
+//                    _currentMonsterList.emit(it)
+//                }
+                _currentMonsterList.emit(searchMonstersLocalUseCase.invoke(_searchKeyword))
             }
         }
     }

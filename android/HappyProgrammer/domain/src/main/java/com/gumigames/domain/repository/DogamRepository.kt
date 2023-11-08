@@ -27,6 +27,10 @@ interface DogamRepository {
      */
     suspend fun getAllItemsLocal(): List<ItemDto>
     /**
+     * 로컬에 있는 아이템 검색
+     */
+    suspend fun searchItemsLocal(keyword: String): List<ItemDto>
+    /**
      * 로컬에 있는 즐겨찾기 아이템 조회
      */
     suspend fun getAllBookmarkItemsLocal(): List<ItemDto>
@@ -55,6 +59,10 @@ interface DogamRepository {
      * 로컬에 있는 전체 스킬 조회
      */
     suspend fun getAllSkillsLocal(): List<SkillDto>
+    /**
+     * 로컬에 있는 스킬 검색
+     */
+    suspend fun searchSkillsLocal(keyword: String): List<SkillDto>
     /**
      * 로컬에 있는 즐겨찾기 스킬 조회
      */
@@ -85,6 +93,10 @@ interface DogamRepository {
      * 로컬에 있는 전체 몬스터 조회
      */
     suspend fun getAllMonstersLocal(): List<MonsterDto>
+    /**
+     * 로컬에 있는 몬스터 검색
+     */
+    suspend fun searchMonstersLocal(keyword: String): List<MonsterDto>
     /**
      * 로컬에 있는 즐겨찾기 몬스터 조회
      */
