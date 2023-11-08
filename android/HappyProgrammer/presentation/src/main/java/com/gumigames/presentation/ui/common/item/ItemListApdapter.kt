@@ -26,9 +26,10 @@ class ItemListApdapter: ListAdapter<ItemDto, ItemListApdapter.ItemListHolder>(
     inner class ItemListHolder(private val binding: ItemDogamBinding): RecyclerView.ViewHolder(binding.root){
         fun bindInfo(item : ItemDto){
             binding.apply {
-                Glide.with(binding.root)
-                    .load(item.imgPath)
-                    .into(imageItem)
+                imageItem.setImageBitmap(item.imageBitmap)
+//                Glide.with(binding.root)
+//                    .load(item.imgPath)
+//                    .into(imageItem)
                 imageItem.setOnClickListener {
                     itemClickListner.onClick(it, item)
                 }

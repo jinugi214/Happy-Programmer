@@ -1,5 +1,6 @@
 package com.gumigames.data.mapper
 
+import android.util.Log
 import com.gumigames.data.BuildConfig
 import com.gumigames.data.datasource.entity.ItemEntity
 import com.gumigames.data.datasource.entity.MonsterEntity
@@ -10,16 +11,20 @@ import com.gumigames.data.model.response.common.SkillResponse
 import com.gumigames.domain.model.common.ItemDto
 import com.gumigames.domain.model.common.MonsterDto
 import com.gumigames.domain.model.common.SkillDto
+import com.gumigames.domain.util.urlToBitmap
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
-
+private const val TAG = "차선호"
 ///////////////////////////////////////////// 아이템 ///////////////////////////////////////////////
 
-fun ItemResponse.toDomain(): ItemDto{
+suspend fun ItemResponse.toDomain(): ItemDto{
     return ItemDto(
         id = id,
         name = name,
         description = description,
-        imgPath = BuildConfig.BASE_URL + imgPath,
+        imageBitmap = withContext(Dispatchers.IO){ urlToBitmap(BuildConfig.BASE_URL + imgPath)!!},
+//        imgPath = BuildConfig.BASE_URL + imgPath,
         isBookmarked = isBookmarked
     )
 }
@@ -29,7 +34,8 @@ fun ItemEntity.toDomain(): ItemDto{
         id = id,
         name = name,
         description = description,
-        imgPath = imgPath,
+        imageBitmap = imageBitmap,
+//        imgPath = imgPath,
         isBookmarked = isBookmarked
     )
 }
@@ -39,7 +45,8 @@ fun ItemDto.toData(): ItemEntity {
         id = id,
         name = name,
         description = description,
-        imgPath = imgPath,
+        imageBitmap = imageBitmap,
+//        imgPath = imgPath,
         isBookmarked = isBookmarked
     )
 }
