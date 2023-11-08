@@ -13,6 +13,9 @@ interface ItemDao {
     @Query("SELECT * FROM table_item")
     suspend fun getAllItemsLocal(): List<ItemEntity>
 
+    @Query("SELECT * FROM table_item WHERE name LIKE '%' || :keyword || '%'")
+    suspend fun searchItemsLocal(keyword: String): List<ItemEntity>
+
     @Query("SELECT * FROM table_item WHERE isBookmarked = 1")
     suspend fun getAllBookmarkItemsLocal(): List<ItemEntity>
 

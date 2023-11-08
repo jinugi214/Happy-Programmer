@@ -14,6 +14,9 @@ interface SkillDao {
     @Query("SELECT * FROM table_skill")
     suspend fun getAllSkillsLocal(): List<SkillEntity>
 
+    @Query("SELECT * FROM table_skill WHERE name LIKE '%' || :keyword || '%'")
+    suspend fun searchSkillsLocal(keyword: String): List<SkillEntity>
+
     @Query("SELECT * FROM table_skill WHERE isBookmarked = 1")
     suspend fun getAllBookmarkSkillsLocal(): List<SkillEntity>
 

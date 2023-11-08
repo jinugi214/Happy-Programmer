@@ -54,6 +54,14 @@ class DogamRepositoryImpl(
     override suspend fun getAllItemsLocal(): List<ItemDto> {
         return itemDao.getAllItemsLocal().map { it.toDomain() }
     }
+
+    /**
+     * 로컬에 있는 아이템 검색
+     */
+    override suspend fun searchItemsLocal(keyword: String): List<ItemDto> {
+        return itemDao.searchItemsLocal(keyword).map { it.toDomain() }
+    }
+
     /**
      * 로컬에 있는 즐겨찾기 아이쳄 조회
      */
@@ -95,6 +103,13 @@ class DogamRepositoryImpl(
      */
     override suspend fun getAllSkillsLocal(): List<SkillDto> {
         return skillDao.getAllSkillsLocal().map { it.toDomain() }
+    }
+
+    /**
+     * 로컬에 있는 스킬 검색
+     */
+    override suspend fun searchSkillsLocal(keyword: String): List<SkillDto> {
+        return skillDao.searchSkillsLocal(keyword).map { it.toDomain() }
     }
 
     /**
@@ -141,6 +156,13 @@ class DogamRepositoryImpl(
      */
     override suspend fun getAllMonstersLocal(): List<MonsterDto> {
         return monsterDao.getAllMonstersLocal().map { it.toDomain() }
+    }
+
+    /**
+     * 로컬에 있는 몬스터 검색
+     */
+    override suspend fun searchMonstersLocal(keyword: String): List<MonsterDto> {
+        return monsterDao.searchMonstersLocal(keyword).map { it.toDomain() }
     }
 
     /**
