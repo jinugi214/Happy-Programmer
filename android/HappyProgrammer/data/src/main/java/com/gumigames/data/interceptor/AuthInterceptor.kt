@@ -15,6 +15,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
+import okhttp3.ResponseBody
 import okhttp3.internal.closeQuietly
 
 private const val TAG = "차선호"
@@ -31,11 +32,16 @@ class AuthInterceptor(
         val headerAddedRequest = chain.request().newBuilder().addHeader(AUTHORIZATION, BEARER + accessToken).build() //헤더에 ACCESS 토큰 저장
         val response: Response = chain.proceed(headerAddedRequest) //Response 받기
 
-        Log.d(TAG, "현재 response : $response")
-        if (response.code == AUTH_TOKEN_EXPIRE_ERROR) { //ACCESS_TOKEN이 만료라면
-            val newAccessToken = getAccessTokenWithRefresh(accessToken).getOrElse { return response }
-            response.closeQuietly()
-            return chain.proceed(chain.request().newBuilder().addHeader(AUTHORIZATION, BEARER + newAccessToken).build()) //재발급 받은 ACCESS TOKEN 헤더에 넣고 최초에 시도했던 통신 재개
+        if (response.code == AUTH_TOKEN_ERROR) { //ACCESS_TOKEN이 만료라면
+            val errorResponse = parseErrorResponse(response.body)
+            when(errorResponse.errorCode){
+                ACCESS_TOKEN_EXPRIED -> {
+                    Log.d(TAG, "access token 만료")
+                    val newAccessToken = getAccessTokenWithRefresh(accessToken).getOrElse { return response }
+                    response.closeQuietly()
+                    return chain.proceed(chain.request().newBuilder().addHeader(AUTHORIZATION, BEARER + newAccessToken).build()) //재발급 받은 ACCESS TOKEN 헤더에 넣고 최초에 시도했던 통신 재개
+                }
+            }
         }
         return response
     }
@@ -52,6 +58,7 @@ class AuthInterceptor(
     }
 
     private fun createRefreshRequest(): Request {
+        Log.d(TAG, "createRefreshRequest에서 현재 refreshToken : ${getRefreshToken()}")
         return Request.Builder()
             .url(BuildConfig.BASE_URL + AUTH_REFRESH_PATH) //ACCESS TOKEN 재발급 통신
             .addHeader(AUTH_REFRESH_KEY, BEARER + getRefreshToken()) //여기에 이제 REFRESH TOKEN을 헤더에 넣어라
@@ -59,18 +66,15 @@ class AuthInterceptor(
     }
 
     private fun requestRefresh(request: Request): Result<AuthResponse> {
+        Log.d(TAG, "requestRefresh에서 request : $request")
         val response: Response = runBlocking {
             withContext(Dispatchers.IO) { client.newCall(request).execute() } //재발급 하는 통신 실행
         }
         if (response.isSuccessful) { //재발급 성공
+            Log.d(TAG, "access-token 재발급 성공")
             return Result.success(response.getDto<AuthResponse>()) // 새로운 AuthResponse 반환
         }
-        val failedResponse = response.getDto<ErrorResponse>()
-        if (failedResponse.code == REFRESH_TOKEN_EXPIRE_ERROR) { //REFRESH TOKEN 만료로 accessToken 재발급 하는 것이 실패
-            //preference 초기화하고 RefrestToken 만료 Throwable throw
-            preferenceDataSource.refreshPreference()
-            return Result.failure(NetworkThrowable.RefreshExpireThrowable())
-        }
+        Log.d(TAG, "access 재발급 실패 : $response")
         return Result.failure(IllegalStateException(REFRESH_FAILURE))
     }
 
@@ -92,18 +96,23 @@ class AuthInterceptor(
         return gson.fromJson(responseObject, T::class.java)
     }
 
+    private fun parseErrorResponse(responseBody: ResponseBody?): ErrorResponse {
+        val gson = Gson()
+        return gson.fromJson(responseBody?.charStream(), ErrorResponse::class.java)
+    }
+
     companion object {
         private const val AUTHORIZATION = "Authorization" //ACCESS_TOEKN KEY 이름
         private const val AUTH_REFRESH_KEY = "Authorization-Refresh" //REFRESH_TOKEN KEY 이름
 
-        private const val AUTH_REFRESH_PATH = "/api/account/new/access-token" //서버에서 주는 accessToken 재발급 하는 api 주소
+        private const val AUTH_REFRESH_PATH = "api/account/new/access-token" //서버에서 주는 accessToken 재발급 하는 api 주소
 
         private const val BEARER = "Bearer "
 
         private const val NO_REFRESH_TOKEN = "리프레시 토큰이 없습니다"
         private const val REFRESH_FAILURE = "토큰 리프레시 실패"
 
-        private const val AUTH_TOKEN_EXPIRE_ERROR = 401 // TODO 서버에 맞게 수정
-        private const val REFRESH_TOKEN_EXPIRE_ERROR = 101 // TODO 서버에 맞게 수정
+        private const val ACCESS_TOKEN_EXPRIED = "Auth001"
+        private const val AUTH_TOKEN_ERROR = 401 // TODO 서버에 맞게 수정
     }
 }
