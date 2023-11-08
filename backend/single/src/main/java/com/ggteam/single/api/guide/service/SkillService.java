@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ggteam.single.api.account.entity.Account;
 import com.ggteam.single.api.account.repository.AccountRepository;
 import com.ggteam.single.api.guide.dto.req.SkillFavoriteRequest;
+import com.ggteam.single.api.guide.dto.res.FavoriteResponse;
 import com.ggteam.single.api.guide.dto.res.SkillResponse;
 import com.ggteam.single.api.guide.dto.res.SkillWithFavoriteResponse;
 import com.ggteam.single.api.guide.entity.Skill;
@@ -74,7 +75,7 @@ public class SkillService {
 
 	// 몬스터 즐겨찾기 추가 및 해제
 	@Transactional
-	public void addSkillFavorite(SkillFavoriteRequest requestDto){
+	public FavoriteResponse addSkillFavorite(SkillFavoriteRequest requestDto){
 		Account account = accountRepository.findByUsername(requestDto.getUsername())
 			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계정입니다."));
 		Skill skill = skillRepository.findById(requestDto.getSkillId())
@@ -82,8 +83,10 @@ public class SkillService {
 		// 아이템 즐겨찾기 여부 확인 후 삭제 및 저장
 		if (skillFavoriteRepository.findByAccountAndSkill(account, skill).isPresent()){
 			skillFavoriteRepository.delete(requestDto.toEntity(account, skill));
+			return new FavoriteResponse(false);
 		} else {
 			skillFavoriteRepository.save(requestDto.toEntity(account, skill));
+			return new FavoriteResponse(true);
 		}
 	}
 }
