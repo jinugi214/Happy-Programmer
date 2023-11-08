@@ -11,5 +11,7 @@ data class SkillResponse(
     @SerializedName("description")
     val description: String,
     @SerializedName("imgPath")
-    val imgPath: String
+    val imgPath: String,
+    @SerializedName("favorite")
+    val isBookmarked: Boolean
 )

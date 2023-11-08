@@ -18,7 +18,8 @@ fun ItemResponse.toDomain(): ItemDto{
         id = id,
         name = name,
         description = description,
-        imgPath = BuildConfig.BASE_URL + imgPath
+        imgPath = BuildConfig.BASE_URL + imgPath,
+        isBookmarked = isBookmarked
     )
 }
 fun SkillResponse.toDomain(): SkillDto{
@@ -26,7 +27,8 @@ fun SkillResponse.toDomain(): SkillDto{
         id = id,
         name = name,
         description = description,
-        imgPath = BuildConfig.BASE_URL + imgPath
+        imgPath = BuildConfig.BASE_URL + imgPath,
+        isBookmarked = isBookmarked
     )
 }
 fun MonsterResponse.toDomain(): MonsterDto{
@@ -35,7 +37,8 @@ fun MonsterResponse.toDomain(): MonsterDto{
         name = name,
         hp = hp,
         description = description,
-        imgPath = BuildConfig.BASE_URL + imgPath
+        imgPath = BuildConfig.BASE_URL + imgPath,
+        isBookmarked = isBookmarked
     )
 }
 
