@@ -5,10 +5,10 @@ import com.gumigames.domain.repository.DogamRepository
 import com.gumigames.domain.util.getValueOrThrow
 import javax.inject.Inject
 
-class GetSearchMonstersUseCase @Inject constructor(
+class SearchMonstersUseCase @Inject constructor(
     private val dogamRepository: DogamRepository
 ) {
     suspend operator fun invoke(keyword: String): List<MonsterDto>{
-        return getValueOrThrow { dogamRepository.getSearchMonsters(keyword) }
+        return getValueOrThrow { dogamRepository.searchMonsters(keyword) }
     }
 }

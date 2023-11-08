@@ -4,20 +4,17 @@ import androidx.lifecycle.viewModelScope
 import com.gumigames.domain.model.common.ItemDto
 import com.gumigames.domain.model.common.MonsterDto
 import com.gumigames.domain.model.common.SkillDto
-import com.gumigames.domain.usecase.dogam.litem.AddBookmarkItemLocalUseCase
 import com.gumigames.domain.usecase.dogam.litem.GetAllItemsLocalUseCase
-import com.gumigames.domain.usecase.dogam.monster.AddBookmarkMonsterLocalUseCase
-import com.gumigames.domain.usecase.dogam.skill.AddBookmarkSkillLocalUseCase
 import com.gumigames.domain.usecase.dogam.litem.GetAllItemsUseCase
-import com.gumigames.domain.usecase.dogam.litem.GetSearchItemsUseCase
+import com.gumigames.domain.usecase.dogam.litem.SearchItemsUseCase
 import com.gumigames.domain.usecase.dogam.litem.SearchItemsLocalUseCase
 import com.gumigames.domain.usecase.dogam.monster.GetAllMonstersLocalUseCase
 import com.gumigames.domain.usecase.dogam.monster.GetAllMonstersUseCase
-import com.gumigames.domain.usecase.dogam.monster.GetSearchMonstersUseCase
+import com.gumigames.domain.usecase.dogam.monster.SearchMonstersUseCase
 import com.gumigames.domain.usecase.dogam.monster.SearchMonstersLocalUseCase
 import com.gumigames.domain.usecase.dogam.skill.GetAllSkillsLocalUseCase
 import com.gumigames.domain.usecase.dogam.skill.GetAllSkillsUseCase
-import com.gumigames.domain.usecase.dogam.skill.GetSearchSkillsUseCase
+import com.gumigames.domain.usecase.dogam.skill.SearchSkillsUseCase
 import com.gumigames.domain.usecase.dogam.skill.SearchSkillsLocalUseCase
 import com.gumigames.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,11 +30,11 @@ import javax.inject.Inject
 @HiltViewModel
 class DogamViewModel @Inject constructor(
     private val getAllItemsUseCase: GetAllItemsUseCase,
-    private val getSearchItemsUseCase: GetSearchItemsUseCase,
+    private val searchItemsUseCase: SearchItemsUseCase,
     private val getAllSkillsUseCase: GetAllSkillsUseCase,
-    private val getSearchSkillsUseCase: GetSearchSkillsUseCase,
+    private val searchSkillsUseCase: SearchSkillsUseCase,
     private val getAllMonstersUseCase: GetAllMonstersUseCase,
-    private val getSearchMonstersUseCase: GetSearchMonstersUseCase,
+    private val searchMonstersUseCase: SearchMonstersUseCase,
     private val getAllItemsLocalUseCase: GetAllItemsLocalUseCase,
     private val getAllSkillsLocalUseCase: GetAllSkillsLocalUseCase,
     private val getAllMonstersLocalUseCase: GetAllMonstersLocalUseCase,
@@ -114,7 +111,7 @@ class DogamViewModel @Inject constructor(
 //                }
                 _currentItemList.emit(getAllItemsLocalUseCase.invoke())
             }else{
-//                getApiResult(block = {getSearchItemsUseCase.invoke(_searchKeyword)}){
+//                getApiResult(block = {searchItemsUseCase.invoke(_searchKeyword)}){
 //                    _currentItemList.emit(it)
 //                }
                 _currentItemList.emit(searchItemsLocalUseCase.invoke(_searchKeyword))
@@ -159,7 +156,7 @@ class DogamViewModel @Inject constructor(
 //                    }
                     _currentSkillList.emit(getAllSkillsLocalUseCase.invoke())
                 }else{
-//                    getApiResult(block = {getSearchSkillsUseCase.invoke(_searchKeyword)}){
+//                    getApiResult(block = {searchSkillsUseCase.invoke(_searchKeyword)}){
 //                        _currentSkillList.emit(it)
 //                    }
                     _currentSkillList.emit(searchSkillsLocalUseCase.invoke(_searchKeyword))
@@ -204,7 +201,7 @@ class DogamViewModel @Inject constructor(
 //                }
                 _currentMonsterList.emit(getAllMonstersLocalUseCase.invoke())
             }else{
-//                getApiResult(block = {getSearchMonstersUseCase.invoke(_searchKeyword)}){
+//                getApiResult(block = {searchMonstersUseCase.invoke(_searchKeyword)}){
 //                    _currentMonsterList.emit(it)
 //                }
                 _currentMonsterList.emit(searchMonstersLocalUseCase.invoke(_searchKeyword))

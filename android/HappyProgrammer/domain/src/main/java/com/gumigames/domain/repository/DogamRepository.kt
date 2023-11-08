@@ -16,7 +16,7 @@ interface DogamRepository {
     /**
      * 아이템 검색
      */
-    suspend fun getSearchItems(keyword: String): List<ItemDto>
+    suspend fun searchItems(keyword: String): List<ItemDto>
 
     /**
      * 아이템 전체 로컬에 저장
@@ -49,7 +49,7 @@ interface DogamRepository {
     /**
      * 스킬 검색
      */
-    suspend fun getSearchSkills(keyword: String): List<SkillDto>
+    suspend fun searchSkills(keyword: String): List<SkillDto>
 
     /**
      * 스킬 전체 로컬에 저장
@@ -83,7 +83,7 @@ interface DogamRepository {
     /**
      * 몬스터 검색
      */
-    suspend fun getSearchMonsters(keyword: String): List<MonsterDto>
+    suspend fun searchMonsters(keyword: String): List<MonsterDto>
 
     /**
      * 몬스터 전체 로컬에 저장

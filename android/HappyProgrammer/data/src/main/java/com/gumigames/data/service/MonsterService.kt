@@ -17,5 +17,5 @@ interface MonsterService {
      * 몬스터 검색
      */
     @GET("guide/monsters/search")
-    suspend fun getSearchMonsters(@Query("keyword") keyword: String): Response<List<MonsterResponse>>
+    suspend fun searchMonsters(@Query("keyword") keyword: String): Response<List<MonsterResponse>>
 }
