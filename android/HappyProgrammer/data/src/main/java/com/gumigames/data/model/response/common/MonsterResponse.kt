@@ -13,5 +13,7 @@ data class MonsterResponse(
     @SerializedName("imgPath")
     val imgPath: String,
     @SerializedName("name")
-    val name: String
+    val name: String,
+    @SerializedName("favorite")
+    val isBookmarked: Boolean
 )

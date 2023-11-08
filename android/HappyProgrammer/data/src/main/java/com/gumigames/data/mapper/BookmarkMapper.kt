@@ -15,7 +15,8 @@ fun ItemBookmarkEntity.toDomain(): ItemDto{
         id = id,
         name = name,
         description = description,
-        imgPath = imgPath
+        imgPath = imgPath,
+        isBookmarked = isBookmarked
     )
 }
 fun SkillBookmarkEntity.toDomain(): SkillDto{
@@ -23,7 +24,8 @@ fun SkillBookmarkEntity.toDomain(): SkillDto{
         id = id,
         name = name,
         description = description,
-        imgPath = imgPath
+        imgPath = imgPath,
+        isBookmarked = isBookmarked
     )
 }
 fun MonsterBookmarkEntity.toDomain(): MonsterDto{
@@ -32,7 +34,8 @@ fun MonsterBookmarkEntity.toDomain(): MonsterDto{
         name = name,
         hp = hp,
         description = description,
-        imgPath = imgPath
+        imgPath = imgPath,
+        isBookmarked = isBookmarked
     )
 }
 
@@ -44,7 +47,8 @@ fun ItemDto.toData(): ItemBookmarkEntity {
         id = id,
         name = name,
         description = description,
-        imgPath = imgPath
+        imgPath = imgPath,
+        isBookmarked = isBookmarked
     )
 }
 fun SkillDto.toData(): SkillBookmarkEntity{
@@ -52,7 +56,8 @@ fun SkillDto.toData(): SkillBookmarkEntity{
         id = id,
         name = name,
         description = description,
-        imgPath = imgPath
+        imgPath = imgPath,
+        isBookmarked = isBookmarked
     )
 }
 fun MonsterDto.toData(): MonsterBookmarkEntity{
@@ -61,6 +66,7 @@ fun MonsterDto.toData(): MonsterBookmarkEntity{
         name = name,
         hp = hp,
         description = description,
-        imgPath = imgPath
+        imgPath = imgPath,
+        isBookmarked = isBookmarked
     )
 }

@@ -9,5 +9,6 @@ data class SkillBookmarkEntity(
     val id: Int,
     val name: String,
     val description: String,
-    val imgPath: String
+    val imgPath: String,
+    val isBookmarked: Boolean
 )
