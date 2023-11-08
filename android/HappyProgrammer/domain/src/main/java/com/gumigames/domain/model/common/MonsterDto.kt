@@ -1,5 +1,6 @@
 package com.gumigames.domain.model.common
 
+import android.graphics.Bitmap
 import com.google.gson.annotations.SerializedName
 
 data class MonsterDto(
@@ -7,6 +8,6 @@ data class MonsterDto(
     val name: String,
     val hp: Int,
     val description: String,
-    val imgPath: String,
+    val imageBitmap: Bitmap?,
     val isBookmarked: Boolean
 )
