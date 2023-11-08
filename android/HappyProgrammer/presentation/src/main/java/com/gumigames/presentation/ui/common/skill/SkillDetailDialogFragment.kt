@@ -37,9 +37,8 @@ class SkillDetailDialogFragment(
         binding.apply {
             textviewItemName.text = skill.name.toString()
             textviewItemExplain.text = skill.description.toString()
-            Glide.with(this.root)
-                .load(skill.imgPath)
-                .into(imageItem)
+            if(skill.imageBitmap!=null) imageItem.setImageBitmap(skill.imageBitmap)
+            else imageItem.setImageResource(R.drawable.image_tool_profile) //TODO 추후에 로딩 이미지로 바꿔라
             //TODO 아이템의 isBookmarked를 보고 분기 태워야 함
             buttonSelcetedBookmark.visibility = View.GONE
         }

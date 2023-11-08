@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gumigames.domain.model.common.MonsterDto
+import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.ItemDogamBinding
 
 class MonsterListAdapter: ListAdapter<MonsterDto, MonsterListAdapter.MonsterListHolder>(
@@ -26,9 +27,8 @@ class MonsterListAdapter: ListAdapter<MonsterDto, MonsterListAdapter.MonsterList
     inner class MonsterListHolder(private val binding: ItemDogamBinding): RecyclerView.ViewHolder(binding.root){
         fun bindInfo(monster : MonsterDto){
             binding.apply {
-                Glide.with(binding.root)
-                    .load(monster.imgPath)
-                    .into(imageItem)
+                if(monster.imageBitmap!=null) imageItem.setImageBitmap(monster.imageBitmap)
+                else imageItem.setImageResource(R.drawable.image_tool_profile) //TODO 추후에 로딩 이미지로 바꿔라
                 imageItem.setOnClickListener {
                     itemClickListner.onClick(it, monster)
                 }

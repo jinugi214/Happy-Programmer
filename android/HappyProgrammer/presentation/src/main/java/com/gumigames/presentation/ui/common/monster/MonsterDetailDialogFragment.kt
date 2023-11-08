@@ -37,9 +37,8 @@ class MonsterDetailDialogFragment(
         binding.apply {
             textviewItemName.text = monster.name.toString()
             textviewItemExplain.text = monster.description.toString()
-            Glide.with(this.root)
-                .load(monster.imgPath)
-                .into(imageItem)
+            if(monster.imageBitmap!=null) imageItem.setImageBitmap(monster.imageBitmap)
+            else imageItem.setImageResource(R.drawable.image_tool_profile) //TODO 추후에 로딩 이미지로 바꿔라
             //TODO 아이템의 isBookmarked를 보고 분기 태워야 함
             buttonSelcetedBookmark.visibility = View.GONE
         }

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gumigames.domain.model.common.SkillDto
+import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.ItemDogamBinding
 
 class SkillListAdapter: ListAdapter<SkillDto, SkillListAdapter.SkillrListHolder>(
@@ -26,9 +27,8 @@ class SkillListAdapter: ListAdapter<SkillDto, SkillListAdapter.SkillrListHolder>
     inner class SkillrListHolder(private val binding: ItemDogamBinding): RecyclerView.ViewHolder(binding.root){
         fun bindInfo(skill : SkillDto){
             binding.apply {
-                Glide.with(binding.root)
-                    .load(skill.imgPath)
-                    .into(imageItem)
+                if(skill.imageBitmap!=null) imageItem.setImageBitmap(skill.imageBitmap)
+                else imageItem.setImageResource(R.drawable.image_tool_profile) //TODO 추후에 로딩 이미지로 바꿔라
                 imageItem.setOnClickListener {
                     itemClickListner.onClick(it, skill)
                 }

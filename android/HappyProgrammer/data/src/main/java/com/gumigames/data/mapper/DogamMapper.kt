@@ -34,7 +34,6 @@ fun ItemEntity.toDomain(): ItemDto{
         name = name,
         description = description,
         imageBitmap = imageBitmap,
-//        imgPath = imgPath,
         isBookmarked = isBookmarked
     )
 }
@@ -45,7 +44,6 @@ fun ItemDto.toData(): ItemEntity {
         name = name,
         description = description,
         imageBitmap = imageBitmap,
-//        imgPath = imgPath,
         isBookmarked = isBookmarked
     )
 }
@@ -53,12 +51,12 @@ fun ItemDto.toData(): ItemEntity {
 
 ///////////////////////////////////////////// 스킬 ///////////////////////////////////////////////
 
-fun SkillResponse.toDomain(): SkillDto{
+suspend fun SkillResponse.toDomain(): SkillDto{
     return SkillDto(
         id = id,
         name = name,
         description = description,
-        imgPath = BuildConfig.BASE_URL + imgPath,
+        imageBitmap = withContext(Dispatchers.IO){ urlToBitmap(BuildConfig.BASE_URL + imgPath)!!},
         isBookmarked = isBookmarked
     )
 }
@@ -68,7 +66,7 @@ fun SkillEntity.toDomain(): SkillDto{
         id = id,
         name = name,
         description = description,
-        imgPath = imgPath,
+        imageBitmap = imageBitmap,
         isBookmarked = isBookmarked
     )
 }
@@ -78,20 +76,20 @@ fun SkillDto.toData(): SkillEntity{
         id = id,
         name = name,
         description = description,
-        imgPath = imgPath,
+        imageBitmap = imageBitmap,
         isBookmarked = isBookmarked
     )
 }
 
 ///////////////////////////////////////////// 몬스터 ///////////////////////////////////////////////
 
-fun MonsterResponse.toDomain(): MonsterDto{
+suspend fun MonsterResponse.toDomain(): MonsterDto{
     return MonsterDto(
         id = id,
         name = name,
         hp = hp,
         description = description,
-        imgPath = BuildConfig.BASE_URL + imgPath,
+        imageBitmap = withContext(Dispatchers.IO){ urlToBitmap(BuildConfig.BASE_URL + imgPath)!!},
         isBookmarked = isBookmarked
     )
 }
@@ -102,7 +100,7 @@ fun MonsterEntity.toDomain(): MonsterDto{
         name = name,
         hp = hp,
         description = description,
-        imgPath = imgPath,
+        imageBitmap = imageBitmap,
         isBookmarked = isBookmarked
     )
 }
@@ -113,7 +111,7 @@ fun MonsterDto.toData(): MonsterEntity{
         name = name,
         hp = hp,
         description = description,
-        imgPath = imgPath,
+        imageBitmap = imageBitmap,
         isBookmarked = isBookmarked
     )
 }
