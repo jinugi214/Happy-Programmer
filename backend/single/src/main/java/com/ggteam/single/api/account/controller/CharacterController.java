@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @Tag(name = "캐릭터 정보", description = "캐릭터 관련")
 @RequiredArgsConstructor
 @RestController
@@ -17,10 +19,10 @@ public class CharacterController {
     private final CharacterService characterService;
 
     // 내 캐릭터 정보 가져오기
-    @GetMapping("/character/{id}")
-    @Operation(summary = "캐릭터 정보", description = "내 캐릭터 정보를 가져온다. 엔드포인트에 해당 캐릭터의 id를 입력")
-    public ResponseEntity<?> myCharacter(@PathVariable Long id) {
-        return characterService.myCharacter(id);
+    @GetMapping("/character")
+    @Operation(summary = "캐릭터 정보", description = "내 캐릭터 정보를 가져온다. 로그인 상태(토큰필요)에서 요청 시 정보를 줌")
+    public ResponseEntity<?> myCharacter(Principal principal) {
+        return characterService.myCharacter(principal.getName());
     }
 
     // 캐릭터 정보 저장

@@ -2,20 +2,20 @@ package com.ggteam.single.api.account.jwt.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.ggteam.single.api.account.exception.TokenException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ggteam.single.api.account.repository.AccountRepository;
+import io.jsonwebtoken.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -146,56 +146,32 @@ public class JwtService {
                 );
     }
 
-//    public boolean isTokenValid(String token) {
-//        try {
-//            JWT.require(Algorithm.HMAC512(secretKey)).build().verify(token);
-//            return true;
-//        } catch (TokenExpiredException e) {
-//            log.error("Expired Token");
-//            errorClassify("Auth001", "Expired Token");
-//            return false;
-//        } catch (JWTVerificationException e) {
-//            log.error("Invalid Token");
-//            errorClassify("Auth004", "Invalid Token");
-//            return false;
-//        } catch (Exception e) {
-//            log.error("Unexpected Error");
-//            errorClassify("Auth999", "Unexpected Error");
-//            return false;
-//        }
-//    }
-
     public boolean isTokenValid(String token) {
+        byte[] secretKeyBytes = getSecretKey().getBytes(StandardCharsets.UTF_8);
+
         try {
-            JWT.require(Algorithm.HMAC512(secretKey)).build().verify(token);
+            Jwts.parserBuilder()
+                    .setSigningKey(secretKeyBytes)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
             return true;
-        } catch (TokenExpiredException e) {
-            log.error("Expired Token");
-            throw new TokenException("Auth001", "Expired Access Token");
-        } catch (JWTVerificationException e) {
-            log.error("Invalid Token");
-            throw new TokenException("Auth004", "Invalid Access Token");
-        } catch (Exception e) {
-            log.error("Unexpected Error");
-            throw new TokenException("Auth999", "Unexpected Error");
+        } catch (SecurityException e) {
+            log.info("Invalid JWT signature.");
+            throw new JwtException("Auth003");
+        } catch (MalformedJwtException e) {
+            log.info("Invalid JWT token.");
+            throw new JwtException("Auth004");
+        } catch (ExpiredJwtException e) {
+            log.info("Expired JWT token.");
+            throw new JwtException("Auth001");
+        } catch (UnsupportedJwtException e) {
+            log.info("Unsupported JWT token.");
+            throw new JwtException("Auth002");
+        } catch (IllegalArgumentException e) {
+            log.info("JWT token compact of handler are invalid.");
+            throw new JwtException("JWT token compact of handler are invalid!!!!");
         }
     }
 
-//    public boolean isTokenValid(String token) {
-//        try {
-//            JWT.require(Algorithm.HMAC512(secretKey)).build().verify(token);
-//            return true;
-//        } catch (Exception e) {
-//            log.error("유효하지 않은 토큰입니다. {}", e.getMessage());
-//            return false;
-//        }
-//    }
-
-    public ResponseEntity<Map<String, String>> errorClassify(String errorCode, String definition) {
-        Map<String, String> errorMap = new HashMap<>();
-        errorMap.put("errorCode", errorCode);
-        errorMap.put("definition", definition);
-
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMap);
-    }
 }
