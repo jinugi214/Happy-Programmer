@@ -1,10 +1,14 @@
 package com.gumigames.domain.repository
 
+import android.content.ClipData.Item
 import com.gumigames.domain.model.common.ItemDto
 import com.gumigames.domain.model.common.MonsterDto
 import com.gumigames.domain.model.common.SkillDto
 
 interface DogamRepository {
+
+    //////////////////////////////// 아이템 ///////////////////////////////////////
+
     /**
      * 아이템 전체 조회
      */
@@ -13,6 +17,27 @@ interface DogamRepository {
      * 아이템 검색
      */
     suspend fun getSearchItems(keyword: String): List<ItemDto>
+
+    /**
+     * 아이템 전체 로컬에 저장
+     */
+    suspend fun insertAllItemsLocal(itemList: List<ItemDto>)
+    /**
+     * 로컬에 있는 전체 아이템 조회
+     */
+    suspend fun getAllItemsLocal(): List<ItemDto>
+    /**
+     * 로컬에 있는 즐겨찾기 아이템 조회
+     */
+    suspend fun getAllBookmarkItemsLocal(): List<ItemDto>
+    /**
+     * 즐겨찾기 아이템 로컬에 저장
+     */
+    suspend fun addBookmarkItemLocal(itemId: Int)
+
+
+    //////////////////////////////// 스킬 ///////////////////////////////////////
+
     /**
      * 스킬 전체 조회
      */
@@ -21,6 +46,28 @@ interface DogamRepository {
      * 스킬 검색
      */
     suspend fun getSearchSkills(keyword: String): List<SkillDto>
+
+    /**
+     * 스킬 전체 로컬에 저장
+     */
+    suspend fun insertAllSkillsLocal(skillList: List<SkillDto>)
+    /**
+     * 로컬에 있는 전체 스킬 조회
+     */
+    suspend fun getAllSkillsLocal(): List<SkillDto>
+    /**
+     * 로컬에 있는 즐겨찾기 스킬 조회
+     */
+    suspend fun getAllBookmarkSkillsLocal(): List<SkillDto>
+    /**
+     * 즐겨찾기 스킬 로컬에 저장
+     */
+    suspend fun addBookmarkSkillLocal(skillId: Int)
+
+
+    //////////////////////////////// 몬스터 ///////////////////////////////////////
+
+
     /**
      * 몬스터 전체 조회
      */
@@ -30,24 +77,14 @@ interface DogamRepository {
      */
     suspend fun getSearchMonsters(keyword: String): List<MonsterDto>
 
-    /////////////// 로컬 /////////////////////////////////
-
     /**
-     * 로컬에 있는 즐겨찾기 아이템 조회
+     * 몬스터 전체 로컬에 저장
      */
-    suspend fun getAllBookmarkItemsLocal(): List<ItemDto>
+    suspend fun insertAllMonstersLocal(monsterList: List<MonsterDto>)
     /**
-     * 즐겨찾기 아이템 로컬에 저장
+     * 로컬에 있는 전체 몬스터 조회
      */
-    suspend fun addBookmarkItemLocal(itemId: Int)
-    /**
-     * 로컬에 있는 즐겨찾기 스킬 조회
-     */
-    suspend fun getAllBookmarkSkillsLocal(): List<SkillDto>
-    /**
-     * 즐겨찾기 스킬 로컬에 저장
-     */
-    suspend fun addBookmarkSkillLocal(skillId: Int)
+    suspend fun getAllMonstersLocal(): List<MonsterDto>
     /**
      * 로컬에 있는 즐겨찾기 몬스터 조회
      */

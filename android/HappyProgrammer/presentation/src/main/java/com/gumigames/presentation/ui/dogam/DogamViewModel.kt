@@ -28,13 +28,10 @@ import javax.inject.Inject
 class DogamViewModel @Inject constructor(
     private val getAllItemsUseCase: GetAllItemsUseCase,
     private val getSearchItemsUseCase: GetSearchItemsUseCase,
-    private val addBookmarkItemUseCase: AddBookmarkItemLocalUseCase,
     private val getAllSkillsUseCase: GetAllSkillsUseCase,
     private val getSearchSkillsUseCase: GetSearchSkillsUseCase,
-    private val addBookmarkSkillLocalUseCase: AddBookmarkSkillLocalUseCase,
     private val getAllMonstersUseCase: GetAllMonstersUseCase,
     private val getSearchMonstersUseCase: GetSearchMonstersUseCase,
-    private val addBookmarkMonsterLocalUseCase: AddBookmarkMonsterLocalUseCase
 ): BaseViewModel() {
 
 
@@ -110,12 +107,6 @@ class DogamViewModel @Inject constructor(
         }
     }
 
-    //로컬에 북마크 아이템 추가
-//    fun addBookmarkItemLocal(item: ItemDto){
-//        viewModelScope.launch {
-//            addBookmarkItemUseCase.invoke(item)
-//        }
-//    }
 
     ///////////////////////////////////////////// 스킬 ////////////////////////////////////////////////////
 
@@ -159,13 +150,6 @@ class DogamViewModel @Inject constructor(
         }
     }
 
-    //로컬에 북마크 스킬 추가
-//    fun addBookmarkSkillLocal(skill: SkillDto){
-//        viewModelScope.launch {
-//            addBookmarkSkillLocalUseCase.invoke(skill)
-//        }
-//    }
-
 
     ///////////////////////////////////////////// 몬스터 //////////////////////////////////////////////////
 
@@ -207,12 +191,6 @@ class DogamViewModel @Inject constructor(
         }
     }
 
-    //로컬에 북마크 몬스터 추가
-//    fun addBookmarkMonsterLocal(monster: MonsterDto){
-//        viewModelScope.launch {
-//            addBookmarkMonsterLocalUseCase.invoke(monster)
-//        }
-//    }
 
 
 
