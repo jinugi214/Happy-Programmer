@@ -96,12 +96,6 @@ public class JwtService {
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
-        final Map<String, Object> body = new HashMap<>();
-        body.put("description", "refresh token 및 access token 재발급 완료");
-        body.put("refreshToken", refreshToken);
-        body.put("accessToken", accessToken);
-        body.put("status", HttpServletResponse.SC_OK);
-
         setAccessTokenHeader(response, accessToken);
         setRefreshTokenHeader(response, refreshToken);
         log.info("Access Token, Refresh Token 헤더 설정 완료");

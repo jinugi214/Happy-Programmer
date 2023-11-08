@@ -1,5 +1,6 @@
 package com.ggteam.single.api.account.jwt.filter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ggteam.single.api.account.entity.Account;
 import com.ggteam.single.api.account.jwt.service.JwtService;
 import com.ggteam.single.api.account.repository.AccountRepository;
@@ -111,8 +112,24 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         accountRepository.findByRefreshToken(refreshToken)
                 .ifPresent(account -> {
                     String reIssuedRefreshToken = reIssueRefreshToken(account);
-                    jwtService.sendAccessAndRefreshToken(response, jwtService.createAccessToken(account.getUsername()),
-                            reIssuedRefreshToken);
+                    String accessToken = jwtService.createAccessToken(account.getUsername());
+                    jwtService.sendAccessAndRefreshToken(response, accessToken, reIssuedRefreshToken);
+
+                    final Map<String, Object> body = new HashMap<>();
+                    body.put("description", "refresh token 및 access token 재발급 완료");
+                    body.put("refreshToken", refreshToken);
+                    body.put("accessToken", accessToken);
+                    body.put("status", HttpServletResponse.SC_OK);
+
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    try {
+                        String responseBody = objectMapper.writeValueAsString(body);
+                        response.getWriter().write(responseBody);
+                        response.getWriter().flush();
+                    } catch (IOException e) {
+                        log.error("Failed to send response body", e);
+                    }
+                    log.info("Access Token, Refresh Token body로 전송 완료");
                 });
     }
 
