@@ -21,7 +21,6 @@ public class SkillPlayer : MonoBehaviour
     public SkillObject phone2Prefab;
     public SkillObject phone3Prefab;
 
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.X))
@@ -82,16 +81,18 @@ public class SkillPlayer : MonoBehaviour
             }
 
             // 선택된 스킬 프리팹을 인스턴스화하여 생성
-            Vector3 position = transform.position;
-            if (weaponType == 1) // 키보드인 경우
-            {
-                position.y += 1;
-            }
-            SkillObject newSkill = Instantiate(skillToUse, position, Quaternion.identity);
-            newSkill.Create(weaponType); // 무기 유형을 설정하면서, 스킬 오브젝트 생성
-            newSkill.direction = GetComponent<CharacterMovement>().lastDirection;
+Vector3 position = transform.position;
+if (weaponType == 1) // 키보드인 경우
+{
+    position.y += 1;
+}
+SkillObject newSkill = Instantiate(skillToUse, position, Quaternion.identity);
+newSkill.gameObject.SetActive(true);
+newSkill.skillAudioSource = GetComponent<AudioSource>();
+newSkill.Create(weaponType); // 무기 유형을 설정하면서, 스킬 오브젝트 생성
+newSkill.direction = GetComponent<CharacterMovement>().lastDirection;
+
+
         }
     }
-
-
 }

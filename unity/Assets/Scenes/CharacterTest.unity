@@ -5527,6 +5527,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mo_Ef_2
       objectReference: {fileID: 0}
+    - target: {fileID: 4341867456664998358, guid: 7ee801f676756184dac9963594c4f23c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8272360019999487041, guid: 7ee801f676756184dac9963594c4f23c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5653,18 +5657,6 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 95417999591876114, guid: e29a434726904464bab6aca0597dc0aa, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 95417999591876114, guid: e29a434726904464bab6aca0597dc0aa, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 95417999591876114, guid: e29a434726904464bab6aca0597dc0aa, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 95417999591876114, guid: e29a434726904464bab6aca0597dc0aa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -5715,6 +5707,10 @@ PrefabInstance:
     - target: {fileID: 3061667400065176825, guid: e29a434726904464bab6aca0597dc0aa, type: 3}
       propertyPath: m_Name
       value: Ph_Ef_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3061667400065176825, guid: e29a434726904464bab6aca0597dc0aa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5829,6 +5825,10 @@ PrefabInstance:
     - target: {fileID: 1175457064847070119, guid: adf5ee81158f9444f9d9a8ab90ce2c1a, type: 3}
       propertyPath: m_Name
       value: Mo_Ef_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175457064847070119, guid: adf5ee81158f9444f9d9a8ab90ce2c1a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6046078211536728768, guid: adf5ee81158f9444f9d9a8ab90ce2c1a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6082,12 +6082,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 1619496084}
     m_Modifications:
     - target: {fileID: 1693340214515467102, guid: e7b4db8f5b5db53479e401252c3d3319, type: 3}
-      propertyPath: effectPrefab
+      propertyPath: effectSound
       value: 
-      objectReference: {fileID: 3061667400065176825, guid: e29a434726904464bab6aca0597dc0aa, type: 3}
+      objectReference: {fileID: 8300000, guid: 5d94e05d651e475448a927511e3ac606, type: 3}
     - target: {fileID: 3958387381793060327, guid: e7b4db8f5b5db53479e401252c3d3319, type: 3}
       propertyPath: m_Name
       value: Ph_Skill_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3958387381793060327, guid: e7b4db8f5b5db53479e401252c3d3319, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4459809940005733449, guid: e7b4db8f5b5db53479e401252c3d3319, type: 3}
       propertyPath: m_Pivot.x
@@ -6430,12 +6434,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4406038636789021572, guid: a242da6a11446d24fbbd61cdd1493371, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5026578222237685895, guid: a242da6a11446d24fbbd61cdd1493371, type: 3}
-      propertyPath: skillSound
+      propertyPath: effectSound
       value: 
-      objectReference: {fileID: 8300000, guid: 5e17750202cc81d49b37e8e79c0c05cd, type: 3}
+      objectReference: {fileID: 8300000, guid: 9b31cbb5eaad45247b10da9fc8f8f863, type: 3}
     - target: {fileID: 5026578222237685895, guid: a242da6a11446d24fbbd61cdd1493371, type: 3}
       propertyPath: effectPrefab
       value: 
@@ -6846,9 +6850,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 1619496084}
     m_Modifications:
     - target: {fileID: 2137305800596043787, guid: 4eb717bf8c545b144ae02c7f3b0bfb87, type: 3}
-      propertyPath: skillSound
+      propertyPath: effectSound
       value: 
-      objectReference: {fileID: 8300000, guid: 5e17750202cc81d49b37e8e79c0c05cd, type: 3}
+      objectReference: {fileID: 8300000, guid: 9b31cbb5eaad45247b10da9fc8f8f863, type: 3}
     - target: {fileID: 2137305800596043787, guid: 4eb717bf8c545b144ae02c7f3b0bfb87, type: 3}
       propertyPath: effectPrefab
       value: 
@@ -6859,7 +6863,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5421362443400734516, guid: 4eb717bf8c545b144ae02c7f3b0bfb87, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7903058009832314756, guid: 4eb717bf8c545b144ae02c7f3b0bfb87, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7095,10 +7099,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ph_Skill_2
       objectReference: {fileID: 0}
+    - target: {fileID: 3322981316600342828, guid: 9af39d3c89b82234b970ed142c4346e8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4740498960513180981, guid: 9af39d3c89b82234b970ed142c4346e8, type: 3}
-      propertyPath: effectPrefab
+      propertyPath: effectSound
       value: 
-      objectReference: {fileID: 7266373097901080065, guid: 2ded876ad79385248bef478bfa11846a, type: 3}
+      objectReference: {fileID: 8300000, guid: 5d94e05d651e475448a927511e3ac606, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7311,12 +7319,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 1619496084}
     m_Modifications:
     - target: {fileID: 3740201679868233218, guid: f2ce93bf3b3961c4e873aa48217f312b, type: 3}
-      propertyPath: effectPrefab
+      propertyPath: effectSound
       value: 
-      objectReference: {fileID: 1179103934829467699, guid: 911aaa1d2d3f19145a1bf9d58013d041, type: 3}
+      objectReference: {fileID: 8300000, guid: 7004c9efb92e96b468e1b3fdaa61d079, type: 3}
     - target: {fileID: 6023495660498031551, guid: f2ce93bf3b3961c4e873aa48217f312b, type: 3}
       propertyPath: m_Name
       value: Ph_Skill_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023495660498031551, guid: f2ce93bf3b3961c4e873aa48217f312b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7084015535713435698, guid: f2ce93bf3b3961c4e873aa48217f312b, type: 3}
       propertyPath: m_Pivot.x
@@ -7448,10 +7460,6 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4460211443637875809, guid: 911aaa1d2d3f19145a1bf9d58013d041, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4460211443637875809, guid: 911aaa1d2d3f19145a1bf9d58013d041, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -7516,6 +7524,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mo_Ef_1
       objectReference: {fileID: 0}
+    - target: {fileID: 2300397120003628089, guid: 296aec9305402b54fa1e26cc552b6b25, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3532657386200762742, guid: 296aec9305402b54fa1e26cc552b6b25, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 9b31cbb5eaad45247b10da9fc8f8f863, type: 3}
     - target: {fileID: 7833949843802082981, guid: 296aec9305402b54fa1e26cc552b6b25, type: 3}
       propertyPath: m_LocalPosition.x
       value: -365.92966
@@ -7602,18 +7618,6 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1323891123806308564, guid: 2ded876ad79385248bef478bfa11846a, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1323891123806308564, guid: 2ded876ad79385248bef478bfa11846a, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1323891123806308564, guid: 2ded876ad79385248bef478bfa11846a, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1323891123806308564, guid: 2ded876ad79385248bef478bfa11846a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -7664,6 +7668,10 @@ PrefabInstance:
     - target: {fileID: 7266373097901080065, guid: 2ded876ad79385248bef478bfa11846a, type: 3}
       propertyPath: m_Name
       value: Ph_Ef_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7266373097901080065, guid: 2ded876ad79385248bef478bfa11846a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7821,12 +7829,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4952763750466850447, guid: 4067a786cda7ae8428c04b07b660c212, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7257752143779240135, guid: 4067a786cda7ae8428c04b07b660c212, type: 3}
-      propertyPath: skillSound
+      propertyPath: effectSound
       value: 
-      objectReference: {fileID: 8300000, guid: 5e17750202cc81d49b37e8e79c0c05cd, type: 3}
+      objectReference: {fileID: 8300000, guid: 9b31cbb5eaad45247b10da9fc8f8f863, type: 3}
     - target: {fileID: 7257752143779240135, guid: 4067a786cda7ae8428c04b07b660c212, type: 3}
       propertyPath: effectPrefab
       value: 
