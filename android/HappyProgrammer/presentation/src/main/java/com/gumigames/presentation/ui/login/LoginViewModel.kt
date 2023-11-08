@@ -31,13 +31,6 @@ class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val setAccessTokenUseCase: SetAccessTokenUseCase,
     private val setRefreshTokenUseCase: SetRefreshTokenUseCase,
-    private val setIsLoginedUseCase: SetIsLoginedUseCase,
-    private val getAllItemsUseCase: GetAllItemsUseCase,
-    private val insertAllItemsLocalUseCase: InsertAllItemsLocalUseCase,
-    private val getAllSkillsUseCase: GetAllSkillsUseCase,
-    private val insertAllSkillsLocalUseCase: InsertAllSkillsLocalUseCase,
-    private val getAllMonstersUseCase: GetAllMonstersUseCase,
-    private val insertAllMonstersLocalUseCase: InsertAllMonstersLocalUseCase
 ): BaseViewModel() {
 
     private var _id: String = ""
@@ -69,51 +62,6 @@ class LoginViewModel @Inject constructor(
                 _loginResult.emit(true)
             }
         }
-    }
-
-    //사용자 정보 조회 상태
-    private val _isBroughtGameInfo = MutableSharedFlow<Boolean>()
-    var isBroughtGameInfo = _isBroughtGameInfo.asSharedFlow()
-
-    //회원, 아이템, 스킬, 몬스터 정보 조회 상태
-    private var _isBroughtUserInfo = false
-    private var _isBroughtItemsInfo = false
-    private var _isBroughtSkillsInfo = false
-    private var _isBroughtMonstersInfo = false
-
-    fun bringGameInfo(){
-        viewModelScope.launch {
-            //TODO 유저도 추가해야 함
-            getApiResult(block = {getAllItemsUseCase.invoke()}){
-                insertAllItemsLocalUseCase.invoke(it)
-                _isBroughtItemsInfo = true
-                if(checkGetAllGameInfo()) {
-                    _isBroughtGameInfo.emit(true)
-                    setIsLoginedUseCase.invoke(true)
-                }
-            }
-            getApiResult(block = {getAllSkillsUseCase.invoke()}){
-                insertAllSkillsLocalUseCase.invoke(it)
-                _isBroughtSkillsInfo = true
-                if(checkGetAllGameInfo()) {
-                    _isBroughtGameInfo.emit(true)
-                    setIsLoginedUseCase.invoke(true)
-                }
-            }
-            getApiResult(block = {getAllMonstersUseCase.invoke()}){
-                insertAllMonstersLocalUseCase.invoke(it)
-                _isBroughtMonstersInfo = true
-                if(checkGetAllGameInfo()) {
-                    _isBroughtGameInfo.emit(true)
-                    setIsLoginedUseCase.invoke(true)
-                }
-            }
-        }
-    }
-
-    fun checkGetAllGameInfo(): Boolean{
-        //TODO 사용자 정보 조회도 추가
-        return _isBroughtItemsInfo && _isBroughtSkillsInfo && _isBroughtMonstersInfo
     }
 
 }
