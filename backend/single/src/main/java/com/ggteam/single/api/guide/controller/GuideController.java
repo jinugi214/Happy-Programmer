@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ggteam.single.api.guide.dto.req.ItemFavoriteRequest;
 import com.ggteam.single.api.guide.dto.req.MonsterFavoriteRequest;
 import com.ggteam.single.api.guide.dto.req.SkillFavoriteRequest;
+import com.ggteam.single.api.guide.dto.res.FavoriteResponse;
 import com.ggteam.single.api.guide.dto.res.ItemResponse;
 import com.ggteam.single.api.guide.dto.res.ItemWithFavoriteResponse;
 import com.ggteam.single.api.guide.dto.res.LevelResponse;
@@ -77,16 +78,13 @@ public class GuideController {
 
 	@Operation(summary = "아이템 즐겨찾기하기", description = "이미 즐겨찾기 되어 있으면 취소된다.")
 	@PostMapping("/items/favorite/{itemId}")
-	public ResponseEntity<?> itemAddFavorite(Principal principal, @PathVariable Integer itemId){
-		itemService.addItemFavorite(ItemFavoriteRequest.builder()
+	public ResponseEntity<FavoriteResponse> itemAddFavorite(Principal principal, @PathVariable Integer itemId){
+		FavoriteResponse response = itemService.addItemFavorite(ItemFavoriteRequest.builder()
 			.username(principal.getName())
 			.itemId(itemId)
 			.build());
 
-		Map<String, String> response = new HashMap<>();
-		response.put("result", "성공");
-
-		return ResponseEntity.ok(response);
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 	// -------------몬스터---------------
@@ -117,16 +115,14 @@ public class GuideController {
 
 	@Operation(summary = "몬스터 즐겨찾기하기", description = "이미 즐겨찾기 되어 있으면 취소된다.")
 	@PostMapping("/monsters/favorite/{monsterId}")
-	public ResponseEntity<?> monsterAddFavorite(Principal principal, @PathVariable Integer monsterId){
-		monsterService.addMonsterFavorite(MonsterFavoriteRequest.builder()
+	public ResponseEntity<FavoriteResponse> monsterAddFavorite(Principal principal, @PathVariable Integer monsterId){
+		FavoriteResponse response = monsterService.addMonsterFavorite(MonsterFavoriteRequest.builder()
 			.username(principal.getName())
 			.monsterId(monsterId)
 			.build());
 
-		Map<String, String> response = new HashMap<>();
-		response.put("result", "성공");
 
-		return ResponseEntity.ok(response);
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 	// -------------스킬---------------
@@ -157,15 +153,12 @@ public class GuideController {
 
 	@Operation(summary = "스킬 즐겨찾기하기", description = "이미 즐겨찾기 되어 있으면 취소된다.")
 	@PostMapping("/skills/favorite/{skillId}")
-	public ResponseEntity<?> skillAddFavorite(Principal principal, @PathVariable Integer skillId){
-		skillService.addSkillFavorite(SkillFavoriteRequest.builder()
+	public ResponseEntity<FavoriteResponse> skillAddFavorite(Principal principal, @PathVariable Integer skillId){
+		FavoriteResponse response = skillService.addSkillFavorite(SkillFavoriteRequest.builder()
 			.username(principal.getName())
 			.skillId(skillId)
 			.build());
 
-		Map<String, String> response = new HashMap<>();
-		response.put("result", "성공");
-
-		return ResponseEntity.ok(response);
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 }
