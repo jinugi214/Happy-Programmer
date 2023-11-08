@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:background="@drawable/image_home_background"
-    tools:context=".ui.login.BringUserInfoLoadingDialogFragment"
+    tools:context=".BringGameInfoLoadingDialogFragment"
     android:background="@color/transparent">
 
     <FrameLayout

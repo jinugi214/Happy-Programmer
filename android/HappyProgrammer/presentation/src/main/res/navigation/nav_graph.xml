@@ -25,6 +25,7 @@
         android:name="com.gumigames.presentation.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
+
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
             app:destination="@id/profileFragment"
@@ -60,6 +61,10 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/enter_from_left"
             app:popExitAnim="@anim/fade_out" />
+        <argument
+            android:name="isFromLogin"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
