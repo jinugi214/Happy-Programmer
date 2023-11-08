@@ -12,4 +12,6 @@ public interface CharacterRepository extends JpaRepository<Character, Long> {
 
     Optional<Character> findByAccount_Username(String username);
 
+    Optional<Character> findByName(String name);
+
 }

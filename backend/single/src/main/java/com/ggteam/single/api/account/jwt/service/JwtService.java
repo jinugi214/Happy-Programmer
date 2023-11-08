@@ -94,6 +94,13 @@ public class JwtService {
     // AccessToken + RefreshToken 헤더에 실어 보내기
     public void sendAccessAndRefreshToken(HttpServletResponse response, String accessToken, String refreshToken) {
         response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+
+        final Map<String, Object> body = new HashMap<>();
+        body.put("description", "refresh token 및 access token 재발급 완료");
+        body.put("refreshToken", refreshToken);
+        body.put("accessToken", accessToken);
+        body.put("status", HttpServletResponse.SC_OK);
 
         setAccessTokenHeader(response, accessToken);
         setRefreshTokenHeader(response, refreshToken);
@@ -149,6 +156,7 @@ public class JwtService {
     public boolean isTokenValid(String token) {
         byte[] secretKeyBytes = getSecretKey().getBytes(StandardCharsets.UTF_8);
 
+
         try {
             Jwts.parserBuilder()
                     .setSigningKey(secretKeyBytes)
@@ -158,20 +166,39 @@ public class JwtService {
             return true;
         } catch (SecurityException e) {
             log.info("Invalid JWT signature.");
-            throw new JwtException("Auth003");
+            throw new JwtException("Auth003");  // 유효하지 않은 서명
         } catch (MalformedJwtException e) {
             log.info("Invalid JWT token.");
-            throw new JwtException("Auth004");
+            throw new JwtException("Auth004");  // 유효하지 않은 토큰
         } catch (ExpiredJwtException e) {
             log.info("Expired JWT token.");
-            throw new JwtException("Auth001");
+            if (accountRepository.findByRefreshToken(token).isPresent()) {
+                throw new JwtException("Auth007");  // Refresh Token 만료
+            } else {
+                throw new JwtException("Auth001");  // Access Token 만료
+            }
         } catch (UnsupportedJwtException e) {
             log.info("Unsupported JWT token.");
-            throw new JwtException("Auth002");
+            throw new JwtException("Auth002");  // 지원하지 않는 토큰
         } catch (IllegalArgumentException e) {
             log.info("JWT token compact of handler are invalid.");
             throw new JwtException("JWT token compact of handler are invalid!!!!");
         }
+    }
+
+    public void setErrorResponse(HttpServletRequest request, HttpServletResponse response, Throwable e)
+            throws IOException {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+
+        final Map<String, Object> errorBody = new HashMap<>();
+        errorBody.put("error", "Unauthorized");
+        errorBody.put("errorCode", e.getMessage());
+        errorBody.put("status", HttpServletResponse.SC_UNAUTHORIZED);
+        errorBody.put("path", request.getServletPath());
+
+        final ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.writeValue(response.getOutputStream(), errorBody);
     }
 
 }
