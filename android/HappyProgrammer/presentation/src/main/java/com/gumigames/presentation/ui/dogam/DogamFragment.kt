@@ -133,6 +133,7 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
             edittextSearch.setTextListener {
                 //검색 키워드 갱신
                 dogamViewModel.setSearchKeyword(it)
+                dogamViewModel.searchKeyword()
             }
             edittextSearch.clickEnterListener {
                 //검색 이벤트

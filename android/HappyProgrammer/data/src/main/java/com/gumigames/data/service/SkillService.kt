@@ -16,5 +16,5 @@ interface SkillService {
      * 스킬 검색
      */
     @GET("guide/skills/search")
-    suspend fun getSearchSkills(@Query("keyword") keyword: String): Response<List<SkillResponse>>
+    suspend fun searchSkills(@Query("keyword") keyword: String): Response<List<SkillResponse>>
 }

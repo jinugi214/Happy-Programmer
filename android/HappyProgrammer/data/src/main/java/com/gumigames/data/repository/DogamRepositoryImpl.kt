@@ -36,8 +36,8 @@ class DogamRepositoryImpl(
     /**
      * 아이템 검색
      */
-    override suspend fun getSearchItems(keyword: String): List<ItemDto> {
-        return handleApi { itemService.getSearchItems(keyword) }.map { it.toDomain() }
+    override suspend fun searchItems(keyword: String): List<ItemDto> {
+        return handleApi { itemService.searchItems(keyword) }.map { it.toDomain() }
     }
     /**
      * 아이템 전체 로컬에 저장
@@ -88,8 +88,8 @@ class DogamRepositoryImpl(
     /**
      * 스킬 검색
      */
-    override suspend fun getSearchSkills(keyword: String): List<SkillDto> {
-        return handleApi { skillService.getSearchSkills(keyword) }.map { it.toDomain() }
+    override suspend fun searchSkills(keyword: String): List<SkillDto> {
+        return handleApi { skillService.searchSkills(keyword) }.map { it.toDomain() }
     }
     /**
      * 스킬 전체 로컬에 저장
@@ -141,8 +141,8 @@ class DogamRepositoryImpl(
     /**
      * 몬스터 검색
      */
-    override suspend fun getSearchMonsters(keyword: String): List<MonsterDto> {
-        return handleApi { monsterService.getSearchMonsters(keyword) }.map { it.toDomain() }
+    override suspend fun searchMonsters(keyword: String): List<MonsterDto> {
+        return handleApi { monsterService.searchMonsters(keyword) }.map { it.toDomain() }
     }
     /**
      * 몬스터 전체 로컬에 저장

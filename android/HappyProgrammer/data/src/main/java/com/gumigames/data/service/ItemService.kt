@@ -17,7 +17,7 @@ interface ItemService {
      * 아이템 검색
      */
     @GET("guide/items/search")
-    suspend fun getSearchItems(@Query("keyword") keyword: String): Response<List<ItemResponse>>
+    suspend fun searchItems(@Query("keyword") keyword: String): Response<List<ItemResponse>>
 
 
 }
