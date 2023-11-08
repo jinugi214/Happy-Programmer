@@ -35,6 +35,10 @@ public class DialogueManager : MonoBehaviour
     // public Animator animSprite;
     public Animator animDialogueWindow;
 
+    public bool talking = false;
+
+    private CharacterMovement thePlayer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +51,8 @@ public class DialogueManager : MonoBehaviour
 
     public void ShowDialogue(Dialogue dialogue)
     {
+        talking = true;
+
         for (int i = 0; i < dialogue.sentences.Length; i++)
         {
             listSentences.Add(dialogue.sentences[i]);
@@ -68,6 +74,7 @@ public class DialogueManager : MonoBehaviour
         listDialogueWindows.Clear();
         // animSprite.SetBool("Appear", false);
         animDialogueWindow.SetBool("Appear", false);
+        talking = false;
     }
 
     IEnumerator StartDialogueCoroutine()
@@ -116,20 +123,23 @@ public class DialogueManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if(talking)
         {
-            count++;
-            text.text = "";
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                count++;
+                text.text = "";
 
-            if (count == listSentences.Count)
-            {
-                StopAllCoroutines();
-                ExitDialogue();
-            }
-            else
-            {
-                StopAllCoroutines();
-                StartCoroutine(StartDialogueCoroutine());
+                if (count == listSentences.Count)
+                {
+                    StopAllCoroutines();
+                    ExitDialogue();
+                }
+                else
+                {
+                    StopAllCoroutines();
+                    StartCoroutine(StartDialogueCoroutine());
+                }
             }
         }
     }
