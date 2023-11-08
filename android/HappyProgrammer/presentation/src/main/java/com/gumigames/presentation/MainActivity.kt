@@ -7,9 +7,12 @@ import android.util.Log
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.viewModels
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.freeproject.happyprogrammers.base.BaseActivity
 import com.gumigames.presentation.databinding.ActivityMainBinding
 import com.gumigames.presentation.util.PERMISSION_LIST_UNDER32
@@ -29,6 +32,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var navController: NavController
+    private lateinit var graph: NavGraph
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,27 +103,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         navController = navHostFragment.navController
 
         val inflater = navHostFragment.navController.navInflater
-        val graph = inflater.inflate(R.navigation.nav_graph)
-        graph.startDestination = R.id.homeFragment
+        graph = inflater.inflate(R.navigation.nav_graph)
 
         if(mainViewModel.isLogined()){ //로그인이 되어 있는 상황
-            //TODO 네트워크 연결되어 있으면 아이템, 스킬, 몬스터 조회하기
-            isConnectingNetwork(
-                context = this,
-                onConnect = { //네트워크 연결되어 있음 -> game 정보 받아라
+            graph.setStartDestination(R.id.homeFragment)
+            navController.setGraph(graph, intent.extras)
 
-                },
-                onNotConnect = { //네트워크 연결 안되어 있음 -> 그냥 home으로 가라
-
-                }
-            )
-            graph.startDestination = R.id.homeFragment
         }else{ //로그인이 되어 있지 않은 상황
-            graph.startDestination = R.id.loginFragment
+            graph.setStartDestination(R.id.loginFragment)
+            navController.setGraph(graph, intent.extras)
         }
 
-        val navController = navHostFragment.navController
-        navController.setGraph(graph, intent.extras)
     }
 
     private fun initCollector(){
