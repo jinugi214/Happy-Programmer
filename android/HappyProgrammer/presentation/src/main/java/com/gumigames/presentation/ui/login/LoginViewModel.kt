@@ -4,6 +4,15 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gumigames.domain.model.user.LoginDto
+import com.gumigames.domain.usecase.dogam.litem.GetAllItemsLocalUseCase
+import com.gumigames.domain.usecase.dogam.litem.GetAllItemsUseCase
+import com.gumigames.domain.usecase.dogam.litem.InsertAllItemsLocalUseCase
+import com.gumigames.domain.usecase.dogam.monster.GetAllMonstersLocalUseCase
+import com.gumigames.domain.usecase.dogam.monster.GetAllMonstersUseCase
+import com.gumigames.domain.usecase.dogam.monster.InsertAllMonstersLocalUseCase
+import com.gumigames.domain.usecase.dogam.skill.GetAllSkillsLocalUseCase
+import com.gumigames.domain.usecase.dogam.skill.GetAllSkillsUseCase
+import com.gumigames.domain.usecase.dogam.skill.InsertAllSkillsLocalUseCase
 import com.gumigames.domain.usecase.preference.SetAccessTokenUseCase
 import com.gumigames.domain.usecase.preference.SetIsLoginedUseCase
 import com.gumigames.domain.usecase.preference.SetRefreshTokenUseCase
@@ -22,7 +31,13 @@ class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val setAccessTokenUseCase: SetAccessTokenUseCase,
     private val setRefreshTokenUseCase: SetRefreshTokenUseCase,
-    private val setIsLoginedUseCase: SetIsLoginedUseCase
+    private val setIsLoginedUseCase: SetIsLoginedUseCase,
+    private val getAllItemsUseCase: GetAllItemsUseCase,
+    private val insertAllItemsLocalUseCase: InsertAllItemsLocalUseCase,
+    private val getAllSkillsUseCase: GetAllSkillsUseCase,
+    private val insertAllSkillsLocalUseCase: InsertAllSkillsLocalUseCase,
+    private val getAllMonstersUseCase: GetAllMonstersUseCase,
+    private val insertAllMonstersLocalUseCase: InsertAllMonstersLocalUseCase
 ): BaseViewModel() {
 
     private var _id: String = ""
@@ -57,16 +72,39 @@ class LoginViewModel @Inject constructor(
     }
 
     //사용자 정보 조회 상태
-    private val _isBroughtUserInfo = MutableSharedFlow<Boolean>()
-    var isBroughtUserInfo = _isBroughtUserInfo.asSharedFlow()
-    //사용자 정보 조회 시작
-    fun bringUserInfo(){
+    private val _isBroughtGameInfo = MutableSharedFlow<Boolean>()
+    var isBroughtGameInfo = _isBroughtGameInfo.asSharedFlow()
+
+    //회원, 아이템, 스킬, 몬스터 정보 조회 상태
+    private var _isBroughtUserInfo = false
+    private var _isBroughtItemsInfo = false
+    private var _isBroughtSkillsInfo = false
+    private var _isBroughtMonstersInfo = false
+
+    fun bringGameInfo(){
         viewModelScope.launch {
-            //TODO 회원의 즐겨찾기 목록 불러와서 room에 저장해줘야 함
-            delay(300)
-            setIsLoginedUseCase.invoke(true)
-            _isBroughtUserInfo.emit(true)
+            //TODO 유저도 추가해야 함
+            getApiResult(block = {getAllItemsUseCase.invoke()}){
+                insertAllItemsLocalUseCase.invoke(it)
+                _isBroughtItemsInfo = true
+                if(checkGetAllGameInfo()) _isBroughtGameInfo.emit(true)
+            }
+            getApiResult(block = {getAllSkillsUseCase.invoke()}){
+                insertAllSkillsLocalUseCase.invoke(it)
+                _isBroughtSkillsInfo = true
+                if(checkGetAllGameInfo()) _isBroughtGameInfo.emit(true)
+            }
+            getApiResult(block = {getAllMonstersUseCase.invoke()}){
+                insertAllMonstersLocalUseCase.invoke(it)
+                _isBroughtMonstersInfo = true
+                if(checkGetAllGameInfo()) _isBroughtGameInfo.emit(true)
+            }
         }
+    }
+
+    fun checkGetAllGameInfo(): Boolean{
+        //TODO 사용자 정보 조회도 추가
+        return _isBroughtItemsInfo && _isBroughtSkillsInfo && _isBroughtMonstersInfo
     }
 
 }

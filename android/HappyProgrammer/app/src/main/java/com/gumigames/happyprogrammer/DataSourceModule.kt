@@ -34,14 +34,14 @@ object DataSourceModule {
         .build()
     @Singleton
     @Provides
-    fun provideItemBookmarkDao(bookmarkDatabase: DogamDatabase): ItemDao = bookmarkDatabase.itemBookmarkDao()
+    fun provideItemDao(dogamDatabase: DogamDatabase): ItemDao = dogamDatabase.itemDao()
 
     @Singleton
     @Provides
-    fun provideSkillBookmarkDao(bookmarkDatabase: DogamDatabase): SkillDao = bookmarkDatabase.skillBookmarkDao()
+    fun provideSkillDao(dogamDatabase: DogamDatabase): SkillDao = dogamDatabase.skillDao()
 
     @Singleton
     @Provides
-    fun provideMonsterBookmarkDao(bookmarkDatabase: DogamDatabase): MonsterDao = bookmarkDatabase.monsterBookmarkDao()
+    fun provideMonsterDao(dogamDatabase: DogamDatabase): MonsterDao = dogamDatabase.monsterDao()
 
 }

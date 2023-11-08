@@ -18,10 +18,10 @@ import com.gumigames.data.datasource.entity.SkillEntity
  */
 @Database(entities = [ItemEntity::class, SkillEntity::class, MonsterEntity::class], version = 4)
 abstract class DogamDatabase: RoomDatabase(){
-    abstract fun itemBookmarkDao(): ItemDao
+    abstract fun itemDao(): ItemDao
 
-    abstract fun skillBookmarkDao(): SkillDao
+    abstract fun skillDao(): SkillDao
 
-    abstract fun monsterBookmarkDao(): MonsterDao
+    abstract fun monsterDao(): MonsterDao
 
 }

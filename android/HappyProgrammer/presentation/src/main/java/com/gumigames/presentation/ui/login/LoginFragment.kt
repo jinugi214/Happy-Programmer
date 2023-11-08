@@ -58,12 +58,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
             //로그인 결과 확인
             viewLifecycleOwner.lifecycleScope.launch {
                 loginResult.collectLatest {
-                    if(it){//로그인 성공 -> 사용자 정보 조회하자 & 이때 로딩 다이얼로그 띄우자
+                    if(it){//로그인 성공 -> 게임 정보 조회하자 & 이때 로딩 다이얼로그 띄우자
                         // bringUserInfoLoadingDialogFragment가 떠있는 동안 loginFragment의 터치 이벤트를 무시
                         bringUserInfoLoadingDialogFragment.isCancelable = false
                         bringUserInfoLoadingDialogFragment.setStyle( DialogFragment.STYLE_NORMAL, R.style.FullScreenDialog);
                         bringUserInfoLoadingDialogFragment.show(childFragmentManager,null)
-                        bringUserInfo()
+                        bringGameInfo()
                     }else{//로그인 실패 -> 아이디, 비밀번호 확인
 
                     }
@@ -71,9 +71,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
             }
             //사용자 정보 조회 상태 확인
             viewLifecycleOwner.lifecycleScope.launch {
-                isBroughtUserInfo.collectLatest {
+                isBroughtGameInfo.collectLatest {
                     if(it) {
-//                        bringUserInfoLoadingDialogFragment.dismiss()
                         findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                         bringUserInfoLoadingDialogFragment.dismiss()
                     }
