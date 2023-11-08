@@ -29,4 +29,31 @@ interface DogamRepository {
      * 몬스터 검색
      */
     suspend fun getSearchMonsters(keyword: String): List<MonsterDto>
+
+    /////////////// 로컬 /////////////////////////////////
+
+    /**
+     * 로컬에 있는 즐겨찾기 아이템 조회
+     */
+    suspend fun getAllBookmarkItemsLocal(): List<ItemDto>
+    /**
+     * 즐겨찾기 아이템 로컬에 저장
+     */
+    suspend fun addBookmarkItemLocal(itemId: Int)
+    /**
+     * 로컬에 있는 즐겨찾기 스킬 조회
+     */
+    suspend fun getAllBookmarkSkillsLocal(): List<SkillDto>
+    /**
+     * 즐겨찾기 스킬 로컬에 저장
+     */
+    suspend fun addBookmarkSkillLocal(skillId: Int)
+    /**
+     * 로컬에 있는 즐겨찾기 몬스터 조회
+     */
+    suspend fun getAllBookmarkMonstersLocal(): List<MonsterDto>
+    /**
+     * 즐겨찾기 몬스터 조회
+     */
+    suspend fun addBookmarkMonsterLocal(monsterId: Int)
 }
