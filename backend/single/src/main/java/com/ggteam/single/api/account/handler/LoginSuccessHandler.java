@@ -1,7 +1,7 @@
 package com.ggteam.single.api.account.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ggteam.single.api.account.dto.TokenDto;
+import com.ggteam.single.api.account.dto.LoginResponseDto;
 import com.ggteam.single.api.account.jwt.service.JwtService;
 import com.ggteam.single.api.account.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -55,13 +55,13 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     private void tokenResponse(HttpServletResponse response, String accessToken,
                                String refreshToken, Long accountId) throws IOException {
-        TokenDto tokenDto = TokenDto.builder()
-                .accountId(accountId)
+        LoginResponseDto loginResponseDto = LoginResponseDto.builder()
+                .id(accountId)
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .build();
 
-        String json = objectMapper.writeValueAsString(tokenDto);  // TokenDto를 JSON 문자열로 변환
+        String json = objectMapper.writeValueAsString(loginResponseDto);  // TokenDto를 JSON 문자열로 변환
 
         response.getWriter().write(json);  // 응답 본문에 JSON 문자열을 쓰기
         response.getWriter().flush();
