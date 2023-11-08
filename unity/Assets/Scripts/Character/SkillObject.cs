@@ -9,14 +9,33 @@ public class SkillObject : MonoBehaviour
     public GameObject effectPrefab; // 효과를 나타내는 에셋
     public int weaponType; // 1: 키보드, 2: 마우스, 3: 폰
 
+    // 사운드
+    public AudioSource skillAudioSource;
+    public AudioClip skillSound;
+
     public void Create(int weaponType)
     {
         this.weaponType = weaponType;
+        skillAudioSource = GetComponentInParent<AudioSource>();
+
+        if (skillAudioSource == null) // 디버깅
+        {
+            Debug.LogError("AudioSource not found!");
+            return;
+        }
+        
+        skillAudioSource.PlayOneShot(skillSound); // 스킬 소리 재생
 
         if (weaponType == 1) // 키보드인 경우
         {
             Destroy(gameObject, 1f);
         }
+    }
+
+
+    void Start()
+    {
+        skillAudioSource = GetComponentInParent<AudioSource>();
     }
 
     void Update()
