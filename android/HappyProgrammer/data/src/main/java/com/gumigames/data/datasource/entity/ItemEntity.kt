@@ -1,5 +1,6 @@
 package com.gumigames.data.datasource.entity
 
+import android.graphics.Bitmap
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -9,6 +10,7 @@ data class ItemEntity(
     val id: Int,
     val name: String,
     val description: String,
-    val imgPath: String,
+    val imageBitmap: Bitmap,
+//    val imgPath: String,
     val isBookmarked: Boolean
 )

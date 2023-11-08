@@ -2,6 +2,8 @@ package com.gumigames.data.datasource.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverter
+import androidx.room.TypeConverters
 import com.gumigames.data.datasource.dao.ItemDao
 import com.gumigames.data.datasource.dao.MonsterDao
 import com.gumigames.data.datasource.dao.SkillDao
@@ -17,6 +19,7 @@ import com.gumigames.data.datasource.entity.SkillEntity
  * 4 -> item, skill, monster 테이블 명 변경(즐겨찾기가 아니라 전체 조회 하려고)
  */
 @Database(entities = [ItemEntity::class, SkillEntity::class, MonsterEntity::class], version = 4)
+@TypeConverters(BitmapTypeConverter::class)
 abstract class DogamDatabase: RoomDatabase(){
     abstract fun itemDao(): ItemDao
 

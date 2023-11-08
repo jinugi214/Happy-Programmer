@@ -37,9 +37,10 @@ class ItemDetailDialogFragment(
         binding.apply {
             textviewItemName.text = item.name.toString()
             textviewItemExplain.text = item.description.toString()
-            Glide.with(this.root)
-                .load(item.imgPath)
-                .into(imageItem)
+            imageItem.setImageBitmap(item.imageBitmap)
+//            Glide.with(this.root)
+//                .load(item.imgPath)
+//                .into(imageItem)
             //TODO 아이템의 isBookmarked를 보고 분기 태워야 함
             buttonSelcetedBookmark.visibility = View.GONE
         }
