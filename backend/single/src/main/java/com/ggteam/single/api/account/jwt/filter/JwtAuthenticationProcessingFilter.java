@@ -1,10 +1,13 @@
 package com.ggteam.single.api.account.jwt.filter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ggteam.single.api.account.entity.Account;
 import com.ggteam.single.api.account.jwt.service.JwtService;
 import com.ggteam.single.api.account.repository.AccountRepository;
+import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
@@ -18,9 +21,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -44,7 +45,6 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
         throws ServletException, IOException {
-
         String path = request.getServletPath();
 
         if (acceptPath.contains(path)) {
@@ -70,7 +70,11 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         // RefreshToken이 없거나 유효하지 않다면, AccessToken을 검사하고 인증을 처리하는 로직 수행
         // AccessToken이 없거나 유효하지 않다면, 인증 객체가 담기지 않은 상태로 다음 필터로 넘어가기 때문에 403 에러 발생
         // AccessToken이 유효하다면, 인증 객체가 담긴 상태로 다음 필터로 넘어가기 때문에 인증 성공
-        checkAccessTokenAndAuthentication(request, response, filterChain);
+        try {
+            checkAccessTokenAndAuthentication(request, response, filterChain);
+        } catch (JwtException e) {
+            setErrorResponse(request, response, e);
+        }
     }
 
     // 인증 허가 메서드
@@ -131,7 +135,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     // 그 유저 객체를 saveAuthentication()으로 인증 처리하여
     // 인증 허기 처리된 객체를 SecurityContextHolder에 담은 후 다음 인증 필터로 진행
     public void checkAccessTokenAndAuthentication(HttpServletRequest request, HttpServletResponse response,
-                                                  FilterChain filterChain) throws ServletException, IOException {
+                                                  FilterChain filterChain) throws ServletException, IOException, JwtException {
         log.info("checkAccessTokenAndAuthentication() 호출");
         jwtService.extractAccessToken(request)
                 .filter(jwtService::isTokenValid)
@@ -142,4 +146,19 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
+
+    private void setErrorResponse(HttpServletRequest request, HttpServletResponse response, Throwable e)
+            throws IOException {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+
+        final Map<String, Object> errorBody = new HashMap<>();
+        errorBody.put("error", "Unauthorized");
+        errorBody.put("errorCode", e.getMessage());
+        errorBody.put("status", HttpServletResponse.SC_UNAUTHORIZED);
+        errorBody.put("path", request.getServletPath());
+
+        final ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.writeValue(response.getOutputStream(), errorBody);
+    }
 }
