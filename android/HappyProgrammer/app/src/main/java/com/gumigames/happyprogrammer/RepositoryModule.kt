@@ -1,10 +1,9 @@
 package com.gumigames.happyprogrammer
 
-import com.gumigames.data.datasource.dao.ItemBookmarkDao
-import com.gumigames.data.datasource.dao.MonsterBookmarkDao
-import com.gumigames.data.datasource.dao.SkillBookmarkDao
+import com.gumigames.data.datasource.dao.ItemDao
+import com.gumigames.data.datasource.dao.MonsterDao
+import com.gumigames.data.datasource.dao.SkillDao
 import com.gumigames.data.datasource.sharedpreference.PreferenceDataSource
-import com.gumigames.data.repository.BookmarkRepositoryImpl
 import com.gumigames.data.repository.DogamRepositoryImpl
 import com.gumigames.data.repository.UserRepositoryImpl
 import com.gumigames.data.repository.MissionRepositoryImpl
@@ -14,7 +13,6 @@ import com.gumigames.data.service.MissionService
 import com.gumigames.data.service.MonsterService
 import com.gumigames.data.service.SkillService
 import com.gumigames.data.service.UserService
-import com.gumigames.domain.repository.BookmarkRepository
 import com.gumigames.domain.repository.DogamRepository
 import com.gumigames.domain.repository.UserRepository
 import com.gumigames.domain.repository.MissionRepository
@@ -53,27 +51,20 @@ object RepositoryModule {
         itemService: ItemService,
         skillService: SkillService,
         monsterService: MonsterService,
+        itemDao: ItemDao,
+        skillDao: SkillDao,
+        monsterDao: MonsterDao
     ): DogamRepository {
         return DogamRepositoryImpl(
             itemService = itemService,
             skillService = skillService,
-            monsterService = monsterService
+            monsterService = monsterService,
+            itemDao = itemDao,
+            skillDao = skillDao,
+            monsterDao = monsterDao
         )
     }
 
-    @Singleton
-    @Provides
-    fun provideBookmarkRepository(
-        itemBookmarkDao: ItemBookmarkDao,
-        skillBookmarkDao: SkillBookmarkDao,
-        monsterBookmarkDao: MonsterBookmarkDao
-    ): BookmarkRepository{
-        return BookmarkRepositoryImpl(
-            itemBookmarkDao = itemBookmarkDao,
-            skillBookmarkDao = skillBookmarkDao,
-            monsterBookmarkDao = monsterBookmarkDao
-        )
-    }
 
     @Singleton
     @Provides

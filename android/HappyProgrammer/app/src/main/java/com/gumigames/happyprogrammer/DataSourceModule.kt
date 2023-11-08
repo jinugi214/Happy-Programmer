@@ -2,10 +2,10 @@ package com.gumigames.happyprogrammer
 
 import android.content.Context
 import androidx.room.Room
-import com.gumigames.data.datasource.dao.ItemBookmarkDao
-import com.gumigames.data.datasource.dao.MonsterBookmarkDao
-import com.gumigames.data.datasource.dao.SkillBookmarkDao
-import com.gumigames.data.datasource.db.BookmarkDatabase
+import com.gumigames.data.datasource.dao.ItemDao
+import com.gumigames.data.datasource.dao.MonsterDao
+import com.gumigames.data.datasource.dao.SkillDao
+import com.gumigames.data.datasource.db.DogamDatabase
 import com.gumigames.data.datasource.sharedpreference.PreferenceDataSource
 import com.gumigames.data.datasource.sharedpreference.PreferenceDataSourceImpl
 import dagger.Module
@@ -29,19 +29,19 @@ object DataSourceModule {
     @Provides
     fun provideBookmarkDatabase(
         @ApplicationContext context: Context
-    ): BookmarkDatabase = Room
-        .databaseBuilder(context, BookmarkDatabase::class.java, "bookmarks.db")
+    ): DogamDatabase = Room
+        .databaseBuilder(context, DogamDatabase::class.java, "bookmarks.db")
         .build()
     @Singleton
     @Provides
-    fun provideItemBookmarkDao(bookmarkDatabase: BookmarkDatabase): ItemBookmarkDao = bookmarkDatabase.itemBookmarkDao()
+    fun provideItemBookmarkDao(bookmarkDatabase: DogamDatabase): ItemDao = bookmarkDatabase.itemBookmarkDao()
 
     @Singleton
     @Provides
-    fun provideSkillBookmarkDao(bookmarkDatabase: BookmarkDatabase): SkillBookmarkDao = bookmarkDatabase.skillBookmarkDao()
+    fun provideSkillBookmarkDao(bookmarkDatabase: DogamDatabase): SkillDao = bookmarkDatabase.skillBookmarkDao()
 
     @Singleton
     @Provides
-    fun provideMonsterBookmarkDao(bookmarkDatabase: BookmarkDatabase): MonsterBookmarkDao = bookmarkDatabase.monsterBookmarkDao()
+    fun provideMonsterBookmarkDao(bookmarkDatabase: DogamDatabase): MonsterDao = bookmarkDatabase.monsterBookmarkDao()
 
 }

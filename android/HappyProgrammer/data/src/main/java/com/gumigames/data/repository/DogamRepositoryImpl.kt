@@ -1,5 +1,8 @@
 package com.gumigames.data.repository
 
+import com.gumigames.data.datasource.dao.ItemDao
+import com.gumigames.data.datasource.dao.MonsterDao
+import com.gumigames.data.datasource.dao.SkillDao
 import com.gumigames.data.mapper.toDomain
 import com.gumigames.data.service.ItemService
 import com.gumigames.data.service.MonsterService
@@ -13,7 +16,10 @@ import com.gumigames.domain.repository.DogamRepository
 class DogamRepositoryImpl(
     private val itemService: ItemService,
     private val skillService: SkillService,
-    private val monsterService: MonsterService
+    private val monsterService: MonsterService,
+    private val itemDao: ItemDao,
+    private val skillDao: SkillDao,
+    private val monsterDao: MonsterDao
 ): DogamRepository {
     /**
      * 아이템 전체 조회
@@ -57,6 +63,46 @@ class DogamRepositoryImpl(
         return handleApi { monsterService.getSearchMonsters(keyword) }.map { it.toDomain() }
     }
 
+    //////////////////////////////// 로컬 /////////////////////////////////////////////////////
+
+    /**
+     * 로컬에 있는 즐겨찾기 아이쳄 조회
+     */
+    override suspend fun getAllBookmarkItemsLocal(): List<ItemDto> {
+        return itemDao.getAllBookmarkItemsLocal().map { it.toDomain() }
+    }
+
+    /**
+     * 즐겨찾기 아이템 로컬에 저장
+     */
+    override suspend fun addBookmarkItemLocal(itemId: Int) {
+        itemDao.addBookmarkItemLocal(itemId)
+    }
+
+    /**
+     * 로컬에 있는 즐겨찾기 스킬 조회
+     */
+    override suspend fun getAllBookmarkSkillsLocal(): List<SkillDto>{
+        return skillDao.getAllBookmarkSkillsLocal().map { it.toDomain() }
+    }
+    /**
+     * 즐겨찾기 스킬 로컬에 저장
+     */
+    override suspend fun addBookmarkSkillLocal(skillId: Int){
+        skillDao.addBookmarkSkillLocal(skillId)
+    }
+    /**
+     * 로컬에 있는 즐겨찾기 몬스터 조회
+     */
+    override suspend fun getAllBookmarkMonstersLocal(): List<MonsterDto>{
+        return monsterDao.getAllBookmarkMonstersLocal().map { it.toDomain() }
+    }
+    /**
+     * 즐겨찾기 몬스터 조회
+     */
+    override suspend fun addBookmarkMonsterLocal(monsterId: Int){
+        monsterDao.addBookmarkMonsterLocal(monsterId)
+    }
 
 
 }

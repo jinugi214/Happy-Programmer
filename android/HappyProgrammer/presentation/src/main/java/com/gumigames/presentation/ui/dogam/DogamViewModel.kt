@@ -4,9 +4,9 @@ import androidx.lifecycle.viewModelScope
 import com.gumigames.domain.model.common.ItemDto
 import com.gumigames.domain.model.common.MonsterDto
 import com.gumigames.domain.model.common.SkillDto
-import com.gumigames.domain.usecase.bookmark.item.AddBookmarkItemLocalUseCase
-import com.gumigames.domain.usecase.bookmark.monster.AddBookmarkMonsterLocalUseCase
-import com.gumigames.domain.usecase.bookmark.skill.AddBookmarkSkillLocalUseCase
+import com.gumigames.domain.usecase.dogam.litem.AddBookmarkItemLocalUseCase
+import com.gumigames.domain.usecase.dogam.monster.AddBookmarkMonsterLocalUseCase
+import com.gumigames.domain.usecase.dogam.skill.AddBookmarkSkillLocalUseCase
 import com.gumigames.domain.usecase.dogam.litem.GetAllItemsUseCase
 import com.gumigames.domain.usecase.dogam.litem.GetSearchItemsUseCase
 import com.gumigames.domain.usecase.dogam.monster.GetAllMonstersUseCase
@@ -111,11 +111,11 @@ class DogamViewModel @Inject constructor(
     }
 
     //로컬에 북마크 아이템 추가
-    fun addBookmarkItemLocal(item: ItemDto){
-        viewModelScope.launch {
-            addBookmarkItemUseCase.invoke(item)
-        }
-    }
+//    fun addBookmarkItemLocal(item: ItemDto){
+//        viewModelScope.launch {
+//            addBookmarkItemUseCase.invoke(item)
+//        }
+//    }
 
     ///////////////////////////////////////////// 스킬 ////////////////////////////////////////////////////
 
@@ -160,11 +160,11 @@ class DogamViewModel @Inject constructor(
     }
 
     //로컬에 북마크 스킬 추가
-    fun addBookmarkSkillLocal(skill: SkillDto){
-        viewModelScope.launch {
-            addBookmarkSkillLocalUseCase.invoke(skill)
-        }
-    }
+//    fun addBookmarkSkillLocal(skill: SkillDto){
+//        viewModelScope.launch {
+//            addBookmarkSkillLocalUseCase.invoke(skill)
+//        }
+//    }
 
 
     ///////////////////////////////////////////// 몬스터 //////////////////////////////////////////////////
@@ -207,12 +207,12 @@ class DogamViewModel @Inject constructor(
         }
     }
 
-    //로컬에 북마크 스킬 추가
-    fun addBookmarkMonsterLocal(monster: MonsterDto){
-        viewModelScope.launch {
-            addBookmarkMonsterLocalUseCase.invoke(monster)
-        }
-    }
+    //로컬에 북마크 몬스터 추가
+//    fun addBookmarkMonsterLocal(monster: MonsterDto){
+//        viewModelScope.launch {
+//            addBookmarkMonsterLocalUseCase.invoke(monster)
+//        }
+//    }
 
 
 

@@ -160,7 +160,7 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
             viewLifecycleOwner.lifecycleScope.launch {
                 selectedItem.collectLatest {
                     if(it != null) {
-                        addBookmarkItemLocal(it) //이거 나중에 itemDetailDialogFragment로 빼라
+//                        addBookmarkItemLocal(it) //이거 나중에 itemDetailDialogFragment로 빼라
                         val detailDialog = ItemDetailDialogFragment(dogamViewModel = dogamViewModel, bookmarkViewModel = null)
                         detailDialog.show(childFragmentManager, null)
                     }
@@ -176,7 +176,7 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
             viewLifecycleOwner.lifecycleScope.launch {
                 selectedSkill.collectLatest {
                     if(it != null) {
-                        addBookmarkSkillLocal(it) //이거 나중에 skillDetailDialogFragment로 빼라
+//                        addBookmarkSkillLocal(it) //이거 나중에 skillDetailDialogFragment로 빼라
                         val detailDialog = SkillDetailDialogFragment(dogamViewModel = dogamViewModel, bookmarkViewModel = null)
                         detailDialog.show(childFragmentManager, null)
                     }
@@ -192,7 +192,7 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
             viewLifecycleOwner.lifecycleScope.launch {
                 selectedMonster.collectLatest {
                     if(it != null){
-                        addBookmarkMonsterLocal(it) //이거 나중에 skillDetailDialogFragment로 빼라
+//                        addBookmarkMonsterLocal(it) //이거 나중에 skillDetailDialogFragment로 빼라
                         val detailDialog = MonsterDetailDialogFragment(dogamViewModel = dogamViewModel, bookmarkViewModel = null)
                         detailDialog.show(childFragmentManager, null)
                     }
