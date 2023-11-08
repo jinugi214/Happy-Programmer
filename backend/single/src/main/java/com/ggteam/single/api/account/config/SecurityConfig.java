@@ -1,7 +1,6 @@
 package com.ggteam.single.api.account.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ggteam.single.api.account.component.CustomAuthenticationEntryPoint;
 import com.ggteam.single.api.account.filter.CustomLoginAuthFilter;
 import com.ggteam.single.api.account.handler.LoginFailureHandler;
 import com.ggteam.single.api.account.handler.LoginSuccessHandler;
@@ -33,7 +32,6 @@ public class SecurityConfig {
     private final JwtService jwtService;
     private final AccountRepository accountRepository;
     private final ObjectMapper objectMapper;
-    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
     // 로그인 성공 시 호출되는 LoginSuccessJWTProviderHandler 빈 등록
     @Bean
@@ -63,11 +61,6 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-//                .exceptionHandling()
-//                .authenticationEntryPoint(customAuthenticationEntryPoint)
-//
-//                .and()
-
                 .formLogin().disable() // FormLogin 사용 X
                 .httpBasic().disable() // httpBasic 사용 X
                 .csrf().disable() // csrf 보안 사용 X
@@ -97,6 +90,7 @@ public class SecurityConfig {
                 // 순서 : LogoutFilter -> JwtAuthenticationProcessingFilter -> CustomJsonUsernamePasswordAuthenticationFilter
                 .addFilterAfter(customLoginAuthFilter(), LogoutFilter.class)
                 .addFilterBefore(jwtAuthenticationProcessingFilter(), CustomLoginAuthFilter.class);
+//                .addFilterBefore(jwtExceptionFilter(), JwtExceptionFilter.class);
 
 
         return http.build();
@@ -122,6 +116,11 @@ public class SecurityConfig {
     public JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter() {
         return new JwtAuthenticationProcessingFilter(jwtService, accountRepository);
     }
+
+//    @Bean
+//    public JwtExceptionFilter jwtExceptionFilter() {
+//        return new JwtExceptionFilter(jwtService);
+//    }
 
     @Bean
     public WebSecurityCustomizer ignoringCustomizer() {
