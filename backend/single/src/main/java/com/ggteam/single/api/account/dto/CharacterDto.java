@@ -13,7 +13,6 @@ import javax.persistence.Column;
 @NoArgsConstructor
 public class CharacterDto {
 
-    private Long Id;
     private String name;
     private char gender;
     private int exp;
