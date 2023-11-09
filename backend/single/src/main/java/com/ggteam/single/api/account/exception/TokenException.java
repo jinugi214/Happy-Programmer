@@ -1,20 +1,13 @@
 package com.ggteam.single.api.account.exception;
 
+import lombok.Getter;
+
+@Getter
 public class TokenException extends RuntimeException {
-    private final String errorCode;
-    private final String definition;
+    private final String error;
 
-    public TokenException(String errorCode, String definition) {
-        super(definition);
-        this.errorCode = errorCode;
-        this.definition = definition;
+    public TokenException(String error) {
+        this.error = error;
     }
 
-    public String getErrorCode() {
-        return errorCode;
-    }
-
-    public String getDefinition() {
-        return definition;
-    }
 }
