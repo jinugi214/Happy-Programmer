@@ -8,7 +8,6 @@ public class CameraManager : MonoBehaviour
 
     static public CameraManager instance;
     
-
     public GameObject target; // 카메라가 따라갈 대상
     public float moveSpeed;
     private Vector3 targetPosition; // 대상의 현재 위치 값
@@ -42,13 +41,13 @@ public class CameraManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        theCamera = GetComponent<Camera>();
-        minBound = bound.bounds.min;
-        maxBound = bound.bounds.max;
+            DontDestroyOnLoad(this.gameObject);
+            theCamera = GetComponent<Camera>();
+            minBound = bound.bounds.min;
+            maxBound = bound.bounds.max;
 
-        halfHeight = theCamera.orthographicSize;
-        halfWidth = halfHeight * Screen.width / Screen.height;
-        
+            halfHeight = theCamera.orthographicSize;
+            halfWidth = halfHeight * Screen.width / Screen.height;
     }
 
     // Update is called once per frame
