@@ -53,7 +53,8 @@ object RepositoryModule {
         monsterService: MonsterService,
         itemDao: ItemDao,
         skillDao: SkillDao,
-        monsterDao: MonsterDao
+        monsterDao: MonsterDao,
+        preferenceDataSource: PreferenceDataSource
     ): DogamRepository {
         return DogamRepositoryImpl(
             itemService = itemService,
@@ -61,7 +62,8 @@ object RepositoryModule {
             monsterService = monsterService,
             itemDao = itemDao,
             skillDao = skillDao,
-            monsterDao = monsterDao
+            monsterDao = monsterDao,
+            preferenceDataSource = preferenceDataSource
         )
     }
 

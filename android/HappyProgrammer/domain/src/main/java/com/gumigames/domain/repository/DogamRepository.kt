@@ -43,6 +43,11 @@ interface DogamRepository {
      */
     suspend fun addBookmarkItemLocal(itemId: Int)
 
+    /**
+     * 즐겨찾기 아이템 로컬에 제거
+     */
+    suspend fun deleteBookmarkItemLocal(itemId: Int)
+
 
     //////////////////////////////// 스킬 ///////////////////////////////////////
 

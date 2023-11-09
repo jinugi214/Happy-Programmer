@@ -4,6 +4,7 @@ import android.util.Log
 import com.gumigames.data.datasource.dao.ItemDao
 import com.gumigames.data.datasource.dao.MonsterDao
 import com.gumigames.data.datasource.dao.SkillDao
+import com.gumigames.data.datasource.sharedpreference.PreferenceDataSource
 import com.gumigames.data.mapper.toData
 import com.gumigames.data.mapper.toDomain
 import com.gumigames.data.service.ItemService
@@ -22,7 +23,8 @@ class DogamRepositoryImpl(
     private val monsterService: MonsterService,
     private val itemDao: ItemDao,
     private val skillDao: SkillDao,
-    private val monsterDao: MonsterDao
+    private val monsterDao: MonsterDao,
+    private val preferenceDataSource: PreferenceDataSource
 ): DogamRepository {
 
     /////////////////////////////////////// 아이템 /////////////////////////////////////////////
@@ -30,14 +32,14 @@ class DogamRepositoryImpl(
      * 아이템 전체 조회
      */
     override suspend fun getAllItems(): List<ItemDto> {
-        return handleApi { itemService.getAllItems() }.map { it.toDomain() }
+        return handleApi { itemService.getAllItems() }.map { it.toDomain(preferenceDataSource) }
     }
 
     /**
      * 아이템 검색
      */
     override suspend fun searchItems(keyword: String): List<ItemDto> {
-        return handleApi { itemService.searchItems(keyword) }.map { it.toDomain() }
+        return handleApi { itemService.searchItems(keyword) }.map { it.toDomain(preferenceDataSource) }
     }
     /**
      * 아이템 전체 로컬에 저장
@@ -81,6 +83,12 @@ class DogamRepositoryImpl(
     override suspend fun addBookmarkItemLocal(itemId: Int) {
         itemDao.addBookmarkItemLocal(itemId)
     }
+    /**
+     * 즐겨찾기 아이템 로컬에 제거
+     */
+    override suspend fun deleteBookmarkItemLocal(itemId: Int){
+        itemDao.deleteBookmarkItemLocal(itemId)
+    }
 
     /////////////////////////////////////// 스킬 /////////////////////////////////////////////
 
@@ -88,14 +96,14 @@ class DogamRepositoryImpl(
      * 스킬 전체 조회
      */
     override suspend fun getAllSkills(): List<SkillDto> {
-        return handleApi { skillService.getAllSkills() }.map { it.toDomain() }
+        return handleApi { skillService.getAllSkills() }.map { it.toDomain(preferenceDataSource) }
     }
 
     /**
      * 스킬 검색
      */
     override suspend fun searchSkills(keyword: String): List<SkillDto> {
-        return handleApi { skillService.searchSkills(keyword) }.map { it.toDomain() }
+        return handleApi { skillService.searchSkills(keyword) }.map { it.toDomain(preferenceDataSource) }
     }
     /**
      * 스킬 전체 로컬에 저장
@@ -141,14 +149,14 @@ class DogamRepositoryImpl(
      * 몬스터 전체 조회
      */
     override suspend fun getAllMonsters(): List<MonsterDto> {
-        return handleApi { monsterService.getAllMonsters() }.map { it.toDomain() }
+        return handleApi { monsterService.getAllMonsters() }.map { it.toDomain(preferenceDataSource) }
     }
 
     /**
      * 몬스터 검색
      */
     override suspend fun searchMonsters(keyword: String): List<MonsterDto> {
-        return handleApi { monsterService.searchMonsters(keyword) }.map { it.toDomain() }
+        return handleApi { monsterService.searchMonsters(keyword) }.map { it.toDomain(preferenceDataSource) }
     }
     /**
      * 몬스터 전체 로컬에 저장

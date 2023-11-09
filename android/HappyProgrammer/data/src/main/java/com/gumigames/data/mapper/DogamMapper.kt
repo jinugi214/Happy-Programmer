@@ -1,29 +1,35 @@
 package com.gumigames.data.mapper
 
-import android.util.Log
 import com.gumigames.data.BuildConfig
 import com.gumigames.data.datasource.entity.ItemEntity
 import com.gumigames.data.datasource.entity.MonsterEntity
 import com.gumigames.data.datasource.entity.SkillEntity
+import com.gumigames.data.datasource.sharedpreference.PreferenceDataSource
 import com.gumigames.data.model.response.common.ItemResponse
 import com.gumigames.data.model.response.common.MonsterResponse
 import com.gumigames.data.model.response.common.SkillResponse
 import com.gumigames.domain.model.common.ItemDto
 import com.gumigames.domain.model.common.MonsterDto
 import com.gumigames.domain.model.common.SkillDto
-import com.gumigames.domain.util.urlToBitmap
+import com.gumigames.data.util.urlToBitmap
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 private const val TAG = "차선호"
 ///////////////////////////////////////////// 아이템 ///////////////////////////////////////////////
 
-suspend fun ItemResponse.toDomain(): ItemDto{
+suspend fun ItemResponse.toDomain(preferenceDataSource: PreferenceDataSource): ItemDto{
     return ItemDto(
         id = id,
         name = name,
         description = description,
-        imageBitmap = withContext(Dispatchers.IO){ urlToBitmap(BuildConfig.BASE_URL + imgPath)!!},
+        imageBitmap = withContext(Dispatchers.IO) {
+            urlToBitmap(
+                imageUrl = BuildConfig.BASE_URL + imgPath,
+                preferenceDataSource = preferenceDataSource
+
+            )!!
+        },
         isBookmarked = isBookmarked
     )
 }
@@ -51,12 +57,18 @@ fun ItemDto.toData(): ItemEntity {
 
 ///////////////////////////////////////////// 스킬 ///////////////////////////////////////////////
 
-suspend fun SkillResponse.toDomain(): SkillDto{
+suspend fun SkillResponse.toDomain(preferenceDataSource: PreferenceDataSource): SkillDto{
     return SkillDto(
         id = id,
         name = name,
         description = description,
-        imageBitmap = withContext(Dispatchers.IO){ urlToBitmap(BuildConfig.BASE_URL + imgPath)!!},
+        imageBitmap = withContext(Dispatchers.IO) {
+            urlToBitmap(
+                imageUrl = BuildConfig.BASE_URL + imgPath,
+                preferenceDataSource = preferenceDataSource
+
+            )!!
+        },
         isBookmarked = isBookmarked
     )
 }
@@ -83,13 +95,19 @@ fun SkillDto.toData(): SkillEntity{
 
 ///////////////////////////////////////////// 몬스터 ///////////////////////////////////////////////
 
-suspend fun MonsterResponse.toDomain(): MonsterDto{
+suspend fun MonsterResponse.toDomain(preferenceDataSource: PreferenceDataSource): MonsterDto{
     return MonsterDto(
         id = id,
         name = name,
         hp = hp,
         description = description,
-        imageBitmap = withContext(Dispatchers.IO){ urlToBitmap(BuildConfig.BASE_URL + imgPath)!!},
+        imageBitmap = withContext(Dispatchers.IO) {
+            urlToBitmap(
+                imageUrl = BuildConfig.BASE_URL + imgPath,
+                preferenceDataSource = preferenceDataSource
+
+            )!!
+        },
         isBookmarked = isBookmarked
     )
 }

@@ -100,6 +100,8 @@ class DogamViewModel @Inject constructor(
 //                _currentItemList.emit(it)
 //            }
             _currentItemList.emit(getAllItemsLocalUseCase.invoke())
+            _currentSkillList.emit(listOf())
+            _currentMonsterList.emit(listOf())
         }
     }
     //아이템 검색
@@ -144,6 +146,8 @@ class DogamViewModel @Inject constructor(
 //                _currentSkillList.emit(it)
 //            }
             _currentSkillList.emit(getAllSkillsLocalUseCase.invoke())
+            _currentItemList.emit(listOf())
+            _currentMonsterList.emit(listOf())
         }
     }
     //스킬 검색
@@ -190,6 +194,8 @@ class DogamViewModel @Inject constructor(
 //                _currentMonsterList.emit(it)
 //            }
             _currentMonsterList.emit(getAllMonstersLocalUseCase.invoke())
+            _currentItemList.emit(listOf())
+            _currentSkillList.emit(listOf())
         }
     }
     //몬스터 검색
