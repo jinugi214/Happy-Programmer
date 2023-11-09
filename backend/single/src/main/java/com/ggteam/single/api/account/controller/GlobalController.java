@@ -16,7 +16,7 @@ public class GlobalController {
 
     @PostMapping("/re-issue")
     @Operation(summary = "엑세스 토큰 재발급", description = "헤더에 Authorization-Refresh 로 Bearer + refreshToken 필요")
-    public void reIssueAccessToken(@RequestHeader String refreshToken) {
+    public void reIssueAccessToken(@RequestHeader("Authorization-Refresh") String refreshToken) {
         // Swagger 확인용
     }
 }

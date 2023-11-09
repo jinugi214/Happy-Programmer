@@ -54,4 +54,10 @@ public class CharacterService {
 
         return ResponseEntity.ok("saved");
     }
+
+    public ResponseEntity<?> checkNickname(String name) {
+        if (characterRepository.findByName(name).isPresent()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이미 존재하는 이름 입니다.");
+        } else return ResponseEntity.ok("사용 가능한 이름 입니다.");
+    }
 }
