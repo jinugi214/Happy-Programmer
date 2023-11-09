@@ -2,20 +2,20 @@ package com.ggteam.single.api.account.jwt.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.ggteam.single.api.account.exception.TokenException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ggteam.single.api.account.repository.AccountRepository;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.SignatureException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,6 +49,7 @@ public class JwtService {
     private static final String REFRESH_TOKEN_SUBJECT = "RefreshToken";
     private static final String USERNAME_CLAIM = "username";
     private static final String BEARER = "Bearer ";
+    private static final String CONTENT_TYPE = "application/json; charset=utf-8";
 
     private final AccountRepository accountRepository;
 
@@ -94,6 +95,7 @@ public class JwtService {
     // AccessToken + RefreshToken 헤더에 실어 보내기
     public void sendAccessAndRefreshToken(HttpServletResponse response, String accessToken, String refreshToken) {
         response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType(CONTENT_TYPE);
 
         setAccessTokenHeader(response, accessToken);
         setRefreshTokenHeader(response, refreshToken);
@@ -146,56 +148,46 @@ public class JwtService {
                 );
     }
 
-//    public boolean isTokenValid(String token) {
-//        try {
-//            JWT.require(Algorithm.HMAC512(secretKey)).build().verify(token);
-//            return true;
-//        } catch (TokenExpiredException e) {
-//            log.error("Expired Token");
-//            errorClassify("Auth001", "Expired Token");
-//            return false;
-//        } catch (JWTVerificationException e) {
-//            log.error("Invalid Token");
-//            errorClassify("Auth004", "Invalid Token");
-//            return false;
-//        } catch (Exception e) {
-//            log.error("Unexpected Error");
-//            errorClassify("Auth999", "Unexpected Error");
-//            return false;
-//        }
-//    }
-
     public boolean isTokenValid(String token) {
+        byte[] secretKeyBytes = getSecretKey().getBytes(StandardCharsets.UTF_8);
+
         try {
-            JWT.require(Algorithm.HMAC512(secretKey)).build().verify(token);
+            Jwts.parserBuilder()
+                    .setSigningKey(secretKeyBytes)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
             return true;
-        } catch (TokenExpiredException e) {
-            log.error("Expired Token");
-            throw new TokenException("Auth001", "Expired Access Token");
-        } catch (JWTVerificationException e) {
-            log.error("Invalid Token");
-            throw new TokenException("Auth004", "Invalid Access Token");
-        } catch (Exception e) {
-            log.error("Unexpected Error");
-            throw new TokenException("Auth999", "Unexpected Error");
+        } catch (SignatureException e) {
+            log.info("Invalid JWT signature.");
+            throw new JwtException("Auth003");  // 유효하지 않은 서명
+        } catch (MalformedJwtException e) {
+            log.info("Invalid JWT token.");
+            throw new JwtException("Auth004");  // 유효하지 않은 토큰
+        } catch (ExpiredJwtException e) {
+            log.info("Expired JWT token.");
+            throw new JwtException("Auth001");  // Access Token 만료
+        } catch (UnsupportedJwtException e) {
+            log.info("Unsupported JWT token.");
+            throw new JwtException("Auth002");  // 지원하지 않는 토큰
+        } catch (JwtException e) {
+            log.info("JWT token compact of handler are invalid.");
+            throw new JwtException("Auth000");
         }
     }
 
-//    public boolean isTokenValid(String token) {
-//        try {
-//            JWT.require(Algorithm.HMAC512(secretKey)).build().verify(token);
-//            return true;
-//        } catch (Exception e) {
-//            log.error("유효하지 않은 토큰입니다. {}", e.getMessage());
-//            return false;
-//        }
-//    }
+    public void setErrorResponse(HttpServletResponse response, Throwable e)
+            throws IOException {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType(CONTENT_TYPE);
 
-    public ResponseEntity<Map<String, String>> errorClassify(String errorCode, String definition) {
-        Map<String, String> errorMap = new HashMap<>();
-        errorMap.put("errorCode", errorCode);
-        errorMap.put("definition", definition);
+        final Map<String, Object> errorBody = new HashMap<>();
+        errorBody.put("error", "Unauthorized");
+        errorBody.put("errorCode", e.getMessage());
+        errorBody.put("status", HttpServletResponse.SC_UNAUTHORIZED);
 
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMap);
+        final ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.writeValue(response.getOutputStream(), errorBody);
     }
+
 }

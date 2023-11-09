@@ -1,16 +1,22 @@
 package com.ggteam.single.api.account.jwt.filter;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ggteam.single.api.account.entity.Account;
 import com.ggteam.single.api.account.jwt.service.JwtService;
 import com.ggteam.single.api.account.repository.AccountRepository;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.security.core.authority.mapping.NullAuthoritiesMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -18,9 +24,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -32,44 +36,57 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         acceptPath = new HashSet<>();
         acceptPath.add("/api/account/login");
         acceptPath.add("/api/account/sign-up");
-        acceptPath.add("/swagger-ui/*");
+        acceptPath.add("/swagger-ui/**");
+        acceptPath.add("/v3/api-docs/**");
     }
 
     private final JwtService jwtService;
     private final AccountRepository accountRepository;
 
     private GrantedAuthoritiesMapper authoritiesMapper = new NullAuthoritiesMapper();
+    private AntPathMatcher pathMatcher = new AntPathMatcher();
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
         throws ServletException, IOException {
-
+        String reIssuePath = "/api/re-issue";
         String path = request.getServletPath();
 
-        if (acceptPath.contains(path)) {
+        if (acceptPath.stream().anyMatch(pattern -> pathMatcher.match(pattern, path))) {
             filterChain.doFilter(request, response);  // 위의 요청이 온다면 다음 필터 호출
             return;  // return 으로 이후 현재 필터의 진행 막기
         }
 
-        // 사용자 요청이 헤더에서 RefreshToken 추출
-        // -> RefreshToken이 없거나 유효하지 않다면(DB에 저장된 RefreshToken과 다르다면) null을 반환
-        // 사용자의 요청 헤더에 RefreshToken이 있는 경우는, AccessToken이 만료되어 요청한 경우 밖에 없다.
-        // 따라서 위의 경우를 제외하면 추출한 refreshToken은 모두 null
-        String refreshToken = jwtService.extractRefreshToken(request)
-                .filter(jwtService::isTokenValid)
-                .orElse(null);
+        if (pathMatcher.match(reIssuePath, path)) {
+            // 사용자 요청이 헤더에서 RefreshToken 추출
+            // -> RefreshToken이 없거나 유효하지 않다면(DB에 저장된 RefreshToken과 다르다면) null을 반환
+            // 사용자의 요청 헤더에 RefreshToken이 있는 경우는, AccessToken이 만료되어 요청한 경우 밖에 없다.
+            // 따라서 위의 경우를 제외하면 추출한 refreshToken은 모두 null
+            String refreshToken = jwtService.extractRefreshToken(request)
+//                    .filter(jwtService::isTokenValid)
+                    .orElse(null);
 
-        // RefreshToken이 요청 헤더에 존재한다면, 사용자의 AccessToken이 만료됐다는 의미
-        // -> 같이 받은 RefreshToken가 DB의 RefreshToken과 일치하는지 확인하고 일치하면 AccessToken을 재발급
-        if (refreshToken != null) {
-            checkRefreshTokenAndReIssueAccessToken(response, refreshToken);
+            // RefreshToken이 요청 헤더에 존재한다면, 사용자의 AccessToken이 만료됐다는 의미
+            // -> 같이 받은 RefreshToken가 DB의 RefreshToken과 일치하는지 확인하고 일치하면 AccessToken을 재발급
+            if (refreshToken != null) {
+                checkRefreshTokenAndReIssueAccessToken(response, refreshToken);
+                return;
+            } else {
+                errorOccur(response, "Auth006", "Refresh Token을 입력해 주세요.");
+            }
             return;
         }
 
-        // RefreshToken이 없거나 유효하지 않다면, AccessToken을 검사하고 인증을 처리하는 로직 수행
-        // AccessToken이 없거나 유효하지 않다면, 인증 객체가 담기지 않은 상태로 다음 필터로 넘어가기 때문에 403 에러 발생
-        // AccessToken이 유효하다면, 인증 객체가 담긴 상태로 다음 필터로 넘어가기 때문에 인증 성공
-        checkAccessTokenAndAuthentication(request, response, filterChain);
+
+            // RefreshToken이 없거나 유효하지 않다면, AccessToken을 검사하고 인증을 처리하는 로직 수행
+            // AccessToken이 없거나 유효하지 않다면, 인증 객체가 담기지 않은 상태로 다음 필터로 넘어가기 때문에 403 에러 발생
+            // AccessToken이 유효하다면, 인증 객체가 담긴 상태로 다음 필터로 넘어가기 때문에 인증 성공
+            try {
+                checkAccessTokenAndAuthentication(request, response, filterChain);
+            } catch (JwtException e) {
+                jwtService.setErrorResponse(response, e);
+                //            errorOccur(response, e.getMessage(), "???");
+            }
     }
 
     // 인증 허가 메서드
@@ -106,11 +123,41 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     // reIssueRefreshToken() 으로 RefreshToken 재발급 & DB 에 RefreshToken 업데이트 메소드 호출
     // 그 후 JwtService.sendAccessTokenAndRefreshToken() 으로 응답 헤더 보내기
     public void checkRefreshTokenAndReIssueAccessToken(HttpServletResponse response, String refreshToken) {
-        accountRepository.findByRefreshToken(refreshToken)
-                .ifPresent(account -> {
+        try {
+            jwtService.isTokenValid(refreshToken);
+        } catch (JwtException e) {
+            if (e.getMessage().contains("Auth001")) {
+            errorOccur(response, "Auth007", "만료된 Refresh Token 입니다.");
+            return;
+            } else {
+            errorOccur(response, e.getMessage(), "올바르지 않은 토큰 입니다.");
+            return;
+            }
+        }
+        accountRepository.findByRefreshToken(refreshToken).
+                ifPresentOrElse(account -> {
                     String reIssuedRefreshToken = reIssueRefreshToken(account);
-                    jwtService.sendAccessAndRefreshToken(response, jwtService.createAccessToken(account.getUsername()),
-                            reIssuedRefreshToken);
+                    String accessToken = jwtService.createAccessToken(account.getUsername());
+                    jwtService.sendAccessAndRefreshToken(response, accessToken, reIssuedRefreshToken);
+
+                    final Map<String, Object> body = new HashMap<>();
+                    body.put("description", "refresh token 및 access token 재발급 완료");
+                    body.put("refreshToken", refreshToken);
+                    body.put("accessToken", accessToken);
+                    body.put("status", HttpServletResponse.SC_OK);
+
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    try {
+                        String responseBody = objectMapper.writeValueAsString(body);
+                        response.getWriter().write(responseBody);
+                        response.getWriter().flush();
+                    } catch (IOException e) {
+                        log.error("Failed to send response body", e);
+                    }
+                    log.info("Access Token, Refresh Token body로 전송 완료");
+                }, () -> {
+                    errorOccur(response, "Auth005", "Refresh Token이 일치하지 않습니다.");
+                    return;
                 });
     }
 
@@ -130,15 +177,38 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     // 그 유저 객체를 saveAuthentication()으로 인증 처리하여
     // 인증 허기 처리된 객체를 SecurityContextHolder에 담은 후 다음 인증 필터로 진행
     public void checkAccessTokenAndAuthentication(HttpServletRequest request, HttpServletResponse response,
-                                                  FilterChain filterChain) throws ServletException, IOException {
+                                                  FilterChain filterChain) throws ServletException, IOException, JwtException {
         log.info("checkAccessTokenAndAuthentication() 호출");
-        jwtService.extractAccessToken(request)
-                .filter(jwtService::isTokenValid)
-                .ifPresent(accessToken -> jwtService.extractUsername(accessToken)
-                        .ifPresent(username -> accountRepository.findByUsername(username)
-                                .ifPresent(this::saveAuthentication)));
-
+        String accessToken = jwtService.extractAccessToken(request).orElse(null);
+        if (accessToken == null) {
+            errorOccur(response, "Auth008", "Access Token을 입력해 주세요.");
+            return;
+        } else {
+            jwtService.extractAccessToken(request).filter(jwtService::isTokenValid);
+            jwtService.extractUsername(accessToken)
+                            .ifPresent(username -> accountRepository.findByUsername(username)
+                                .ifPresent(this::saveAuthentication));
+        }
         filterChain.doFilter(request, response);
+    }
+
+    public void errorOccur(HttpServletResponse response, String errorCode, String description) {
+
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType("application/json; charset=utf-8");
+
+        final Map<String, Object> errorBody = new HashMap<>();
+        errorBody.put("description", description);
+        errorBody.put("errorCode", errorCode);
+        errorBody.put("status", HttpServletResponse.SC_UNAUTHORIZED);
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            String responseBody = objectMapper.writeValueAsString(errorBody);
+            response.getWriter().write(responseBody);
+            response.getWriter().flush();
+        } catch (IOException e) {
+            log.error("Failed to send error response body", e);
+        }
     }
 
 }
