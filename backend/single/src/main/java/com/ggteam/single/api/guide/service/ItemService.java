@@ -1,6 +1,7 @@
 package com.ggteam.single.api.guide.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import com.ggteam.single.api.guide.dto.res.FavoriteResponse;
 import com.ggteam.single.api.guide.dto.res.ItemResponse;
 import com.ggteam.single.api.guide.dto.res.ItemWithFavoriteResponse;
 import com.ggteam.single.api.guide.entity.Item;
+import com.ggteam.single.api.guide.entity.ItemFavorite;
 import com.ggteam.single.api.guide.repository.ItemFavoriteRepository;
 import com.ggteam.single.api.guide.repository.ItemRepository;
 
@@ -82,13 +84,13 @@ public class ItemService {
 			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아이템입니다."));
 
 		// 아이템 즐겨찾기 여부 확인 후 삭제 및 저장
-		if (itemFavoriteRepository.findByAccountAndItem(account, item).isPresent()){
-			itemFavoriteRepository.delete(requestDto.toEntity(account, item));
+		Optional<ItemFavorite> itemFavorite = itemFavoriteRepository.findByAccountAndItem(account, item);
+		if (itemFavorite.isPresent()){
+			itemFavoriteRepository.delete(itemFavorite.get());
 			return new FavoriteResponse(false);
 		} else {
 			itemFavoriteRepository.save(requestDto.toEntity(account, item));
 			return new FavoriteResponse(true);
 		}
-
 	}
 }
