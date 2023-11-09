@@ -35,6 +35,10 @@ interface DogamRepository {
      */
     suspend fun getAllBookmarkItemsLocal(): List<ItemDto>
     /**
+     * 즐겨찾기 토글
+     */
+    suspend fun toggleBookmarkItem(itemId: Int): Boolean
+    /**
      * 즐겨찾기 아이템 로컬에 저장
      */
     suspend fun addBookmarkItemLocal(itemId: Int)

@@ -71,6 +71,8 @@ class BookmarkViewModel @Inject constructor(
     fun getAllBookmarkItemsLocal(){
         viewModelScope.launch {
             _currentBookmarkItemList.emit(getAllBookmarkItemsLocalUseCase.invoke())
+            _currentBookmarkSkillList.emit(listOf())
+            _currentBookmarkMonsterList.emit(listOf())
         }
     }
 
@@ -91,10 +93,12 @@ class BookmarkViewModel @Inject constructor(
         }
     }
 
-    //전체 아이템 조회
+    //전체 스킬 조회
     fun getAllBookmarkSkillsLocal(){
         viewModelScope.launch {
             _currentBookmarkSkillList.emit(getAllBookmarkSkillsLocalUseCase.invoke())
+            _currentBookmarkItemList.emit(listOf())
+            _currentBookmarkMonsterList.emit(listOf())
         }
     }
 
@@ -119,6 +123,8 @@ class BookmarkViewModel @Inject constructor(
     fun getAllBookmarkMonstersLocal(){
         viewModelScope.launch {
             _currentBookmarkMonsterList.emit(getAllBookmarkMonstersLocalUseCase.invoke())
+            _currentBookmarkItemList.emit(listOf())
+            _currentBookmarkSkillList.emit(listOf())
         }
     }
 

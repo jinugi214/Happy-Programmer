@@ -6,11 +6,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import androidx.viewbinding.ViewBinding
 import com.gumigames.presentation.MainActivity
 import com.gumigames.presentation.R
+import com.gumigames.presentation.base.BaseViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 abstract class BaseBorderDialogFragment<B : ViewBinding>(
     private val bind: (View) -> B,
@@ -43,5 +50,31 @@ abstract class BaseBorderDialogFragment<B : ViewBinding>(
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    fun showCustomToast(message: String) {
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+    }
+    fun collectErrorAndToken(
+        viewModel: BaseViewModel
+    ) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            //네트워크 통신 시 Toast Message 출력
+            viewModel.error.collectLatest {
+                showCustomToast(it.message.toString())
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            //REFRESH TOKEN 만료 시 로그 아웃
+            viewModel.isExpiredRefreshToken.collectLatest {
+                if(it) {
+                    findNavController().navigate(R.id.loginFragment, null, navOptions{
+                        popUpTo(R.id.homeFragment){
+                            inclusive = true
+                        }
+                    })
+                }
+            }
+        }
     }
 }

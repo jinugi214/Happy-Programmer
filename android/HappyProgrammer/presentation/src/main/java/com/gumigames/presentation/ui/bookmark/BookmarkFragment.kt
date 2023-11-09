@@ -36,7 +36,6 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bookmarkViewModel.getAllBookmarkItemsLocal()
         init()
         initView()
         initListener()
