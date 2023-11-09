@@ -22,7 +22,7 @@ fun <T> Response<T>.getNetworkResult(): T {
     }
 
     Log.d(TAG, "getNetworkResult not successful : $this")
-    Log.d(TAG, "getNetworkResult not successful : ${this.errorBody()}")
+    Log.d(TAG, "getNetworkResult not successful : ${this.errorBody()?.string()}")
 
     // TODO 서버에 따라 다를수도?
 //    val errorResponse = errorBody()?.string()

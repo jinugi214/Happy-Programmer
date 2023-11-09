@@ -22,6 +22,7 @@ import com.gumigames.presentation.base.BaseViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+private const val TAG = "차선호"
 abstract class BaseFragment<B : ViewBinding>(
     private val bind: (View) -> B,
     @LayoutRes layoutResId: Int
@@ -83,6 +84,7 @@ abstract class BaseFragment<B : ViewBinding>(
             //REFRESH TOKEN 만료 시 로그 아웃
             viewModel.isExpiredRefreshToken.collectLatest {
                 if(it) {
+                    Log.d(TAG, "collectErrorAndToken 들어옴")
                     findNavController().navigate(R.id.loginFragment, null, navOptions{
                         popUpTo(R.id.homeFragment){
                             inclusive = true
