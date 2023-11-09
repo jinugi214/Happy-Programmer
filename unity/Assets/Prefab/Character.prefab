@@ -2572,7 +2572,7 @@ GameObject:
   - component: {fileID: 3843418487185760326}
   - component: {fileID: 7726758639607661393}
   - component: {fileID: 7715594239583502355}
-  - component: {fileID: 1421503819837561361}
+  - component: {fileID: 3972878493668452362}
   m_Layer: 3
   m_Name: Character
   m_TagString: Player
@@ -2719,6 +2719,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee2e0b3c65c873d4daa4a821001a9aff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: 5e17750202cc81d49b37e8e79c0c05cd, type: 3}
+  walkSound: {fileID: 8300000, guid: d88cbad2d217cd74ba1eb0899d6c55ad, type: 3}
+  runSound: {fileID: 8300000, guid: d9a50401294cf994db997588f91d42e3, type: 3}
 --- !u!50 &3680298605032586141
 Rigidbody2D:
   serializedVersion: 4
@@ -2845,7 +2849,7 @@ MonoBehaviour:
   phone1Prefab: {fileID: 3740201679868233218, guid: f2ce93bf3b3961c4e873aa48217f312b, type: 3}
   phone2Prefab: {fileID: 4740498960513180981, guid: 9af39d3c89b82234b970ed142c4346e8, type: 3}
   phone3Prefab: {fileID: 1693340214515467102, guid: e7b4db8f5b5db53479e401252c3d3319, type: 3}
---- !u!82 &1421503819837561361
+--- !u!82 &3972878493668452362
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2856,7 +2860,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
