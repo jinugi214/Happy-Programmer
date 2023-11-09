@@ -1,12 +1,15 @@
 package com.ggteam.single.api.account.jwt.filter;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ggteam.single.api.account.entity.Account;
 import com.ggteam.single.api.account.jwt.service.JwtService;
 import com.ggteam.single.api.account.repository.AccountRepository;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
@@ -43,6 +46,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
         throws ServletException, IOException {
+        String reIssuePath = "/api/re-issue";
         String path = request.getServletPath();
 
         if (acceptPath.contains(path)) {
@@ -50,20 +54,26 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
             return;  // return 으로 이후 현재 필터의 진행 막기
         }
 
-        // 사용자 요청이 헤더에서 RefreshToken 추출
-        // -> RefreshToken이 없거나 유효하지 않다면(DB에 저장된 RefreshToken과 다르다면) null을 반환
-        // 사용자의 요청 헤더에 RefreshToken이 있는 경우는, AccessToken이 만료되어 요청한 경우 밖에 없다.
-        // 따라서 위의 경우를 제외하면 추출한 refreshToken은 모두 null
-        String refreshToken = jwtService.extractRefreshToken(request)
-                .filter(jwtService::isTokenValid)
-                .orElse(null);
+        if (reIssuePath.contains(path)) {
+            // 사용자 요청이 헤더에서 RefreshToken 추출
+            // -> RefreshToken이 없거나 유효하지 않다면(DB에 저장된 RefreshToken과 다르다면) null을 반환
+            // 사용자의 요청 헤더에 RefreshToken이 있는 경우는, AccessToken이 만료되어 요청한 경우 밖에 없다.
+            // 따라서 위의 경우를 제외하면 추출한 refreshToken은 모두 null
+            String refreshToken = jwtService.extractRefreshToken(request)
+//                    .filter(jwtService::isTokenValid)
+                    .orElse(null);
 
-        // RefreshToken이 요청 헤더에 존재한다면, 사용자의 AccessToken이 만료됐다는 의미
-        // -> 같이 받은 RefreshToken가 DB의 RefreshToken과 일치하는지 확인하고 일치하면 AccessToken을 재발급
-        if (refreshToken != null) {
-            checkRefreshTokenAndReIssueAccessToken(response, refreshToken);
-            return;
+            // RefreshToken이 요청 헤더에 존재한다면, 사용자의 AccessToken이 만료됐다는 의미
+            // -> 같이 받은 RefreshToken가 DB의 RefreshToken과 일치하는지 확인하고 일치하면 AccessToken을 재발급
+            if (refreshToken != null) {
+                checkRefreshTokenAndReIssueAccessToken(response, refreshToken);
+                return;
+            } else {
+                errorOccur(response, "Auth006", "Refresh Token을 입력해 주세요.");
+                return;
+            }
         }
+
 
         // RefreshToken이 없거나 유효하지 않다면, AccessToken을 검사하고 인증을 처리하는 로직 수행
         // AccessToken이 없거나 유효하지 않다면, 인증 객체가 담기지 않은 상태로 다음 필터로 넘어가기 때문에 403 에러 발생
@@ -71,7 +81,8 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         try {
             checkAccessTokenAndAuthentication(request, response, filterChain);
         } catch (JwtException e) {
-            jwtService.setErrorResponse(request, response, e);
+            jwtService.setErrorResponse(response, e);
+//            errorOccur(response, e.getMessage(), "???");
         }
     }
 
@@ -109,8 +120,19 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     // reIssueRefreshToken() 으로 RefreshToken 재발급 & DB 에 RefreshToken 업데이트 메소드 호출
     // 그 후 JwtService.sendAccessTokenAndRefreshToken() 으로 응답 헤더 보내기
     public void checkRefreshTokenAndReIssueAccessToken(HttpServletResponse response, String refreshToken) {
-        accountRepository.findByRefreshToken(refreshToken)
-                .ifPresent(account -> {
+        try {
+            jwtService.isTokenValid(refreshToken);
+        } catch (JwtException e) {
+            if (e.getMessage().contains("Auth001")) {
+            errorOccur(response, "Auth007", "만료된 Refresh Token 입니다.");
+            return;
+            } else {
+            errorOccur(response, e.getMessage(), "올바르지 않은 토큰 입니다.");
+            return;
+            }
+        }
+        accountRepository.findByRefreshToken(refreshToken).
+                ifPresentOrElse(account -> {
                     String reIssuedRefreshToken = reIssueRefreshToken(account);
                     String accessToken = jwtService.createAccessToken(account.getUsername());
                     jwtService.sendAccessAndRefreshToken(response, accessToken, reIssuedRefreshToken);
@@ -130,6 +152,9 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
                         log.error("Failed to send response body", e);
                     }
                     log.info("Access Token, Refresh Token body로 전송 완료");
+                }, () -> {
+                    errorOccur(response, "Auth005", "Refresh Token이 일치하지 않습니다.");
+                    return;
                 });
     }
 
@@ -151,13 +176,36 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     public void checkAccessTokenAndAuthentication(HttpServletRequest request, HttpServletResponse response,
                                                   FilterChain filterChain) throws ServletException, IOException, JwtException {
         log.info("checkAccessTokenAndAuthentication() 호출");
-        jwtService.extractAccessToken(request)
-                .filter(jwtService::isTokenValid)
-                .ifPresent(accessToken -> jwtService.extractUsername(accessToken)
-                        .ifPresent(username -> accountRepository.findByUsername(username)
-                                .ifPresent(this::saveAuthentication)));
-
+        String accessToken = jwtService.extractAccessToken(request).orElse(null);
+        if (accessToken == null) {
+            errorOccur(response, "Auth008", "Access Token을 입력해 주세요.");
+            return;
+        } else {
+            jwtService.extractAccessToken(request).filter(jwtService::isTokenValid);
+            jwtService.extractUsername(accessToken)
+                            .ifPresent(username -> accountRepository.findByUsername(username)
+                                .ifPresent(this::saveAuthentication));
+        }
         filterChain.doFilter(request, response);
+    }
+
+    public void errorOccur(HttpServletResponse response, String errorCode, String description) {
+
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType("application/json; charset=utf-8");
+
+        final Map<String, Object> errorBody = new HashMap<>();
+        errorBody.put("description", description);
+        errorBody.put("errorCode", errorCode);
+        errorBody.put("status", HttpServletResponse.SC_UNAUTHORIZED);
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            String responseBody = objectMapper.writeValueAsString(errorBody);
+            response.getWriter().write(responseBody);
+            response.getWriter().flush();
+        } catch (IOException e) {
+            log.error("Failed to send error response body", e);
+        }
     }
 
 }
