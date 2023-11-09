@@ -21,10 +21,9 @@ public class SkillPlayer : MonoBehaviour
     public SkillObject phone2Prefab;
     public SkillObject phone3Prefab;
 
-
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X) && GetComponent<CharacterAppear>().IsWeaponEquipped())
         {
             SkillObject skillToUse = null; // 사용할 스킬 프리팹을 저장하는 변수
 
@@ -88,10 +87,12 @@ public class SkillPlayer : MonoBehaviour
                 position.y += 1;
             }
             SkillObject newSkill = Instantiate(skillToUse, position, Quaternion.identity);
+            newSkill.gameObject.SetActive(true);
+            newSkill.skillAudioSource = GetComponent<AudioSource>();
             newSkill.Create(weaponType); // 무기 유형을 설정하면서, 스킬 오브젝트 생성
             newSkill.direction = GetComponent<CharacterMovement>().lastDirection;
+
+
         }
     }
-
-
 }
