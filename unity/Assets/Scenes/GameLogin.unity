@@ -535,6 +535,7 @@ MonoBehaviour:
   username: {fileID: 0}
   password: {fileID: 0}
   loginButton: {fileID: 1047134819}
+  dataManagerPrefab: {fileID: 7179030330123974726, guid: 006820f5ac163f440bf5afec91454475, type: 3}
 --- !u!1 &297659413
 GameObject:
   m_ObjectHideFlags: 0

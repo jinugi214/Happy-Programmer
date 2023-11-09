@@ -377,6 +377,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &478891333
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 478891335}
+  - component: {fileID: 478891334}
+  m_Layer: 0
+  m_Name: LoadStartClick
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &478891334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478891333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92ce7e588f2c2cd42b9777480e1e95d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &478891335
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478891333}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &502681631
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,7 +895,7 @@ GameObject:
   - component: {fileID: 879986588}
   - component: {fileID: 879986587}
   m_Layer: 5
-  m_Name: Btn3
+  m_Name: ExitBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -921,9 +965,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 893705525}
-        m_TargetAssemblyTypeName: ExitGame, Assembly-CSharp
-        m_MethodName: Exit
+      - m_Target: {fileID: 893705527}
+        m_TargetAssemblyTypeName: LogoutGame, Assembly-CSharp
+        m_MethodName: OnClickExitButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -980,7 +1024,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 893705526}
-  - component: {fileID: 893705525}
+  - component: {fileID: 893705527}
   m_Layer: 0
   m_Name: ExitGameClick
   m_TagString: Untagged
@@ -988,18 +1032,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &893705525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 893705524}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 532add1a39490584ca41611572e5b25e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &893705526
 Transform:
   m_ObjectHideFlags: 0
@@ -1015,6 +1047,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &893705527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893705524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d42905e0bdb33c458e8329b93299d52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &978711974
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1232,7 +1276,7 @@ GameObject:
   - component: {fileID: 1263917675}
   - component: {fileID: 1263917674}
   m_Layer: 5
-  m_Name: Btn2
+  m_Name: LoadStartBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1301,7 +1345,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1263917675}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 478891334}
+        m_TargetAssemblyTypeName: LoadCharacter, Assembly-CSharp
+        m_MethodName: LoadCharcterData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1263917675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1453,7 +1509,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1481073075}
   m_Layer: 5
-  m_Name: Btn1
+  m_Name: NewStart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1493,7 +1549,7 @@ GameObject:
   - component: {fileID: 1489067480}
   - component: {fileID: 1489067479}
   m_Layer: 5
-  m_Name: Btn1
+  m_Name: NewStartBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1832,7 +1888,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1687699468}
   m_Layer: 5
-  m_Name: Btn2
+  m_Name: LoadStart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1869,7 +1925,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1777650409}
   m_Layer: 5
-  m_Name: Btn3
+  m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2205,3 +2261,4 @@ SceneRoots:
   - {fileID: 389474612}
   - {fileID: 893705526}
   - {fileID: 978711974}
+  - {fileID: 478891335}
