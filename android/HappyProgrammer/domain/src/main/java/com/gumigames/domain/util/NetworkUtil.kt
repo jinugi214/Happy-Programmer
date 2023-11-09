@@ -3,6 +3,7 @@ package com.gumigames.domain.util
 import android.util.Log
 import org.json.JSONObject
 import retrofit2.Response
+import java.net.UnknownHostException
 
 private const val TAG = "차선호"
 private fun <T> Response<T>.isDelete(): Boolean {
@@ -54,6 +55,7 @@ suspend fun <T> getValueOrThrow(block: suspend () -> T): T{
     try{
         return block()
     }catch (throwable: NetworkThrowable){
+        Log.d(TAG, "getValueOrThrow : $throwable")
         throw throwable
     }
 }

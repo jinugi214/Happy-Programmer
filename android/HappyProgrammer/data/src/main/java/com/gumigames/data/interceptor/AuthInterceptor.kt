@@ -105,7 +105,7 @@ class AuthInterceptor(
         private const val AUTHORIZATION = "Authorization" //ACCESS_TOEKN KEY 이름
         private const val AUTH_REFRESH_KEY = "Authorization-Refresh" //REFRESH_TOKEN KEY 이름
 
-        private const val AUTH_REFRESH_PATH = "api/account/new/access-token" //서버에서 주는 accessToken 재발급 하는 api 주소
+        private const val AUTH_REFRESH_PATH = "api/re-issue" //accessToken 재발급 하는 api 주소
 
         private const val BEARER = "Bearer "
 
@@ -113,6 +113,18 @@ class AuthInterceptor(
         private const val REFRESH_FAILURE = "토큰 리프레시 실패"
 
         private const val ACCESS_TOKEN_EXPRIED = "Auth001"
-        private const val AUTH_TOKEN_ERROR = 401 // TODO 서버에 맞게 수정
+        private const val AUTH_TOKEN_ERROR = 401 // 토큰 에러 코드
     }
 }
+
+
+/**
+ * 001 엑세스 토큰 만료
+ * 002 지원하지 않는 토큰
+ * 003 유효하지 않은 서명
+ * 004 유효하지 않는 토큰(엑세스 리프레시 둘 다)
+ * 005 리프레시 토큰이 해당 아이디의 토큰과 불일치
+ * 006 리프레시 토큰 미입력
+ * 007 리프레시 토큰 만료
+ * 008 엑세스 토큰 없음
+ */
