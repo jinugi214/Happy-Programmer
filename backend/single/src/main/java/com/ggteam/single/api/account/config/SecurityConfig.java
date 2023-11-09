@@ -117,6 +117,7 @@ public class SecurityConfig {
         return new JwtAuthenticationProcessingFilter(jwtService, accountRepository);
     }
 
+    // 로그인 정보 없이 Swagger 접근 가능하게 하는 코드
     @Bean
     public WebSecurityCustomizer ignoringCustomizer() {
         return (web) -> web.ignoring().antMatchers("/swagger-ui/**", "/v3/api-docs/**");
