@@ -16,6 +16,7 @@ import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMap
 import org.springframework.security.core.authority.mapping.NullAuthoritiesMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -35,13 +36,15 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         acceptPath = new HashSet<>();
         acceptPath.add("/api/account/login");
         acceptPath.add("/api/account/sign-up");
-        acceptPath.add("/swagger-ui/*");
+        acceptPath.add("/swagger-ui/**");
+        acceptPath.add("/v3/api-docs/**");
     }
 
     private final JwtService jwtService;
     private final AccountRepository accountRepository;
 
     private GrantedAuthoritiesMapper authoritiesMapper = new NullAuthoritiesMapper();
+    private AntPathMatcher pathMatcher = new AntPathMatcher();
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -49,12 +52,12 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         String reIssuePath = "/api/re-issue";
         String path = request.getServletPath();
 
-        if (acceptPath.contains(path)) {
+        if (acceptPath.stream().anyMatch(pattern -> pathMatcher.match(pattern, path))) {
             filterChain.doFilter(request, response);  // 위의 요청이 온다면 다음 필터 호출
             return;  // return 으로 이후 현재 필터의 진행 막기
         }
 
-        if (reIssuePath.contains(path)) {
+        if (pathMatcher.match(reIssuePath, path)) {
             // 사용자 요청이 헤더에서 RefreshToken 추출
             // -> RefreshToken이 없거나 유효하지 않다면(DB에 저장된 RefreshToken과 다르다면) null을 반환
             // 사용자의 요청 헤더에 RefreshToken이 있는 경우는, AccessToken이 만료되어 요청한 경우 밖에 없다.
@@ -70,20 +73,20 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
                 return;
             } else {
                 errorOccur(response, "Auth006", "Refresh Token을 입력해 주세요.");
-                return;
             }
+            return;
         }
 
 
-        // RefreshToken이 없거나 유효하지 않다면, AccessToken을 검사하고 인증을 처리하는 로직 수행
-        // AccessToken이 없거나 유효하지 않다면, 인증 객체가 담기지 않은 상태로 다음 필터로 넘어가기 때문에 403 에러 발생
-        // AccessToken이 유효하다면, 인증 객체가 담긴 상태로 다음 필터로 넘어가기 때문에 인증 성공
-        try {
-            checkAccessTokenAndAuthentication(request, response, filterChain);
-        } catch (JwtException e) {
-            jwtService.setErrorResponse(response, e);
-//            errorOccur(response, e.getMessage(), "???");
-        }
+            // RefreshToken이 없거나 유효하지 않다면, AccessToken을 검사하고 인증을 처리하는 로직 수행
+            // AccessToken이 없거나 유효하지 않다면, 인증 객체가 담기지 않은 상태로 다음 필터로 넘어가기 때문에 403 에러 발생
+            // AccessToken이 유효하다면, 인증 객체가 담긴 상태로 다음 필터로 넘어가기 때문에 인증 성공
+            try {
+                checkAccessTokenAndAuthentication(request, response, filterChain);
+            } catch (JwtException e) {
+                jwtService.setErrorResponse(response, e);
+                //            errorOccur(response, e.getMessage(), "???");
+            }
     }
 
     // 인증 허가 메서드
