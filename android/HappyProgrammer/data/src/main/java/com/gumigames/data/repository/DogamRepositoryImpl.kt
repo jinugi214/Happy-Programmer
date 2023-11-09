@@ -68,6 +68,12 @@ class DogamRepositoryImpl(
     override suspend fun getAllBookmarkItemsLocal(): List<ItemDto> {
         return itemDao.getAllBookmarkItemsLocal().map { it.toDomain() }
     }
+    /**
+     * 즐겨찾기 토글
+     */
+    override suspend fun toggleBookmarkItem(itemId: Int): Boolean {
+        return handleApi { itemService.toggleBookmarkItem(itemId) }.toDomain()
+    }
 
     /**
      * 즐겨찾기 아이템 로컬에 저장
