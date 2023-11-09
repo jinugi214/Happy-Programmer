@@ -294,7 +294,7 @@ GameObject:
   m_Component:
   - component: {fileID: 119110867}
   m_Layer: 5
-  m_Name: Btn2
+  m_Name: IdCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -769,7 +769,7 @@ GameObject:
   m_Component:
   - component: {fileID: 370264411}
   m_Layer: 5
-  m_Name: Btn1
+  m_Name: NicknameCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2405,7 +2405,7 @@ GameObject:
   - component: {fileID: 905061230}
   - component: {fileID: 905061229}
   m_Layer: 5
-  m_Name: Confirm
+  m_Name: ConfirmBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2474,7 +2474,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 905061230}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1974673843}
+        m_TargetAssemblyTypeName: RegisterManager, Assembly-CSharp
+        m_MethodName: OnRegisterButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &905061230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3144,7 +3156,7 @@ GameObject:
   - component: {fileID: 1094175142}
   - component: {fileID: 1094175141}
   m_Layer: 5
-  m_Name: Btn2
+  m_Name: IdCheckBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3213,7 +3225,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1094175142}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1974673843}
+        m_TargetAssemblyTypeName: RegisterManager, Assembly-CSharp
+        m_MethodName: OnUsernameCheckButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1094175142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5001,6 +5025,7 @@ GameObject:
   - component: {fileID: 1974673840}
   - component: {fileID: 1974673842}
   - component: {fileID: 1974673841}
+  - component: {fileID: 1974673843}
   m_Layer: 5
   m_Name: SignupBox
   m_TagString: Untagged
@@ -5074,6 +5099,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1974673839}
   m_CullTransparentMesh: 1
+--- !u!114 &1974673843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1974673839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3717d952fcb4bd34e9f2951bfcd97c83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nickname: {fileID: 961228881}
+  username: {fileID: 576433016}
+  password: {fileID: 717710910}
+  passwordCheck: {fileID: 1087517680}
+  language: {fileID: 1425327064}
+  registerButton: {fileID: 905061229}
+  nicknameCheckButton: {fileID: 2063605005}
+  usernameCheckButton: {fileID: 1094175141}
 --- !u!1 &1976635210
 GameObject:
   m_ObjectHideFlags: 0
@@ -5373,7 +5418,7 @@ GameObject:
   - component: {fileID: 2063605006}
   - component: {fileID: 2063605005}
   m_Layer: 5
-  m_Name: Btn1
+  m_Name: NicknameCheckBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5442,7 +5487,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2063605006}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1974673843}
+        m_TargetAssemblyTypeName: RegisterManager, Assembly-CSharp
+        m_MethodName: OnNicknameCheckButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2063605006
 MonoBehaviour:
   m_ObjectHideFlags: 0
