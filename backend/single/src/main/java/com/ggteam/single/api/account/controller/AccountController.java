@@ -27,7 +27,7 @@ public class AccountController {
     private final AccountService accountService;
 
     @PostMapping("/sign-up")
-    @Operation(summary = "회원가입", description = "JSON으로 아이디(accountId), 비밀번호(password)," +
+    @Operation(summary = "회원가입", description = "JSON으로 아이디(username), 비밀번호(password)," +
             " 닉네임(nickname), 사용 언어(language) 필요, 모두 String")
     public ResponseEntity<?> signUp(@RequestBody AccountDto signUpDto) throws Exception {
         return accountService.signUp(signUpDto);
