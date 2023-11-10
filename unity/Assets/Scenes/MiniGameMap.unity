@@ -1156,20 +1156,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameTime: 0
   maxGameTime: 300
+<<<<<<< HEAD
+  isLive: 0
+=======
+>>>>>>> 7b4eb5d69a707f081f71f09f25ee4d790bdfaab2
   level: 0
   kill: 0
   exp: 0
   nextExp: 0a0000001e0000003c0000006400000096000000
+<<<<<<< HEAD
+  health: 0
+  maxHealth: 100
+=======
+>>>>>>> 7b4eb5d69a707f081f71f09f25ee4d790bdfaab2
   pool: {fileID: 314980916}
   player: {fileID: 1006798214}
 --- !u!1 &1006798205 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8507536298031114959, guid: 74b95ec3185a51141bb8971106db76f9, type: 3}
-  m_PrefabInstance: {fileID: 1295745913}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1006798212 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6469573598130461417, guid: 74b95ec3185a51141bb8971106db76f9, type: 3}
   m_PrefabInstance: {fileID: 1295745913}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1006798214 stripped
@@ -1218,6 +1222,18 @@ CapsuleCollider2D:
   m_Offset: {x: -0.01305449, y: 0.73635775}
   m_Size: {x: 0.79586554, y: 1.4727155}
   m_Direction: 0
+--- !u!114 &1006798226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006798205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b262196f8745549aca44cd108cbd79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1078593988
 GameObject:
   m_ObjectHideFlags: 0
@@ -1421,11 +1437,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 6469573598130461417, guid: 74b95ec3185a51141bb8971106db76f9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1423115511}
+    m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8507536298031114959, guid: 74b95ec3185a51141bb8971106db76f9, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 1006798226}
     - targetCorrespondingSourceObject: {fileID: 8507536298031114959, guid: 74b95ec3185a51141bb8971106db76f9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1006798218}
@@ -3042,7 +3058,7 @@ GameObject:
   - component: {fileID: 1423115511}
   - component: {fileID: 1423115512}
   m_Layer: 0
-  m_Name: Spawner
+  m_Name: Spawners
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3056,8 +3072,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1423115510}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.10899996, y: 0.041000046, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3065,7 +3081,7 @@ Transform:
   - {fileID: 664083040}
   - {fileID: 1078593989}
   - {fileID: 1636229534}
-  m_Father: {fileID: 1006798212}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1423115512
 MonoBehaviour:
@@ -3085,10 +3101,14 @@ MonoBehaviour:
     spawnTime: 3
     health: 10
     speed: 3
+    monsterType: 0
+    monsterATK: 5
   - spriteType: 1
     spawnTime: 6
     health: 50
     speed: 2
+    monsterType: 1
+    monsterATK: 10
 --- !u!1 &1461966243
 GameObject:
   m_ObjectHideFlags: 0
@@ -7894,4 +7914,8 @@ SceneRoots:
   - {fileID: 1003141789}
   - {fileID: 136039330}
   - {fileID: 1663364583}
+<<<<<<< HEAD
+  - {fileID: 1423115511}
+=======
   - {fileID: 1289378064190403521}
+>>>>>>> 7b4eb5d69a707f081f71f09f25ee4d790bdfaab2
