@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerBattle : MonoBehaviour
 {
+
+
     void OnCollisionEnter2D(Collision2D collision)
     {
 
@@ -25,10 +28,11 @@ public class PlayerBattle : MonoBehaviour
 
         if (MiniGameManager.instance.health < 0)
         {
-            for (int index = 9; index < transform.childCount; index++)
+            for (int index = 0; index < GameObject.Find("Spawners").GetComponent<Spawner>().transform.childCount ; index++)
             {
-                transform.GetChild(index).gameObject.SetActive(false);
-            }
+                GameObject.Find("Spawners").GetComponent<Spawner>().transform.GetChild(index).gameObject.SetActive(false);             }
+
+            Dead();
 
 
         }

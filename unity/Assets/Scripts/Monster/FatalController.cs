@@ -120,4 +120,5 @@ public class FatalController : MonoBehaviour
             GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
         }
     }
+
 }
