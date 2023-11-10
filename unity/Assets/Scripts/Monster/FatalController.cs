@@ -16,6 +16,8 @@ public class FatalController : MonoBehaviour
     public int monsterATK;
     public Rigidbody2D target;
 
+    private float timeAfterAttack;
+
     bool isLive;
 
     Rigidbody2D rigid;
@@ -25,6 +27,7 @@ public class FatalController : MonoBehaviour
     void Awake()
     {
         instance = this;
+        timeAfterAttack = 0;
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         wait = new WaitForFixedUpdate();
@@ -95,5 +98,26 @@ public class FatalController : MonoBehaviour
     void Dead()
     {
         gameObject.SetActive(false);
+    }
+
+
+
+    // 몬스터의 원거리 공격 
+
+    public GameObject bulletPrefab;
+    public float attackRate = 2f;
+    
+
+
+
+    void LongAttack()
+    {
+        timeAfterAttack  = Time.deltaTime;
+
+        if (timeAfterAttack >= attackRate)
+        {
+            timeAfterAttack = 0f;
+            GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+        }
     }
 }
