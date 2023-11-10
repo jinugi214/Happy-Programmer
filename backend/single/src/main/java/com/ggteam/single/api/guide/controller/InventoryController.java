@@ -1,13 +1,24 @@
 package com.ggteam.single.api.guide.controller;
 
+import com.ggteam.single.api.guide.dto.req.InventorySaveRequest;
+import com.ggteam.single.api.guide.service.InventoryService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name ="인벤토리", description = "내 인벤토리 관련 api")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/inventory")
+@RequestMapping("/api/inventory")
 public class InventoryController {
+
+    private final InventoryService inventoryService;
+    @PostMapping("/save")
+    @Operation(summary = "아이템 저장", description = "아이템을 저장한다.")
+    public ResponseEntity<?> saveInventory(@RequestBody InventorySaveRequest inventorySaveRequest) {
+        return inventoryService.saveItems(inventorySaveRequest);
+    }
+
 }
