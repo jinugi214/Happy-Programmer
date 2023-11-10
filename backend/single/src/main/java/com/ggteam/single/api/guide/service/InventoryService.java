@@ -65,10 +65,10 @@ public class InventoryService {
                         inventoryRepository.delete(inventory);
                     }
 
-//        inventoryRepository.saveAll(itemsPossessing);
-
             return isNotPresent;
         });
+
+        inventoryRepository.saveAll(itemsPossessing);
         return ResponseEntity.ok("아이템 저장 완료");
     }
 
