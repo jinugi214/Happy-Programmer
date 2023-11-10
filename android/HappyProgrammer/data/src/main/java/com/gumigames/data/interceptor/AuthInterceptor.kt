@@ -70,6 +70,7 @@ class AuthInterceptor(
                 REFRESH_TOKEN_EXPIRED ->{
                     //TODO PREFERENCE 초기화 해줘라
                     Log.d(TAG, "intercept: 이거 뜨면 된 거 ")
+                    preferenceDataSource.refreshPreference()
                     throw NetworkThrowable.RefreshExpireThrowable()
                 }
                 //ACCESS_TOKEN 없음

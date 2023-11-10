@@ -57,6 +57,7 @@ class PreferenceDataSourceImpl(
         putString(X_ACCESS_TOKEN, null)
         putString(X_REFRESH_TOKEN, null)
         putString(IS_LOGINED, null)
+        putString(IS_SHOWED_PERMISSION_DIALOG, null)
     }
 
     override fun getAccessToken(): String? {
