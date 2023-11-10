@@ -16,7 +16,8 @@ public class InventoryController {
 
     private final InventoryService inventoryService;
     @PostMapping("/save")
-    @Operation(summary = "아이템 저장", description = "아이템을 저장한다.")
+    @Operation(summary = "아이템 저장", description = "아이템을 저장한다. 캐릭터아이디(characterId, Long), 아이템리스트" +
+            "(itemList, List<Item>) 필요. 아이템은 아이템아이디(itemId, Integer), 개수(count, int), 장착여부(isEquipping, boolean) 필요")
     public ResponseEntity<?> saveInventory(@RequestBody InventorySaveRequest inventorySaveRequest) {
         return inventoryService.saveItems(inventorySaveRequest);
     }
