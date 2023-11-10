@@ -18,7 +18,7 @@ public class TransferScences : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.name == "Player")
+        if(collision.gameObject.name == "Character")
         {
             thePlayer.currentMapName = transferMapName;
             SceneManager.LoadScene(transferMapName);
