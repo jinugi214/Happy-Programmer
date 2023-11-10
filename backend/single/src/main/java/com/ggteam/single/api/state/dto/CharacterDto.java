@@ -28,7 +28,7 @@ public class CharacterDto {
 
     private int level;
 
-    private int savepoint;
+    private String savepoint;
 
 
 

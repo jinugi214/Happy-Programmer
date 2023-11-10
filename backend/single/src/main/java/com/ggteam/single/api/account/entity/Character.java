@@ -32,7 +32,7 @@ public class Character {
     @ColumnDefault("1")
     private int level;
 
-    private int savepoint;
+    private String savepoint;
 
     private int point;
 
