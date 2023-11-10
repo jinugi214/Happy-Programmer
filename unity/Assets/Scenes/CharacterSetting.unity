@@ -255,6 +255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: {fileID: 218709657}
   gender: {fileID: 968621724}
+  characterNameCheck: 0
 --- !u!1 &96367781
 GameObject:
   m_ObjectHideFlags: 0
