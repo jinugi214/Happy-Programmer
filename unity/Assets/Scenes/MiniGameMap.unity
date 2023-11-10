@@ -1156,13 +1156,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameTime: 0
   maxGameTime: 300
-  isLive: 0
   level: 0
   kill: 0
   exp: 0
   nextExp: 0a0000001e0000003c0000006400000096000000
-  health: 0
-  maxHealth: 100
   pool: {fileID: 314980916}
   player: {fileID: 1006798214}
 --- !u!1 &1006798205 stripped
@@ -1358,67 +1355,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1184599425
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1573962857732020204, guid: ac5f99b4b5cc4e349a8a2b517b9c5ba9, type: 3}
-      propertyPath: m_Name
-      value: FatalMonster
-      objectReference: {fileID: 0}
-    - target: {fileID: 1573962857732020204, guid: ac5f99b4b5cc4e349a8a2b517b9c5ba9, type: 3}
-      propertyPath: m_TagString
-      value: Monster
-      objectReference: {fileID: 0}
-    - target: {fileID: 6014958233174182035, guid: ac5f99b4b5cc4e349a8a2b517b9c5ba9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -14.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6014958233174182035, guid: ac5f99b4b5cc4e349a8a2b517b9c5ba9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -6.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 6014958233174182035, guid: ac5f99b4b5cc4e349a8a2b517b9c5ba9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6014958233174182035, guid: ac5f99b4b5cc4e349a8a2b517b9c5ba9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6014958233174182035, guid: ac5f99b4b5cc4e349a8a2b517b9c5ba9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6014958233174182035, guid: ac5f99b4b5cc4e349a8a2b517b9c5ba9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6014958233174182035, guid: ac5f99b4b5cc4e349a8a2b517b9c5ba9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6014958233174182035, guid: ac5f99b4b5cc4e349a8a2b517b9c5ba9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6014958233174182035, guid: ac5f99b4b5cc4e349a8a2b517b9c5ba9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6014958233174182035, guid: ac5f99b4b5cc4e349a8a2b517b9c5ba9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ac5f99b4b5cc4e349a8a2b517b9c5ba9, type: 3}
 --- !u!1001 &1295745913
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3149,14 +3085,10 @@ MonoBehaviour:
     spawnTime: 3
     health: 10
     speed: 3
-    monsterType: 0
-    monsterATK: 5
   - spriteType: 1
     spawnTime: 6
     health: 50
     speed: 2
-    monsterType: 1
-    monsterATK: 10
 --- !u!1 &1461966243
 GameObject:
   m_ObjectHideFlags: 0
@@ -7963,4 +7895,3 @@ SceneRoots:
   - {fileID: 136039330}
   - {fileID: 1663364583}
   - {fileID: 1289378064190403521}
-  - {fileID: 1184599425}
