@@ -876,22 +876,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slot
       objectReference: {fileID: 0}
-    - target: {fileID: 1032951077844654146, guid: fe968f2fea6f2cd42801dea7f7fe0d21, type: 3}
-      propertyPath: m_Color.a
-      value: 0.5882353
-      objectReference: {fileID: 0}
-    - target: {fileID: 1032951077844654146, guid: fe968f2fea6f2cd42801dea7f7fe0d21, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1032951077844654146, guid: fe968f2fea6f2cd42801dea7f7fe0d21, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1032951077844654146, guid: fe968f2fea6f2cd42801dea7f7fe0d21, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2564909389209924893, guid: fe968f2fea6f2cd42801dea7f7fe0d21, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -923,18 +907,6 @@ PrefabInstance:
     - target: {fileID: 2564909389209924893, guid: fe968f2fea6f2cd42801dea7f7fe0d21, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2564909389209924893, guid: fe968f2fea6f2cd42801dea7f7fe0d21, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.00008
-      objectReference: {fileID: 0}
-    - target: {fileID: 2564909389209924893, guid: fe968f2fea6f2cd42801dea7f7fe0d21, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.00008
-      objectReference: {fileID: 0}
-    - target: {fileID: 2564909389209924893, guid: fe968f2fea6f2cd42801dea7f7fe0d21, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.00008
       objectReference: {fileID: 0}
     - target: {fileID: 2564909389209924893, guid: fe968f2fea6f2cd42801dea7f7fe0d21, type: 3}
       propertyPath: m_LocalPosition.x
@@ -984,10 +956,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3155399606024182947, guid: fe968f2fea6f2cd42801dea7f7fe0d21, type: 3}
-      propertyPath: m_Color.a
-      value: 0.003921569
-      objectReference: {fileID: 0}
+    - target: {fileID: 2667467185248331418, guid: fe968f2fea6f2cd42801dea7f7fe0d21, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b666ebcd3c7535449abb116b0bc5f5ef, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
