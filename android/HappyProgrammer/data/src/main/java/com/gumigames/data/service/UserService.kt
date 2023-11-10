@@ -12,7 +12,4 @@ interface UserService {
      */
     @POST("api/account/login")
     suspend fun login(@Body loginRequest: LoginRequest): Response<AuthResponse>
-    /**
-     *
-     */
 }
