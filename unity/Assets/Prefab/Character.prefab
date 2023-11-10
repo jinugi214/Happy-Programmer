@@ -2707,6 +2707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10b2d26e409c73e499e6e79288684c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterCamera: {fileID: 7816420750335652281}
 --- !u!114 &3770787633416497990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2719,7 +2720,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee2e0b3c65c873d4daa4a821001a9aff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixerGroup: {fileID: 7621092509695097961, guid: a7d726aa042dff64d9de573908a2e257, type: 2}
   walkSound: {fileID: 8300000, guid: f1547ad8fbfa4f24d83e5a445aee860d, type: 3}
   runSound: {fileID: 8300000, guid: 9e68ea1ebd76aa44c8cfa5beb9850830, type: 3}
   attackSound: {fileID: 8300000, guid: 5e17750202cc81d49b37e8e79c0c05cd, type: 3}

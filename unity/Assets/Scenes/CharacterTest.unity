@@ -1070,6 +1070,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab5a6a258cfb63449a6517ab46a30937, type: 3}
+--- !u!20 &392060732 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 7816420750335652281, guid: 74b95ec3185a51141bb8971106db76f9, type: 3}
+  m_PrefabInstance: {fileID: 1163878329}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &418278365
 GameObject:
   m_ObjectHideFlags: 0
@@ -3245,10 +3250,10 @@ PrefabInstance:
       propertyPath: inventoryUI
       value: 
       objectReference: {fileID: 274965475}
-    - target: {fileID: 3860696843995612661, guid: 74b95ec3185a51141bb8971106db76f9, type: 3}
-      propertyPath: OutputAudioMixerGroup
+    - target: {fileID: 4948072990969089348, guid: 74b95ec3185a51141bb8971106db76f9, type: 3}
+      propertyPath: characterCamera
       value: 
-      objectReference: {fileID: 7621092509695097961, guid: a7d726aa042dff64d9de573908a2e257, type: 2}
+      objectReference: {fileID: 392060732}
     - target: {fileID: 6469573598130461417, guid: 74b95ec3185a51141bb8971106db76f9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.091
