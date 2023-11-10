@@ -1,6 +1,8 @@
 package com.ggteam.single.api.guide.entity;
 
 import com.ggteam.single.api.account.entity.Character;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +10,8 @@ import javax.persistence.*;
 
 @Getter
 @Entity
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class Inventory {
 
@@ -27,7 +31,13 @@ public class Inventory {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    public void changeCount(int num) {
+    public void changeCount(int count) {
+        this.count = count;
+    }
+    public void addCount(int num) {
         this.count += num;
+    }
+    public void equip() {
+        this.isEquipping = true;
     }
 }
