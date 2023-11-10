@@ -1,6 +1,5 @@
 package com.ggteam.single.api.account.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ggteam.single.api.account.Role;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,13 +17,13 @@ public class Account {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String username;
-    @Column
+    @Column(nullable = false)
     private String password;
-    @Column
+    @Column(nullable = false)
     private String nickname;
-    @Column
+    @Column(nullable = false)
     private String language;
 
     @Column
@@ -34,14 +33,8 @@ public class Account {
     private Role role;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "character_id", referencedColumnName = "id")
-    @JsonManagedReference
+    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
     private Character character;
-
-    public void authorizeUser() {
-        this.role = Role.USER;
-    }
 
     public void passwordEncode(PasswordEncoder passwordEncoder) {
         this.password = passwordEncoder.encode(this.password);
