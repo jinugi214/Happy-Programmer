@@ -1,12 +1,11 @@
 package com.ggteam.single.api.account.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ggteam.single.api.account.dto.TokenDto;
+import com.ggteam.single.api.account.dto.LoginResponseDto;
 import com.ggteam.single.api.account.jwt.service.JwtService;
 import com.ggteam.single.api.account.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -36,13 +35,15 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
                 .ifPresent(account -> {
                     account.updateRefreshToken(refreshToken);
                     accountRepository.saveAndFlush(account);
+
+                    Long accountId = account.getId();
+                    try {
+                        tokenResponse(response, accessToken, refreshToken, accountId);  // response 객체를 인자로 추가
+                    } catch (IOException e) {
+                        throw new RuntimeException("Token response failed", e);  // 오류 처리
+                    }
                 });
 
-        try {
-            tokenResponse(response, accessToken, refreshToken);  // response 객체를 인자로 추가
-        } catch (IOException e) {
-            throw new RuntimeException("Token response failed", e);  // 오류 처리
-        }
 
         log.info("로그인에 성공하였습니다. 계정 : {}", username);
     }
@@ -52,13 +53,15 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         return userDetails.getUsername();
     }
 
-    private void tokenResponse(HttpServletResponse response, String accessToken, String refreshToken) throws IOException {
-        TokenDto tokenDto = TokenDto.builder()
+    private void tokenResponse(HttpServletResponse response, String accessToken,
+                               String refreshToken, Long accountId) throws IOException {
+        LoginResponseDto loginResponseDto = LoginResponseDto.builder()
+                .id(accountId)
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .build();
 
-        String json = objectMapper.writeValueAsString(tokenDto);  // TokenDto를 JSON 문자열로 변환
+        String json = objectMapper.writeValueAsString(loginResponseDto);  // TokenDto를 JSON 문자열로 변환
 
         response.getWriter().write(json);  // 응답 본문에 JSON 문자열을 쓰기
         response.getWriter().flush();

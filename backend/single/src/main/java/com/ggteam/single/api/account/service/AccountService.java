@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.security.Principal;
 import java.util.NoSuchElementException;
 
 @Service
@@ -46,9 +47,10 @@ public class AccountService {
     }
 
     @Transactional
-    public ResponseEntity<?> myAccount(Long id) {
-        Account myAccount = accountRepository.findById(id).orElseThrow(
-                () -> new NoSuchElementException("해당 id의 account가 존재하지 않습니다."));
+    public ResponseEntity<?> myAccount(Principal principal) {
+        String username = principal.getName();
+        Account myAccount = accountRepository.findByUsername(username).orElseThrow(
+                () -> new NoSuchElementException("존재하지 않는 아이디입니다."));
         AccountDto accountDto = AccountDto.builder()
                 .username(myAccount.getUsername())
                 .nickname(myAccount.getNickname())
@@ -90,6 +92,27 @@ public class AccountService {
         return ResponseEntity.ok("비밀번호를 변경했습니다.");
     }
 
-//    @Transactional
-//    public
+    @Transactional
+    public ResponseEntity<?> deleteAccount(Principal principal) {
+        String username = principal.getName();
+        if (username != null){
+            accountRepository.deleteByUsername(username);
+            return ResponseEntity.ok("Deleted!");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("없는 아이디 입니다.");
+        }
+
+    }
+
+    public ResponseEntity<?> checkUsername(String username) {
+        if (accountRepository.findByUsername(username).isPresent()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이미 존재하는 아이디 입니다.");
+        } else return ResponseEntity.ok("사용 가능한 아이디 입니다.");
+    }
+
+    public ResponseEntity<?> checkNickname(String nickname) {
+        if (accountRepository.findByNickname(nickname).isPresent()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이미 존재하는 닉네임 입니다.");
+        } else return ResponseEntity.ok("사용 가능한 닉네임 입니다.");
+    }
 }
