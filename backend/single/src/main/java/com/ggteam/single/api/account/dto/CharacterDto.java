@@ -19,7 +19,7 @@ public class CharacterDto {
     private int level;
     private int point;
     private int storyProgress;
-    private int savepoint;
+    private String savepoint;
     private String imgPath;
 
 }
