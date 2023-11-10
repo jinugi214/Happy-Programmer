@@ -1,6 +1,5 @@
 package com.ggteam.single.api.account.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ggteam.single.api.account.Role;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
