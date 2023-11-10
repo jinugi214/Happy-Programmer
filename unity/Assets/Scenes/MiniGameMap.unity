@@ -1156,19 +1156,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameTime: 0
   maxGameTime: 300
-<<<<<<< HEAD
   isLive: 0
-=======
->>>>>>> 7b4eb5d69a707f081f71f09f25ee4d790bdfaab2
   level: 0
   kill: 0
   exp: 0
   nextExp: 0a0000001e0000003c0000006400000096000000
-<<<<<<< HEAD
   health: 0
   maxHealth: 100
-=======
->>>>>>> 7b4eb5d69a707f081f71f09f25ee4d790bdfaab2
   pool: {fileID: 314980916}
   player: {fileID: 1006798214}
 --- !u!1 &1006798205 stripped
@@ -7914,8 +7908,5 @@ SceneRoots:
   - {fileID: 1003141789}
   - {fileID: 136039330}
   - {fileID: 1663364583}
-<<<<<<< HEAD
-  - {fileID: 1423115511}
-=======
   - {fileID: 1289378064190403521}
->>>>>>> 7b4eb5d69a707f081f71f09f25ee4d790bdfaab2
+
