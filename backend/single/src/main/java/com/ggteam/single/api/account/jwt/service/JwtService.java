@@ -16,10 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Getter
@@ -182,7 +179,7 @@ public class JwtService {
         response.setContentType(CONTENT_TYPE);
 
         final Map<String, Object> errorBody = new HashMap<>();
-        errorBody.put("error", "Unauthorized");
+        errorBody.put("description", "Unauthorized");
         errorBody.put("errorCode", e.getMessage());
         errorBody.put("status", HttpServletResponse.SC_UNAUTHORIZED);
 

@@ -1,15 +1,12 @@
 package com.ggteam.single.api.account.jwt.filter;
 
-import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ggteam.single.api.account.entity.Account;
 import com.ggteam.single.api.account.jwt.service.JwtService;
 import com.ggteam.single.api.account.repository.AccountRepository;
-import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
