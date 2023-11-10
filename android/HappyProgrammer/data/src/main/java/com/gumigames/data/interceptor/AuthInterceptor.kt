@@ -36,7 +36,8 @@ class AuthInterceptor(
     private val preferenceDataSource: PreferenceDataSource,
 ): Interceptor {
     private val gson = Gson()
-    private val client = OkHttpClient.Builder().build()
+    private val client = OkHttpClient.Builder()
+        .addInterceptor(HttpLoggingInterceptor()).build()
 
     override fun intercept(chain: Interceptor.Chain): Response {
         Log.d(TAG, "현재 accessToken : ${getAccessToken()}")
@@ -51,19 +52,12 @@ class AuthInterceptor(
                 //ACCESS TOKEN 만료
                 ACCESS_TOKEN_EXPIRED -> {
                     Log.d(TAG, "access token 만료")
-//                    val result = Retrofit.Builder()
-//                        .baseUrl(BASE_URL)
-//                        .addConverterFactory(GsonConverterFactory.create())
-//                        .build()
-//                        .create(UserService::class.java).get("Bearer ${it}")
-
-                    val newAccessToken = getAccessTokenWithRefresh(accessToken).getOrElse {
+                    val newAuthResponse = getAccessTokenWithRefresh(accessToken).getOrElse {
                         Log.d(TAG, "getAccessTokenWithREfersh에서 else로 빠짐")
                         throw IOException(it)
                     }
-//                    val newAccessToken = getAccessTokenWithRefresh(accessToken).getOrElse { return response }
                     response.closeQuietly()
-                    return chain.proceed(chain.request().newBuilder().addHeader(AUTHORIZATION, BEARER + newAccessToken).build()) //재발급 받은 ACCESS TOKEN 헤더에 넣고 최초에 시도했던 통신 재개
+                    return chain.proceed(chain.request().newBuilder().addHeader(AUTHORIZATION, BEARER + newAuthResponse.accessToken).build()) //재발급 받은 ACCESS TOKEN 헤더에 넣고 최초에 시도했던 통신 재개
                 }
                 NO_APPLY_TOKEN ->{}
                 NO_SIGNATURE_TOKEN -> {}
@@ -86,17 +80,14 @@ class AuthInterceptor(
     }
 
     //Refresh 토큰으로 AccessToken 재발급
-    private fun getAccessTokenWithRefresh(accessToken: String): Result<String> {
+    private fun getAccessTokenWithRefresh(accessToken: String): Result<AuthResponse> {
         val request = createRefreshRequest()
-
-//        val auth: AuthResponse = requestRefresh(request).get
-
         val auth: AuthResponse = requestRefresh(request).getOrElse {
             Log.d(TAG, "getAccessTokenWithRefresh 실패 : $it")
             return Result.failure(it)
         }
         storeToken(auth.accessToken, auth.refreshToken)
-        return Result.success(BEARER + auth.accessToken)
+        return Result.success(auth)
     }
 
     private fun createRefreshRequest(): Request {
@@ -116,11 +107,11 @@ class AuthInterceptor(
             withContext(Dispatchers.IO) { client.newCall(request).execute() } //재발급 하는 통신 실행
         }
         if (response.isSuccessful) { //재발급 성공
-            Log.d(TAG, "access-token 재발급 성공")
             return Result.success(response.getDto<AuthResponse>()) // 새로운 AuthResponse 반환
         }
-        val errorCode = parseErrorResponse(response.body).errorCode
-        when(errorCode){
+        val errorResponse = parseErrorResponse(response.body)
+        Log.d(TAG, "requestRefresh errorResponse : $errorResponse")
+        when(errorResponse.errorCode){
             REFRESH_TOKEN_EXPIRED -> return Result.failure(NetworkThrowable.RefreshExpireThrowable())
         }
         return Result.failure(IllegalStateException(REFRESH_FAILURE))
@@ -131,7 +122,7 @@ class AuthInterceptor(
     }
 
     private fun getRefreshToken(): String {
-        return requireNotNull(preferenceDataSource.getRefreshToken()) { NO_REFRESH_TOKEN }
+        return requireNotNull(preferenceDataSource.getRefreshToken()) ?: ""
     }
 
     private fun storeToken(accessToken: String, refreshToken: String) {
@@ -157,7 +148,6 @@ class AuthInterceptor(
 
         private const val BEARER = "Bearer "
 
-        private const val NO_REFRESH_TOKEN = "리프레시 토큰이 없습니다"
         private const val REFRESH_FAILURE = "토큰 리프레시 실패"
 
         private const val ACCESS_TOKEN_EXPIRED = "Auth001"

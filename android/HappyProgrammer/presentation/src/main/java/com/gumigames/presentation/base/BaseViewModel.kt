@@ -27,10 +27,20 @@ abstract class BaseViewModel: ViewModel() {
     ){
         viewModelScope.launch {
             try {
-                val response = block()
-                success(response)
+                success(block())
             }catch (e: IOException){
                 Log.d(TAG, "getApiResult error : ${e.cause}")
+                val throwable = e.cause
+                if (throwable is NetworkThrowable) {
+                    if(throwable is NetworkThrowable.RefreshExpireThrowable){
+                        Log.d(TAG, "getApiResult: 이거 나오면 진짜 끝")
+                        _isExpiredRefreshToken.emit(true)
+                    }else{
+                        _error.emit(throwable)
+                    }
+                }else {
+                    _error.emit(NetworkThrowable.NetworkErrorThrowable())
+                }
             }catch (throwable: Throwable){
                 Log.d(TAG, "getApiResult throwable : $throwable")
                 if (throwable is NetworkThrowable) {

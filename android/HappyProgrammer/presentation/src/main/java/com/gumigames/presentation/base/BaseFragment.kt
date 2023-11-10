@@ -84,7 +84,7 @@ abstract class BaseFragment<B : ViewBinding>(
             //REFRESH TOKEN 만료 시 로그 아웃
             viewModel.isExpiredRefreshToken.collectLatest {
                 if(it) {
-                    Log.d(TAG, "collectErrorAndToken 들어옴")
+                    Log.d(TAG, "여기서 로그아웃 로직 수행하면 됨")
                     findNavController().navigate(R.id.loginFragment, null, navOptions{
                         popUpTo(R.id.homeFragment){
                             inclusive = true
