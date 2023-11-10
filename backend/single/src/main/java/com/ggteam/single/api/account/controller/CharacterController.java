@@ -20,7 +20,7 @@ public class CharacterController {
     private final CharacterService characterService;
 
     // 내 캐릭터 정보 가져오기
-    @GetMapping("/")
+    @GetMapping("/my")
     @Operation(summary = "캐릭터 정보", description = "내 캐릭터 정보를 가져온다. 로그인 상태(토큰필요)에서 요청 시 정보를 줌")
     public ResponseEntity<?> myCharacter(Principal principal) {
         return characterService.myCharacter(principal.getName());
