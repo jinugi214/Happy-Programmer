@@ -140,7 +140,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 
                     final Map<String, Object> body = new HashMap<>();
                     body.put("description", "refresh token 및 access token 재발급 완료");
-                    body.put("refreshToken", refreshToken);
+                    body.put("refreshToken", reIssuedRefreshToken);
                     body.put("accessToken", accessToken);
                     body.put("status", HttpServletResponse.SC_OK);
 
