@@ -33,13 +33,6 @@ public class CharacterMovement : MonoBehaviour
 
     public void ProcessInput(float moveX, float moveY)
     {
-        // 인벤토리가 열려있는 경우 움직임 중단
-        if (inventoryUI.IsInventoryOpen())
-        {
-            movement = Vector2.zero;
-            return;
-        }
-
         if (moveX != 0 && moveY != 0)
         {
             if (Mathf.Abs(moveX) > Mathf.Abs(moveY))
@@ -49,10 +42,10 @@ public class CharacterMovement : MonoBehaviour
         }
 
         movement = new Vector2(moveX, moveY).normalized * moveSpeed;
-        if (movement != Vector2.zero) // 캐릭터가 움직이는 경우에만 lastDirection을 업데이트
-        {
-            lastDirection = movement;
-        }
+        if (movement != Vector2.zero) // 캐릭터가 움직이는 경우에만 lastDirection을 업데이트합니다.
+    {
+        lastDirection = movement;
+    }
     }
 
     public void SetRunning(bool isRunning)
