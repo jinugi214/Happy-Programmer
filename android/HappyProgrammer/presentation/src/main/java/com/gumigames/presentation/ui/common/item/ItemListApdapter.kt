@@ -3,6 +3,7 @@ package com.gumigames.presentation.ui.common.item
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +28,7 @@ class ItemListApdapter: ListAdapter<ItemDto, ItemListApdapter.ItemListHolder>(
     inner class ItemListHolder(private val binding: ItemDogamBinding): RecyclerView.ViewHolder(binding.root){
         fun bindInfo(item : ItemDto){
             binding.apply {
+                binding.item = item
                 if(item.imageBitmap!=null) imageItem.setImageBitmap(item.imageBitmap)
                 else imageItem.setImageResource(R.drawable.image_tool_profile) //TODO 추후에 로딩 이미지로 바꿔라
                 imageItem.setOnClickListener {
@@ -36,7 +38,8 @@ class ItemListApdapter: ListAdapter<ItemDto, ItemListApdapter.ItemListHolder>(
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemListHolder {
-        val binding = ItemDogamBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = DataBindingUtil.bind<ItemDogamBinding>(parent)!!
+//        val binding = ItemDogamBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemListHolder(binding)
     }
 
