@@ -62,6 +62,8 @@ public class MiniGameManager : MonoBehaviour
                 return;
             case 1:
                 // 여기에 원거리 공격이나 근접공격이 되도록 넣어야... 하는데~
+                // Set 어쩌고로 애니메이션 바꾸고
+                // 공격 함수 가져와서 캐릭터에게 대미지 입히기
                 return;
         }
     }
