@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.io.IOException
 import kotlin.math.log
 
 private const val TAG = "차선호"
@@ -26,7 +27,10 @@ abstract class BaseViewModel: ViewModel() {
     ){
         viewModelScope.launch {
             try {
-                success(block())
+                val response = block()
+                success(response)
+            }catch (e: IOException){
+                Log.d(TAG, "getApiResult error : ${e.cause}")
             }catch (throwable: Throwable){
                 Log.d(TAG, "getApiResult throwable : $throwable")
                 if (throwable is NetworkThrowable) {
