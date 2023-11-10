@@ -7,8 +7,8 @@ import android.net.NetworkCapabilities
 
 fun isConnectingNetwork(
     context: Context,
-    onConnect: () -> Unit,
-    onNotConnect: () -> Unit
+    onConnect: () -> Unit, //연결되어 있을 때 진행할 함수
+    onNotConnect: () -> Unit //연결되어 있지 않을 때 진행할 함수
 ){
     val connectivityManager: ConnectivityManager =
         context.getSystemService(ConnectivityManager::class.java)

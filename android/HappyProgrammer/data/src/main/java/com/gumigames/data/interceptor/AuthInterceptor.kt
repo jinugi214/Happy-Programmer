@@ -52,7 +52,7 @@ class AuthInterceptor(
                 //ACCESS TOKEN 만료
                 ACCESS_TOKEN_EXPIRED -> {
                     Log.d(TAG, "access token 만료")
-                    val newAuthResponse = getAccessTokenWithRefresh(accessToken).getOrElse {
+                    val newAuthResponse = getAccessTokenWithRefresh().getOrElse {
                         Log.d(TAG, "getAccessTokenWithREfersh에서 else로 빠짐")
                         throw IOException(it)
                     }
@@ -81,7 +81,7 @@ class AuthInterceptor(
     }
 
     //Refresh 토큰으로 AccessToken 재발급
-    private fun getAccessTokenWithRefresh(accessToken: String): Result<AuthResponse> {
+    private fun getAccessTokenWithRefresh(): Result<AuthResponse> {
         val request = createRefreshRequest()
         val auth: AuthResponse = requestRefresh(request).getOrElse {
             Log.d(TAG, "getAccessTokenWithRefresh 실패 : $it")
