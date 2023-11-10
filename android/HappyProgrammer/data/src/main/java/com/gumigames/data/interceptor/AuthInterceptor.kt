@@ -6,9 +6,11 @@ import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.gumigames.data.BuildConfig
+import com.gumigames.data.BuildConfig.BASE_URL
 import com.gumigames.data.datasource.sharedpreference.PreferenceDataSource
 import com.gumigames.data.model.response.basic.AuthResponse
 import com.gumigames.data.model.response.basic.ErrorResponse
+import com.gumigames.data.service.UserService
 import com.gumigames.domain.model.user.LoginDto
 import com.gumigames.domain.util.NetworkThrowable
 import com.gumigames.domain.util.getValueOrThrow
@@ -24,6 +26,9 @@ import okhttp3.Response
 import okhttp3.ResponseBody
 import okhttp3.internal.closeQuietly
 import okhttp3.logging.HttpLoggingInterceptor
+import okio.IOException
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 private const val TAG = "차선호"
@@ -46,7 +51,16 @@ class AuthInterceptor(
                 //ACCESS TOKEN 만료
                 ACCESS_TOKEN_EXPIRED -> {
                     Log.d(TAG, "access token 만료")
-                    val newAccessToken = getAccessTokenWithRefresh(accessToken).getOrThrow()
+//                    val result = Retrofit.Builder()
+//                        .baseUrl(BASE_URL)
+//                        .addConverterFactory(GsonConverterFactory.create())
+//                        .build()
+//                        .create(UserService::class.java).get("Bearer ${it}")
+
+                    val newAccessToken = getAccessTokenWithRefresh(accessToken).getOrElse {
+                        Log.d(TAG, "getAccessTokenWithREfersh에서 else로 빠짐")
+                        throw IOException(it)
+                    }
 //                    val newAccessToken = getAccessTokenWithRefresh(accessToken).getOrElse { return response }
                     response.closeQuietly()
                     return chain.proceed(chain.request().newBuilder().addHeader(AUTHORIZATION, BEARER + newAccessToken).build()) //재발급 받은 ACCESS TOKEN 헤더에 넣고 최초에 시도했던 통신 재개
