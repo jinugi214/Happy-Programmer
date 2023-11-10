@@ -13,13 +13,15 @@ public class ItemWithFavoriteResponse {
     private String description;
     private String imgPath;
     private boolean isFavorite;
+    private boolean isOwned;
 
-    public ItemWithFavoriteResponse(Item entity, boolean isFavorite){
+    public ItemWithFavoriteResponse(Item entity, boolean isFavorite, boolean isOwned){
         this.id = entity.getId();
         this.name = entity.getName();
         this.description = entity.getDescription();
         this.imgPath = entity.getImgPath();
         this.isFavorite = isFavorite;
+        this.isOwned = isOwned;
     }
 
 }

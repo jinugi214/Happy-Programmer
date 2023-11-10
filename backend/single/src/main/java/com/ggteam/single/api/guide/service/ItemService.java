@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.ggteam.single.api.account.entity.Character;
+import com.ggteam.single.api.guide.entity.Inventory;
+import com.ggteam.single.api.guide.repository.InventoryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,7 +39,8 @@ public class ItemService {
 		return itemRepository.findAll().stream()
 				.map(item -> {
 					boolean isFavorite = checkItemFavorite(account, item);
-					return new ItemWithFavoriteResponse(item, isFavorite);
+					boolean isOwned = checkItemOwned(account, item);
+					return new ItemWithFavoriteResponse(item, isFavorite, isOwned);
 				})
 				.collect(Collectors.toList());
 	}
@@ -49,6 +53,14 @@ public class ItemService {
 		}
 	}
 
+	private boolean checkItemOwned(Account account, Item item) {
+		List<Inventory> itemList = account.getCharacter().getInventoryList();
+		if (itemList.contains(item)) {
+			return true;
+		}
+		return false;
+	}
+
 	// 아이템 검색하기
 	@Transactional(readOnly = true)
 	public List<ItemWithFavoriteResponse> findItemListByKeyword(String username, String keyword) {
@@ -58,12 +70,13 @@ public class ItemService {
 		return itemRepository.findByNameContaining(keyword).stream()
 			.map(item -> {
 				boolean isFavorite = checkItemFavorite(account, item);
-				return new ItemWithFavoriteResponse(item, isFavorite);
+				boolean isOwned = checkItemOwned(account, item);
+				return new ItemWithFavoriteResponse(item, isFavorite, isOwned);
 			})
 			.collect(Collectors.toList());
 	}
 
-	// 즐겨찾기한 아이템 리스트 가져오기
+	// 즐겨찾기한 아이템 리스트 가져오기(소유한 아이템인지 구별필요)
 	@Transactional
 	public List<ItemResponse> findItemFavoriteListByAccount(String username){
 		Account account = accountRepository.findByUsername(username)
