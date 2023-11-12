@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-
 @Getter
 @Builder
 @AllArgsConstructor
@@ -19,7 +17,7 @@ public class CharacterDto {
     private int level;
     private int point;
     private int storyProgress;
-    private int savepoint;
+    private String savepoint;
     private String imgPath;
 
 }
