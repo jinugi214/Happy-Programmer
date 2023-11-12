@@ -7,10 +7,12 @@ import com.ggteam.single.api.account.repository.CharacterRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.transaction.Transactional;
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -19,6 +21,7 @@ import java.util.List;
 public class CharacterService {
 
     private final CharacterRepository characterRepository;
+    private final AccountRepository accountRepository;
 
     public ResponseEntity<?> myCharacter(String username) {
         Character character = characterRepository.findByAccount_Username(username).orElseThrow(null);
@@ -37,10 +40,12 @@ public class CharacterService {
         return ResponseEntity.ok(characterDto);
     }
 
-    public ResponseEntity<?> saveCharater(@RequestBody CharacterDto characterDto) {
-        if (characterRepository.count() > 2) {
+    public ResponseEntity<?> saveCharater(@RequestBody CharacterDto characterDto, UserDetails userDetails) {
+        if (characterRepository.count() >= 2) {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("더 이상 캐릭터를 생성할 수 없습니다.");
         }
+        String username = userDetails.getUsername();
+
         Character character = Character.builder()
                 .name(characterDto.getName())
                 .gender(characterDto.getGender())
@@ -49,6 +54,7 @@ public class CharacterService {
                 .point(characterDto.getPoint())
                 .savepoint(characterDto.getSavepoint())
                 .imgPath(characterDto.getImgPath())
+                .account(accountRepository.findByUsername(username).orElseThrow(NullPointerException::new))
                 .build();
         characterRepository.save(character);
 

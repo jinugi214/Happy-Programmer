@@ -1,15 +1,12 @@
 package com.ggteam.single.api.account.jwt.filter;
 
-import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ggteam.single.api.account.entity.Account;
 import com.ggteam.single.api.account.jwt.service.JwtService;
 import com.ggteam.single.api.account.repository.AccountRepository;
-import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
@@ -38,6 +35,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         acceptPath.add("/api/account/sign-up");
         acceptPath.add("/swagger-ui/**");
         acceptPath.add("/v3/api-docs/**");
+        acceptPath.add("/api/account/check/**");
     }
 
     private final JwtService jwtService;
@@ -142,7 +140,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 
                     final Map<String, Object> body = new HashMap<>();
                     body.put("description", "refresh token 및 access token 재발급 완료");
-                    body.put("refreshToken", refreshToken);
+                    body.put("refreshToken", reIssuedRefreshToken);
                     body.put("accessToken", accessToken);
                     body.put("status", HttpServletResponse.SC_OK);
 
