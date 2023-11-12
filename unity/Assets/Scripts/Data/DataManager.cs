@@ -22,7 +22,7 @@ public class CharacterData
     public int exp;
     public int level;
     public int point;
-    public int savepoint;
+    public string savepoint;
     public int storyProgress;
     // 인벤토리, 장착 아이템, 도전과제 등 추가하기
 
@@ -78,15 +78,15 @@ public class DataManager : MonoBehaviour
         set { characterData = value; }
     }
 
-    public void LoadCharacterData(string name, string gender, int exp, int level,
-                         int point, int savepoint, int storyProgress)
+
+    public void LoadCharacterData(CharacterData characterLoadData)
     {
-        characterData.name = name;
-        characterData.gender = gender;
-        characterData.exp = exp;
-        characterData.level = level;
-        characterData.point = point;
-        characterData.savepoint = savepoint;
-        characterData.storyProgress = storyProgress;
+        characterData.name = characterLoadData.name;
+        characterData.gender = characterLoadData.gender;
+        characterData.exp = characterLoadData.exp;
+        characterData.level = characterLoadData.level;
+        characterData.point = characterLoadData.point;
+        characterData.savepoint = characterLoadData.savepoint;
+        characterData.storyProgress = characterLoadData.storyProgress;
     }
 }
