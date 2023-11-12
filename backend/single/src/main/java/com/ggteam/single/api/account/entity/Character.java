@@ -32,7 +32,7 @@ public class Character {
     @ColumnDefault("1")
     private int level;
 
-    private int savepoint;
+    private String savepoint;
 
     private int point;
 
@@ -47,4 +47,13 @@ public class Character {
     @OneToMany(mappedBy = "character")
     private List<Inventory> inventoryList = new ArrayList<>();
 
+    // 게임 저장시 캐릭터 업데이트
+    public void updateCharacter(int exp, int level, String savepoint, int point, int storyProgress, String imgPath){
+        this.exp = exp;
+        this.level = level;
+        this.savepoint = savepoint;
+        this.point = point;
+        this.storyProgress = storyProgress;
+        this.imgPath = imgPath;
+    }
 }
