@@ -30,7 +30,7 @@ public class ShortcutKey : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (gameSetting != null)
+            if (gameSetting != null && !gameSave.activeSelf)
             {
                 gameSetting.SetActive(!gameSetting.activeSelf);
             }
@@ -38,14 +38,14 @@ public class ShortcutKey : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.S))
         {
-            if (gameSave != null)
+            if (gameSave != null && !gameSetting.activeSelf)
             {
                 gameSave.SetActive(!gameSave.activeSelf);
             }
         }
         else if (Input.GetKeyDown(KeyCode.S) && Input.GetKey(KeyCode.LeftControl))
         {
-            if (gameSave != null)
+            if (gameSave != null && !gameSetting.activeSelf)
             {
                 gameSave.SetActive(!gameSave.activeSelf);
             }
