@@ -6,27 +6,12 @@ public class CharacterAnimation : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Vector2 lastmovement;
     private CharacterAppear characterAppear;
-    public AudioClip walkSound;  // 걷기 효과음
-    public AudioClip runSound;  // 뛰기 효과음
-    public AudioClip attackSound;  // 공격 효과음
-    public AudioSource attackAudioSource;   // 공격 효과음
-    public AudioSource walkAudioSource;  // 걷기 효과음
-    public AudioSource runAudioSource;   // 뛰기 효과음
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         characterAppear = GetComponent<CharacterAppear>();
-        // audioSource = GetComponent<AudioSource>();
-        walkAudioSource = gameObject.AddComponent<AudioSource>();
-        walkAudioSource.clip = walkSound;
-
-        runAudioSource = gameObject.AddComponent<AudioSource>();
-        runAudioSource.clip = runSound;
-
-        attackAudioSource = gameObject.AddComponent<AudioSource>();
-        attackAudioSource.clip = attackSound;
     }
 
     public void SetMoveAnimation(Vector2 movement, bool isRunning)
@@ -42,20 +27,12 @@ public class CharacterAnimation : MonoBehaviour
                 animator.SetBool("Run", true);
                 animator.SetBool("Walk", false);
                 animator.SetBool("Stand", false);
-                if (!runAudioSource.isPlaying)
-                {
-                    runAudioSource.Play();
-                }
             }
             else // 걸을 때
             {
                 animator.SetBool("Stand", false);
                 animator.SetBool("Run", false);
                 animator.SetBool("Walk", true);
-                if (!walkAudioSource.isPlaying)
-                {
-                    walkAudioSource.Play();
-                }
             }
 
         }
@@ -78,19 +55,17 @@ public class CharacterAnimation : MonoBehaviour
 
     public void SetAttackAnimation(bool isAttacking, int weaponType)
     {
-        if (isAttacking && characterAppear.IsWeaponEquipped())
+        if (isAttacking)
         {
             animator.SetBool("Attack", true);
             animator.SetInteger("Weapon", weaponType);
-            // audioSource.PlayOneShot(attackSound); // 공격 애니메이션 시작시 효과음 재생
-            attackAudioSource.volume = 0.2f;
-        attackAudioSource.Play();
         }
         else
         {
             animator.SetBool("Attack", false);
         }
     }
+
 
 }
 
