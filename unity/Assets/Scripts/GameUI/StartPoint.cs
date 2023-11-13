@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StartPoint : MonoBehaviour
 {
-    public string startPoint; // ¸ÊÀÌ ÀÌµ¿, ÇÃ·¹ÀÌ¾î°¡ ½ÃÀÛµÉ À§Ä¡
+    public string startPoint; // ë§µì´ ì´ë™, í”Œë ˆì´ì–´ê°€ ì‹œì‘ë  ìœ„ì¹˜
     private CharacterMovement thePlayer;
     private CameraManager theCamera;
 
