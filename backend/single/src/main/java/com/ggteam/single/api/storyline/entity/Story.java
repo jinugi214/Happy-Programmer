@@ -17,5 +17,5 @@ public class Story {
     private Integer id;
 
     private String name;
-    private boolean isClear;
+    private String description;
 }
