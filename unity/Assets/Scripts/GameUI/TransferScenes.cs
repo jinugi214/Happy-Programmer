@@ -6,14 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class TransferScences : MonoBehaviour
 {
-    public string transferMapName; // ÀÌµ¿ÇÒ ¸ÊÀÇ ÀÌ¸§
+    public string transferMapName; // ì´ë™í•  ë§µì˜ ì´ë¦„
 
     private CharacterMovement thePlayer;
 
     void Start()
     {
-        thePlayer = FindAnyObjectByType<CharacterMovement>(); // ¸ğµç °´Ã¼ ÂüÁ¶
-        // GetComponent ´ÜÀÏ °´Ã¼
+        thePlayer = FindAnyObjectByType<CharacterMovement>(); // ëª¨ë“  ê°ì²´ ì°¸ì¡°
+        // GetComponent ë‹¨ì¼ ê°ì²´
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

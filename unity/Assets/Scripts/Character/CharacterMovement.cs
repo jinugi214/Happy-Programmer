@@ -1,12 +1,8 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class CharacterMovement : MonoBehaviour
 {
-    static public CharacterMovement instance;
-
-    public string currentMapName; // transferMap 스크립트에 있는 transferMapName 변수의 값을 저장.
-
+    public string currentMapName;
     public float moveSpeed = 5f; // 이동 속도 설정    
     public float runMultiplier = 2f; // 달리기 배율
     public InventoryUI inventoryUI; // 인벤토리
@@ -17,23 +13,22 @@ public class CharacterMovement : MonoBehaviour
 
     private CharacterAnimation characterAnimation;
 
-    private void Start() 
+
+    private void Start()
     {
-        if (instance == null)
-        {
-            DontDestroyOnLoad(this.gameObject);
-            rb = GetComponent<Rigidbody2D>();
-            characterAnimation = GetComponent<CharacterAnimation>();
-            instance = this;
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
+        rb = GetComponent<Rigidbody2D>();
+        characterAnimation = GetComponent<CharacterAnimation>();
     }
 
     public void ProcessInput(float moveX, float moveY)
     {
+        // 인벤토리가 열려있는 경우 움직임 중단
+        if (inventoryUI.IsInventoryOpen())
+        {
+            movement = Vector2.zero;
+            return;
+        }
+
         if (moveX != 0 && moveY != 0)
         {
             if (Mathf.Abs(moveX) > Mathf.Abs(moveY))
@@ -43,10 +38,10 @@ public class CharacterMovement : MonoBehaviour
         }
 
         movement = new Vector2(moveX, moveY).normalized * moveSpeed;
-        if (movement != Vector2.zero) // 캐릭터가 움직이는 경우에만 lastDirection을 업데이트합니다.
-    {
-        lastDirection = movement;
-    }
+        if (movement != Vector2.zero) // 캐릭터가 움직이는 경우에만 lastDirection을 업데이트
+        {
+            lastDirection = movement;
+        }
     }
 
     public void SetRunning(bool isRunning)
@@ -73,6 +68,7 @@ public class CharacterMovement : MonoBehaviour
             // 아이템을 인벤토리에 추가
             ItemPickup itemPickup = collision.gameObject.GetComponent<ItemPickup>();
 
+
             if (itemPickup != null)
             {
                 inventoryUI.AcquireItem(itemPickup.item);
@@ -81,8 +77,4 @@ public class CharacterMovement : MonoBehaviour
             }
         }
     }
-
-
-
-
 }
