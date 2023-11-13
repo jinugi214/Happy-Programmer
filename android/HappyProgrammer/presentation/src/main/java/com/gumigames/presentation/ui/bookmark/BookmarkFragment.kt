@@ -44,7 +44,7 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(
     }
 
     private fun init(){
-        bookmarkViewModel.getAllBookmarkItemsLocal()
+        bookmarkViewModel.getAllBookmarkItemsLocal{itemListAdapter.currentList}
         itemListAdapter = ItemListApdapter()
         skillListAdapter = SkillListAdapter()
         monsterListAdapter = MonsterListAdapter()
@@ -69,7 +69,7 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(
                 if(bookmarkViewModel.getItemClickListenerEnabled()) {
                     bookmarkViewModel.setItemClickListenerEnabled(false) // 클릭 이벤트 비활성화(다른 아이템 클릭 못하도록)
                     //해당 아이템 클릭 이벤트
-                    bookmarkViewModel.setSelectedBookmarkItem(item)
+                    bookmarkViewModel.setSelectedBookmarkItem(position, item)
                 }
             }
         }
@@ -104,7 +104,7 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(
                         //아이템 조회
                         0 -> {
                             binding.recyclerviewBookmark.adapter = itemListAdapter
-                            bookmarkViewModel.getAllBookmarkItemsLocal()
+                            bookmarkViewModel.getAllBookmarkItemsLocal{itemListAdapter.currentList}
                             bookmarkViewModel.setCurrentTab("item")
                         }
                         //스킬 조회
@@ -145,6 +145,12 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(
                         )
                         detailDialog.show(childFragmentManager, null)
                     }
+                }
+            }
+            //바뀐 아이템 리스트 관찰
+            viewLifecycleOwner.lifecycleScope.launch {
+                newItemList.collectLatest {
+                    itemListAdapter.submitList(it)
                 }
             }
             //현재 북마크 스킬 리스트 관찰

@@ -61,18 +61,39 @@ class BookmarkViewModel @Inject constructor(
     //현재 선택된 아이템
     private var _selectedBookmarkItem = MutableStateFlow<ItemDto?>(null)
     val selectedBookmarkItem = _selectedBookmarkItem.asStateFlow()
-    fun setSelectedBookmarkItem(item: ItemDto?){
+    private var _selectedItemPosition = MutableStateFlow<Int?>(null)
+    val selectedItemPosition = _selectedItemPosition.asStateFlow()
+    fun setSelectedBookmarkItem(position: Int, item: ItemDto?){
         viewModelScope.launch {
             _selectedBookmarkItem.emit(item)
+            _selectedItemPosition.emit(position)
         }
     }
 
     //전체 아이템 조회
-    fun getAllBookmarkItemsLocal(){
+    private var itemListAdapterListProvider: (() -> List<ItemDto>)? = null
+    fun getItemListAdapterList(): List<ItemDto> {
+        return itemListAdapterListProvider?.invoke() ?: emptyList()
+    }
+    fun getAllBookmarkItemsLocal(
+        adapterListProvider: () -> List<ItemDto>
+    ){
+        itemListAdapterListProvider = adapterListProvider
         viewModelScope.launch {
             _currentBookmarkItemList.emit(getAllBookmarkItemsLocalUseCase.invoke())
             _currentBookmarkSkillList.emit(listOf())
             _currentBookmarkMonsterList.emit(listOf())
+        }
+    }
+
+    //현재 아이템 리스트
+    private var _newItemList = MutableStateFlow<List<ItemDto>>(listOf())
+
+    val newItemList = _newItemList.asStateFlow()
+
+    fun updateItemListAdapter(list: List<ItemDto>){
+        viewModelScope.launch {
+            _newItemList.emit(list)
         }
     }
 
