@@ -77,9 +77,17 @@ interface DogamRepository {
      */
     suspend fun getAllBookmarkSkillsLocal(): List<SkillDto>
     /**
+     * 즐겨찾기 토글
+     */
+    suspend fun toggleBookmarkSkill(skillId: Int): Boolean
+    /**
      * 즐겨찾기 스킬 로컬에 저장
      */
     suspend fun addBookmarkSkillLocal(skillId: Int)
+    /**
+     * 즐겨찾기 스킬 로컬에 제거
+     */
+    suspend fun deleteBookmarkSkillLocal(skillId: Int)
 
 
     //////////////////////////////// 몬스터 ///////////////////////////////////////
@@ -111,7 +119,15 @@ interface DogamRepository {
      */
     suspend fun getAllBookmarkMonstersLocal(): List<MonsterDto>
     /**
-     * 즐겨찾기 몬스터 조회
+     * 즐겨찾기 토글
+     */
+    suspend fun toggleBookmarkMonster(monsterId: Int): Boolean
+    /**
+     * 즐겨찾기 몬스터 추가
      */
     suspend fun addBookmarkMonsterLocal(monsterId: Int)
+    /**
+     * 즐겨찾기 몬스터 로컬에 제거
+     */
+    suspend fun deleteBookmarkMonsterLocal(monsterId: Int)
 }

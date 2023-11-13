@@ -32,6 +32,8 @@ class MonsterListAdapter: ListAdapter<MonsterDto, MonsterListAdapter.MonsterList
                 imageItem.setOnClickListener {
                     itemClickListner.onClick(it, monster)
                 }
+                if(monster.isBookmarked) imageBookmark.visibility = View.VISIBLE
+                else imageBookmark.visibility = View.GONE
             }
         }
     }

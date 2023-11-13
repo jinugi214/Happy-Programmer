@@ -32,6 +32,8 @@ class ItemListApdapter: ListAdapter<ItemDto, ItemListApdapter.ItemListHolder>(
                 imageItem.setOnClickListener {
                     itemClickListner.onClick(it, item)
                 }
+                if(item.isBookmarked) imageBookmark.visibility = View.VISIBLE
+                else imageBookmark.visibility = View.GONE
             }
         }
     }

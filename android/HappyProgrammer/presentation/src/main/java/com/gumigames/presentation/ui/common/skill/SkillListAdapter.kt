@@ -32,6 +32,8 @@ class SkillListAdapter: ListAdapter<SkillDto, SkillListAdapter.SkillrListHolder>
                 imageItem.setOnClickListener {
                     itemClickListner.onClick(it, skill)
                 }
+                if(skill.isBookmarked) imageBookmark.visibility = View.VISIBLE
+                else imageBookmark.visibility = View.GONE
             }
         }
     }
