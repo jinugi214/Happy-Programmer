@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <data>
-        <import type="android.view.View" />
-        <variable
-            name="item"
-            type="com.gumigames.domain.model.common.ItemDto" />
-    </data>
 <com.gumigames.presentation.util.SquareFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -31,8 +24,6 @@
         android:src="@drawable/image_selected_bookmark"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/_2sdp"
-        android:layout_marginBottom="@dimen/_2sdp"
-        android:visibility="@{item.isBookmarked ? View.VISIBLE : View.GONE}"/>
+        android:layout_marginBottom="@dimen/_2sdp"/>
 
 </com.gumigames.presentation.util.SquareFrameLayout>
-</layout>
