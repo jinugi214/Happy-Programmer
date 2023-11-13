@@ -42,9 +42,7 @@ public class CharacterService {
     }
 
     public ResponseEntity<?> saveCharacter(CharacterDto characterDto, Principal principal) {
-        if (characterRepository.count() >= 1) {
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("더 이상 캐릭터를 생성할 수 없습니다.");
-        }
+
         String username = principal.getName();
         System.out.println(username);
 
