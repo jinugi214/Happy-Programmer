@@ -12,6 +12,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     Optional<Account> findByUsername(String username);
     Optional<Account> findByNickname(String nickname);
     Optional<Account> findByRefreshToken(String refreshToken);
-    void deleteByUsername(String ussername);
+    void deleteByUsername(String username);
 
 }
