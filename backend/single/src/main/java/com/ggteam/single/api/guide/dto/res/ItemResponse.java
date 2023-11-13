@@ -13,6 +13,7 @@ public class ItemResponse {
 	private String name;
 	private String description;
 	private String imgPath;
+	private boolean isOwned;
 
 	public ItemResponse(Item entity){
 		this.id = entity.getId();

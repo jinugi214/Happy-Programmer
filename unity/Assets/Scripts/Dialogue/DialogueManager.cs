@@ -37,8 +37,6 @@ public class DialogueManager : MonoBehaviour
 
     public bool talking = false;
 
-    private CharacterMovement thePlayer;
-
     // Start is called before the first frame update
     void Start()
     {
