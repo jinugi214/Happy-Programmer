@@ -87,31 +87,50 @@ class ItemDetailDialogFragment(
     private fun initCollect(){
         itemDetailDialogViewModel.apply {
             viewLifecycleOwner.lifecycleScope.launch {
-                currentIsBookmarked.collectLatest {
+                currentIsBookmarked.collectLatest { it ->
                     binding.buttonSelcetedBookmark.isEnabled = false
                     binding.buttonUnselcetedBookmark.isEnabled = false
                     Log.d(TAG, "toggle 결과 : $it")
                     if(it){
                         Log.d(TAG, "true 버튼 갱신")
                         if(dogamViewModel!=null){
-                            val newItemList = dogamViewModel.getItemListAdapterList().map { itemDto ->  itemDto.copy() } //각 객체들도 깊은 복사 필수
-                            newItemList[dogamViewModel.selectedItemPosition.value!!].isBookmarked = true
-                            dogamViewModel.updateItemListAdapter(newItemList)
+                            updateDogamList(
+                                value = true,
+                                list = dogamViewModel.getItemListAdapterList(),
+                                position = dogamViewModel.selectedItemPosition.value!!
+                            ){newList ->
+                                dogamViewModel.updateItemListAdapter(newList)
+                            }
                         }else{
-                            val newItemList = bookmarkViewModel!!.getItemListAdapterList().map { itemDto ->  itemDto.copy() }.toMutableList() //각 객체들도 깊은 복사 필수
-                            newItemList.add(bookmarkViewModel.selectedItemPosition.value!!, bookmarkViewModel.selectedBookmarkItem.value!!)
-                            bookmarkViewModel.updateItemListAdapter(newItemList)
+                            updateBookmarkList(
+                                value = true,
+                                list = bookmarkViewModel!!.getItemListAdapterList(),
+                                position = bookmarkViewModel.selectedItemPosition.value!!,
+                                item = bookmarkViewModel.selectedBookmarkItem.value
+                            ){newList ->
+                                bookmarkViewModel.updateItemListAdapter(newList)
+                            }
                         }
                         binding.buttonUnselcetedBookmark.visibility = View.GONE
                         binding.buttonSelcetedBookmark.visibility = View.VISIBLE
                     }else{
                         if(dogamViewModel!=null){
-                            val newItemList = dogamViewModel.getItemListAdapterList().map { itemDto ->  itemDto.copy() } //각 객체들도 깊은 복사 필수
-                            newItemList[dogamViewModel.selectedItemPosition.value!!].isBookmarked = false
-                            dogamViewModel.updateItemListAdapter(newItemList)
+                            updateDogamList(
+                                value = false,
+                                list = dogamViewModel.getItemListAdapterList(),
+                                position = dogamViewModel.selectedItemPosition.value!!
+                            ){newList ->
+                                dogamViewModel.updateItemListAdapter(newList)
+                            }
                         }else{
-                            val newItemList = bookmarkViewModel!!.getItemListAdapterList().filterIndexed { index, _ -> index != bookmarkViewModel.selectedItemPosition.value }.map { itemDto ->  itemDto.copy() } //각 객체들도 깊은 복사 필수
-                            bookmarkViewModel.updateItemListAdapter(newItemList)
+                            updateBookmarkList(
+                                value = false,
+                                list = bookmarkViewModel!!.getItemListAdapterList(),
+                                position = bookmarkViewModel.selectedItemPosition.value!!,
+                                item = null
+                            ){newList ->
+                                bookmarkViewModel.updateItemListAdapter(newList)
+                            }
                         }
                         Log.d(TAG, "false 버튼 갱신")
                         binding.buttonSelcetedBookmark.visibility = View.GONE
