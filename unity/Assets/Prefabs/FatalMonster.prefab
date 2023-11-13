@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 5358542941462465074}
   - component: {fileID: 8124651891006342990}
   - component: {fileID: 2246487862097441923}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FatalMonster
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -189,4 +189,8 @@ MonoBehaviour:
   health: 0
   maxHealth: 0
   speed: 2
+  monsterType: 0
+  monsterATK: 0
   target: {fileID: 0}
+  bulletPrefab: {fileID: 0}
+  attackRate: 2

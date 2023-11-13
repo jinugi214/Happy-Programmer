@@ -1,48 +1,70 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LoginManager : MonoBehaviour
 {
+
+    [System.Serializable]
+    private class LoginData
+    {
+        public string username;
+        public string password;
+    }
+
+    [System.Serializable]
+    private class AccountFirstResponse
+    {
+        public long accountId;
+        public string accessToken;
+        public string refreshToken;
+    }
+
+    [System.Serializable]
+    private class AccountSecondResponse
+    {
+        public string username;
+        public string nickname;
+        public string language;
+    }
+
+
+    private string url = "http://k9d210.p.ssafy.io:8081/api/account";
+
     public TMP_InputField username;
     public TMP_InputField password;
     public Button loginButton;
+    public GameObject dataManagerPrefab;
 
-
-    private void Start()
-    {
-        username = transform.Find("InputID").GetComponent<TMP_InputField>();
-        password = transform.Find("InputPW").GetComponent<TMP_InputField>();
-        loginButton = transform.Find("Login").Find("LoginBtn").GetComponent<Button>();
-    }
 
     public void OnLoginButtonClicked()
     {
-        string username = this.username.text;
-        string password = this.password.text;
-        StartCoroutine(Login(username, password));
+        string InputUsername = username.text;
+        string InputPassword = password.text;
+        if (string.IsNullOrEmpty(InputUsername) || string.IsNullOrEmpty(InputPassword))
+        {
+            Debug.LogError("아이디와 비밀번호를 모두 입력해주세요");
+            return;
+        }
+        LoginData loginData = new LoginData();
+        loginData.username = InputUsername;
+        loginData.password = InputPassword;
+        StartCoroutine(Login(loginData));
     }
 
-    IEnumerator Login(string username, string password)
+    IEnumerator Login(LoginData loginData)
     {
-        if (username == "" || password == "")
-        {
-            Debug.LogError("아이디와 패스워드를 모두 입력해주세요");
-            yield break;
-        }
-
+        
         // JSON으로 변환하기
-        string json = JsonUtility.ToJson(new { username = username, password = password });
-
-
-        string url = "http://k9d210.p.ssafy.io:8081/api/account/login";
+        string json = JsonUtility.ToJson(loginData);
 
         // POST 요청 보내기
-        using (UnityWebRequest www = new UnityWebRequest(url, "POST"))
+        using (UnityWebRequest www = new UnityWebRequest(url + "/login", "POST"))
         {
             // JSON 올바른지 확인해보기
             byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
@@ -63,14 +85,38 @@ public class LoginManager : MonoBehaviour
                 // 로그인 성공시 처리하는 로직
                 Debug.Log("로그인 성공");
                 string response = www.downloadHandler.text;
-                var data = JsonUtility.FromJson<Dictionary<string, string>>(response);
-                string accountId = data["acocuntId"];
-                StartCoroutine(ServerManager.instance.LoadCharacterData(accountId));
+                AccountFirstResponse account = JsonUtility.FromJson<AccountFirstResponse>(response);
+                Instantiate(dataManagerPrefab);
+                DataManager.instance.AccountData.accessToken = account.accessToken;
+                DataManager.instance.AccountData.refreshToken = account.refreshToken;
+                DataManager.instance.AccountData.accountId = account.accountId.ToString();
+                StartCoroutine(GetAccountInfo(account.accessToken));
+                SceneManager.LoadScene("GameStart");
+
             }
         }
     }
 
+    IEnumerator GetAccountInfo(string accessToken)
+    {
+        UnityWebRequest www = UnityWebRequest.Get(url + "/my/account");
+        www.SetRequestHeader("Authorization", "Bearer " + accessToken);
 
-   
+        yield return www.SendWebRequest();
 
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError(www.error);
+            Debug.Log("유저 정보를 가져오는 것에 실패했습니다.");
+        }
+        else
+        {
+            string response = www.downloadHandler.text;
+            AccountSecondResponse account = JsonUtility.FromJson<AccountSecondResponse>(response);
+            DataManager.instance.AccountData.username = account.username;
+            DataManager.instance.AccountData.nickname = account.nickname;
+            DataManager.instance.AccountData.language = account.language;
+            Debug.Log("유저 정보를 가져오는 것에 성공했습니다.");
+        }
+    }
 }
