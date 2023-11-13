@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -17,6 +18,7 @@ public class AccountData
 [System.Serializable]
 public class CharacterData
 {
+    public long id;
     public string name;
     public string gender;
     public int exp;
@@ -24,10 +26,8 @@ public class CharacterData
     public int point;
     public string savepoint;
     public int storyProgress;
-    // 인벤토리, 장착 아이템, 도전과제 등 추가하기
-
+    public List<Item> itemList;
 }
-
 
 public class DataManager : MonoBehaviour
 {

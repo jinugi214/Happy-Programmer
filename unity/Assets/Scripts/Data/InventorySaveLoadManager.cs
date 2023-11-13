@@ -4,15 +4,16 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
-public class SaveLoadManager {
+public class InventorySaveLoadManager
+{
 
-    string serverUrl = "http://k9d210.p.ssafy.io:8081/api/character";
+    string serverUrl = "http://k9d210.p.ssafy.io:8081/api/inventory";
     string accessToken;
 
-    // 캐릭터 게임 서버에 저장
-    public IEnumerator SaveCharacterData()
+    // 캐릭터의 인벤토리 게임 서버에 저장
+    public IEnumerator SaveInventoryData()
     {
-        // 캐릭터 데이터를 JSON으로 변환
+        // 인벤토리 데이터를 JSON으로 변환
         string json = JsonUtility.ToJson(DataManager.instance.CharacterData);
 
         // POST 요청 보내기
@@ -31,13 +32,13 @@ public class SaveLoadManager {
             }
             else
             {
-                Debug.Log("캐릭터 정보 저장이 성공하였습니다.");
+                Debug.Log("캐릭터의 인벤토리 저장이 성공하였습니다.");
             }
         }
     }
 
-    // 캐릭터 서버에서 불러오기
-    public IEnumerator LoadCharacterData()
+    // 캐릭터의 인벤토리 서버에서 불러오기
+    public IEnumerator LoadInventoryData()
     {
         accessToken = DataManager.instance.AccountData.accessToken;
 
@@ -67,4 +68,4 @@ public class SaveLoadManager {
             }
         }
     }
- }
+}

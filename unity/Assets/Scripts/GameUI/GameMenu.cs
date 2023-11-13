@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,8 +15,8 @@ public class GameMenu : MonoBehaviour
 
     public void OnLoadStartClicked()
     {
-        SaveLoadManager saveLoadManager = new SaveLoadManager();
-        StartCoroutine(saveLoadManager.LoadCharacterData());
+        CharacterSaveLoadManager characterSaveLoadManager = new CharacterSaveLoadManager();
+        StartCoroutine(characterSaveLoadManager.LoadCharacterData());
     }
 
     public void OnExitGameClicked()
