@@ -7,7 +7,6 @@ public class GameMenu : MonoBehaviour
     public Button newStart;
     public Button loadStart;
     public Button exitGame;
-
     public void OnNewStartClicked()
     {
         SceneManager.LoadScene("CharacterSetting");
@@ -17,6 +16,8 @@ public class GameMenu : MonoBehaviour
     {
         CharacterSaveLoadManager characterSaveLoadManager = new CharacterSaveLoadManager();
         StartCoroutine(characterSaveLoadManager.LoadCharacterData());
+        GamingPrefabs gamingPrefabs = new GamingPrefabs();
+        gamingPrefabs.InstantiatePrefabs();
     }
 
     public void OnExitGameClicked()

@@ -8,6 +8,7 @@ public class CharacterSaveLoadManager {
 
     string serverUrl = "http://k9d210.p.ssafy.io:8081/api/character";
     string accessToken;
+    public GameObject gamingPrefabs;
 
     // 캐릭터 게임 서버에 저장
     public IEnumerator SaveCharacterData()
@@ -61,7 +62,6 @@ public class CharacterSaveLoadManager {
                 CharacterData character = JsonUtility.FromJson<CharacterData>(response);
                 DataManager.instance.CharacterData = character;
                 SceneManager.LoadScene(DataManager.instance.CharacterData.savepoint);
-
                 Debug.Log(DataManager.instance.CharacterData.name + "가 접속하였습니다.");
                 Debug.Log("캐릭터 불러오기 성공");
             }

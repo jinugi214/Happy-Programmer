@@ -138,6 +138,8 @@ public class NewCharacterManager : MonoBehaviour
 
                 CharacterSaveLoadManager characterSaveLoadManager = new CharacterSaveLoadManager();
                 characterSaveLoadManager.LoadCharacterData();
+                GamingPrefabs gamingPrefabs = new GamingPrefabs();
+                gamingPrefabs.InstantiatePrefabs();
                 Debug.Log("캐릭터 생성 성공");
                 SceneManager.LoadScene("LobbyMap"); // 어디로 이동하지
             }
