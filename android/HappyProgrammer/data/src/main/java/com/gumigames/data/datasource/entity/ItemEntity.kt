@@ -11,5 +11,6 @@ data class ItemEntity(
     val name: String,
     val description: String,
     val imageBitmap: Bitmap?,
+    val owned: Boolean,
     val isBookmarked: Boolean
 )

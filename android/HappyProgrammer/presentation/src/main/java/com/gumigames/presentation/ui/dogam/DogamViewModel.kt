@@ -1,5 +1,6 @@
 package com.gumigames.presentation.ui.dogam
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.gumigames.domain.model.common.ItemDto
 import com.gumigames.domain.model.common.MonsterDto
@@ -17,6 +18,7 @@ import com.gumigames.domain.usecase.dogam.skill.GetAllSkillsUseCase
 import com.gumigames.domain.usecase.dogam.skill.SearchSkillsUseCase
 import com.gumigames.domain.usecase.dogam.skill.SearchSkillsLocalUseCase
 import com.gumigames.presentation.base.BaseViewModel
+import com.gumigames.presentation.ui.common.item.ItemListApdapter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,6 +29,7 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
+private const val TAG = "차선호"
 @HiltViewModel
 class DogamViewModel @Inject constructor(
     private val getAllItemsUseCase: GetAllItemsUseCase,
@@ -78,17 +81,19 @@ class DogamViewModel @Inject constructor(
     ////////////////////////////////////////////// 아이템 ///////////////////////////////////////////////////////
 
     //현재 아이템 리스트
-    private var _currentItemList = MutableSharedFlow<List<ItemDto>>()
+    private var _currentItemList = MutableStateFlow<List<ItemDto>>(listOf())
 
-    val currentItemList: SharedFlow<List<ItemDto>>
-        get() = _currentItemList.asSharedFlow()
+    val currentItemList = _currentItemList.asStateFlow()
 
     //현재 선택된 아이템
     private var _selectedItem = MutableStateFlow<ItemDto?>(null)
     val selectedItem = _selectedItem.asStateFlow()
-    fun setSelectedItem(item: ItemDto?){
+    private var _selectedItemPosition = MutableStateFlow<Int?>(null)
+    val selectedItemPosition = _selectedItemPosition.asStateFlow()
+    fun setSelectedItem(position: Int, item: ItemDto?){
         viewModelScope.launch {
             _selectedItem.emit(item)
+            _selectedItemPosition.emit(position)
         }
     }
 

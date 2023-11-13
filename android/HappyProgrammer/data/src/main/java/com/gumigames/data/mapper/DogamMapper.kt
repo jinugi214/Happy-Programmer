@@ -30,6 +30,7 @@ suspend fun ItemResponse.toDomain(preferenceDataSource: PreferenceDataSource): I
 
             )!!
         },
+        owned = owned,
         isBookmarked = isBookmarked
     )
 }
@@ -40,6 +41,7 @@ fun ItemEntity.toDomain(): ItemDto{
         name = name,
         description = description,
         imageBitmap = imageBitmap,
+        owned = owned,
         isBookmarked = isBookmarked
     )
 }
@@ -50,6 +52,7 @@ fun ItemDto.toData(): ItemEntity {
         name = name,
         description = description,
         imageBitmap = imageBitmap,
+        owned = owned,
         isBookmarked = isBookmarked
     )
 }

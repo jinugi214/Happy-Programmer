@@ -23,7 +23,7 @@ private const val TAG = "차선호"
 @AndroidEntryPoint
 class ItemDetailDialogFragment(
     private val dogamViewModel: DogamViewModel?,
-    private val bookmarkViewModel: BookmarkViewModel?
+    private val bookmarkViewModel: BookmarkViewModel?,
 ) : BaseBorderDialogFragment<FragmentItemDetailDialogBinding>(
     FragmentItemDetailDialogBinding::bind,
     R.layout.fragment_item_detail_dialog
@@ -107,7 +107,7 @@ class ItemDetailDialogFragment(
         super.onDismiss(dialog)
         if(dogamViewModel != null) {
             dogamViewModel.setItemClickListenerEnabled(true)
-            dogamViewModel.setSelectedItem(null)
+            dogamViewModel.setSelectedItem(-1, null)
         }else{
             bookmarkViewModel!!.setItemClickListenerEnabled(true)
             bookmarkViewModel.setSelectedBookmarkItem(null)

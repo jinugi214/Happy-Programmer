@@ -28,7 +28,7 @@ class ItemDetailDialogViewModel @Inject constructor(
     }
 
     fun getCurrentItem(): ItemDto{
-        return _currentItem ?: ItemDto(-1,"","",null,false)
+        return _currentItem ?: ItemDto(-1,"","",null, false, false)
     }
 
     private val _currentIsBookmarked = MutableSharedFlow<Boolean>()
