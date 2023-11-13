@@ -55,10 +55,8 @@ public class ItemService {
 
 	private boolean checkItemOwned(Account account, Item item) {
 		List<Inventory> itemList = account.getCharacter().getInventoryList();
-		if (itemList.contains(item)) {
-			return true;
-		}
-		return false;
+		return itemList.stream()
+				.anyMatch(inventory -> inventory.getItem().equals(item));
 	}
 
 	// 아이템 검색하기
