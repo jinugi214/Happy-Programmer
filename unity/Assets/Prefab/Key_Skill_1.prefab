@@ -109,7 +109,7 @@ MonoBehaviour:
   weaponType: 0
   skillAudioSource: {fileID: 0}
   skillSound: {fileID: 8300000, guid: 00fc890a4db37214bb44fff9b784a138, type: 3}
-  effectSound: {fileID: 0}
+  effectSound: {fileID: 8300000, guid: 729ae4497936d2748990d0f1d1bc8c08, type: 3}
 --- !u!95 &3532054912835534944
 Animator:
   serializedVersion: 5
@@ -140,12 +140,12 @@ AudioSource:
   m_GameObject: {fileID: 6658388414633675693}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -9018670827143261836, guid: a7d726aa042dff64d9de573908a2e257, type: 2}
+  OutputAudioMixerGroup: {fileID: -2465989804971362811, guid: a7d726aa042dff64d9de573908a2e257, type: 2}
   m_audioClip: {fileID: 8300000, guid: 00fc890a4db37214bb44fff9b784a138, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

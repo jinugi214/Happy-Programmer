@@ -20,7 +20,8 @@ public class Quest {
     private String name;
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "story_id")
     private Story story;
 
 }
