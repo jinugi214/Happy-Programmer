@@ -1,5 +1,6 @@
 package com.gumigames.presentation.ui.common.item
 
+import android.content.ClipData.Item
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.gumigames.domain.model.common.ItemDto
@@ -51,6 +52,40 @@ class ItemDetailDialogViewModel @Inject constructor(
                 }
             }
 
+        }
+    }
+
+    fun updateDogamList(
+        value: Boolean,
+        list: List<ItemDto>,
+        position: Int,
+        onUpdate: (List<ItemDto>) -> Unit
+    ){
+        if(value) {
+            val newItemList = list.map { itemDto -> itemDto.copy() } //각 객체들도 깊은 복사 필수
+            newItemList[position].isBookmarked = true
+            onUpdate(newItemList)
+        }else{
+            val newItemList = list.map { itemDto ->  itemDto.copy() } //각 객체들도 깊은 복사 필수
+            newItemList[position].isBookmarked = false
+            onUpdate(newItemList)
+        }
+    }
+
+    fun updateBookmarkList(
+        value: Boolean,
+        list: List<ItemDto>,
+        position: Int,
+        item: ItemDto?,
+        onUpdate: (List<ItemDto>) -> Unit
+    ){
+        if(value){
+            val newItemList = list.map { itemDto ->  itemDto.copy() }.toMutableList() //각 객체들도 깊은 복사 필수
+            newItemList.add(position, item!!)
+            onUpdate(newItemList)
+        }else{
+            val newItemList = list.filterIndexed { index, _ -> index != position }.map { itemDto ->  itemDto.copy() } //각 객체들도 깊은 복사 필수
+            onUpdate(newItemList)
         }
     }
 
