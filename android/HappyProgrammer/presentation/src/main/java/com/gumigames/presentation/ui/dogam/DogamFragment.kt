@@ -1,6 +1,7 @@
 package com.gumigames.presentation.ui.dogam
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -26,6 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+private const val TAG = "차선호"
 @AndroidEntryPoint
 class DogamFragment : BaseFragment<FragmentDogamBinding>(
     FragmentDogamBinding::bind,
@@ -66,12 +68,12 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
     override fun initListener() {
         //아이템 클릭 이벤트
         itemListAdapter.itemClickListner = object: ItemListApdapter.ItemClickListener{
-            override fun onClick(view: View, item: ItemDto) {
+            override fun onClick(view: View, position: Int, item: ItemDto) {
                 (view.parent as View).clickAnimation(viewLifecycleOwner)
                 if(dogamViewModel.getItemClickListenerEnabled()) {
                     dogamViewModel.setItemClickListenerEnabled(false) // 클릭 이벤트 비활성화(다른 아이템 클릭 못하도록)
                     //해당 아이템 클릭 이벤트
-                    dogamViewModel.setSelectedItem(item)
+                    dogamViewModel.setSelectedItem(position, item)
                 }
             }
         }
@@ -162,8 +164,13 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
                 selectedItem.collectLatest {
                     if(it != null) {
 //                        addBookmarkItemLocal(it) //이거 나중에 itemDetailDialogFragment로 빼라
-                        val detailDialog = ItemDetailDialogFragment(dogamViewModel = dogamViewModel, bookmarkViewModel = null)
+                        val detailDialog = ItemDetailDialogFragment(
+                            dogamViewModel = dogamViewModel,
+                            bookmarkViewModel = null,
+                        )
                         detailDialog.show(childFragmentManager, null)
+                    }else{
+                        Log.d(TAG, "다이얼로그 닫은 뒤 list -> ${itemListAdapter.currentList}")
                     }
                 }
             }
@@ -200,5 +207,10 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
                 }
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause...")
     }
 }

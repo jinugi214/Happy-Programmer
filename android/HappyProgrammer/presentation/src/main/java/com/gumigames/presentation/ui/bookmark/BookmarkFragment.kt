@@ -64,7 +64,7 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(
     override fun initListener() {
         //북마크 아이템 클릭 이벤트
         itemListAdapter.itemClickListner = object: ItemListApdapter.ItemClickListener{
-            override fun onClick(view: View, item: ItemDto) {
+            override fun onClick(view: View, position: Int, item: ItemDto) {
                 (view.parent as View).clickAnimation(viewLifecycleOwner)
                 if(bookmarkViewModel.getItemClickListenerEnabled()) {
                     bookmarkViewModel.setItemClickListenerEnabled(false) // 클릭 이벤트 비활성화(다른 아이템 클릭 못하도록)
@@ -139,7 +139,10 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(
             viewLifecycleOwner.lifecycleScope.launch {
                 selectedBookmarkItem.collectLatest {
                     if(it != null) {
-                        val detailDialog = ItemDetailDialogFragment(dogamViewModel = null, bookmarkViewModel = bookmarkViewModel)
+                        val detailDialog = ItemDetailDialogFragment(
+                            dogamViewModel = null,
+                            bookmarkViewModel = bookmarkViewModel
+                        )
                         detailDialog.show(childFragmentManager, null)
                     }
                 }

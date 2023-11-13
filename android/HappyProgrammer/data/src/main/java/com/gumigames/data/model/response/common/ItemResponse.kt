@@ -12,6 +12,8 @@ data class ItemResponse(
     val imgPath: String,
     @SerializedName("name")
     val name: String,
+    @SerializedName("owned")
+    val owned: Boolean,
     @SerializedName("favorite")
     val isBookmarked: Boolean
 )

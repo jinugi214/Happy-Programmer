@@ -8,6 +8,7 @@ data class ItemDto(
     val name: String,
     val description: String,
     val imageBitmap: Bitmap?,
+    val owned: Boolean,
     val isBookmarked: Boolean
 )
 

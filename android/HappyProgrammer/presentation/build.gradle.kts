@@ -90,7 +90,4 @@ dependencies {
 
     //lottie
     implementation ("com.airbnb.android:lottie:6.0.0")
-
-    //databinidng
-    implementation ("androidx.databinding:databinding-runtime:7.4.2")
 }
