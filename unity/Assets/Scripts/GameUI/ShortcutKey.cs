@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class ShortcutKey : MonoBehaviour
 {
@@ -23,19 +25,6 @@ public class ShortcutKey : MonoBehaviour
 
     public GameObject gameSave;
     public GameObject gameSetting;
-
-    private void Start()
-    {
-        if (gameSave != null)
-        {
-            DontDestroyOnLoad(gameSave);
-        }
-
-        if (gameSetting != null)
-        {
-            DontDestroyOnLoad(gameSetting);
-        }
-    }
 
     private void Update()
     {
