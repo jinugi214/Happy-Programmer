@@ -2,6 +2,7 @@ package com.ggteam.single.api.account.entity;
 
 import com.ggteam.single.api.account.Role;
 import lombok.*;
+import org.checkerframework.common.aliasing.qual.Unique;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -34,6 +35,7 @@ public class Account {
 
 
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
+    @JoinColumn(name = "character_id", unique = true)
     private Character character;
 
     public void passwordEncode(PasswordEncoder passwordEncoder) {
