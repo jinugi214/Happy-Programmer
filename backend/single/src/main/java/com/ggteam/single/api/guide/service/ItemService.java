@@ -83,7 +83,10 @@ public class ItemService {
 			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계정입니다."));
 		// 아이템 즐겨찾기 테이블에 계정에 맞는 아이템들 전체 불러와서 반환하기
 		return itemRepository.findItemFavoriteByAccount(account.getId()).stream()
-			.map(ItemResponse::new)
+			.map(item -> {
+				boolean isOwned = checkItemOwned(account, item);
+				return new ItemResponse(item, isOwned);
+			})
 			.collect(Collectors.toList());
 	}
 
