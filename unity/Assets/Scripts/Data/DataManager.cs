@@ -1,16 +1,20 @@
 using UnityEngine;
 
+
+
 [System.Serializable]
-
-
 public class AccountData
 {
+    public string accessToken;
+    public string refreshToken;
+    public string accountId;
     public string username;
     public string nickname;
     public string language;
 }
 
 
+[System.Serializable]
 public class CharacterData
 {
     public string name;
@@ -18,16 +22,16 @@ public class CharacterData
     public int exp;
     public int level;
     public int point;
-    public int savepoint;
+    public string savepoint;
     public int storyProgress;
     // 인벤토리, 장착 아이템, 도전과제 등 추가하기
 
-} 
+}
 
 
 public class DataManager : MonoBehaviour
 {
-    
+
     // 싱글톤
     public static DataManager instance;
 
@@ -42,22 +46,47 @@ public class DataManager : MonoBehaviour
         else if (instance != this)
         {
             Destroy(instance.gameObject);
+            return;
         }
+
         DontDestroyOnLoad(this.gameObject);
         #endregion
+
+        if (accountData == null)
+        {
+            accountData = new AccountData();
+        }
+
+        if (characterData == null)
+        {
+            characterData = new CharacterData();
+        }
     }
 
-    public AccountData accountData;
-    public CharacterData characterData;
+    private AccountData accountData;
+    private CharacterData characterData;
+
+    public AccountData AccountData
+    {
+        get { return accountData; }
+        set { accountData = value; }
+    }
+
+    public CharacterData CharacterData
+    {
+        get { return characterData; }
+        set { characterData = value; }
+    }
 
 
-
-    public string[] var_name;
-    public float[] var; // float 값을 기억시키는 배열
-
-    public string[] switch_name;
-    public bool[] switches; // true/false값을 기억시키는 배열
-
-    // 이미 완료했던 것을 다시 실행되도록 하지 않기 위해서 true/false 값을 저장하는 곳에 사용
-
+    public void LoadCharacterData(CharacterData characterLoadData)
+    {
+        characterData.name = characterLoadData.name;
+        characterData.gender = characterLoadData.gender;
+        characterData.exp = characterLoadData.exp;
+        characterData.level = characterLoadData.level;
+        characterData.point = characterLoadData.point;
+        characterData.savepoint = characterLoadData.savepoint;
+        characterData.storyProgress = characterLoadData.storyProgress;
+    }
 }

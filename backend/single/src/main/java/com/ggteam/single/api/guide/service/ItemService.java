@@ -76,8 +76,8 @@ public class ItemService {
 			.collect(Collectors.toList());
 	}
 
-	// 즐겨찾기한 아이템 리스트 가져오기(소유한 아이템인지 구별필요)
-	@Transactional
+	// 즐겨찾기한 아이템 리스트 가져오기
+	@Transactional(readOnly = true)
 	public List<ItemResponse> findItemFavoriteListByAccount(String username){
 		Account account = accountRepository.findByUsername(username)
 			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계정입니다."));
@@ -107,3 +107,7 @@ public class ItemService {
 		}
 	}
 }
+
+
+
+

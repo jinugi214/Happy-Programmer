@@ -6,26 +6,36 @@ using UnityEngine;
 
 public class FatalController : MonoBehaviour
 {
+    public static FatalController instance;
+
     public RuntimeAnimatorController[] animCon;
     public float health;
     public float maxHealth;
     public float speed;
+    public int monsterType;
+    public int monsterATK;
     public Rigidbody2D target;
+
+    private float timeAfterAttack;
 
     bool isLive;
 
     Rigidbody2D rigid;
     Animator anim;
+    WaitForFixedUpdate wait;
 
     void Awake()
     {
+        instance = this;
+        timeAfterAttack = 0;
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        wait = new WaitForFixedUpdate();
     }
 
     void FixedUpdate()
     {
-        if (!isLive)
+        if (!isLive || anim.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
             return;
         
 
@@ -51,16 +61,64 @@ public class FatalController : MonoBehaviour
         speed = data.speed;
         maxHealth = data.health;
         health = data.health;
+        monsterType = data.monsterType;
+        monsterATK = data.monsterATK;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+
+
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(health <= 0)
+        StartCoroutine(KnockBack());
+         
+        if (health > 0)
+        {
+            anim.SetTrigger("Hit");
+            Debug.Log("맞았다!");
+        }
+        else
         {
             isLive = false;
 
             MiniGameManager.instance.kill++;
             MiniGameManager.instance.GetExp();
         }
+        
+    }*/
+
+        IEnumerator KnockBack()
+        {
+            yield return null; // 1 프레임 쉬기
+            Vector3 playerPos = MiniGameManager.instance.player.transform.position;
+            Vector3 dirVector = transform.position - playerPos;
+            rigid.AddForce(dirVector.normalized * 3, ForceMode2D.Impulse);
+
+        }
+
+    void Dead()
+    {
+        gameObject.SetActive(false);
     }
+
+
+
+    // 몬스터의 원거리 공격 
+
+    public GameObject bulletPrefab;
+    public float attackRate = 2f;
+    
+
+
+
+    void LongAttack()
+    {
+        timeAfterAttack  = Time.deltaTime;
+
+        if (timeAfterAttack >= attackRate)
+        {
+            timeAfterAttack = 0f;
+            GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+        }
+    }
+
 }

@@ -532,9 +532,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cf3e36dc536c774682ae80b4abf14c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  username: {fileID: 0}
-  password: {fileID: 0}
+  username: {fileID: 1198735571}
+  password: {fileID: 1017828771}
   loginButton: {fileID: 1047134819}
+  dataManagerPrefab: {fileID: 7179030330123974726, guid: 006820f5ac163f440bf5afec91454475, type: 3}
 --- !u!1 &297659413
 GameObject:
   m_ObjectHideFlags: 0

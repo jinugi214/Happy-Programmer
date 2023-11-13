@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3503989025088284277
 Transform:
   m_ObjectHideFlags: 0
@@ -105,6 +105,7 @@ MonoBehaviour:
   weaponType: 0
   skillAudioSource: {fileID: 0}
   skillSound: {fileID: 8300000, guid: 5e17750202cc81d49b37e8e79c0c05cd, type: 3}
+  effectSound: {fileID: 8300000, guid: 9b31cbb5eaad45247b10da9fc8f8f863, type: 3}
 --- !u!61 &8672805360006233209
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -159,7 +160,7 @@ AudioSource:
   m_GameObject: {fileID: 4952763750466850447}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1644611994156107587, guid: a7d726aa042dff64d9de573908a2e257, type: 2}
   m_audioClip: {fileID: 8300000, guid: 5e17750202cc81d49b37e8e79c0c05cd, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
