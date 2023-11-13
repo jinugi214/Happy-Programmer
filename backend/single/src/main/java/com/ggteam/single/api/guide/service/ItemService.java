@@ -64,7 +64,7 @@ public class ItemService {
 	}
 
 	// 즐겨찾기한 아이템 리스트 가져오기
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<ItemResponse> findItemFavoriteListByAccount(String username){
 		Account account = accountRepository.findByUsername(username)
 			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계정입니다."));
@@ -94,3 +94,7 @@ public class ItemService {
 		}
 	}
 }
+
+
+
+

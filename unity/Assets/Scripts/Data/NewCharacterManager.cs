@@ -8,13 +8,13 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-public class CharacterManager : MonoBehaviour
+public class NewCharacterManager : MonoBehaviour
 {
     [System.Serializable]
     private class NewCharacter
     {
         public string characterName;
-        public char gender;
+        public string gender;
     }
 
 
@@ -22,12 +22,8 @@ public class CharacterManager : MonoBehaviour
 
     public TMP_InputField characterName;
     public ToggleGroup gender;
-    
-    void Start()
-    {
-        characterName = transform.Find("Name").Find("CharacterName").GetComponent<TMP_InputField>();
-        gender = transform.Find("Gender").Find("RadioBtnGroup").GetComponent<ToggleGroup>();
-    }
+    public bool characterNameCheck;
+
     public void OnCharacterNameCheckButtonClicked()
     {
         string InputCharactername = characterName.text;
@@ -41,31 +37,42 @@ public class CharacterManager : MonoBehaviour
 
     public void OnCreateNewCharacterButtonClicked()
     {
+        if (!characterNameCheck)
+        {
+            Debug.Log("캐릭터 이름 중복확인을 해주세요");
+            return;
+        }
+
         NewCharacter newCharacter = new NewCharacter();
+        newCharacter.characterName = characterName.text;
         string activatedGender = gender.ActiveToggles().FirstOrDefault().GetComponentInChildren<Text>().text;
         if (activatedGender == "여자")
         {
-            newCharacter.gender = char.Parse("F");
+            newCharacter.gender = "F";
         }
         else
         {
-            newCharacter.gender = char.Parse("M");
+            newCharacter.gender = "M";
         }
         Debug.Log(newCharacter.characterName);
         Debug.Log(newCharacter.gender);
         StartCoroutine(CreateNewCharacter(newCharacter));
     }
 
-    IEnumerator CheckNewCharacterName(string InputCharactername)
+    IEnumerator CheckNewCharacterName(string inputCharacterName)
     {
+        string accessToken = DataManager.instance.AccountData.accessToken;
 
         // JSON으로 변환하기
-        string json = JsonUtility.ToJson(new { name = InputCharactername });
+        string json = JsonUtility.ToJson(new { name = inputCharacterName });
 
+        // 파라미터 값을 URL에 포함시키기
+        string urlWithParameter = serverUrl + "/check/nickname/" + UnityWebRequest.EscapeURL(inputCharacterName);
 
         // POST 요청 보내기
-        using (UnityWebRequest www = new UnityWebRequest(serverUrl + "/name/check", "POST"))
+        using (UnityWebRequest www = new UnityWebRequest(urlWithParameter, "POST"))
         {
+            www.SetRequestHeader("Authorization", "Bearer " + accessToken);
             byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
             www.uploadHandler = new UploadHandlerRaw(bodyRaw);
             www.downloadHandler = new DownloadHandlerBuffer();
@@ -82,6 +89,7 @@ public class CharacterManager : MonoBehaviour
             else
             {
                 // 닉네임 체크 성공시 처리하는 로직 작성란
+                characterNameCheck = true;
                 Debug.Log("캐릭터 이름 체크 성공");
             }
         }
@@ -90,10 +98,18 @@ public class CharacterManager : MonoBehaviour
     IEnumerator CreateNewCharacter(NewCharacter newCharacter)
     {
         string accessToken = DataManager.instance.AccountData.accessToken;
-        Debug.Log(accessToken);
+
+        CharacterData characterData = new CharacterData();
+
+        characterData.name = newCharacter.characterName;
+        characterData.gender = newCharacter.gender;
+        characterData.exp = 0;
+        characterData.level = 1;
+        characterData.savepoint = "LobbyMap";
+        characterData.storyProgress = 0;
 
         // JSON으로 변환하기
-        string json = JsonUtility.ToJson(newCharacter);
+        string json = JsonUtility.ToJson(characterData);
         Debug.Log(json);
 
         // POST 요청 보내기
@@ -116,8 +132,13 @@ public class CharacterManager : MonoBehaviour
             else
             {
                 // 캐릭터 생성 성공시
+                float delayTime = 2.0f; // 딜레이 시간 설정 (예: 2초)
+                yield return new WaitForSeconds(delayTime);
+
+                SaveLoadManager saveLoadManager = new SaveLoadManager();
+                saveLoadManager.LoadCharacterData();
                 Debug.Log("캐릭터 생성 성공");
-                SceneManager.LoadScene("GameLogin"); // 어디로 이동하지
+                SceneManager.LoadScene("LobbyMap"); // 어디로 이동하지
             }
         }
     }
