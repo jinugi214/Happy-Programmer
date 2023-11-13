@@ -13,7 +13,6 @@ import com.ggteam.single.api.guide.dto.req.SkillFavoriteRequest;
 import com.ggteam.single.api.guide.dto.res.FavoriteResponse;
 import com.ggteam.single.api.guide.dto.res.SkillResponse;
 import com.ggteam.single.api.guide.dto.res.SkillWithFavoriteResponse;
-import com.ggteam.single.api.guide.entity.ItemFavorite;
 import com.ggteam.single.api.guide.entity.Skill;
 import com.ggteam.single.api.guide.entity.SkillFavorite;
 import com.ggteam.single.api.guide.repository.SkillFavoriteRepository;
