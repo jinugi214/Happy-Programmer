@@ -9,7 +9,6 @@ import com.ggteam.single.api.storyline.entity.Quest;
 import com.ggteam.single.api.storyline.entity.QuestSuccess;
 import com.ggteam.single.api.storyline.repository.QuestRepository;
 import com.ggteam.single.api.storyline.repository.QuestSuccessRepository;
-import com.ggteam.single.api.storyline.ㅇ새.QuestCompletionRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

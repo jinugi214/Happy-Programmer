@@ -30,8 +30,8 @@ public class CharacterController {
     @PostMapping("/save")
     @Operation(summary = "캐릭터 정보 저장", description = "JSON으로 이름(name, String), 성별(gender, char), 경험치(exp, int)," +
             " 레벨(level, int), 포인트(point, int), 저장위치(savepoint, String), 캐릭터 이미지(imgPath, String) 필요")
-    public ResponseEntity<?> saveCharacter(@RequestBody CharacterDto characterDto, UserDetails userDetails) {
-        return characterService.saveCharacter(characterDto, userDetails);
+    public ResponseEntity<?> saveCharacter(@RequestBody CharacterDto characterDto, Principal principal) {
+        return characterService.saveCharacter(characterDto, principal);
     }
 
     @PostMapping("/check/nickname/{name}")
