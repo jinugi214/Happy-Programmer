@@ -132,6 +132,14 @@ class DogamRepositoryImpl(
     override suspend fun getAllBookmarkSkillsLocal(): List<SkillDto>{
         return skillDao.getAllBookmarkSkillsLocal().map { it.toDomain() }
     }
+
+    /**
+     * 로컬에 있는 스킬 북마크 토글
+     */
+    override suspend fun toggleBookmarkSkill(skillId: Int): Boolean {
+        return handleApi { skillService.toggleBookmarkSkill(skillId) }.toDomain()
+    }
+
     /**
      * 즐겨찾기 스킬 로컬에 저장
      */
@@ -139,6 +147,9 @@ class DogamRepositoryImpl(
         skillDao.addBookmarkSkillLocal(skillId)
     }
 
+    override suspend fun deleteBookmarkSkillLocal(skillId: Int) {
+        skillDao.deleteBookmarkSkillLocal(skillId)
+    }
 
 
     /////////////////////////////////////// 몬스터 /////////////////////////////////////////////
@@ -185,11 +196,20 @@ class DogamRepositoryImpl(
     override suspend fun getAllBookmarkMonstersLocal(): List<MonsterDto>{
         return monsterDao.getAllBookmarkMonstersLocal().map { it.toDomain() }
     }
+
+    override suspend fun toggleBookmarkMonster(monsterId: Int): Boolean {
+        return handleApi { monsterService.toggleBookmarkMonster(monsterId) }.toDomain()
+    }
+
     /**
      * 즐겨찾기 몬스터 조회
      */
     override suspend fun addBookmarkMonsterLocal(monsterId: Int){
         monsterDao.addBookmarkMonsterLocal(monsterId)
+    }
+
+    override suspend fun deleteBookmarkMonsterLocal(monsterId: Int) {
+        monsterDao.deleteBookmarkMonsterLocal(monsterId)
     }
 
 

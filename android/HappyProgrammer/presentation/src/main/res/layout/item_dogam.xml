@@ -19,6 +19,7 @@
         android:padding="@dimen/_15sdp"/>
 
     <ImageView
+        android:id="@+id/image_bookmark"
         android:layout_width="@dimen/_15sdp"
         android:layout_height="@dimen/_15sdp"
         android:src="@drawable/image_selected_bookmark"
