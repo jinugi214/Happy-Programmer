@@ -5742,7 +5742,7 @@ GameObject:
   - component: {fileID: 709833175}
   - component: {fileID: 709833174}
   m_Layer: 0
-  m_Name: GameSaveTest
+  m_Name: ShortcutKey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5761,6 +5761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameSave: {fileID: 1874296987}
+  gameSetting: {fileID: 861165032}
 --- !u!4 &709833175
 Transform:
   m_ObjectHideFlags: 0
@@ -6013,6 +6014,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &861165032 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4502788714237486819, guid: a6ce6109111fb4842aa7faf95bb03456, type: 3}
+  m_PrefabInstance: {fileID: 1867019275}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &931883634
 GameObject:
   m_ObjectHideFlags: 0
@@ -7498,7 +7504,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7357312187307423897, guid: a6ce6109111fb4842aa7faf95bb03456, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7529599667311231951, guid: a6ce6109111fb4842aa7faf95bb03456, type: 3}
       propertyPath: m_Layer
