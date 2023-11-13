@@ -22,4 +22,10 @@ public class InventoryController {
         return inventoryService.saveItems(inventorySaveRequest);
     }
 
+    @GetMapping("/{characterId}")
+    @Operation(summary = "해당 캐릭터 인벤토리 불러오기", description = "캐릭터 아이디(characterId, Long) url에 필요")
+    public ResponseEntity<?> myInventory(@PathVariable Long characterId) {
+        return inventoryService.myInventory(characterId);
+    }
+
 }
