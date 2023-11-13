@@ -25,10 +25,23 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'com.auth0:java-jwt:4.2.1'
+	implementation 'com.google.code.gson:gson:2.9.0'
+	implementation 'org.mariadb.jdbc:mariadb-java-client:3.2.0'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.7.0'
+
+	implementation "io.jsonwebtoken:jjwt-jackson:0.11.2"
+	implementation "io.jsonwebtoken:jjwt-impl:0.11.2"
+	implementation "org.bouncycastle:bcprov-jdk15on:1.68"
+
 	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+	implementation 'com.google.code.gson:gson:2.10.1'
+
+	implementation 'com.google.code.gson:gson:2.10.1'
 
 }
 

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Item
   - Monster
+  - Bullet
+  - MiniGamePortal
   layers:
   - Default
   - TransparentFX
@@ -13,11 +15,11 @@ TagManager:
   - Player
   - Water
   - UI
-  - Item
-  - SkillObject
   - 
   - 
   - 
+  - 
+  - Monster
   - 
   - 
   - 
@@ -42,7 +44,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: UI
-    uniqueID: 2680868951
     locked: 0
