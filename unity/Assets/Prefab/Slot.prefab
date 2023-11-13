@@ -149,6 +149,7 @@ MonoBehaviour:
   item: {fileID: 11400000, guid: 8cdfcbb9cfe4cb14b9998942a41476b9, type: 2}
   itemCount: 0
   itemImage: {fileID: 3155399606024182947}
+  characterAppear: {fileID: 0}
   text_Count: {fileID: 756240872618045377}
 --- !u!1 &2557501715284434406
 GameObject:
