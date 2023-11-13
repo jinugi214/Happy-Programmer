@@ -25,6 +25,7 @@ import com.gumigames.presentation.util.hideKeyboard
 import com.gumigames.presentation.util.setTextListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 
 private const val TAG = "차선호"
@@ -53,7 +54,7 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
     }
 
     private fun init(){
-        dogamViewModel.getAllItems()
+        dogamViewModel.getAllItems{itemListAdapter.currentList}
         itemListAdapter = ItemListApdapter()
         skillListAdapter = SkillListAdapter()
         monsterListAdapter = MonsterListAdapter()
@@ -108,7 +109,7 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
                         //아이템 조회
                         0 -> {
                             binding.recyclerviewDogam.adapter = itemListAdapter
-                            dogamViewModel.getAllItems()
+                            dogamViewModel.getAllItems{itemListAdapter.currentList}
                             dogamViewModel.setCurrentTab("item")
                             edittextSearch.text.clear()
                         }
@@ -169,9 +170,13 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
                             bookmarkViewModel = null,
                         )
                         detailDialog.show(childFragmentManager, null)
-                    }else{
-                        Log.d(TAG, "다이얼로그 닫은 뒤 list -> ${itemListAdapter.currentList}")
                     }
+                }
+            }
+            //바뀐 아이템 리스트 관찰
+            viewLifecycleOwner.lifecycleScope.launch {
+                newItemList.collectLatest {
+                    itemListAdapter.submitList(it)
                 }
             }
             //현재 스킬 리스트 관찰

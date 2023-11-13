@@ -88,16 +88,37 @@ class ItemDetailDialogFragment(
         itemDetailDialogViewModel.apply {
             viewLifecycleOwner.lifecycleScope.launch {
                 currentIsBookmarked.collectLatest {
+                    binding.buttonSelcetedBookmark.isEnabled = false
+                    binding.buttonUnselcetedBookmark.isEnabled = false
                     Log.d(TAG, "toggle 결과 : $it")
                     if(it){
                         Log.d(TAG, "true 버튼 갱신")
+                        if(dogamViewModel!=null){
+                            val newItemList = dogamViewModel.getItemListAdapterList().map { itemDto ->  itemDto.copy() } //각 객체들도 깊은 복사 필수
+                            newItemList[dogamViewModel.selectedItemPosition.value!!].isBookmarked = true
+                            dogamViewModel.updateItemListAdapter(newItemList)
+                        }else{
+                            val newItemList = bookmarkViewModel!!.getItemListAdapterList().map { itemDto ->  itemDto.copy() }.toMutableList() //각 객체들도 깊은 복사 필수
+                            newItemList.add(bookmarkViewModel.selectedItemPosition.value!!, bookmarkViewModel.selectedBookmarkItem.value!!)
+                            bookmarkViewModel.updateItemListAdapter(newItemList)
+                        }
                         binding.buttonUnselcetedBookmark.visibility = View.GONE
                         binding.buttonSelcetedBookmark.visibility = View.VISIBLE
                     }else{
+                        if(dogamViewModel!=null){
+                            val newItemList = dogamViewModel.getItemListAdapterList().map { itemDto ->  itemDto.copy() } //각 객체들도 깊은 복사 필수
+                            newItemList[dogamViewModel.selectedItemPosition.value!!].isBookmarked = false
+                            dogamViewModel.updateItemListAdapter(newItemList)
+                        }else{
+                            val newItemList = bookmarkViewModel!!.getItemListAdapterList().filterIndexed { index, _ -> index != bookmarkViewModel.selectedItemPosition.value }.map { itemDto ->  itemDto.copy() } //각 객체들도 깊은 복사 필수
+                            bookmarkViewModel.updateItemListAdapter(newItemList)
+                        }
                         Log.d(TAG, "false 버튼 갱신")
                         binding.buttonSelcetedBookmark.visibility = View.GONE
                         binding.buttonUnselcetedBookmark.visibility = View.VISIBLE
                     }
+                    binding.buttonSelcetedBookmark.isEnabled = true
+                    binding.buttonUnselcetedBookmark.isEnabled = true
                 }
             }
         }
@@ -110,7 +131,7 @@ class ItemDetailDialogFragment(
             dogamViewModel.setSelectedItem(-1, null)
         }else{
             bookmarkViewModel!!.setItemClickListenerEnabled(true)
-            bookmarkViewModel.setSelectedBookmarkItem(null)
+            bookmarkViewModel.setSelectedBookmarkItem(-1, null)
         }
     }
 }

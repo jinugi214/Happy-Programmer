@@ -20,12 +20,12 @@ class ItemListApdapter: ListAdapter<ItemDto, ItemListApdapter.ItemListHolder>(
     companion object ItemListComparator : DiffUtil.ItemCallback<ItemDto>() {
         override fun areItemsTheSame(oldItem: ItemDto, newItem: ItemDto): Boolean {
             Log.d(TAG, "areItemsTheSame....")
-            return oldItem.id == newItem.id
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItem: ItemDto, newItem: ItemDto): Boolean {
             Log.d(TAG, "areContentsTheSame에서 old: $oldItem -> new : $newItem ")
-            return oldItem == newItem
+            return oldItem.id == newItem.id
         }
     }
     inner class ItemListHolder(private val binding: ItemDogamBinding): RecyclerView.ViewHolder(binding.root){

@@ -98,12 +98,15 @@ class DogamViewModel @Inject constructor(
     }
 
     //전체 아이템 조회
-    fun getAllItems(){
-        //TODO 원래라면 Repository를 통해 전체 아이템 조회
+    private var itemListAdapterListProvider: (() -> List<ItemDto>)? = null
+    fun getItemListAdapterList(): List<ItemDto> {
+        return itemListAdapterListProvider?.invoke() ?: emptyList()
+    }
+    fun getAllItems(
+        adapterListProvider: () -> List<ItemDto>
+    ){
+        itemListAdapterListProvider = adapterListProvider
         viewModelScope.launch {
-//            getApiResult( block = {getAllItemsUseCase.invoke()}){
-//                _currentItemList.emit(it)
-//            }
             _currentItemList.emit(getAllItemsLocalUseCase.invoke())
             _currentSkillList.emit(listOf())
             _currentMonsterList.emit(listOf())
@@ -113,19 +116,23 @@ class DogamViewModel @Inject constructor(
     fun getSearchItems(){
         viewModelScope.launch {
             if(_searchKeyword==""){ //아무것도 입력 안하면 전체 아이템 조회
-//                getApiResult(block = {getAllItemsUseCase.invoke()}){
-//                    _currentItemList.emit(it)
-//                }
                 _currentItemList.emit(getAllItemsLocalUseCase.invoke())
             }else{
-//                getApiResult(block = {searchItemsUseCase.invoke(_searchKeyword)}){
-//                    _currentItemList.emit(it)
-//                }
                 _currentItemList.emit(searchItemsLocalUseCase.invoke(_searchKeyword))
             }
         }
     }
 
+    //현재 아이템 리스트
+    private var _newItemList = MutableStateFlow<List<ItemDto>>(listOf())
+
+    val newItemList = _newItemList.asStateFlow()
+
+    fun updateItemListAdapter(list: List<ItemDto>){
+        viewModelScope.launch {
+            _newItemList.emit(list)
+        }
+    }
 
     ///////////////////////////////////////////// 스킬 ////////////////////////////////////////////////////
 
@@ -147,9 +154,6 @@ class DogamViewModel @Inject constructor(
     //전체 스킬 조회
     fun getAllSkills(){
         viewModelScope.launch {
-//            getApiResult(block = {getAllSkillsUseCase.invoke()}){
-//                _currentSkillList.emit(it)
-//            }
             _currentSkillList.emit(getAllSkillsLocalUseCase.invoke())
             _currentItemList.emit(listOf())
             _currentMonsterList.emit(listOf())
@@ -160,14 +164,8 @@ class DogamViewModel @Inject constructor(
         viewModelScope.launch {
             viewModelScope.launch {
                 if(_searchKeyword==""){ //아무것도 입력 안하면 전체 아이템 조회
-//                    getApiResult(block = {getAllSkillsUseCase.invoke()}){
-//                        _currentSkillList.emit(it)
-//                    }
                     _currentSkillList.emit(getAllSkillsLocalUseCase.invoke())
                 }else{
-//                    getApiResult(block = {searchSkillsUseCase.invoke(_searchKeyword)}){
-//                        _currentSkillList.emit(it)
-//                    }
                     _currentSkillList.emit(searchSkillsLocalUseCase.invoke(_searchKeyword))
                 }
             }
@@ -195,9 +193,6 @@ class DogamViewModel @Inject constructor(
     //전체 몬스터 조회
     fun getAllMonsters(){
         viewModelScope.launch {
-//            getApiResult(block = {getAllMonstersUseCase.invoke()}){
-//                _currentMonsterList.emit(it)
-//            }
             _currentMonsterList.emit(getAllMonstersLocalUseCase.invoke())
             _currentItemList.emit(listOf())
             _currentSkillList.emit(listOf())
@@ -207,14 +202,8 @@ class DogamViewModel @Inject constructor(
     fun getSearchMonsters(){
         viewModelScope.launch {
             if(_searchKeyword==""){ //아무것도 입력 안하면 전체 아이템 조회
-//                getApiResult(block = {getAllMonstersUseCase.invoke()}){
-//                    _currentMonsterList.emit(it)
-//                }
                 _currentMonsterList.emit(getAllMonstersLocalUseCase.invoke())
             }else{
-//                getApiResult(block = {searchMonstersUseCase.invoke(_searchKeyword)}){
-//                    _currentMonsterList.emit(it)
-//                }
                 _currentMonsterList.emit(searchMonstersLocalUseCase.invoke(_searchKeyword))
             }
         }

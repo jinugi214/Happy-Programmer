@@ -53,4 +53,5 @@ class ItemDetailDialogViewModel @Inject constructor(
 
         }
     }
+
 }
