@@ -106,6 +106,7 @@ public class NewCharacterManager : MonoBehaviour
         characterData.exp = 0;
         characterData.level = 1;
         characterData.savepoint = "LobbyMap";
+        characterData.point = 0;
         characterData.storyProgress = 0;
 
         // JSON으로 변환하기
@@ -135,8 +136,10 @@ public class NewCharacterManager : MonoBehaviour
                 float delayTime = 2.0f; // 딜레이 시간 설정 (예: 2초)
                 yield return new WaitForSeconds(delayTime);
 
-                SaveLoadManager saveLoadManager = new SaveLoadManager();
-                saveLoadManager.LoadCharacterData();
+                CharacterSaveLoadManager characterSaveLoadManager = new CharacterSaveLoadManager();
+                characterSaveLoadManager.LoadCharacterData();
+                GamingPrefabs gamingPrefabs = new GamingPrefabs();
+                gamingPrefabs.InstantiatePrefabs();
                 Debug.Log("캐릭터 생성 성공");
                 SceneManager.LoadScene("LobbyMap"); // 어디로 이동하지
             }
