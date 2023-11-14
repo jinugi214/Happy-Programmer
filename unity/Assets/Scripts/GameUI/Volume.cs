@@ -1,15 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Volume : MonoBehaviour
 {
     public AudioSource musicSource;
     public Slider volumeSlider;
-
-    private int currentBGMIndex = 0;
 
     private void Start()
     {
