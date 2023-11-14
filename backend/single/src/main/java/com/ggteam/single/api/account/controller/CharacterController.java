@@ -33,7 +33,7 @@ public class CharacterController {
         return characterService.saveCharacter(characterRequest, principal);
     }
 
-    @PostMapping("/check/nickname/{name}")
+    @GetMapping("/check/nickname/{name}")
     @Operation(summary = "캐릭터 이름 중복체크", description = "이름(name, String)을 입력 시, 중복이라면 400 BAD_REQUSET, " +
             "아니라면 200 OK 반환")
     public ResponseEntity<?> checkNickname(@PathVariable String name) {
