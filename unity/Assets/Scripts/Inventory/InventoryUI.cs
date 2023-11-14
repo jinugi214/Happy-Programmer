@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
+    public static InventoryUI Instance { get; private set; }
     bool activeInventory = false;
 
     [SerializeField]
@@ -23,8 +24,21 @@ public class InventoryUI : MonoBehaviour
     }
     // 인벤토리 오픈 여부
 
-    private void Start()
+
+    private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            Debug.Log("InventoryUI 생성");
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         inventoryBase.SetActive(activeInventory);
         slots = SlotContent.GetComponentsInChildren<Slot>();
         for (int i = 0; i < slots.Length; i++)
@@ -39,6 +53,7 @@ public class InventoryUI : MonoBehaviour
         {
             activeInventory = !activeInventory;
             inventoryBase.SetActive(activeInventory);
+            Debug.Log("Inventory");
         }
     }
 

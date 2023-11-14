@@ -1,11 +1,17 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterMovement : MonoBehaviour
 {
+    // 싱글톤
+    public static CharacterMovement Instance { get; private set; }
+
     public string currentMapName;
     public float moveSpeed = 5f; // 이동 속도 설정    
     public float runMultiplier = 2f; // 달리기 배율
-    public InventoryUI inventoryUI; // 인벤토리
+
+    // 인벤토리 프로퍼티
+    public InventoryUI InventoryUI { get; private set; } 
 
     private Rigidbody2D rb;
     public Vector2 movement;
@@ -13,6 +19,28 @@ public class CharacterMovement : MonoBehaviour
 
     private CharacterAnimation characterAnimation;
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+
+            // 씬이 로드될 때마다 OnSceneLoaded 메소드를 호출하도록 설정
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
+
+    // 씬이 로드될 때 호출되는 메소드
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        InventoryUI = InventoryUI.Instance;
+    }
 
     private void Start()
     {
@@ -23,11 +51,11 @@ public class CharacterMovement : MonoBehaviour
     public void ProcessInput(float moveX, float moveY)
     {
         // 인벤토리가 열려있는 경우 움직임 중단
-        if (inventoryUI.IsInventoryOpen())
-        {
-            movement = Vector2.zero;
-            return;
-        }
+        // if (inventoryUI != null && inventoryUI.IsInventoryOpen())
+        // {
+        //     movement = Vector2.zero;
+        //     return;
+        // }
 
         if (moveX != 0 && moveY != 0)
         {
@@ -71,7 +99,7 @@ public class CharacterMovement : MonoBehaviour
 
             if (itemPickup != null)
             {
-                inventoryUI.AcquireItem(itemPickup.item);
+                InventoryUI.AcquireItem(itemPickup.item);
                 // 아이템 오브젝트 삭제
                 Destroy(collision.gameObject);
             }
