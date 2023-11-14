@@ -35,6 +35,7 @@ public class MissionController {
         for (int i = 0; i < objects.length; i++) {
             if (objects[i].equals("keyboard")){
                 result.put("result", "성공");
+                flag = true;
                 break;
             }
         }
