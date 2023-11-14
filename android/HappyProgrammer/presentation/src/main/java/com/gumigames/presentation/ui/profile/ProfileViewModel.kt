@@ -3,7 +3,10 @@ package com.gumigames.presentation.ui.profile
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.gumigames.domain.model.common.ItemDto
+import com.gumigames.domain.model.user.UserInfoDto
 import com.gumigames.domain.usecase.dogam.litem.GetMyItemsLocalUseCase
+import com.gumigames.domain.usecase.user.GetUserInfoLocalUseCase
+import com.gumigames.domain.usecase.user.GetUserInfoUseCase
 import com.gumigames.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -18,8 +21,22 @@ import javax.inject.Inject
 private const val TAG = "차선호"
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val getMyItemsLocalUseCase: GetMyItemsLocalUseCase
+    private val getMyItemsLocalUseCase: GetMyItemsLocalUseCase,
+    private val getUserInfoLocalUseCase: GetUserInfoLocalUseCase
 ): BaseViewModel() {
+
+    ////////////////////////////////////////// 유저 //////////////////////////////////////////////
+    private var _userInfo = MutableSharedFlow<UserInfoDto>()
+    val userInfo = _userInfo.asSharedFlow()
+    fun getUserInfo(){
+        viewModelScope.launch {
+            getApiResult(block = {getUserInfoLocalUseCase.invoke()}){
+                Log.d(TAG, "getUserInfoLocal 결과 : $it")
+                _userInfo.emit(it)
+            }
+        }
+    }
+
 
     ////////////////////////////////////////////////// 공통 ////////////////////////////////////////////////////
 

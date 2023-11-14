@@ -21,7 +21,6 @@ fun urlToBitmap(
 //        val stream = url.openStream()
         val connection = url.openConnection() as HttpURLConnection
         connection.setRequestProperty("Authorization", "Bearer ${preferenceDataSource.getAccessToken()}")  // 예시: User-Agent 헤더 추가
-        Log.d(TAG, "urlToBitmap에서 accessToken : ${preferenceDataSource.getAccessToken()}")
         val stream = connection.inputStream
         return BitmapFactory.decodeStream(stream)
     }catch (e: Exception){
