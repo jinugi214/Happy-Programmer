@@ -11,7 +11,7 @@ public class CharacterMovement : MonoBehaviour
     public float runMultiplier = 2f; // 달리기 배율
 
     // 인벤토리 프로퍼티
-    public InventoryUI InventoryUI { get; private set; } 
+    public InventoryUI InventoryUI { get; private set; }
 
     private Rigidbody2D rb;
     public Vector2 movement;
@@ -56,6 +56,13 @@ public class CharacterMovement : MonoBehaviour
         //     movement = Vector2.zero;
         //     return;
         // }
+
+        // 대화 중일 때는 움직임 중단
+        if (DialogueManager.instance.talking)
+        {
+            movement = Vector2.zero;
+            return;
+        }
 
         if (moveX != 0 && moveY != 0)
         {
