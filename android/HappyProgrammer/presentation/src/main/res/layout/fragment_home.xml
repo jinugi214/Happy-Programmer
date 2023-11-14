@@ -23,7 +23,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_profile"
         android:layout_width="0dp"
-        android:layout_height="@dimen/_240sdp"
+        android:layout_height="@dimen/_220sdp"
         android:background="@drawable/frame_border_white_alpha60"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
                 style="@style/Theme.AppCompat.TextView.dunggeunmo.black.Size16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="홍길동님"
+                tools:text = "홍길동님"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -74,13 +74,13 @@
             android:id="@+id/image_profile"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/image_tool_profile"
+            tools:src="@drawable/image_tool_profile"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.7"
+            app:layout_constraintHeight_percent="0.6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_profile_topbar"
-            app:layout_constraintWidth_percent="0.3" />
+            app:layout_constraintWidth_percent="0.5" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

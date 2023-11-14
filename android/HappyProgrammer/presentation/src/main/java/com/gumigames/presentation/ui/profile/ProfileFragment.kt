@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -13,11 +14,16 @@ import com.bumptech.glide.Glide.init
 import com.freeproject.happyprogrammers.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
 import com.gumigames.domain.model.common.ItemDto
+import com.gumigames.domain.model.user.UserInfoDto
+import com.gumigames.presentation.MainViewModel
 import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentProfileBinding
 import com.gumigames.presentation.ui.common.item.ItemDetailDialogFragment
 import com.gumigames.presentation.ui.common.item.ItemListApdapter
 import com.gumigames.presentation.util.clickAnimation
+import com.gumigames.presentation.util.levelAndExpFormat
+import com.gumigames.presentation.util.nameAndGenderFormat
+import com.gumigames.presentation.util.numberFormat
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -29,8 +35,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
     R.layout.fragment_profile
 ) {
 
+    private val mainViewModel: MainViewModel by activityViewModels()
     private val profileViewModel: ProfileViewModel by viewModels()
     private lateinit var itemListAdapter: MyItemListAdapter
+    private lateinit var userInfo: UserInfoDto
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,10 +53,17 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
         profileViewModel.getUserInfo()
         profileViewModel.getAllMyItemsLocal { itemListAdapter.currentList }
         itemListAdapter = MyItemListAdapter()
+        userInfo = mainViewModel.userInfo.value!!
     }
 
     private fun initView(){
         binding.apply {
+            imageProfile.setImageBitmap(userInfo.imageBitmap)
+            textviewNameGender.text = nameAndGenderFormat(userInfo.name, userInfo.gender)
+            textviewLevelExp.text = levelAndExpFormat(userInfo.level, userInfo.exp)
+            textviewPoint.text = numberFormat(userInfo.point)
+            textviewStory.text = numberFormat(userInfo.storyProgress)
+            textviewSavePoint.text = userInfo.savepoint
             recyclerviewProfile.apply {
                 adapter = itemListAdapter
                 layoutManager = GridLayoutManager(mActivity, 3)
@@ -97,10 +112,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
 
     private fun initCollect(){
         profileViewModel.apply {
-            //사용자 정보 관찰
-            viewLifecycleOwner.lifecycleScope.launch {
-
-            }
             //현재 내 아이템 리스트 관찰
             viewLifecycleOwner.lifecycleScope.launch {
                 currentMyItemList.collectLatest {

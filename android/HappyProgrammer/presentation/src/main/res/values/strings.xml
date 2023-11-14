@@ -40,5 +40,8 @@
     <string name="text_mission">미션</string>
     <string name="text_camera">카메라</string>
     <string name="text_send">전송</string>
+    <string name="text_point">point</string>
+    <string name="text_story">story</string>
+    <string name="text_save_point">save point</string>
 
 </resources>

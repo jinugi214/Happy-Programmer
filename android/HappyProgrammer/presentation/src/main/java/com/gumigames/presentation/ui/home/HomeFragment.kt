@@ -11,10 +11,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.freeproject.happyprogrammers.base.BaseFragment
+import com.gumigames.domain.model.user.UserInfoDto
 import com.gumigames.presentation.BringGameInfoLoadingDialogFragment
 import com.gumigames.presentation.MainViewModel
 import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentHomeBinding
+import com.gumigames.presentation.util.addSirToName
 import com.gumigames.presentation.util.isConnectingNetwork
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -36,8 +38,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mainViewModel.getUserInfo()
         initListener()
         initCollect()
+    }
+
+    private fun initProfileView(userInfo: UserInfoDto){
+        binding.apply {
+            imageProfile.setImageBitmap(userInfo.imageBitmap)
+            textviewNickname.text = addSirToName(userInfo.name)
+        }
     }
 
     private fun checkBringGameInfo(){
@@ -93,6 +103,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
                         bringGameInfoLoadingDialogFragment.dismiss()
                     }
 
+                }
+            }
+            viewLifecycleOwner.lifecycleScope.launch {
+                userInfo.collectLatest {
+                    if(it!=null) {
+                        initProfileView(it)
+                    }
                 }
             }
         }

@@ -2,6 +2,7 @@ package com.gumigames.presentation
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.gumigames.domain.model.user.UserInfoDto
 import com.gumigames.domain.usecase.dogam.litem.GetAllItemsUseCase
 import com.gumigames.domain.usecase.dogam.litem.InsertAllItemsLocalUseCase
 import com.gumigames.domain.usecase.dogam.monster.GetAllMonstersUseCase
@@ -47,7 +48,7 @@ class MainViewModel @Inject constructor(
     private val insertAllMonstersLocalUseCase: InsertAllMonstersLocalUseCase,
     private val getUserInfoUseCase: GetUserInfoUseCase,
     private val getUserInfoLocalUseCase: GetUserInfoLocalUseCase,
-    private val insertUserInfoLocalUseCase: InsertUserInfoLocalUseCase
+    private val insertUserInfoLocalUseCase: InsertUserInfoLocalUseCase,
 ): BaseViewModel() {
 
     fun isLogined(): Boolean{
@@ -134,5 +135,16 @@ class MainViewModel @Inject constructor(
     fun checkGetAllGameInfo(): Boolean{
         //TODO 사용자 정보 조회도 추가
         return _isBroughtUserInfo && _isBroughtItemsInfo && _isBroughtSkillsInfo && _isBroughtMonstersInfo
+    }
+
+    ////////////////////////////////////////// 유저 //////////////////////////////////////////////
+    private var _userInfo = MutableStateFlow<UserInfoDto?>(null)
+    val userInfo = _userInfo.asStateFlow()
+    fun getUserInfo(){
+        viewModelScope.launch {
+            getApiResult(block = {getUserInfoLocalUseCase.invoke()}){
+                _userInfo.emit(it)
+            }
+        }
     }
 }
