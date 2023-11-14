@@ -30,7 +30,7 @@ public class DialogueManager : MonoBehaviour
     // private List<Sprite> listSprites;
     private List<Sprite> listDialogueWindows;
 
-    private int count; // ´ëÈ­ ÁøÇà »óÈ² Ä«¿îÆ®
+    private int count; // ëŒ€í™” ì§„í–‰ ìƒí™© ì¹´ìš´íŠ¸
 
     // public Animator animSprite;
     public Animator animDialogueWindow;
@@ -48,20 +48,25 @@ public class DialogueManager : MonoBehaviour
     }
 
     public void ShowDialogue(Dialogue dialogue)
+{
+    talking = true;
+
+    Dialogue.Situation situation;
+    if ((situation = dialogue.GetNextSituation()) != null)
     {
-        talking = true;
-
-        for (int i = 0; i < dialogue.sentences.Length; i++)
+        for (int i = 0; i < situation.sentences.Length; i++)
         {
-            listSentences.Add(dialogue.sentences[i]);
-            // listSprites.Add(dialogue.sprites[i]);
-            listDialogueWindows.Add(dialogue.dialogueWindos[i]);
+            listSentences.Add(situation.sentences[i]);
+            listDialogueWindows.Add(situation.dialogueWindows[i]);
         }
-
-        // animSprite.SetBool("Appear", true);
-        animDialogueWindow.SetBool("Appear", true);
-        StartCoroutine(StartDialogueCoroutine());
     }
+
+    animDialogueWindow.SetBool("Appear", true);
+    StartCoroutine(StartDialogueCoroutine());
+}
+
+
+
 
     public void ExitDialogue()
     {
@@ -112,7 +117,7 @@ public class DialogueManager : MonoBehaviour
 
         for (int i = 0; i < listSentences[count].Length; i++)
         {
-            text.text += listSentences[count][i]; // ÇÑ ¹®Àå¿¡ ÇÑ ±ÛÀÚ¾¿ Ãâ·Â
+            text.text += listSentences[count][i]; // í•œ ë¬¸ì¥ì— í•œ ê¸€ìì”© ì¶œë ¥
             yield return new WaitForSeconds(0.01f);
         }
 
