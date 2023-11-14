@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CharacterDto {
+public class CharacterResponse {
+
+    private Long id;
 
     private String name;
     private char gender;
