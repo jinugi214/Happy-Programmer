@@ -15,6 +15,9 @@ import com.gumigames.domain.usecase.preference.SetIsAlreadyShowedDialogUseCase
 import com.gumigames.domain.usecase.preference.SetIsLoginedUseCase
 import com.gumigames.domain.usecase.preference.SetIsShowedPermissionDialogUseCase
 import com.gumigames.domain.usecase.preference.SetPermissionRejectedUseCase
+import com.gumigames.domain.usecase.user.GetUserInfoLocalUseCase
+import com.gumigames.domain.usecase.user.GetUserInfoUseCase
+import com.gumigames.domain.usecase.user.InsertUserInfoLocalUseCase
 import com.gumigames.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -41,7 +44,10 @@ class MainViewModel @Inject constructor(
     private val getAllSkillsUseCase: GetAllSkillsUseCase,
     private val insertAllSkillsLocalUseCase: InsertAllSkillsLocalUseCase,
     private val getAllMonstersUseCase: GetAllMonstersUseCase,
-    private val insertAllMonstersLocalUseCase: InsertAllMonstersLocalUseCase
+    private val insertAllMonstersLocalUseCase: InsertAllMonstersLocalUseCase,
+    private val getUserInfoUseCase: GetUserInfoUseCase,
+    private val getUserInfoLocalUseCase: GetUserInfoLocalUseCase,
+    private val insertUserInfoLocalUseCase: InsertUserInfoLocalUseCase
 ): BaseViewModel() {
 
     fun isLogined(): Boolean{
@@ -89,6 +95,15 @@ class MainViewModel @Inject constructor(
     fun bringGameInfo(){
         viewModelScope.launch {
             //TODO 유저도 추가해야 함
+            getApiResult(block = {getUserInfoUseCase.invoke()}){
+                insertUserInfoLocalUseCase.invoke(it)
+                Log.d(TAG, "bringGameInfo에서 user 정보 조회 성공")
+                _isBroughtUserInfo = true
+                if(checkGetAllGameInfo()) {
+                    _isBroughtGameInfo.emit(true)
+                    setIsLoginedUseCase.invoke(true)
+                }
+            }
             getApiResult(block = {getAllItemsUseCase.invoke()}){
                 insertAllItemsLocalUseCase.invoke(it)
                 _isBroughtItemsInfo = true
@@ -118,6 +133,6 @@ class MainViewModel @Inject constructor(
 
     fun checkGetAllGameInfo(): Boolean{
         //TODO 사용자 정보 조회도 추가
-        return _isBroughtItemsInfo && _isBroughtSkillsInfo && _isBroughtMonstersInfo
+        return _isBroughtUserInfo && _isBroughtItemsInfo && _isBroughtSkillsInfo && _isBroughtMonstersInfo
     }
 }

@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.gumigames.data.datasource.dao.ItemDao
 import com.gumigames.data.datasource.dao.MonsterDao
 import com.gumigames.data.datasource.dao.SkillDao
+import com.gumigames.data.datasource.dao.UserDao
 import com.gumigames.data.datasource.db.DogamDatabase
 import com.gumigames.data.datasource.sharedpreference.PreferenceDataSource
 import com.gumigames.data.datasource.sharedpreference.PreferenceDataSourceImpl
@@ -43,5 +44,9 @@ object DataSourceModule {
     @Singleton
     @Provides
     fun provideMonsterDao(dogamDatabase: DogamDatabase): MonsterDao = dogamDatabase.monsterDao()
+
+    @Singleton
+    @Provides
+    fun provideUserDao(dogamDatabase: DogamDatabase): UserDao = dogamDatabase.userDao()
 
 }

@@ -45,9 +45,7 @@ class DogamRepositoryImpl(
      * 아이템 전체 로컬에 저장
      */
     override suspend fun insertAllItemsLocal(itemList: List<ItemDto>) {
-        Log.d(TAG, "insertAllItemsLocal 시작... $itemList")
         itemDao.insertAllItemsLocal(itemList.map { it.toData() })
-        Log.d(TAG, "insertAllItemsLocal 끝...")
     }
 
     /**

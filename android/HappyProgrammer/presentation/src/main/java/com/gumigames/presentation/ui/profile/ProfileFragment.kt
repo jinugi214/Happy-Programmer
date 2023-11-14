@@ -42,6 +42,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
     }
 
     private fun init(){
+        profileViewModel.getUserInfo()
         profileViewModel.getAllMyItemsLocal { itemListAdapter.currentList }
         itemListAdapter = MyItemListAdapter()
     }
@@ -96,6 +97,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
 
     private fun initCollect(){
         profileViewModel.apply {
+            //사용자 정보 관찰
+            viewLifecycleOwner.lifecycleScope.launch {
+
+            }
             //현재 내 아이템 리스트 관찰
             viewLifecycleOwner.lifecycleScope.launch {
                 currentMyItemList.collectLatest {

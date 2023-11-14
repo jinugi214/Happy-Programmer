@@ -3,6 +3,7 @@ package com.gumigames.happyprogrammer
 import com.gumigames.data.datasource.dao.ItemDao
 import com.gumigames.data.datasource.dao.MonsterDao
 import com.gumigames.data.datasource.dao.SkillDao
+import com.gumigames.data.datasource.dao.UserDao
 import com.gumigames.data.datasource.sharedpreference.PreferenceDataSource
 import com.gumigames.data.repository.DogamRepositoryImpl
 import com.gumigames.data.repository.UserRepositoryImpl
@@ -37,11 +38,13 @@ object RepositoryModule {
     @Provides
     fun provideLoginRepository(
         preferenceDataSource: PreferenceDataSource,
-        userService: UserService
+        userService: UserService,
+        userDao: UserDao
     ): UserRepository {
         return UserRepositoryImpl(
             preferenceDataSource = preferenceDataSource,
-            userService = userService
+            userService = userService,
+            userDao = userDao
         )
     }
 
