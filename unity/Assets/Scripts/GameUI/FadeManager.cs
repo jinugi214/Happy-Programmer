@@ -12,6 +12,7 @@ public class FadeManager : MonoBehaviour
 
     public void FadeOut(float _speed = 0.02f)
     {
+        StopAllCoroutines();
         StartCoroutine(FadeOutCoroutine(_speed));
     }
 
@@ -29,6 +30,7 @@ public class FadeManager : MonoBehaviour
 
     public void FadeIn(float _speed = 0.02f)
     {
+        StopAllCoroutines();
         StartCoroutine(FadeInCoroutine(_speed));
     }
 
@@ -40,64 +42,6 @@ public class FadeManager : MonoBehaviour
         {
             color.a -= _speed;
             black.color = color;
-            yield return waitTime;
-        }
-    }
-
-    public void FlashOut(float _speed = 0.02f)
-    {
-        StartCoroutine(FlashOutCoroutine(_speed));
-    }
-
-    IEnumerator FlashOutCoroutine(float _speed)
-    {
-        color = white.color;
-
-        while (color.a < 1)
-        {
-            color.a += _speed;
-            white.color = color;
-            yield return waitTime;
-        }
-    }
-
-    public void Flash(float _speed = 0.1f)
-    {
-        StartCoroutine(FlashCoroutine(_speed));
-    }
-
-    IEnumerator FlashCoroutine(float _speed)
-    {
-        color = white.color;
-
-        while (color.a < 1f)
-        {
-            color.a += _speed;
-            white.color = color;
-            yield return waitTime;
-        }
-
-        while (color.a > 0f)
-        {
-            color.a -= _speed;
-            white.color = color;
-            yield return waitTime;
-        }
-    }
-
-    public void FlashIn(float _speed = 0.02f)
-    {
-        StartCoroutine(FlashInCoroutine(_speed));
-    }
-
-    IEnumerator FlashInCoroutine(float _speed)
-    {
-        color = white.color;
-
-        while (color.a > 0f)
-        {
-            color.a -= _speed;
-            white.color = color;
             yield return waitTime;
         }
     }

@@ -26,11 +26,6 @@ public class TransferScences : MonoBehaviour
         }
     }
 
-    public void TranferScene()
-    {
-        SceneManager.LoadScene(transferMapName);
-    }
-
     IEnumerator TransferCoroutine()
     {
         theFade.FadeOut();
@@ -39,5 +34,10 @@ public class TransferScences : MonoBehaviour
         thePlayer.currentMapName = transferMapName;
         SceneManager.LoadScene(transferMapName);
         theFade.FadeIn();
+    }
+
+    public void TranferScene()
+    {
+        SceneManager.LoadScene(transferMapName);
     }
 }
