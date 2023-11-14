@@ -5756,7 +5756,7 @@ MonoBehaviour:
   m_text: "\uC624\uB298 \uB4DC\uB514\uC5B4 \uCCAB \uCD9C\uADFC\uC774\uB2E4."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d69b534065fad8344b5d5aeb7768a854, type: 2}
-  m_sharedMaterial: {fileID: -1569678166157957911, guid: d69b534065fad8344b5d5aeb7768a854, type: 2}
+  m_sharedMaterial: {fileID: 6041476435056525930, guid: d69b534065fad8344b5d5aeb7768a854, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8327,8 +8327,6 @@ MonoBehaviour:
   sceneBGMs:
   - sceneName: LobbyMap
     bgm: {fileID: 8300000, guid: d0725712b9fcd43758a0d88ed7da0484, type: 3}
-  - sceneName: LiftMap
-    bgm: {fileID: 8300000, guid: 4be4d3778df1745af8ac5aab4744b202, type: 3}
   - sceneName: OfficeMap
     bgm: {fileID: 8300000, guid: 9645528f5a97f460b88b12410389be61, type: 3}
   musicSource: {fileID: 632660826}
