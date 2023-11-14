@@ -29,8 +29,8 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideOkHttpClient(preferenceDataSource: PreferenceDataSource): OkHttpClient = OkHttpClient.Builder()
-        .readTimeout(5000, TimeUnit.MILLISECONDS)
-        .connectTimeout(5000, TimeUnit.MILLISECONDS)
+        .readTimeout(10000, TimeUnit.MILLISECONDS)
+        .connectTimeout(10000, TimeUnit.MILLISECONDS)
         .addInterceptor(AuthInterceptor(preferenceDataSource))
         .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         .build()

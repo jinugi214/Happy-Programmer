@@ -1,5 +1,6 @@
 package com.gumigames.presentation.ui.mission
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gumigames.domain.usecase.mission.GetMissionPhotoResultUseCase
@@ -14,6 +15,7 @@ import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
+private const val TAG = "차선호"
 @HiltViewModel
 class MissionViewModel @Inject constructor(
     private val getMissionPhotoResultUseCase: GetMissionPhotoResultUseCase
@@ -42,6 +44,7 @@ class MissionViewModel @Inject constructor(
     val resultMessage = _resultMessage.asSharedFlow()
     fun sendPhoto(){
         viewModelScope.launch {
+            Log.d(TAG, "sendPhoto multipartBody : ${_multipartBody.value!!}")
             _resultMessage.emit(getMissionPhotoResultUseCase.invoke(_multipartBody.value!!).result)
         }
     }

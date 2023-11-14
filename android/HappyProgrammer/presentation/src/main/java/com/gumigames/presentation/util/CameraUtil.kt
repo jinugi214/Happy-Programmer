@@ -111,7 +111,7 @@ fun createMultipartFromFile(
     file: File
 ): MultipartBody.Part{
     val requestFile: RequestBody = createRequestBodyFromFile(file)
-    return MultipartBody.Part.createFormData("multipartFiles", file.name, requestFile)
+    return MultipartBody.Part.createFormData("file", file.name, requestFile)
 }
 
 
