@@ -2590,7 +2590,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.10899996, y: 0.041000046, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7785588565315667977}
@@ -2693,7 +2693,6 @@ MonoBehaviour:
   currentMapName: 
   moveSpeed: 2
   runMultiplier: 2
-  inventoryUI: {fileID: 4927494974029519614, guid: a98d067d4728e4a45a6127d8c4673c26, type: 3}
   movement: {x: 0, y: 0}
   lastDirection: {x: 0, y: 0}
 --- !u!114 &4948072990969089348
@@ -2740,10 +2739,10 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDrag: 10
+  m_AngularDrag: 10
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 6be23dbefbd394b4e857766519c218ee, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
