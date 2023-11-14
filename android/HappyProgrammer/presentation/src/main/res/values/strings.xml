@@ -44,4 +44,7 @@
     <string name="text_story">story</string>
     <string name="text_save_point">save point</string>
 
+    <!--setting-->
+    <string name="text_setting">설정</string>
+
 </resources>

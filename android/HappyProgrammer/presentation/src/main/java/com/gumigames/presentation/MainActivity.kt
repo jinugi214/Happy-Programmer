@@ -90,6 +90,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                             R.id.dogamFragment -> {textviewTopbar.text = getString(R.string.title_dogam)}
                             R.id.bookmarkFragment -> {textviewTopbar.text = getString(R.string.text_bookmark)}
                             R.id.missionFragment -> {textviewTopbar.text = getString(R.string.text_mission)}
+                            R.id.settingFragment -> {textviewTopbar.text = getString(R.string.text_setting)}
                         }
                     }
                 }
