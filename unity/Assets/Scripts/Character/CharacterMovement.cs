@@ -58,7 +58,7 @@ public class CharacterMovement : MonoBehaviour
         // }
 
         // 대화 중일 때는 움직임 중단
-        if (DialogueManager.instance.talking)
+        if (DialogueManager.instance != null && DialogueManager.instance.talking)
         {
             movement = Vector2.zero;
             return;
@@ -94,7 +94,6 @@ public class CharacterMovement : MonoBehaviour
         characterAnimation.SetAttacking(isAttacking);
     }
 
-
     public void OnTriggerEnter2D(Collider2D collision)
     {
         // 아이템과 충돌한 경우
@@ -112,4 +111,11 @@ public class CharacterMovement : MonoBehaviour
             }
         }
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        // 캐릭터의 속도를 0으로 만듭니다.
+        rb.velocity = Vector2.zero;
+    }
+
 }
