@@ -35,6 +35,10 @@ public class FatalController : MonoBehaviour
 
     void FixedUpdate()
     {
+
+        if (!MiniGameManager.instance.isLive)
+            return;
+
         if (!isLive || anim.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
             return;
         
@@ -118,6 +122,7 @@ public class FatalController : MonoBehaviour
         {
             timeAfterAttack = 0f;
             GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+            //GameManager gameManager = maxHealth - FatalController.FindObjectOfType;
         }
     }
 

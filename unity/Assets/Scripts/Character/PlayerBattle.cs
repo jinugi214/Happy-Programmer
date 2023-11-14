@@ -8,6 +8,13 @@ public class PlayerBattle : MonoBehaviour
 {
 
 
+    private void Update()
+    {
+        if (!MiniGameManager.instance.isLive)
+            return;
+    }
+
+
     void OnCollisionEnter2D(Collision2D collision)
     {
 
@@ -30,9 +37,12 @@ public class PlayerBattle : MonoBehaviour
         {
             for (int index = 0; index < GameObject.Find("Spawners").GetComponent<Spawner>().transform.childCount ; index++)
             {
+                Debug.Log(index);
                 GameObject.Find("Spawners").GetComponent<Spawner>().transform.GetChild(index).gameObject.SetActive(false);             }
 
+
             Dead();
+            MiniGameManager.instance.GameOver();
 
 
         }
@@ -52,12 +62,15 @@ public class PlayerBattle : MonoBehaviour
         else
         {
             Dead();
+            MiniGameManager.instance.GameOver();
 
         }
     }
 
     void Dead()
     {
-        gameObject.SetActive(false);
+
+        DataManager.instance.UpdateCharacterData(MiniGameManager.instance.exp, MiniGameManager.instance.level);
+        //gameObject.SetActive(false);
     }
 }

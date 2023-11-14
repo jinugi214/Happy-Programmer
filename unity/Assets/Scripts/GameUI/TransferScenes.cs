@@ -6,23 +6,33 @@ using UnityEngine.SceneManagement;
 
 public class TransferScences : MonoBehaviour
 {
-    public string transferMapName; // ÀÌµ¿ÇÒ ¸ÊÀÇ ÀÌ¸§
+    public string transferMapName; // ì´ë™í•  ë§µì˜ ì´ë¦„
 
     private CharacterMovement thePlayer;
+    private FadeManager theFade;
 
     void Start()
     {
-        thePlayer = FindAnyObjectByType<CharacterMovement>(); // ¸ğµç °´Ã¼ ÂüÁ¶
-        // GetComponent ´ÜÀÏ °´Ã¼
+        thePlayer = FindObjectOfType<CharacterMovement>(); // ëª¨ë“  ê°ì²´ ì°¸ì¡°
+        // GetComponent ë‹¨ì¼ ê°ì²´
+        theFade = FindObjectOfType<FadeManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.name == "Character")
         {
-            thePlayer.currentMapName = transferMapName;
-            SceneManager.LoadScene(transferMapName);
+            StartCoroutine(TransferCoroutine());
         }
+    }
+    IEnumerator TransferCoroutine()
+    {
+        theFade.FadeOut();
+
+        yield return new WaitForSeconds(1f);
+        thePlayer.currentMapName = transferMapName;
+        SceneManager.LoadScene(transferMapName);
+        theFade.FadeIn();
     }
 
     public void TranferScene()

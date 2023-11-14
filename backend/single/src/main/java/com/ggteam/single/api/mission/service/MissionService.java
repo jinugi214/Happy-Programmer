@@ -89,20 +89,24 @@ public class MissionService {
         JsonParser parser = new JsonParser();
         JsonObject rootObject = parser.parse(responBody).getAsJsonObject();
 
-        JsonArray dataArray = rootObject.getAsJsonObject("return_object").getAsJsonArray("data");
+        try {
+            JsonArray dataArray = rootObject.getAsJsonObject("return_object").getAsJsonArray("data");
+            String[] extractedCharactersArray = new String[dataArray.size()];
 
-        String[] extractedCharactersArray = new String[dataArray.size()];
-
-        for (int i = 0; i < dataArray.size(); i++) {
-            JsonObject dataObject = dataArray.get(i).getAsJsonObject();
-            String classValue = dataObject.get("class").getAsString();
-            extractedCharactersArray[i] = classValue;
+            for (int i = 0; i < dataArray.size(); i++) {
+                JsonObject dataObject = dataArray.get(i).getAsJsonObject();
+                String classValue = dataObject.get("class").getAsString();
+                extractedCharactersArray[i] = classValue;
+            }
+            return extractedCharactersArray;
+        }
+        catch (Exception e){
+            String[] extractedCharactersArray = {"실패"};
+            return extractedCharactersArray;
         }
 
 
 
-
-        return extractedCharactersArray;
     }
 
     private static String getFileExtension(String fileName) {
