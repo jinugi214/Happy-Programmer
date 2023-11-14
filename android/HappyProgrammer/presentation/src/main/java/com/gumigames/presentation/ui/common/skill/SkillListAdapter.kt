@@ -25,12 +25,12 @@ class SkillListAdapter: ListAdapter<SkillDto, SkillListAdapter.SkillrListHolder>
         }
     }
     inner class SkillrListHolder(private val binding: ItemDogamBinding): RecyclerView.ViewHolder(binding.root){
-        fun bindInfo(skill : SkillDto){
+        fun bindInfo(position: Int, skill : SkillDto){
             binding.apply {
                 if(skill.imageBitmap!=null) imageItem.setImageBitmap(skill.imageBitmap)
                 else imageItem.setImageResource(R.drawable.image_tool_profile) //TODO 추후에 로딩 이미지로 바꿔라
                 imageItem.setOnClickListener {
-                    itemClickListner.onClick(it, skill)
+                    itemClickListner.onClick(it, position, skill)
                 }
                 if(skill.isBookmarked) imageBookmark.visibility = View.VISIBLE
                 else imageBookmark.visibility = View.GONE
@@ -44,13 +44,13 @@ class SkillListAdapter: ListAdapter<SkillDto, SkillListAdapter.SkillrListHolder>
 
     override fun onBindViewHolder(holder: SkillrListHolder, position: Int) {
         holder.apply {
-            bindInfo(getItem(position))
+            bindInfo(position, getItem(position))
         }
     }
 
     //클릭 인터페이스 정의 사용하는 곳에서 만들어준다.
     interface ItemClickListener {
-        fun onClick(view: View, skill: SkillDto)
+        fun onClick(view: View, position: Int, skill: SkillDto)
     }
     //클릭리스너 선언
     lateinit var itemClickListner: ItemClickListener

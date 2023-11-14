@@ -2,6 +2,7 @@ package com.gumigames.presentation.ui.common.monster
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.gumigames.domain.model.common.ItemDto
 import com.gumigames.domain.model.common.MonsterDto
 import com.gumigames.domain.model.common.SkillDto
 import com.gumigames.domain.usecase.dogam.monster.AddBookmarkMonsterLocalUseCase
@@ -51,6 +52,40 @@ class MonsterDetailDialogViewModel @Inject constructor(
                 }
             }
 
+        }
+    }
+
+    fun updateDogamList(
+        value: Boolean,
+        list: List<MonsterDto>,
+        position: Int,
+        onUpdate: (List<MonsterDto>) -> Unit
+    ){
+        if(value) {
+            val newMonsterList = list.map { monsterDto -> monsterDto.copy() } //각 객체들도 깊은 복사 필수
+            newMonsterList[position].isBookmarked = true
+            onUpdate(newMonsterList)
+        }else{
+            val newMonsterList = list.map { monsterDto ->  monsterDto.copy() } //각 객체들도 깊은 복사 필수
+            newMonsterList[position].isBookmarked = false
+            onUpdate(newMonsterList)
+        }
+    }
+
+    fun updateBookmarkList(
+        value: Boolean,
+        list: List<MonsterDto>,
+        position: Int,
+        monster: MonsterDto?,
+        onUpdate: (List<MonsterDto>) -> Unit
+    ){
+        if(value){
+            val newMonsterList = list.map { monsterDto ->  monsterDto.copy() }.toMutableList() //각 객체들도 깊은 복사 필수
+            newMonsterList.add(position, monster!!)
+            onUpdate(newMonsterList)
+        }else{
+            val newMonsterList = list.filterIndexed { index, _ -> index != position }.map { monsterDto ->  monsterDto.copy() } //각 객체들도 깊은 복사 필수
+            onUpdate(newMonsterList)
         }
     }
 }

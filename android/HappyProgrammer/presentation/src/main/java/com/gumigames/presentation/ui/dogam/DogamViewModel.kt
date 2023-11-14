@@ -123,11 +123,9 @@ class DogamViewModel @Inject constructor(
         }
     }
 
-    //현재 아이템 리스트
+    //새로운 아이템 리스트
     private var _newItemList = MutableStateFlow<List<ItemDto>>(listOf())
-
     val newItemList = _newItemList.asStateFlow()
-
     fun updateItemListAdapter(list: List<ItemDto>){
         viewModelScope.launch {
             _newItemList.emit(list)
@@ -145,18 +143,28 @@ class DogamViewModel @Inject constructor(
     //현재 선택된 스킬
     private var _selectedSkill = MutableStateFlow<SkillDto?>(null)
     val selectedSkill = _selectedSkill.asStateFlow()
-    fun setSelectedSkill(skill: SkillDto?){
+    private var _selectedSkillPosition = MutableStateFlow<Int?>(null)
+    val selectedSkillPosition = _selectedSkillPosition.asStateFlow()
+    fun setSelectedSkill(position: Int, skill: SkillDto?){
         viewModelScope.launch {
             _selectedSkill.emit(skill)
+            _selectedSkillPosition.emit(position)
         }
     }
 
     //전체 스킬 조회
-    fun getAllSkills(){
+    private var skillListAdapterListProvider: (() -> List<SkillDto>)? = null
+    fun getSkillListAdapterList(): List<SkillDto> {
+        return skillListAdapterListProvider?.invoke() ?: emptyList()
+    }
+    fun getAllSkills(
+        adapterListProvider: () -> List<SkillDto>
+    ){
+        skillListAdapterListProvider = adapterListProvider
         viewModelScope.launch {
-            _currentSkillList.emit(getAllSkillsLocalUseCase.invoke())
-            _currentItemList.emit(listOf())
-            _currentMonsterList.emit(listOf())
+        _currentSkillList.emit(getAllSkillsLocalUseCase.invoke())
+        _currentItemList.emit(listOf())
+        _currentMonsterList.emit(listOf())
         }
     }
     //스킬 검색
@@ -172,6 +180,15 @@ class DogamViewModel @Inject constructor(
         }
     }
 
+    //새로운 스킬 리스트
+    private var _newSkillList = MutableStateFlow<List<SkillDto>>(listOf())
+    val newSkillList = _newSkillList.asStateFlow()
+    fun updateSkillListAdapter(list: List<SkillDto>){
+        viewModelScope.launch {
+            Log.d(TAG, "updateSkillListAdapter update $list")
+            _newSkillList.emit(list)
+        }
+    }
 
     ///////////////////////////////////////////// 몬스터 //////////////////////////////////////////////////
 
@@ -184,14 +201,24 @@ class DogamViewModel @Inject constructor(
     //현재 선택된 몬스터
     private var _selectedMonster = MutableStateFlow<MonsterDto?>(null)
     val selectedMonster = _selectedMonster.asStateFlow()
-    fun setSelectedMonster(monster: MonsterDto?){
+    private var _selectedMonsterPosition = MutableStateFlow<Int?>(null)
+    val selectedMonsterPosition = _selectedMonsterPosition.asStateFlow()
+    fun setSelectedMonster(position: Int, monster: MonsterDto?){
         viewModelScope.launch {
             _selectedMonster.emit(monster)
+            _selectedMonsterPosition.emit(position)
         }
     }
 
     //전체 몬스터 조회
-    fun getAllMonsters(){
+    private var monsterListAdapterListProvider: (() -> List<MonsterDto>)? = null
+    fun getMonsterListAdapterList(): List<MonsterDto> {
+        return monsterListAdapterListProvider?.invoke() ?: emptyList()
+    }
+    fun getAllMonsters(
+        adapterListProvider: () -> List<MonsterDto>
+    ){
+        monsterListAdapterListProvider = adapterListProvider
         viewModelScope.launch {
             _currentMonsterList.emit(getAllMonstersLocalUseCase.invoke())
             _currentItemList.emit(listOf())
@@ -209,7 +236,14 @@ class DogamViewModel @Inject constructor(
         }
     }
 
-
+    //새로운 몬스터 리스트
+    private var _newMonsterList = MutableStateFlow<List<MonsterDto>>(listOf())
+    val newMonsterList = _newMonsterList.asStateFlow()
+    fun updateMonsterListAdapter(list: List<MonsterDto>){
+        viewModelScope.launch {
+            _newMonsterList.emit(list)
+        }
+    }
 
 
 }

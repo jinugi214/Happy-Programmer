@@ -86,7 +86,7 @@ class BookmarkViewModel @Inject constructor(
         }
     }
 
-    //현재 아이템 리스트
+    //새로운 아이템 리스트
     private var _newItemList = MutableStateFlow<List<ItemDto>>(listOf())
 
     val newItemList = _newItemList.asStateFlow()
@@ -105,21 +105,42 @@ class BookmarkViewModel @Inject constructor(
     val currentBookmarkSkillList: SharedFlow<List<SkillDto>>
         get() = _currentBookmarkSkillList.asSharedFlow()
 
-    //현재 선택된 아이템
+    //현재 선택된 스킬
     private var _selectedBookmarkSkill = MutableStateFlow<SkillDto?>(null)
     val selectedBookmarkSkill = _selectedBookmarkSkill.asStateFlow()
-    fun setSelectedBookmarkSkill(skill: SkillDto?){
+    private var _selectedSkillPosition = MutableStateFlow<Int?>(null)
+    val selectedSkillPosition = _selectedSkillPosition.asStateFlow()
+    fun setSelectedBookmarkSkill(position: Int, skill: SkillDto?){
         viewModelScope.launch {
             _selectedBookmarkSkill.emit(skill)
+            _selectedSkillPosition.emit(position)
         }
     }
 
     //전체 스킬 조회
-    fun getAllBookmarkSkillsLocal(){
+    private var skillListAdapterListProvider: (() -> List<SkillDto>)? = null
+    fun getSkillListAdapterList(): List<SkillDto> {
+        return skillListAdapterListProvider?.invoke() ?: emptyList()
+    }
+    fun getAllBookmarkSkillsLocal(
+        adapterListProvider: () -> List<SkillDto>
+    ){
+        skillListAdapterListProvider = adapterListProvider
         viewModelScope.launch {
             _currentBookmarkSkillList.emit(getAllBookmarkSkillsLocalUseCase.invoke())
             _currentBookmarkItemList.emit(listOf())
             _currentBookmarkMonsterList.emit(listOf())
+        }
+    }
+
+    // 새로운 스킬 리스트
+    private var _newSkillList = MutableStateFlow<List<SkillDto>>(listOf())
+
+    val newSkillList = _newSkillList.asStateFlow()
+
+    fun updateSkillListAdapter(list: List<SkillDto>){
+        viewModelScope.launch {
+            _newSkillList.emit(list)
         }
     }
 
@@ -134,18 +155,39 @@ class BookmarkViewModel @Inject constructor(
     //현재 선택된 몬스터
     private var _selectedBookmarkMonster = MutableStateFlow<MonsterDto?>(null)
     val selectedBookmarkMonster = _selectedBookmarkMonster.asStateFlow()
-    fun setSelectedBookmarkMonster(monster: MonsterDto?){
+    private var _selectedMonsterPosition = MutableStateFlow<Int?>(null)
+    val selectedMonsterPosition = _selectedMonsterPosition.asStateFlow()
+    fun setSelectedBookmarkMonster(position: Int, monster: MonsterDto?){
         viewModelScope.launch {
             _selectedBookmarkMonster.emit(monster)
+            _selectedMonsterPosition.emit(position)
         }
     }
 
     //전체 몬스터 조회
-    fun getAllBookmarkMonstersLocal(){
+    private var monsterListAdapterListProvider: (() -> List<MonsterDto>)? = null
+    fun getMonsterListAdapterList(): List<MonsterDto> {
+        return monsterListAdapterListProvider?.invoke() ?: emptyList()
+    }
+    fun getAllBookmarkMonstersLocal(
+        adapterListProvider: () -> List<MonsterDto>
+    ){
+        monsterListAdapterListProvider = adapterListProvider
         viewModelScope.launch {
             _currentBookmarkMonsterList.emit(getAllBookmarkMonstersLocalUseCase.invoke())
             _currentBookmarkItemList.emit(listOf())
             _currentBookmarkSkillList.emit(listOf())
+        }
+    }
+
+    // 새로운 몬스터 리스트
+    private var _newMonsterList = MutableStateFlow<List<MonsterDto>>(listOf())
+
+    val newMonsterList = _newMonsterList.asStateFlow()
+
+    fun updateMonsterListAdapter(list: List<MonsterDto>){
+        viewModelScope.launch {
+            _newMonsterList.emit(list)
         }
     }
 

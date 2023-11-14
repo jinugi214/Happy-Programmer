@@ -9,5 +9,5 @@ data class SkillDto(
     val name: String,
     val description: String,
     val imageBitmap: Bitmap?,
-    val isBookmarked: Boolean
+    var isBookmarked: Boolean
 )

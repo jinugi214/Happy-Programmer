@@ -88,16 +88,56 @@ class SkillDetailDialogFragment(
         skillDetailDialogViewModel.apply {
             viewLifecycleOwner.lifecycleScope.launch {
                 currentIsBookmarked.collectLatest {
+                    binding.buttonSelcetedBookmark.isEnabled = false
+                    binding.buttonUnselcetedBookmark.isEnabled = false
                     Log.d(TAG, "toggle 결과 : $it")
                     if(it){
                         Log.d(TAG, "true 버튼 갱신")
+                        if(dogamViewModel!=null){
+                            updateDogamList(
+                                value = true,
+                                list = dogamViewModel.getSkillListAdapterList(),
+                                position = dogamViewModel.selectedSkillPosition.value!!
+                            ){newList ->
+                                dogamViewModel.updateSkillListAdapter(newList)
+                            }
+                        }else{
+                            updateBookmarkList(
+                                value = true,
+                                list = bookmarkViewModel!!.getSkillListAdapterList(),
+                                position = bookmarkViewModel.selectedSkillPosition.value!!,
+                                skill = bookmarkViewModel.selectedBookmarkSkill.value
+                            ){newList ->
+                                bookmarkViewModel.updateSkillListAdapter(newList)
+                            }
+                        }
                         binding.buttonUnselcetedBookmark.visibility = View.GONE
                         binding.buttonSelcetedBookmark.visibility = View.VISIBLE
                     }else{
+                        if(dogamViewModel!=null){
+                            updateDogamList(
+                                value = false,
+                                list = dogamViewModel.getSkillListAdapterList(),
+                                position = dogamViewModel.selectedSkillPosition.value!!
+                            ){newList ->
+                                dogamViewModel.updateSkillListAdapter(newList)
+                            }
+                        }else{
+                            updateBookmarkList(
+                                value = false,
+                                list = bookmarkViewModel!!.getSkillListAdapterList(),
+                                position = bookmarkViewModel.selectedSkillPosition.value!!,
+                                skill = bookmarkViewModel.selectedBookmarkSkill.value
+                            ){newList ->
+                                bookmarkViewModel.updateSkillListAdapter(newList)
+                            }
+                        }
                         Log.d(TAG, "false 버튼 갱신")
                         binding.buttonSelcetedBookmark.visibility = View.GONE
                         binding.buttonUnselcetedBookmark.visibility = View.VISIBLE
                     }
+                    binding.buttonSelcetedBookmark.isEnabled = true
+                    binding.buttonUnselcetedBookmark.isEnabled = true
                 }
             }
         }
@@ -106,10 +146,10 @@ class SkillDetailDialogFragment(
         super.onDismiss(dialog)
         if(dogamViewModel != null) {
             dogamViewModel.setItemClickListenerEnabled(true)
-            dogamViewModel.setSelectedSkill(null)
+            dogamViewModel.setSelectedSkill(-1, null)
         }else{
             bookmarkViewModel!!.setItemClickListenerEnabled(true)
-            bookmarkViewModel.setSelectedBookmarkSkill(null)
+            bookmarkViewModel.setSelectedBookmarkSkill(-1, null)
         }
     }
 }

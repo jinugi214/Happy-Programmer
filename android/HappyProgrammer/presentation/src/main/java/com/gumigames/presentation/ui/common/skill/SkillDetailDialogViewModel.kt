@@ -53,4 +53,38 @@ class SkillDetailDialogViewModel @Inject constructor(
 
         }
     }
+
+    fun updateDogamList(
+        value: Boolean,
+        list: List<SkillDto>,
+        position: Int,
+        onUpdate: (List<SkillDto>) -> Unit
+    ){
+        if(value) {
+            val newSkillList = list.map { skillDto -> skillDto.copy() } //각 객체들도 깊은 복사 필수
+            newSkillList[position].isBookmarked = true
+            onUpdate(newSkillList)
+        }else{
+            val newSkillList = list.map { skillDto ->  skillDto.copy() } //각 객체들도 깊은 복사 필수
+            newSkillList[position].isBookmarked = false
+            onUpdate(newSkillList)
+        }
+    }
+
+    fun updateBookmarkList(
+        value: Boolean,
+        list: List<SkillDto>,
+        position: Int,
+        skill: SkillDto?,
+        onUpdate: (List<SkillDto>) -> Unit
+    ){
+        if(value){
+            val newSkillList = list.map { skillDto ->  skillDto.copy() }.toMutableList() //각 객체들도 깊은 복사 필수
+            newSkillList.add(position, skill!!)
+            onUpdate(newSkillList)
+        }else{
+            val newSkillList = list.filterIndexed { index, _ -> index != position }.map { skillDto ->  skillDto.copy() } //각 객체들도 깊은 복사 필수
+            onUpdate(newSkillList)
+        }
+    }
 }

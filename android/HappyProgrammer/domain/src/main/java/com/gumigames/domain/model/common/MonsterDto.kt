@@ -9,5 +9,5 @@ data class MonsterDto(
     val hp: Int,
     val description: String,
     val imageBitmap: Bitmap?,
-    val isBookmarked: Boolean
+    var isBookmarked: Boolean
 )
