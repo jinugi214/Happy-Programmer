@@ -26,25 +26,16 @@ public class RegisterManager : MonoBehaviour
     public Button registerButton;
     public Button nicknameCheckButton;
     public Button usernameCheckButton;
-
-    private void Start()
-    {
-        nickname = transform.Find("Nickname").GetComponent<TMP_InputField>();
-        username = transform.Find("ID").GetComponent<TMP_InputField>();
-        password = transform.Find("Password").GetComponent<TMP_InputField>();
-        passwordCheck = transform.Find("PasswordCheck").GetComponent<TMP_InputField>();
-        language = transform.Find("Dropdown").GetComponent<TMP_Dropdown>();
-        nicknameCheckButton = transform.Find("NicknameCheck").Find("NicknameCheckBtn").GetComponent<Button>();
-        usernameCheckButton = transform.Find("IdCheck").Find("IdCheckBtn").GetComponent<Button>();
-        registerButton = transform.Find("Confirm").Find("ConfirmBtn").GetComponent<Button>();
-    }
+    public GameObject checkWindow;
+    public TextMeshProUGUI windowText;
 
     public void OnNicknameCheckButtonClicked()
     {
         string InputNickname = nickname.text;
         if (string.IsNullOrEmpty(InputNickname))
         {
-            Debug.LogError("닉네임을 입력해주세요");
+            windowText.text = "닉네임을 입력해주세요";
+            checkWindow.SetActive(true);
             return;
         }
         StartCoroutine(CheckNickname(InputNickname));
@@ -55,7 +46,8 @@ public class RegisterManager : MonoBehaviour
         string InputUsername = username.text;
         if (string.IsNullOrEmpty(InputUsername))
         {
-            Debug.LogError("아이디를 입력해주세요");
+            windowText.text = "아이디를 입력해주세요";
+            checkWindow.SetActive(true);
             return;
         }
 
@@ -76,14 +68,16 @@ public class RegisterManager : MonoBehaviour
             string.IsNullOrEmpty(registerData.nickname) ||
             string.IsNullOrEmpty(registerData.language))
         {
-            Debug.LogError("입력칸을 모두 채워주세요");
+            windowText.text = "입력칸을 모두 채워주세요";
+            checkWindow.SetActive(true);
             return;
         }
 
 
         if (registerData.password != passwordCheck.text)
         {
-            Debug.LogError("비밀번호를 다시 확인해주세요!");
+            windowText.text = "비밀번호를 다시 확인해주세요!";
+            checkWindow.SetActive(true);    
             return;
         }
         StartCoroutine(Register(registerData));
@@ -92,16 +86,11 @@ public class RegisterManager : MonoBehaviour
 
     IEnumerator CheckNickname(string InputNickname)
     {
+        string urlWithParameter = serverUrl + "/check/nickname/" + UnityWebRequest.EscapeURL(InputNickname);
 
-        // JSON으로 변환하기
-        string json = JsonUtility.ToJson(new { nickname = InputNickname });
+        using (UnityWebRequest www = new UnityWebRequest(urlWithParameter, "GET"))
 
-
-        // POST 요청 보내기
-        using (UnityWebRequest www = new UnityWebRequest(serverUrl + "/nickname-check", "POST"))
         {
-            byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
-            www.uploadHandler = new UploadHandlerRaw(bodyRaw);
             www.downloadHandler = new DownloadHandlerBuffer();
             www.SetRequestHeader("Content-Type", "application/json");
 
@@ -109,29 +98,26 @@ public class RegisterManager : MonoBehaviour
 
             if (www.result != UnityWebRequest.Result.Success)
             {
-                // 닉네임 체크 실패시
                 Debug.Log(www.error);
-                Debug.Log("닉네임 체크 실패"); 
+                windowText.text = "중복된 닉네임입니다.";
+                checkWindow.SetActive(true);
+
             }
             else
             {
-                // 닉네임 체크 성공시 처리하는 로직 작성란
-                Debug.Log("닉네임 체크 성공");
+                windowText.text = "만들 수 있는 닉네임입니다.";
+                checkWindow.SetActive(true);
             }
         }
     }
 
     IEnumerator CheckUsername(string InputUsername)
     {
-        // JSON으로 변환하기
-        string json = JsonUtility.ToJson(new { username = InputUsername });
-
+        string urlWithParameter = serverUrl + "/check/username/" + UnityWebRequest.EscapeURL(InputUsername);
 
         // POST 요청 보내기
-        using (UnityWebRequest www = new UnityWebRequest(serverUrl + "/username-check", "POST"))
+        using (UnityWebRequest www = new UnityWebRequest(urlWithParameter, "GET"))
         {
-            byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
-            www.uploadHandler = new UploadHandlerRaw(bodyRaw);
             www.downloadHandler = new DownloadHandlerBuffer();
             www.SetRequestHeader("Content-Type", "application/json");
 
@@ -139,14 +125,14 @@ public class RegisterManager : MonoBehaviour
 
             if (www.result != UnityWebRequest.Result.Success)
             {
-                // 닉네임 체크 실패시
                 Debug.Log(www.error);
-                Debug.Log("아이디 체크 실패");
+                windowText.text = "중복된 아이디입니다.";
+                checkWindow.SetActive(true);
             }
             else
             {
-                // 닉네임 체크 성공시 처리하는 로직 작성란
-                Debug.Log("아이디 체크 성공");
+                windowText.text = "만들 수 있는 아이디입니다.";
+                checkWindow.SetActive(true);
             }
         }
     }
@@ -173,12 +159,14 @@ public class RegisterManager : MonoBehaviour
             {
                 // 회원가입 실패시
                 Debug.Log(www.error);
-                Debug.Log("회원가입 실패");
+                windowText.text = "회원가입에 실패하였습니다.";
+                checkWindow.SetActive(true);
             }
             else
             {
                 // 회원가입 성공시 처리하는 로직 작성란
-                Debug.Log("회원가입 성공");
+                windowText.text = "성공적으로 회원가입이 되었습니다.";
+                checkWindow.SetActive(true);
                 SceneManager.LoadScene("GameLogin");
             }
         }

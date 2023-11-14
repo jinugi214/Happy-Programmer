@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Text;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
-public class CharacterSaveLoadManager {
+public class CharacterSaveLoadManager : MonoBehaviour {
 
     string serverUrl = "http://k9d210.p.ssafy.io:8081/api/character";
+    public GameObject checkWindow;
+    public TextMeshProUGUI windowText;
+    public GameObject uiManagerPrefab;
     string accessToken;
-    public GameObject gamingPrefabs;
 
     // 캐릭터 게임 서버에 저장
     public IEnumerator SaveCharacterData()
@@ -29,10 +32,13 @@ public class CharacterSaveLoadManager {
             if (www.result != UnityWebRequest.Result.Success)
             {
                 Debug.Log(www.error);
+                windowText.text = "저장에 실패하였습니다.";
+                checkWindow.SetActive(true);
             }
             else
             {
-                Debug.Log("캐릭터 정보 저장이 성공하였습니다.");
+                windowText.text = "캐릭터 정보 저장이 성공하였습니다.";
+                checkWindow.SetActive(true);
             }
         }
     }
@@ -53,17 +59,25 @@ public class CharacterSaveLoadManager {
             if (www.result != UnityWebRequest.Result.Success)
             {
                 Debug.Log(www.error);
-                Debug.Log("캐릭터 불러오기 실패");
+                windowText.text = "캐릭터를 새롭게 생성해주세요!";
+                checkWindow.SetActive(true);
+
             }
             else
             {
                 string response = www.downloadHandler.text;
                 Debug.Log(response);
                 CharacterData character = JsonUtility.FromJson<CharacterData>(response);
+                Debug.Log(character);
                 DataManager.instance.CharacterData = character;
+                // UIManager 인스턴스 생성
+                if (UIManager.instance == null)
+                {
+                    Instantiate(uiManagerPrefab);
+                }
                 SceneManager.LoadScene(DataManager.instance.CharacterData.savepoint);
-                Debug.Log(DataManager.instance.CharacterData.name + "가 접속하였습니다.");
                 Debug.Log("캐릭터 불러오기 성공");
+
             }
         }
     }
