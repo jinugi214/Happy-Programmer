@@ -65,7 +65,7 @@ public class MonsterService {
 	}
 
 	// 즐겨찾기한 몬스터 리스트 가져오기
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<MonsterResponse> findMonsterFavoriteListByAccount(String username){
 		Account account = accountRepository.findByUsername(username)
 			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계정입니다."));

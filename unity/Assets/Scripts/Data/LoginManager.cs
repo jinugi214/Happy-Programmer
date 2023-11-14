@@ -41,12 +41,6 @@ public class LoginManager : MonoBehaviour
     public Button loginButton;
     public GameObject dataManagerPrefab;
 
-    private void Start()
-    {
-        username = transform.Find("InputID").GetComponent<TMP_InputField>();
-        password = transform.Find("InputPW").GetComponent<TMP_InputField>();
-        loginButton = transform.Find("Login").Find("LoginBtn").GetComponent<Button>();
-    }
 
     public void OnLoginButtonClicked()
     {
@@ -60,18 +54,14 @@ public class LoginManager : MonoBehaviour
         LoginData loginData = new LoginData();
         loginData.username = InputUsername;
         loginData.password = InputPassword;
-
         StartCoroutine(Login(loginData));
     }
 
     IEnumerator Login(LoginData loginData)
     {
         
-
         // JSON으로 변환하기
         string json = JsonUtility.ToJson(loginData);
-
-
 
         // POST 요청 보내기
         using (UnityWebRequest www = new UnityWebRequest(url + "/login", "POST"))

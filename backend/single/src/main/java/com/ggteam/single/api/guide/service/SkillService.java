@@ -13,7 +13,6 @@ import com.ggteam.single.api.guide.dto.req.SkillFavoriteRequest;
 import com.ggteam.single.api.guide.dto.res.FavoriteResponse;
 import com.ggteam.single.api.guide.dto.res.SkillResponse;
 import com.ggteam.single.api.guide.dto.res.SkillWithFavoriteResponse;
-import com.ggteam.single.api.guide.entity.ItemFavorite;
 import com.ggteam.single.api.guide.entity.Skill;
 import com.ggteam.single.api.guide.entity.SkillFavorite;
 import com.ggteam.single.api.guide.repository.SkillFavoriteRepository;
@@ -29,7 +28,7 @@ public class SkillService {
 	private final SkillFavoriteRepository skillFavoriteRepository;
 	private final AccountRepository accountRepository;
 
-	// 몬스터 전체 불러오기 (즐겨찾기했는지 포함해서 보내기)
+	// 스킬 전체 불러오기 (즐겨찾기했는지 포함해서 보내기)
 	@Transactional(readOnly = true)
 	public List<SkillWithFavoriteResponse> findSkillListWithFavorite(String username) {
 		Account account = accountRepository.findByUsername(username)
@@ -50,7 +49,7 @@ public class SkillService {
 		}
 	}
 
-	// 몬스터 검색하기
+	// 스킬 검색하기
 	@Transactional(readOnly = true)
 	public List<SkillWithFavoriteResponse> findSkillListByKeyword(String username, String keyword) {
 		Account account = accountRepository.findByUsername(username)
@@ -64,8 +63,8 @@ public class SkillService {
 			.collect(Collectors.toList());
 	}
 
-	// 즐겨찾기한 몬스터 리스트 가져오기
-	@Transactional
+	// 즐겨찾기한 스킬 리스트 가져오기
+	@Transactional(readOnly = true)
 	public List<SkillResponse> findSkillFavoriteListByAccount(String username){
 		Account account = accountRepository.findByUsername(username)
 			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계정입니다."));
@@ -76,7 +75,7 @@ public class SkillService {
 	}
 
 
-	// 몬스터 즐겨찾기 추가 및 해제
+	// 스킬 즐겨찾기 추가 및 해제
 	@Transactional
 	public FavoriteResponse addSkillFavorite(SkillFavoriteRequest requestDto){
 		Account account = accountRepository.findByUsername(requestDto.getUsername())

@@ -27,6 +27,7 @@ public class CharacterService {
         Character character = characterRepository.findByAccount_Username(username).orElseThrow(null);
 
         CharacterDto characterDto = CharacterDto.builder()
+                .id(character.getId())
                 .name(character.getName())
                 .gender(character.getGender())
                 .level(character.getLevel())
@@ -40,11 +41,10 @@ public class CharacterService {
         return ResponseEntity.ok(characterDto);
     }
 
-    public ResponseEntity<?> saveCharater(@RequestBody CharacterDto characterDto, UserDetails userDetails) {
-        if (characterRepository.count() >= 2) {
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("더 이상 캐릭터를 생성할 수 없습니다.");
-        }
-        String username = userDetails.getUsername();
+    public ResponseEntity<?> saveCharacter(CharacterDto characterDto, Principal principal) {
+
+        String username = principal.getName();
+        System.out.println(username);
 
         Character character = Character.builder()
                 .name(characterDto.getName())

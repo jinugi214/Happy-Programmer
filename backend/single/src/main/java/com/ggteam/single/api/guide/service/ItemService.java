@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.ggteam.single.api.account.entity.Character;
+import com.ggteam.single.api.guide.entity.Inventory;
+import com.ggteam.single.api.guide.repository.InventoryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,7 +39,8 @@ public class ItemService {
 		return itemRepository.findAll().stream()
 				.map(item -> {
 					boolean isFavorite = checkItemFavorite(account, item);
-					return new ItemWithFavoriteResponse(item, isFavorite);
+					boolean isOwned = checkItemOwned(account, item);
+					return new ItemWithFavoriteResponse(item, isFavorite, isOwned);
 				})
 				.collect(Collectors.toList());
 	}
@@ -49,6 +53,12 @@ public class ItemService {
 		}
 	}
 
+	private boolean checkItemOwned(Account account, Item item) {
+		List<Inventory> itemList = account.getCharacter().getInventoryList();
+		return itemList.stream()
+				.anyMatch(inventory -> inventory.getItem().equals(item));
+	}
+
 	// 아이템 검색하기
 	@Transactional(readOnly = true)
 	public List<ItemWithFavoriteResponse> findItemListByKeyword(String username, String keyword) {
@@ -58,19 +68,23 @@ public class ItemService {
 		return itemRepository.findByNameContaining(keyword).stream()
 			.map(item -> {
 				boolean isFavorite = checkItemFavorite(account, item);
-				return new ItemWithFavoriteResponse(item, isFavorite);
+				boolean isOwned = checkItemOwned(account, item);
+				return new ItemWithFavoriteResponse(item, isFavorite, isOwned);
 			})
 			.collect(Collectors.toList());
 	}
 
 	// 즐겨찾기한 아이템 리스트 가져오기
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<ItemResponse> findItemFavoriteListByAccount(String username){
 		Account account = accountRepository.findByUsername(username)
 			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계정입니다."));
 		// 아이템 즐겨찾기 테이블에 계정에 맞는 아이템들 전체 불러와서 반환하기
 		return itemRepository.findItemFavoriteByAccount(account.getId()).stream()
-			.map(ItemResponse::new)
+			.map(item -> {
+				boolean isOwned = checkItemOwned(account, item);
+				return new ItemResponse(item, isOwned);
+			})
 			.collect(Collectors.toList());
 	}
 
@@ -94,3 +108,7 @@ public class ItemService {
 		}
 	}
 }
+
+
+
+
