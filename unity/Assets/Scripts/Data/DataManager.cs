@@ -98,19 +98,4 @@ public class DataManager : MonoBehaviour
         Debug.Log("호출됐음" + characterData.level);
     }
 
-    public void UpdateCharacterData(int exp, int level)
-    {
-        characterData.exp = exp;
-        characterData.level = level;
-        Debug.Log("호출됨"+characterData.exp);
-        Debug.Log("호출됐음" + characterData.level);
-    }
-
-    public void UpdateCharacterData(int exp, int level)
-    {
-        characterData.exp = exp;
-        characterData.level = level;
-        Debug.Log("호출됨"+characterData.exp);
-        Debug.Log("호출됐음" + characterData.level);
-    }
 }
