@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MiniGameManager : MonoBehaviour
 {
@@ -18,6 +19,12 @@ public class MiniGameManager : MonoBehaviour
     public int[] nextExp = { 10, 30, 60, 100, 150 };
     public float health;
     public float maxHealth = 100;
+    public float mp;
+    public float maxMp = 100;
+    public float nowExp;
+
+    public GameObject uiResult;
+    
 
     
 
@@ -28,12 +35,13 @@ public class MiniGameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        isLive = true;
-        health = maxHealth;
     }
 
     private void Update()
     {
+        if (!isLive)
+            return;
+
         gameTime += Time.deltaTime;
 
 
@@ -41,6 +49,35 @@ public class MiniGameManager : MonoBehaviour
         {
             gameTime = maxGameTime;
         }
+    }
+
+
+    public void GameStart()
+    {
+        health = maxHealth;
+        mp = maxMp;
+        isLive = true;
+
+    }
+
+    public void GameOver()
+    {
+        StartCoroutine(GameOverRoutine());
+
+    }
+
+    IEnumerator GameOverRoutine()
+    {
+        isLive = false;
+        yield return new WaitForSeconds(0.5f);
+        uiResult.SetActive(true);
+        Stop(); 
+    }
+
+    public void GameRetry()
+    {
+        SceneManager.LoadScene("MiniGameMap");
+        
     }
 
     public void GetExp()
@@ -66,5 +103,18 @@ public class MiniGameManager : MonoBehaviour
                 // 공격 함수 가져와서 캐릭터에게 대미지 입히기
                 return;
         }
+    }
+
+
+    public void Stop()
+    {
+        isLive = false;
+        Time.timeScale = 0;
+    }
+
+    public void Resume()
+    {
+        isLive = true;
+        Time.timeScale = 1;
     }
 }
