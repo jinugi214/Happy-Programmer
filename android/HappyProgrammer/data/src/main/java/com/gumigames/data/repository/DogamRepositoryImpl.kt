@@ -90,6 +90,13 @@ class DogamRepositoryImpl(
         itemDao.deleteBookmarkItemLocal(itemId)
     }
 
+    /**
+     * 내 아이템 조회
+     */
+    override suspend fun getMyItemsLocal(): List<ItemDto> {
+        return itemDao.getMyItemsLocal().map { it.toDomain() }
+    }
+
     /////////////////////////////////////// 스킬 /////////////////////////////////////////////
 
     /**
@@ -150,6 +157,7 @@ class DogamRepositoryImpl(
     override suspend fun deleteBookmarkSkillLocal(skillId: Int) {
         skillDao.deleteBookmarkSkillLocal(skillId)
     }
+
 
 
     /////////////////////////////////////// 몬스터 /////////////////////////////////////////////

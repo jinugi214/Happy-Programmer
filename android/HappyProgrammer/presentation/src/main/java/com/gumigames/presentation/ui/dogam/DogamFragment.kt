@@ -108,21 +108,21 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
                     when(tab!!.position){
                         //아이템 조회
                         0 -> {
-                            binding.recyclerviewDogam.adapter = itemListAdapter
+                            recyclerviewDogam.adapter = itemListAdapter
                             dogamViewModel.getAllItems{itemListAdapter.currentList}
                             dogamViewModel.setCurrentTab("item")
                             edittextSearch.text.clear()
                         }
                         //스킬 조회
                         1 -> {
-                            binding.recyclerviewDogam.adapter = skillListAdapter
+                            recyclerviewDogam.adapter = skillListAdapter
                             dogamViewModel.getAllSkills{skillListAdapter.currentList}
                             dogamViewModel.setCurrentTab("skill")
                             edittextSearch.text.clear()
                         }
                         //몬스터 조회
                         2 -> {
-                            binding.recyclerviewDogam.adapter = monsterListAdapter
+                            recyclerviewDogam.adapter = monsterListAdapter
                             dogamViewModel.getAllMonsters{monsterListAdapter.currentList}
                             dogamViewModel.setCurrentTab("monster")
                             edittextSearch.text.clear()
@@ -168,6 +168,7 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
                         val detailDialog = ItemDetailDialogFragment(
                             dogamViewModel = dogamViewModel,
                             bookmarkViewModel = null,
+                            profileViewModel = null
                         )
                         detailDialog.show(childFragmentManager, null)
                     }

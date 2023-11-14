@@ -104,19 +104,19 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(
                     when (tab!!.position) {
                         //아이템 조회
                         0 -> {
-                            binding.recyclerviewBookmark.adapter = itemListAdapter
+                            recyclerviewBookmark.adapter = itemListAdapter
                             bookmarkViewModel.getAllBookmarkItemsLocal{itemListAdapter.currentList}
                             bookmarkViewModel.setCurrentTab("item")
                         }
                         //스킬 조회
                         1 -> {
-                            binding.recyclerviewBookmark.adapter = skillListAdapter
+                            recyclerviewBookmark.adapter = skillListAdapter
                             bookmarkViewModel.getAllBookmarkSkillsLocal{skillListAdapter.currentList}
                             bookmarkViewModel.setCurrentTab("skill")
                         }
                         //몬스터 조회
                         2 -> {
-                            binding.recyclerviewBookmark.adapter = monsterListAdapter
+                            recyclerviewBookmark.adapter = monsterListAdapter
                             bookmarkViewModel.getAllBookmarkMonstersLocal{monsterListAdapter.currentList}
                             bookmarkViewModel.setCurrentTab("monster")
                         }
@@ -142,7 +142,8 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(
                     if(it != null) {
                         val detailDialog = ItemDetailDialogFragment(
                             dogamViewModel = null,
-                            bookmarkViewModel = bookmarkViewModel
+                            bookmarkViewModel = bookmarkViewModel,
+                            profileViewModel = null
                         )
                         detailDialog.show(childFragmentManager, null)
                     }
