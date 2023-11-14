@@ -25,7 +25,7 @@ public class MissionController {
     @Operation(summary = "AI 객체 인식")
     @PostMapping(value = "/picture", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @CrossOrigin(origins = "*")
-    public Map<String, String> detectObject(@RequestPart(name = "file") MultipartFile image){
+    public Map<String, String> detectObject(@RequestPart(name = "file") MultipartFile image) {
 
         String[] objects = MissionService.detectObject(image);
         Map<String, String> result = new HashMap<>();
