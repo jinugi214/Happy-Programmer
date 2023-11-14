@@ -27,7 +27,6 @@ public class CharacterService {
         Character character = characterRepository.findByAccount_Username(username).orElseThrow(null);
 
         CharacterDto characterDto = CharacterDto.builder()
-                .id(character.getId())
                 .name(character.getName())
                 .gender(character.getGender())
                 .level(character.getLevel())
