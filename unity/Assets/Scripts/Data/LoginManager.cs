@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -39,6 +38,8 @@ public class LoginManager : MonoBehaviour
     public TMP_InputField username;
     public TMP_InputField password;
     public Button loginButton;
+    public GameObject checkWindow;
+    public TextMeshProUGUI windowText;
     public GameObject dataManagerPrefab;
 
 
@@ -48,7 +49,8 @@ public class LoginManager : MonoBehaviour
         string InputPassword = password.text;
         if (string.IsNullOrEmpty(InputUsername) || string.IsNullOrEmpty(InputPassword))
         {
-            Debug.LogError("아이디와 비밀번호를 모두 입력해주세요");
+            windowText.text = "아이디와 비밀번호를 모두 입력해주세요";
+            checkWindow.SetActive(true);
             return;
         }
         LoginData loginData = new LoginData();
@@ -78,12 +80,12 @@ public class LoginManager : MonoBehaviour
             {
                 // 로그인 실패시
                 Debug.Log(www.error);
-                Debug.Log("로그인 실패");
+                windowText.text = "아이디 또는 비밀번호가 틀렸습니다.";
+                checkWindow.SetActive(true);
             }
             else
             {
                 // 로그인 성공시 처리하는 로직
-                Debug.Log("로그인 성공");
                 string response = www.downloadHandler.text;
                 AccountFirstResponse account = JsonUtility.FromJson<AccountFirstResponse>(response);
                 Instantiate(dataManagerPrefab);
@@ -92,7 +94,6 @@ public class LoginManager : MonoBehaviour
                 DataManager.instance.AccountData.accountId = account.accountId.ToString();
                 StartCoroutine(GetAccountInfo(account.accessToken));
                 SceneManager.LoadScene("GameStart");
-
             }
         }
     }

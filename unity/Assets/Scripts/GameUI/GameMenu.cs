@@ -1,3 +1,5 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -7,6 +9,10 @@ public class GameMenu : MonoBehaviour
     public Button newStart;
     public Button loadStart;
     public Button exitGame;
+    public GameObject checkWindow;
+    public TextMeshProUGUI windowText;
+    public CharacterSaveLoadManager characterSaveLoadManager;
+
     public void OnNewStartClicked()
     {
         SceneManager.LoadScene("CharacterSetting");
@@ -14,17 +20,15 @@ public class GameMenu : MonoBehaviour
 
     public void OnLoadStartClicked()
     {
-        CharacterSaveLoadManager characterSaveLoadManager = new CharacterSaveLoadManager();
         StartCoroutine(characterSaveLoadManager.LoadCharacterData());
-        GamingPrefabs gamingPrefabs = new GamingPrefabs();
-        gamingPrefabs.InstantiatePrefabs();
     }
-
+    
     public void OnExitGameClicked()
     {
         if (DataManager.instance != null)
         {
             Destroy(DataManager.instance.gameObject);
+            Destroy(UIManager.instance.gameObject);
         }
 
         SceneManager.LoadScene("GameLogin");
