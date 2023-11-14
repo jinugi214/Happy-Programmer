@@ -98,6 +98,4 @@ public class DataManager : MonoBehaviour
         Debug.Log("호출됐음" + characterData.level);
     }
 
-  
-
 }
