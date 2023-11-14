@@ -89,4 +89,21 @@ class ItemDetailDialogViewModel @Inject constructor(
         }
     }
 
+    fun updateProfileList(
+        value: Boolean,
+        list: List<ItemDto>,
+        position: Int,
+        onUpdate: (List<ItemDto>) -> Unit
+    ){
+        if(value) {
+            val newItemList = list.map { itemDto -> itemDto.copy() } //각 객체들도 깊은 복사 필수
+            newItemList[position].isBookmarked = true
+            onUpdate(newItemList)
+        }else{
+            val newItemList = list.map { itemDto ->  itemDto.copy() } //각 객체들도 깊은 복사 필수
+            newItemList[position].isBookmarked = false
+            onUpdate(newItemList)
+        }
+    }
+
 }

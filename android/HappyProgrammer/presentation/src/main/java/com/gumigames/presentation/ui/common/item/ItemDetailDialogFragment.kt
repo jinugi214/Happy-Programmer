@@ -13,6 +13,7 @@ import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentItemDetailDialogBinding
 import com.gumigames.presentation.ui.bookmark.BookmarkViewModel
 import com.gumigames.presentation.ui.dogam.DogamViewModel
+import com.gumigames.presentation.ui.profile.ProfileViewModel
 import com.gumigames.presentation.util.clickAnimation
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -24,6 +25,7 @@ private const val TAG = "차선호"
 class ItemDetailDialogFragment(
     private val dogamViewModel: DogamViewModel?,
     private val bookmarkViewModel: BookmarkViewModel?,
+    private val profileViewModel: ProfileViewModel?
 ) : BaseBorderDialogFragment<FragmentItemDetailDialogBinding>(
     FragmentItemDetailDialogBinding::bind,
     R.layout.fragment_item_detail_dialog
@@ -40,9 +42,13 @@ class ItemDetailDialogFragment(
     }
 
     private fun init(){
-        itemDetailDialogViewModel.setCurrentItem(
-            (dogamViewModel?.selectedItem?.value) ?: bookmarkViewModel!!.selectedBookmarkItem.value!!
-        )
+        if(dogamViewModel!=null){
+            itemDetailDialogViewModel.setCurrentItem(dogamViewModel.selectedItem.value!!)
+        }else if(bookmarkViewModel!=null){
+            itemDetailDialogViewModel.setCurrentItem(bookmarkViewModel.selectedBookmarkItem.value!!)
+        }else{
+            itemDetailDialogViewModel.setCurrentItem(profileViewModel!!.selectedMyItem.value!!)
+        }
     }
 
     private fun initView(){
@@ -101,14 +107,22 @@ class ItemDetailDialogFragment(
                             ){newList ->
                                 dogamViewModel.updateItemListAdapter(newList)
                             }
-                        }else{
+                        }else if(bookmarkViewModel!=null){
                             updateBookmarkList(
                                 value = true,
-                                list = bookmarkViewModel!!.getItemListAdapterList(),
+                                list = bookmarkViewModel.getItemListAdapterList(),
                                 position = bookmarkViewModel.selectedItemPosition.value!!,
                                 item = bookmarkViewModel.selectedBookmarkItem.value
                             ){newList ->
                                 bookmarkViewModel.updateItemListAdapter(newList)
+                            }
+                        }else{
+                            updateDogamList(
+                                value = true,
+                                list = profileViewModel!!.getItemListAdapterList(),
+                                position = profileViewModel.selectedMyItemPosition.value!!
+                            ){newList ->
+                                profileViewModel.updateItemListAdapter(newList)
                             }
                         }
                         binding.buttonUnselcetedBookmark.visibility = View.GONE
@@ -122,14 +136,22 @@ class ItemDetailDialogFragment(
                             ){newList ->
                                 dogamViewModel.updateItemListAdapter(newList)
                             }
-                        }else{
+                        }else if(bookmarkViewModel!=null){
                             updateBookmarkList(
                                 value = false,
-                                list = bookmarkViewModel!!.getItemListAdapterList(),
+                                list = bookmarkViewModel.getItemListAdapterList(),
                                 position = bookmarkViewModel.selectedItemPosition.value!!,
                                 item = null
                             ){newList ->
                                 bookmarkViewModel.updateItemListAdapter(newList)
+                            }
+                        }else{
+                            updateDogamList(
+                                value = false,
+                                list = profileViewModel!!.getItemListAdapterList(),
+                                position = profileViewModel.selectedMyItemPosition.value!!
+                            ){newList ->
+                                profileViewModel.updateItemListAdapter(newList)
                             }
                         }
                         Log.d(TAG, "false 버튼 갱신")
@@ -148,9 +170,12 @@ class ItemDetailDialogFragment(
         if(dogamViewModel != null) {
             dogamViewModel.setItemClickListenerEnabled(true)
             dogamViewModel.setSelectedItem(-1, null)
-        }else{
-            bookmarkViewModel!!.setItemClickListenerEnabled(true)
+        }else if(bookmarkViewModel!=null){
+            bookmarkViewModel.setItemClickListenerEnabled(true)
             bookmarkViewModel.setSelectedBookmarkItem(-1, null)
+        }else{
+            profileViewModel!!.setItemClickListenerEnabled(true)
+            profileViewModel.setSelectedMyItem(-1, null)
         }
     }
 }

@@ -48,6 +48,10 @@ interface DogamRepository {
      */
     suspend fun deleteBookmarkItemLocal(itemId: Int)
 
+    /**
+     * 내 아이템 조회
+     */
+    suspend fun getMyItemsLocal(): List<ItemDto>
 
     //////////////////////////////// 스킬 ///////////////////////////////////////
 

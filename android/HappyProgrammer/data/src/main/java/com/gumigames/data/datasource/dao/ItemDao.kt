@@ -29,4 +29,7 @@ interface ItemDao {
     // bookmark 삭제 -> 해당 item의 isBookmarked를 false로 변경
     @Query("UPDATE table_item SET isBookmarked = 0 WHERE id = :itemId")
     suspend fun deleteBookmarkItemLocal(itemId: Int)
+    // 내 아이템 조회
+    @Query("SELECT * FROM table_item WHERE owned = 1")
+    suspend fun getMyItemsLocal(): List<ItemEntity>
 }
