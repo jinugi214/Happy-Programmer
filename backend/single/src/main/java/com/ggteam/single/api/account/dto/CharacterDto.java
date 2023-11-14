@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CharacterDto {
 
-    private Long id;
-
     private String name;
     private char gender;
     private int exp;
