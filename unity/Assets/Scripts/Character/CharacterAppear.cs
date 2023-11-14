@@ -9,7 +9,6 @@ public class CharacterAppear : MonoBehaviour
     public int keyboardNumber;
     public int phoneNumber;
 
-
     public GameObject weapon;
     public GameObject keyboard;
     public GameObject keyboard1;
@@ -30,6 +29,11 @@ public class CharacterAppear : MonoBehaviour
     public GameObject helmet1;
     public GameObject helmet2;
     public GameObject helmet3;
+
+    public bool IsWeaponEquipped()
+    {
+        return weaponType != 0;
+    }
 
     public int GetWeaponType()
     {
@@ -176,7 +180,7 @@ public class CharacterAppear : MonoBehaviour
         phone3.SetActive(true);
 
         weaponType = 3;
-        
+
         phoneNumber = 3;
     }
 
