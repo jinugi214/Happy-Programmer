@@ -87,4 +87,13 @@ public class DataManager : MonoBehaviour
         characterData.savepoint = characterLoadData.savepoint;
         characterData.storyProgress = characterLoadData.storyProgress;
     }
+
+    public void UpdateCharacterData(int exp, int level)
+    {
+        characterData.exp = exp;
+        characterData.level = level;
+        Debug.Log("호출됨"+characterData.exp);
+        Debug.Log("호출됐음" + characterData.level);
+    }
+
 }
