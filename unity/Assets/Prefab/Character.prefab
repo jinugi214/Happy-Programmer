@@ -2690,9 +2690,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8291526fa42a8b84caf84c5b514b18f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentMapName: 
   moveSpeed: 2
   runMultiplier: 2
-  inventoryUI: {fileID: 0}
+  inventoryUI: {fileID: 4927494974029519614, guid: a98d067d4728e4a45a6127d8c4673c26, type: 3}
   movement: {x: 0, y: 0}
   lastDirection: {x: 0, y: 0}
 --- !u!114 &4948072990969089348
@@ -2846,9 +2847,9 @@ MonoBehaviour:
   keyboard1Prefab: {fileID: 7757373571342780106, guid: 96a073191e96c5b4e98a2c6e51665c5a, type: 3}
   keyboard2Prefab: {fileID: 8350813194068039475, guid: cf2624e723871c945b0d1ea50d9da5b3, type: 3}
   keyboard3Prefab: {fileID: 332645402951025051, guid: 96aae42a847c88243bb64febfed0320a, type: 3}
-  mouse1Prefab: {fileID: 0}
-  mouse2Prefab: {fileID: 0}
-  mouse3Prefab: {fileID: 0}
+  mouse1Prefab: {fileID: 7257752143779240135, guid: 4067a786cda7ae8428c04b07b660c212, type: 3}
+  mouse2Prefab: {fileID: 2137305800596043787, guid: 4eb717bf8c545b144ae02c7f3b0bfb87, type: 3}
+  mouse3Prefab: {fileID: 5026578222237685895, guid: a242da6a11446d24fbbd61cdd1493371, type: 3}
   phone1Prefab: {fileID: 3740201679868233218, guid: f2ce93bf3b3961c4e873aa48217f312b, type: 3}
   phone2Prefab: {fileID: 4740498960513180981, guid: 9af39d3c89b82234b970ed142c4346e8, type: 3}
   phone3Prefab: {fileID: 1693340214515467102, guid: e7b4db8f5b5db53479e401252c3d3319, type: 3}

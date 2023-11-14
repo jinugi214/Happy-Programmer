@@ -20,7 +20,7 @@ public class FadeManager : MonoBehaviour
     {
         color = black.color;
 
-        while(color.a < 1)
+        while (color.a < 1)
         {
             color.a += _speed;
             black.color = color;

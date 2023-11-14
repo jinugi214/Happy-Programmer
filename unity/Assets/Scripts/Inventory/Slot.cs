@@ -118,43 +118,43 @@ public class Slot : MonoBehaviour
                 // 장비 장착 로직
                 switch (item.itemName)
                 {
-                    case "keyboard1":
+                    case "문방구 키보드":
                         characterAppear.EquipKeyboard1();
                         break;
-                    case "keyboard2":
+                    case "기계식 키보드":
                         characterAppear.EquipKeyboard2();
                         break;
-                    case "keyboard3":
+                    case "게이밍 키보드":
                         characterAppear.EquipKeyboard3();
                         break;
 
-                    case "mouse1":
+                    case "문방구 마우스":
                         characterAppear.EquipMouse1();
                         break;
-                    case "mouse2":
+                    case "게이밍 마우스":
                         characterAppear.EquipMouse2();
                         break;
-                    case "mouse3":
+                    case "한정판 마우스":
                         characterAppear.EquipMouse3();
                         break;
 
-                    case "phone1":
+                    case "3G 피처폰":
                         characterAppear.EquipPhone1();
                         break;
-                    case "phone2":
+                    case "보급형 스마트폰":
                         characterAppear.EquipPhone2();
                         break;
-                    case "phone3":
+                    case "플래그쉽 스마트폰":
                         characterAppear.EquipPhone3();
                         break;
 
-                    case "helmet1":
+                    case "유선 이어폰":
                         characterAppear.EquipHelmet1();
                         break;
-                    case "helmet2":
+                    case "무선 이어폰":
                         characterAppear.EquipHelmet2();
                         break;
-                    case "helmet3":
+                    case "헤드폰":
                         characterAppear.EquipHelmet3();
                         break;
 
