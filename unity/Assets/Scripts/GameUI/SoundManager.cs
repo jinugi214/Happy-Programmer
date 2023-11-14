@@ -1,17 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
     static public SoundManager instance;
-
-    public AudioClip[] clips; // 배경음악들
-
-    private AudioSource source;
-
-    private WaitForSeconds waitTime = new WaitForSeconds(0.01f);
 
     private void Awake()
     {
@@ -26,49 +21,76 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    void Start()
+    public List<SceneBGM> sceneBGMs;
+    public AudioSource musicSource;
+    public Slider volumeSlider;
+
+    private int currentBGMIndex = 0; // 현재 재생 중인 음악 인덱스
+
+    [System.Serializable]
+    public class SceneBGM
     {
-        source = GetComponent<AudioSource>();
+        public string sceneName; // 씬의 이름
+        public AudioClip bgm; // 씬에 해당하는 배경음악
     }
 
-    public void Play(int _playMusicTrack)
+    private void Start()
     {
-        source.clip = clips[_playMusicTrack];
-        source.Play();
-    }
-
-    public void Stop()
-    {
-        source.Stop();
-    }
-
-    public void FadeOutMusic()
-    {
-        StopAllCoroutines();
-        StartCoroutine(FadeOutMusicCoroutine());
-    }
-
-    IEnumerator FadeOutMusicCoroutine()
-    {
-        for(float i = 1.0f; i >= 0f; i -= 0.01f)
+       if (volumeSlider != null && musicSource != null)
         {
-            source.volume = i;
-            yield return waitTime;
+            // 저장된 볼륨이 있으면 불러와서 설정, 없으면 기본 값으로 설정
+            float savedVolume = PlayerPrefs.GetFloat("MusicVolume", 0.5f);
+            volumeSlider.value = savedVolume;
+            SetMusicVolume(savedVolume);
+        }
+
+        PlayBGM();
+    }
+
+    private void SetMusicVolume(float volume)
+    {
+        if (musicSource != null)
+        {
+            musicSource.volume = volume;
         }
     }
 
-    public void FadeInMusic()
+    public void OnVolumeSliderChanged()
     {
-        StopAllCoroutines();
-        StartCoroutine(FadeInMusicCoroutine());
+        if (volumeSlider != null)
+        {
+            SetMusicVolume(volumeSlider.value);
+            // 설정한 볼륨을 저장
+            PlayerPrefs.SetFloat("MusicVolume", volumeSlider.value);
+        }
     }
 
-    IEnumerator FadeInMusicCoroutine()
+    private void PlayBGM()
     {
-        for (float i = 0f; i <= 1f; i += 0.01f)
+        string currentSceneName = SceneManager.GetActiveScene().name;
+
+        // 현재 씬에 해당하는 배경음악을 찾아 재생
+        SceneBGM currentSceneBGM = sceneBGMs.Find(sceneBGM => sceneBGM.sceneName == currentSceneName);
+
+        if (currentSceneBGM != null && musicSource != null)
         {
-            source.volume = i;
-            yield return waitTime;
+            musicSource.clip = currentSceneBGM.bgm;
+            musicSource.Play();
         }
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        PlayBGM();
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
