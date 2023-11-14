@@ -25,8 +25,6 @@ public class SoundManager : MonoBehaviour
     public AudioSource musicSource;
     public Slider volumeSlider;
 
-    private int currentBGMIndex = 0; // 현재 재생 중인 음악 인덱스
-
     [System.Serializable]
     public class SceneBGM
     {
