@@ -13,8 +13,9 @@ public class TransferScences : MonoBehaviour
 
     void Start()
     {
-        thePlayer = FindAnyObjectByType<CharacterMovement>(); // 모든 객체 참조
+        thePlayer = FindObjectOfType<CharacterMovement>(); // 모든 객체 참조
         // GetComponent 단일 객체
+        theFade = FindObjectOfType<FadeManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
