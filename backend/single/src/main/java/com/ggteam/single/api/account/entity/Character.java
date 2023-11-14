@@ -44,7 +44,7 @@ public class Character {
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @OneToMany(mappedBy = "character")
+    @OneToMany(mappedBy = "character", cascade = CascadeType.ALL)
     private List<Inventory> inventoryList = new ArrayList<>();
 
     // 게임 저장시 캐릭터 업데이트
