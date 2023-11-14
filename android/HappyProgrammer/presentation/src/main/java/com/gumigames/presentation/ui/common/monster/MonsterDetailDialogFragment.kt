@@ -88,16 +88,56 @@ class MonsterDetailDialogFragment(
         monsterDetailDialogViewModel.apply {
             viewLifecycleOwner.lifecycleScope.launch {
                 currentIsBookmarked.collectLatest {
+                    binding.buttonSelcetedBookmark.isEnabled = false
+                    binding.buttonUnselcetedBookmark.isEnabled = false
                     Log.d(TAG, "toggle 결과 : $it")
                     if(it){
                         Log.d(TAG, "true 버튼 갱신")
+                        if(dogamViewModel!=null){
+                            updateDogamList(
+                                value = true,
+                                list = dogamViewModel.getMonsterListAdapterList(),
+                                position = dogamViewModel.selectedMonsterPosition.value!!
+                            ){newList->
+                                dogamViewModel.updateMonsterListAdapter(newList)
+                            }
+                        }else{
+                            updateBookmarkList(
+                                value = true,
+                                list = bookmarkViewModel!!.getMonsterListAdapterList(),
+                                position = bookmarkViewModel.selectedMonsterPosition.value!!,
+                                monster = bookmarkViewModel.selectedBookmarkMonster.value
+                            ){newList ->
+                                bookmarkViewModel.updateMonsterListAdapter(newList)
+                            }
+                        }
                         binding.buttonUnselcetedBookmark.visibility = View.GONE
                         binding.buttonSelcetedBookmark.visibility = View.VISIBLE
                     }else{
+                        if(dogamViewModel!=null){
+                            updateDogamList(
+                                value = false,
+                                list = dogamViewModel.getMonsterListAdapterList(),
+                                position = dogamViewModel.selectedMonsterPosition.value!!
+                            ){newList ->
+                                dogamViewModel.updateMonsterListAdapter(newList)
+                            }
+                        }else{
+                            updateBookmarkList(
+                                value = false,
+                                list = bookmarkViewModel!!.getMonsterListAdapterList(),
+                                position = bookmarkViewModel.selectedMonsterPosition.value!!,
+                                monster= bookmarkViewModel.selectedBookmarkMonster.value
+                            ){newList ->
+                                bookmarkViewModel.updateMonsterListAdapter(newList)
+                            }
+                        }
                         Log.d(TAG, "false 버튼 갱신")
                         binding.buttonSelcetedBookmark.visibility = View.GONE
                         binding.buttonUnselcetedBookmark.visibility = View.VISIBLE
                     }
+                    binding.buttonSelcetedBookmark.isEnabled = true
+                    binding.buttonUnselcetedBookmark.isEnabled = true
                 }
             }
         }
@@ -107,10 +147,10 @@ class MonsterDetailDialogFragment(
         super.onDismiss(dialog)
         if(dogamViewModel != null) {
             dogamViewModel.setItemClickListenerEnabled(true)
-            dogamViewModel.setSelectedMonster(null)
+            dogamViewModel.setSelectedMonster(-1,null)
         }else{
             bookmarkViewModel!!.setItemClickListenerEnabled(true)
-            bookmarkViewModel.setSelectedBookmarkMonster(null)
+            bookmarkViewModel.setSelectedBookmarkMonster(-1,null)
         }
     }
 }

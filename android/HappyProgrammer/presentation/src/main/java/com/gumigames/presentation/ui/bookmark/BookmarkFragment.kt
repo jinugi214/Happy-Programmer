@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.freeproject.happyprogrammers.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
@@ -75,24 +76,24 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(
         }
         //북마크 스킬 클릭 이벤트
         skillListAdapter.itemClickListner = object: SkillListAdapter.ItemClickListener{
-            override fun onClick(view: View, skill: SkillDto) {
+            override fun onClick(view: View, position: Int, skill: SkillDto) {
                 (view.parent as View).clickAnimation(viewLifecycleOwner)
                 if(bookmarkViewModel.getItemClickListenerEnabled()) {
                     bookmarkViewModel.setItemClickListenerEnabled(false) // 클릭 이벤트 비활성화(다른 아이템 클릭 못하도록)
                     //해당 몬스터 클릭 이벤트
-                    bookmarkViewModel.setSelectedBookmarkSkill(skill)
+                    bookmarkViewModel.setSelectedBookmarkSkill(position, skill)
                 }
             }
 
         }
         //북마크 몬스터 클릭 이벤트
         monsterListAdapter.itemClickListner = object: MonsterListAdapter.ItemClickListener{
-            override fun onClick(view: View, monster: MonsterDto) {
+            override fun onClick(view: View, position: Int, monster: MonsterDto) {
                 (view.parent as View).clickAnimation(viewLifecycleOwner)
                 if(bookmarkViewModel.getItemClickListenerEnabled()) {
                     bookmarkViewModel.setItemClickListenerEnabled(false) // 클릭 이벤트 비활성화(다른 아이템 클릭 못하도록)
                     //해당 몬스터 클릭 이벤트
-                    bookmarkViewModel.setSelectedBookmarkMonster(monster)
+                    bookmarkViewModel.setSelectedBookmarkMonster(position, monster)
                 }
             }
 
@@ -110,13 +111,13 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(
                         //스킬 조회
                         1 -> {
                             binding.recyclerviewBookmark.adapter = skillListAdapter
-                            bookmarkViewModel.getAllBookmarkSkillsLocal()
+                            bookmarkViewModel.getAllBookmarkSkillsLocal{skillListAdapter.currentList}
                             bookmarkViewModel.setCurrentTab("skill")
                         }
                         //몬스터 조회
                         2 -> {
                             binding.recyclerviewBookmark.adapter = monsterListAdapter
-                            bookmarkViewModel.getAllBookmarkMonstersLocal()
+                            bookmarkViewModel.getAllBookmarkMonstersLocal{monsterListAdapter.currentList}
                             bookmarkViewModel.setCurrentTab("monster")
                         }
                     }
@@ -168,6 +169,12 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(
                     }
                 }
             }
+            //바뀐 스킬 리스트 관찰
+            viewLifecycleOwner.lifecycleScope.launch {
+                newSkillList.collectLatest {
+                    skillListAdapter.submitList(it)
+                }
+            }
             //현재 북마크 몬스터 리스트 관찰
             viewLifecycleOwner.lifecycleScope.launch {
                 currentBookmarkMonsterList.collectLatest {
@@ -181,6 +188,12 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>(
                         val detailDialog = MonsterDetailDialogFragment(dogamViewModel = null, bookmarkViewModel = bookmarkViewModel)
                         detailDialog.show(childFragmentManager, null)
                     }
+                }
+            }
+            //바뀐 몬스터 리스트 관찰
+            viewLifecycleOwner.lifecycleScope.launch {
+                newMonsterList.collectLatest {
+                    monsterListAdapter.submitList(it)
                 }
             }
         }

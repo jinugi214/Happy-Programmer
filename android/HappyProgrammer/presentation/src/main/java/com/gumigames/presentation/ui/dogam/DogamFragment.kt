@@ -80,24 +80,24 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
         }
         //스킬 클릭 이벤트
         skillListAdapter.itemClickListner = object: SkillListAdapter.ItemClickListener{
-            override fun onClick(view: View, skill: SkillDto) {
+            override fun onClick(view: View, position: Int, skill: SkillDto) {
                 (view.parent as View).clickAnimation(viewLifecycleOwner)
                 if(dogamViewModel.getItemClickListenerEnabled()) {
                     dogamViewModel.setItemClickListenerEnabled(false) // 클릭 이벤트 비활성화(다른 아이템 클릭 못하도록)
                     //해당 몬스터 클릭 이벤트
-                    dogamViewModel.setSelectedSkill(skill)
+                    dogamViewModel.setSelectedSkill(position, skill)
                 }
             }
 
         }
         //몬스터 클릭 이벤트
         monsterListAdapter.itemClickListner = object: MonsterListAdapter.ItemClickListener{
-            override fun onClick(view: View, monster: MonsterDto) {
+            override fun onClick(view: View, position: Int, monster: MonsterDto) {
                 (view.parent as View).clickAnimation(viewLifecycleOwner)
                 if(dogamViewModel.getItemClickListenerEnabled()) {
                     dogamViewModel.setItemClickListenerEnabled(false) // 클릭 이벤트 비활성화(다른 아이템 클릭 못하도록)
                     //해당 몬스터 클릭 이벤트
-                    dogamViewModel.setSelectedMonster(monster)
+                    dogamViewModel.setSelectedMonster(position, monster)
                 }
             }
 
@@ -116,14 +116,14 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
                         //스킬 조회
                         1 -> {
                             binding.recyclerviewDogam.adapter = skillListAdapter
-                            dogamViewModel.getAllSkills()
+                            dogamViewModel.getAllSkills{skillListAdapter.currentList}
                             dogamViewModel.setCurrentTab("skill")
                             edittextSearch.text.clear()
                         }
                         //몬스터 조회
                         2 -> {
                             binding.recyclerviewDogam.adapter = monsterListAdapter
-                            dogamViewModel.getAllMonsters()
+                            dogamViewModel.getAllMonsters{monsterListAdapter.currentList}
                             dogamViewModel.setCurrentTab("monster")
                             edittextSearch.text.clear()
                         }
@@ -195,6 +195,13 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
                     }
                 }
             }
+            //바뀐 스킬 리스트 관찰
+            viewLifecycleOwner.lifecycleScope.launch {
+                newSkillList.collectLatest {
+                    Log.d(TAG, "skillList collect -> $it")
+                    skillListAdapter.submitList(it)
+                }
+            }
             //현재 몬스터 리스트 관찰
             viewLifecycleOwner.lifecycleScope.launch {
                 currentMonsterList.collectLatest {
@@ -209,6 +216,12 @@ class DogamFragment : BaseFragment<FragmentDogamBinding>(
                         val detailDialog = MonsterDetailDialogFragment(dogamViewModel = dogamViewModel, bookmarkViewModel = null)
                         detailDialog.show(childFragmentManager, null)
                     }
+                }
+            }
+            //바뀐 몬스터 리스트 관찰
+            viewLifecycleOwner.lifecycleScope.launch {
+                newMonsterList.collectLatest {
+                    monsterListAdapter.submitList(it)
                 }
             }
         }

@@ -25,12 +25,12 @@ class MonsterListAdapter: ListAdapter<MonsterDto, MonsterListAdapter.MonsterList
         }
     }
     inner class MonsterListHolder(private val binding: ItemDogamBinding): RecyclerView.ViewHolder(binding.root){
-        fun bindInfo(monster : MonsterDto){
+        fun bindInfo(position: Int, monster : MonsterDto){
             binding.apply {
                 if(monster.imageBitmap!=null) imageItem.setImageBitmap(monster.imageBitmap)
                 else imageItem.setImageResource(R.drawable.image_tool_profile) //TODO 추후에 로딩 이미지로 바꿔라
                 imageItem.setOnClickListener {
-                    itemClickListner.onClick(it, monster)
+                    itemClickListner.onClick(it, position, monster)
                 }
                 if(monster.isBookmarked) imageBookmark.visibility = View.VISIBLE
                 else imageBookmark.visibility = View.GONE
@@ -44,13 +44,13 @@ class MonsterListAdapter: ListAdapter<MonsterDto, MonsterListAdapter.MonsterList
 
     override fun onBindViewHolder(holder: MonsterListHolder, position: Int) {
         holder.apply {
-            bindInfo(getItem(position))
+            bindInfo(position, getItem(position))
         }
     }
 
     //클릭 인터페이스 정의 사용하는 곳에서 만들어준다.
     interface ItemClickListener {
-        fun onClick(view: View, monster: MonsterDto)
+        fun onClick(view: View, position: Int, monster: MonsterDto)
     }
     //클릭리스너 선언
     lateinit var itemClickListner: ItemClickListener
