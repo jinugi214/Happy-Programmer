@@ -34,6 +34,7 @@ public class CharacterMovement : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        currentMapName = DataManager.instance.CharacterData.savepoint;
     }
 
     // 씬이 로드될 때 호출되는 메소드
