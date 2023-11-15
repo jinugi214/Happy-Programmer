@@ -6,7 +6,7 @@ const Notice: React.FC = () => {
     <div>
       <div className="text-m text-center mb-16">News</div>
 
-      <div className="flex justify-center w-full space-x-20 mb-20">
+      <div className="flex justify-center w-full space-x-24 mb-20">
         <NoticeBox
           imgName="n1"
           title="패치노트 v1.0"

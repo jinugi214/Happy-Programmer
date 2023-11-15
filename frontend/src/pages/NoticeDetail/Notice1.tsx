@@ -2,13 +2,13 @@ import React from "react";
 
 const Notice1: React.FC = () => {
   return (
-    <div>
-      <div className="text-m mb-1">패치노트 v1.0</div>
+    <div className="m-20 mb-32">
+      <div className="text-m mb-2">패치노트 v1.0</div>
       <div>
         <span className="text-purple">GG TEAM</span> | 2023.11.15
       </div>
 
-      <div className="mt-10 ml-6">
+      <div className="mt-16 ml-12">
         <img src="../imgs/key_i.png" alt="img" className=""/>
         <div>Happy Programmer v1.0 이 출시되었습니다.</div>
 
