@@ -7,6 +7,8 @@ import TeamInfo from "./pages/TeamInfo";
 
 import Notice from "./pages/Notice";
 import Notice1 from "./pages/NoticeDetail/Notice1";
+import Notice2 from "./pages/NoticeDetail/Notice2";
+import Notice3 from "./pages/NoticeDetail/Notice3";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
 
           <Route path="/notice" element={<Notice />} />
           <Route path="/notice/1" element={<Notice1 />} />
+          <Route path="/notice/2" element={<Notice2 />} />
+          <Route path="/notice/3" element={<Notice3 />} />
         </Routes>
       </AppLayout>
     </BrowserRouter>
