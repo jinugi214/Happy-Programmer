@@ -61,6 +61,7 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
         initCameraLauncher()
         initListener()
         initCollect()
+        collectErrorAndToken(missionViewModel)
     }
 
 
@@ -111,8 +112,15 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
                     showCustomToast(it)
                 }
             }
+            viewLifecycleOwner.lifecycleScope.launch {
+                error.collectLatest {
+                    Log.d(TAG, "initCollect error...")
+                    missionLoadingDialogFragment.dismiss()
+                }
+            }
         }
     }
+
 
     private fun initPermissionLauncher(){
         cameraPermissionLauncher = createPermissionLauncher(
