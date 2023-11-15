@@ -8,21 +8,21 @@ const Notice: React.FC = () => {
 
       <div className="flex justify-center w-full space-x-24 mb-20">
         <NoticeBox
-          imgName="n1"
+          imgName="n1_1"
           title="패치노트 v1.0"
           date="2023.11.15"
           link="/notice/1"
         />
 
         <NoticeBox
-          imgName="n2"
+          imgName="n1_2"
           title="UCC 업로드"
           date="2023.11.16"
           link="/notice/2"
         />
 
         <NoticeBox
-          imgName="n1"
+          imgName="n1_3"
           title="패치 예정 사항"
           date="2023.11.17"
           link="/notice/3"
