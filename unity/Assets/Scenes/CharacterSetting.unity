@@ -2548,6 +2548,10 @@ PrefabInstance:
       propertyPath: checkWindow
       value: 
       objectReference: {fileID: 1011328133}
+    - target: {fileID: -7551192604979187755, guid: 1835c060e566e8849a245034e9c65e9d, type: 3}
+      propertyPath: charcterMovementPrefab
+      value: 
+      objectReference: {fileID: 8221119626217839964, guid: 2f4358e937ba5024e88606b7e3e23b01, type: 3}
     - target: {fileID: 4775403348684145467, guid: 1835c060e566e8849a245034e9c65e9d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

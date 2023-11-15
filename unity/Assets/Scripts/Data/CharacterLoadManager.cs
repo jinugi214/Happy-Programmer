@@ -12,7 +12,6 @@ public class CharacterLoadManager : MonoBehaviour {
     public GameObject uiManagerPrefab;
     public GameObject questManagerPrefab;
     public GameObject cameraManagerPrefab;
-    public GameObject characterPrefab;
     string accessToken;
 
     // 캐릭터 서버에서 불러오기
@@ -46,10 +45,6 @@ public class CharacterLoadManager : MonoBehaviour {
                 if (UIManager.instance == null)
                 {
                     Instantiate(uiManagerPrefab);
-                }
-                if (CharacterMovement.Instance == null)
-                {
-                    Instantiate(characterPrefab);
                 }
                 // QuestManager 인스턴스 생성
                 if (QuestManager.instance == null)
