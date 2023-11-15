@@ -1,11 +1,13 @@
 package com.freeproject.happyprogrammers.base
 
 import android.content.Context
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
@@ -58,17 +60,24 @@ abstract class BaseFragment<B : ViewBinding>(
         super.onDestroyView()
     }
 
-    fun showCustomToast(message: String) {
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
-    }
-
     /**
      * 스낵바를 띄웁니다. 커스텀 하려면 type 분기를 추가하고 사용하세요.
      */
     fun showSnackbar(view: View, type: String, message: String) {
         val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
         snackbar.setTextColor(ContextCompat.getColor(requireActivity(), R.color.black))
-        snackbar.show()
+        when(type){
+            "success" ->{
+                snackbar.setBackgroundTint(ContextCompat.getColor(requireActivity(), R.color.green_mild))
+            }
+            "fail" ->{
+                snackbar.setBackgroundTint(ContextCompat.getColor(requireActivity(), R.color.red_mild))
+            }
+            "info" ->{
+                snackbar.setBackgroundTint(ContextCompat.getColor(requireActivity(), R.color.gray_mild))
+            }
+        }
+        // 텍스트 스타일 설정
     }
 
     fun collectErrorAndToken(
@@ -77,7 +86,7 @@ abstract class BaseFragment<B : ViewBinding>(
         viewLifecycleOwner.lifecycleScope.launch {
             //네트워크 통신 시 Toast Message 출력
             viewModel.error.collectLatest {
-                showCustomToast(it.message.toString())
+                showSnackbar(binding.root, "fail", it.message.toString())
             }
         }
         viewLifecycleOwner.lifecycleScope.launch {
@@ -90,7 +99,7 @@ abstract class BaseFragment<B : ViewBinding>(
                             inclusive = true
                         }
                     })
-                    showCustomToast("장기간 로그인 하지 않아 다시 로그인 해주세요")
+                    showSnackbar(binding.root, "info", "장기간 로그인 하지 않아 다시 로그인 해주세요")
                     viewModel.initIsExpiredRefreshToken()
                 }
             }

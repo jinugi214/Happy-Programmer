@@ -114,7 +114,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
                 userInfo.collectLatest {
                     if(it!=null) {//로그인해서 온 거 아니면 로딩창 닫자
                         initProfileView(it)
-                        if(!args.isFromLogin && homeViewModel.getIsConnected()) {
+                        if(!args.isFromLogin && homeViewModel.getIsConnected()) { //로그인에서 온 게 아니고 네트워크 연결되어 있으면
                             bringGameInfoLoadingDialogFragment.isCancelable = false
                             bringGameInfoLoadingDialogFragment.setStyle(
                                 DialogFragment.STYLE_NORMAL,

@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.LayoutRes
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.viewbinding.ViewBinding
+import com.google.android.material.snackbar.Snackbar
 import com.gumigames.presentation.MainActivity
 import com.gumigames.presentation.R
 import com.gumigames.presentation.base.BaseViewModel
@@ -52,8 +54,21 @@ abstract class BaseBorderDialogFragment<B : ViewBinding>(
         super.onDestroyView()
     }
 
-    fun showCustomToast(message: String) {
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+    fun showSnackbar(view: View, type: String, message: String) {
+        val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
+        snackbar.setTextColor(ContextCompat.getColor(requireActivity(), R.color.black))
+        when(type){
+            "success" ->{
+                snackbar.setBackgroundTint(ContextCompat.getColor(requireActivity(), R.color.green_mild))
+            }
+            "fail" ->{
+                snackbar.setBackgroundTint(ContextCompat.getColor(requireActivity(), R.color.red_mild))
+            }
+            "info" ->{
+                snackbar.setBackgroundTint(ContextCompat.getColor(requireActivity(), R.color.main_pink))
+            }
+        }
+        snackbar.show()
     }
     fun collectErrorAndToken(
         viewModel: BaseViewModel
@@ -61,7 +76,7 @@ abstract class BaseBorderDialogFragment<B : ViewBinding>(
         viewLifecycleOwner.lifecycleScope.launch {
             //네트워크 통신 시 Toast Message 출력
             viewModel.error.collectLatest {
-                showCustomToast(it.message.toString())
+                showSnackbar(binding.root, "fail", it.message.toString())
             }
         }
         viewLifecycleOwner.lifecycleScope.launch {
