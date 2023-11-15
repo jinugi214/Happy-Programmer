@@ -84,6 +84,11 @@ public class MissionService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        finally {
+            if(responseCode.equals(413)){
+                String[] extractedCharactersArray = {"413"};
+            }
+        }
 
 
         JsonParser parser = new JsonParser();
