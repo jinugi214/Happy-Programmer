@@ -35,19 +35,14 @@ public class CameraManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
             instance = this;
         }
+        
     }
 
 
-    // Start is called before the first frame update
     void Start()
     {
-            DontDestroyOnLoad(this.gameObject);
-            theCamera = GetComponent<Camera>();
-            minBound = bound.bounds.min;
-            maxBound = bound.bounds.max;
-
-            halfHeight = theCamera.orthographicSize;
-            halfWidth = halfHeight * Screen.width / Screen.height;
+        DontDestroyOnLoad(this.gameObject);
+        BoundResize();
     }
 
     // Update is called once per frame
@@ -65,6 +60,23 @@ public class CameraManager : MonoBehaviour
 
             this.transform.position = new Vector3(clampedX, clampedY, this.transform.position.z);
         }
+
+        if(bound == null)
+        {
+            BoundResize();
+        }
         
     }
+
+    private void BoundResize()
+    {
+        bound = BoundScript.instance.bound.GetComponent<BoxCollider2D>();
+        theCamera = GetComponent<Camera>();
+        minBound = bound.bounds.min;
+        maxBound = bound.bounds.max;
+
+        halfHeight = theCamera.orthographicSize;
+        halfWidth = halfHeight * Screen.width / Screen.height;
+    }
 }
+
