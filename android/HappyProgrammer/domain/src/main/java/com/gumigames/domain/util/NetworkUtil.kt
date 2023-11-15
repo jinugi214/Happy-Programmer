@@ -32,11 +32,7 @@ fun <T> Response<T>.getNetworkResult(): T {
     //Github API에서는 단순히 Response{protocol=h2, code=404, message=, url=https://api.github.com/users//repos} 이렇게 반환해줌
     val code = this.code()
     val message = this.errorBody()?.string() ?: ""
-    Log.d(TAG, "getNetworkResult fail message : $message")
-
-
-
-    Log.e(TAG, "getNetworkResult: Error code : ${code}, message : ${message}")
+    Log.d(TAG, "getNetworkResult fail code: $code and message : $message")
 
     when (code) {
         in 100..199 -> { throw NetworkThrowable.Base100Throwable(code, message) }
