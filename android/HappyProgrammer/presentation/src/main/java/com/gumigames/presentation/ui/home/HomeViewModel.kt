@@ -10,5 +10,11 @@ class HomeViewModel @Inject constructor(
     private val getUserInfoLocalUseCase: GetUserInfoLocalUseCase
 ): BaseViewModel() {
 
-
+    private var _isConnected = false
+    fun setIsConnected(value: Boolean){
+        _isConnected = value
+    }
+    fun getIsConnected(): Boolean{
+        return _isConnected
+    }
 }

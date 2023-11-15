@@ -20,6 +20,11 @@ abstract class BaseViewModel: ViewModel() {
 
     private val _isExpiredRefreshToken = MutableStateFlow(false)
     var isExpiredRefreshToken = _isExpiredRefreshToken.asStateFlow()
+    fun initIsExpiredRefreshToken(){
+        viewModelScope.launch {
+            _isExpiredRefreshToken.emit(false)
+        }
+    }
 
     fun <T> getApiResult(
         block: suspend () -> T, //실행할 함수
@@ -44,7 +49,7 @@ abstract class BaseViewModel: ViewModel() {
             }catch (throwable: Throwable){
                 Log.d(TAG, "getApiResult throwable : $throwable")
                 if (throwable is NetworkThrowable) {
-                    if(throwable.message == NetworkThrowable.REFRESH_EXPIRE_MESSAGE){
+                    if(throwable is NetworkThrowable.RefreshExpireThrowable){
                         _isExpiredRefreshToken.emit(true)
                     }else{
                         _error.emit(throwable)

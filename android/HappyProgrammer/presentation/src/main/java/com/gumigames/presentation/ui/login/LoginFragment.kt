@@ -1,6 +1,7 @@
 package com.gumigames.presentation.ui.login
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
@@ -65,7 +66,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
                             R.style.FullScreenDialog
                         );
                         bringGameInfoLoadingDialogFragment.show(childFragmentManager, null)
-                        mainViewModel.bringGameInfo()
+                        mainViewModel.checkRefreshToken()
                     } else {//로그인 실패 -> 아이디, 비밀번호 확인
 
                     }
@@ -75,6 +76,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
         mainViewModel.apply{
             //사용자 정보 조회 상태 확인
             viewLifecycleOwner.lifecycleScope.launch {
+                //게임정보도 다 가져오면 로딩창 닫고  홈으로 이동
                 isBroughtGameInfo.collectLatest {
                     if(it) {
                         val navAction = LoginFragmentDirections.actionLoginFragmentToHomeFragment(true)
@@ -82,6 +84,20 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
                         bringGameInfoLoadingDialogFragment.dismiss()
                     }
 
+                }
+            }
+            viewLifecycleOwner.lifecycleScope.launch {
+                isPossibleLogin.collectLatest {
+                    //로그인 가능하면 로컬에 있는 유저 정보 조회
+                    if(it) getUserInfo()
+                }
+            }
+            viewLifecycleOwner.lifecycleScope.launch {
+                userInfo.collectLatest {
+                    if(it!=null){
+                        //유저 정보 조회 끝나면 게임 정보 조회
+                        mainViewModel.bringGameInfo()
+                    }
                 }
             }
         }

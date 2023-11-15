@@ -90,6 +90,8 @@ abstract class BaseFragment<B : ViewBinding>(
                             inclusive = true
                         }
                     })
+                    showCustomToast("장기간 로그인 하지 않아 다시 로그인 해주세요")
+                    viewModel.initIsExpiredRefreshToken()
                 }
             }
         }

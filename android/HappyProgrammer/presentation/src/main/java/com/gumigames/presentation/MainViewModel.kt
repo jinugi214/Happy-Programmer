@@ -95,16 +95,6 @@ class MainViewModel @Inject constructor(
 
     fun bringGameInfo(){
         viewModelScope.launch {
-            //TODO 유저도 추가해야 함
-            getApiResult(block = {getUserInfoUseCase.invoke()}){
-                insertUserInfoLocalUseCase.invoke(it)
-                Log.d(TAG, "bringGameInfo에서 user 정보 조회 성공")
-                _isBroughtUserInfo = true
-                if(checkGetAllGameInfo()) {
-                    _isBroughtGameInfo.emit(true)
-                    setIsLoginedUseCase.invoke(true)
-                }
-            }
             getApiResult(block = {getAllItemsUseCase.invoke()}){
                 insertAllItemsLocalUseCase.invoke(it)
                 _isBroughtItemsInfo = true
@@ -134,7 +124,7 @@ class MainViewModel @Inject constructor(
 
     fun checkGetAllGameInfo(): Boolean{
         //TODO 사용자 정보 조회도 추가
-        return _isBroughtUserInfo && _isBroughtItemsInfo && _isBroughtSkillsInfo && _isBroughtMonstersInfo
+        return _isBroughtItemsInfo && _isBroughtSkillsInfo && _isBroughtMonstersInfo
     }
 
     ////////////////////////////////////////// 유저 //////////////////////////////////////////////
@@ -145,6 +135,18 @@ class MainViewModel @Inject constructor(
             getApiResult(block = {getUserInfoLocalUseCase.invoke()}){
                 _userInfo.emit(it)
             }
+        }
+    }
+
+    ////////////////////////////////////// 리프레시 만료됐는지 확인용 ////////////////////////////
+    private var _isPossibleLogin = MutableSharedFlow<Boolean>()
+    val isPossibleLogin = _isPossibleLogin.asSharedFlow()
+    fun checkRefreshToken(){
+        getApiResult(block = {getUserInfoUseCase.invoke()}){
+            getApiResult(block = {insertUserInfoLocalUseCase.invoke(it)}) {
+                _isPossibleLogin.emit(true)
+            }
+            Log.d(TAG, "bringGameInfo에서 user 정보 조회 성공")
         }
     }
 }
