@@ -9,9 +9,7 @@ public class GameMenu : MonoBehaviour
     public Button newStart;
     public Button loadStart;
     public Button exitGame;
-    public GameObject checkWindow;
-    public TextMeshProUGUI windowText;
-    public CharacterSaveLoadManager characterSaveLoadManager;
+    public CharacterLoadManager characterLoadManager;
 
     public void OnNewStartClicked()
     {
@@ -20,7 +18,7 @@ public class GameMenu : MonoBehaviour
 
     public void OnLoadStartClicked()
     {
-        StartCoroutine(characterSaveLoadManager.LoadCharacterData());
+        StartCoroutine(characterLoadManager.LoadCharacterData());
     }
     
     public void OnExitGameClicked()

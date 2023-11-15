@@ -542,7 +542,7 @@ MonoBehaviour:
   loginButton: {fileID: 1047134819}
   checkWindow: {fileID: 28521823}
   windowText: {fileID: 2045454954}
-  dataManagerPrefab: {fileID: 7179030330123974726, guid: 006820f5ac163f440bf5afec91454475, type: 3}
+  dataManagerPrefab: {fileID: 4793427851348985290, guid: 006820f5ac163f440bf5afec91454475, type: 3}
 --- !u!1 &297659413
 GameObject:
   m_ObjectHideFlags: 0

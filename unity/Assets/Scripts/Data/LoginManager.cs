@@ -40,7 +40,7 @@ public class LoginManager : MonoBehaviour
     public Button loginButton;
     public GameObject checkWindow;
     public TextMeshProUGUI windowText;
-    public GameObject dataManagerPrefab;
+    public DataManager dataManagerPrefab;
 
 
     public void OnLoginButtonClicked()
