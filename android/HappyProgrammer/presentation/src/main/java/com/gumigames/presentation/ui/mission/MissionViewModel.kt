@@ -45,9 +45,12 @@ class MissionViewModel @Inject constructor(
     fun sendPhoto(){
         viewModelScope.launch {
             Log.d(TAG, "sendPhoto multipartBody : ${_multipartBody.value!!}")
-            _resultMessage.emit(getMissionPhotoResultUseCase.invoke(_multipartBody.value!!).result)
+            getApiResult(block =  {getMissionPhotoResultUseCase.invoke(_multipartBody.value!!)}){
+                _resultMessage.emit(it.result)
+            }
         }
     }
+
 
 
 }
