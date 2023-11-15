@@ -6,14 +6,14 @@ const Key: React.FC = () => {
 
       <div className='mr-24 text-m mt-1'>조작법</div>
 
-      <div className='mr-10 text-s'>
+      <div className='mr-12 text-s'>
         <div className='mt-2'>이동</div>
         <div className='mt-2'>상호작용</div>
         <div className='mt-2'>인벤토리</div>
         <div className='mt-2'>공격</div>
         <div className='mt-2'>스킬</div>
         <div className='mt-2'>설정</div>
-        <div className='mt-2'>게임 저장</div>
+        <div className='mt-5'>게임 저장</div>
       </div>
 
       <div className='text-s'>
@@ -23,7 +23,8 @@ const Key: React.FC = () => {
         <div className='mt-2'>X</div>
         <div className='mt-2'>Z</div>
         <div className='mt-2'>Esc</div>
-        <div className='mt-2'>F5</div>
+        {/* <div className='mt-2'>F5</div> */}
+        <img src="./imgs/key_F5.png" className='mt-2 w-12' alt="f5"/>
       </div>
 
     </div>
