@@ -71,6 +71,6 @@ public class PlayerBattle : MonoBehaviour
     {
 
         DataManager.instance.UpdateCharacterData(MiniGameManager.instance.exp, MiniGameManager.instance.level);
-        //gameObject.SetActive(false);
+        
     }
 }

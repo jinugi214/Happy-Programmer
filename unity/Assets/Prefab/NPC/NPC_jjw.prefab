@@ -29,7 +29,7 @@ RectTransform:
   m_GameObject: {fileID: 1370797247206028560}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -135,5 +135,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    sentences: []
-    dialogueWindos: []
+    situations:
+    - sentences:
+      - "[\uACFC\uC7A5 \uC815\uC9C4\uC6B1]\n\n\uC624 \uC2E0\uC785\uC778\uAC00?"
+      - "[\uD50C\uB808\uC774\uC5B4]\n\n\uC544 \uB124...!"
+      - "[\uACFC\uC7A5 \uC815\uC9C4\uC6B1]\n\n\uB098\uB294 '\uC815\uC9C4\uC6B1'\uC774\uB77C\uACE0
+        \uD558\uB124. \uACFC\uC7A5\uC774\uC9C0."
+      - "[\uD50C\uB808\uC774\uC5B4]\n\n\uC544 \uC548\uB155\uD558\uC2ED\uB2C8\uAE4C!"
+      - "[\uACFC\uC7A5 \uC815\uC9C4\uC6B1]\n\n\uC0AC\uBB34\uC2E4 \uAD6C\uACBD\uB3C4
+        \uC880 \uD574\uBCF4\uACE0"
+      - "[\uACFC\uC7A5 \uC815\uC9C4\uC6B1]\n\n\uD639\uC2DC \uC800\uAE30 \uBE44\uD488\uC2E4\uC5D0\uC11C
+        \uCEE4\uD53C \uD558\uB098\uB9CC \uAC00\uC838\uC62C \uC218 \uC788\uACA0\uB098?"
+      - "[\uD50C\uB808\uC774\uC5B4]\n\n\uC54C\uACA0\uC2B5\uB2C8\uB2E4..."
+      dialogueWindows:
+      - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}
+      - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}
+      - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}
+      - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}
+      - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}
+      - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}
+      - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}
+    - sentences:
+      - "*\uCEE4\uD53C \uC2EC\uBD80\uB984 \uC2E4\uD328\n\n[\uACFC\uC7A5 \uC815\uC9C4\uC6B1]\n\n\uCEE4\uD53C\uB294
+        \uC544\uC9C1 \uBA40\uC5C8\uB098?"
+      - "[\uD50C\uB808\uC774\uC5B4]\n\n\uC544, \uAE08\uBC29 \uB2E4\uC2DC \uCC3E\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4."
+      dialogueWindows:
+      - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}
+      - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}
+    - sentences:
+      - "*\uCEE4\uD53C \uC2EC\uBD80\uB984 \uC131\uACF5\n[\uD50C\uB808\uC774\uC5B4]\n\n\uACFC\uC7A5\uB2D8,
+        \uB9D0\uC500\uD558\uC2E0 \uCEE4\uD53C \uAC00\uC838\uC654\uC2B5\uB2C8\uB2E4."
+      - "[\uACFC\uC7A5 \uC815\uC9C4\uC6B1]\n\n\uC544, \uACE0\uB9C8\uC6CC \uC2E0\uC785."
+      - "[\uACFC\uC7A5 \uC815\uC9C4\uC6B1]\n\n\uC774\uC81C \uC77C \uBCF4\uB77C\uACE0~\n\uB2E4\uB978
+        \uC9C1\uC6D0\uB4E4\uC744 \uCC3E\uC544\uAC00\uBA74 \uB420\uAC70\uC57C."
+      dialogueWindows:
+      - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}
+      - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}
+      - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}
