@@ -13,7 +13,7 @@ const GameInfo: React.FC = () => {
 
       <Key/>
       <Story/>
-      <Screen/>
+      {/* <Screen/> */}
     </div>
   )
 }
