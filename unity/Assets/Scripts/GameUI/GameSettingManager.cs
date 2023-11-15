@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ExitGame : MonoBehaviour
+public class GameSettingManager : MonoBehaviour
 {
-    public void Exit()
+    public void GameExit()
     {
         if (UnityEditor.EditorApplication.isPlaying)
         {
