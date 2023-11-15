@@ -30,10 +30,6 @@ public class NPC : MonoBehaviour
         {
             isInRange = false;
             DialogueManager.instance.ExitDialogue();
-            // if (dialogue.IsDone())
-            // {
-            //     hasStartedDialogue = false;
-            // }
         }
     }
 }
