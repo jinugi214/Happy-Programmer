@@ -79,7 +79,7 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
                     cameraLauncher.launch(cameraIntent) //카메라 앱을 실행 한 후 결과를 받기 위해서 launch
                 }else{
                     if(mainViewModel.getIsShowedPermissionDialog(CAMERA_PERMISSION_REJECTED)){
-                        showCustomToast("설정에서 카메라 권한을 허용해 주세요")
+                        showSnackbar(this.root, "info", "설정에서 카메라 권한을 허용해 주세요")
                     }
                     return@setOnClickListener
                 }
@@ -92,7 +92,7 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
                     missionLoadingDialogFragment.isCancelable = false
                     missionLoadingDialogFragment.show(childFragmentManager, null)
                 }else{
-                    showCustomToast("사진을 다시 제출해 주세요")
+                    showSnackbar(this.root, "fail", "사진을 다시 제출해 주세요")
                 }
             }
         }
@@ -109,7 +109,11 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
                 resultMessage.collectLatest {
                     //여기서 닫자
                     missionLoadingDialogFragment.dismiss()
-                    showCustomToast(it)
+                    if(it=="성공"){
+                        showSnackbar(binding.root, "success", "미션 성공")
+                    }else{
+                        showSnackbar(binding.root, "fail", "미션 실패")
+                    }
                 }
             }
             viewLifecycleOwner.lifecycleScope.launch {
@@ -150,7 +154,7 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
             missionViewModel.setMultipartBody(
                 createMultipartFromFile(file = file)
             ){
-                showCustomToast("파일을 생성하는 데 실패했습니다. 다시 촬영해주세요")
+                showSnackbar(binding.root, "fail", "파일을 생성하는 데 실패했습니다. 다시 촬영해주세요")
             }
         }
     }
