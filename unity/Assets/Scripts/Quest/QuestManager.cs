@@ -95,6 +95,7 @@ public class QuestManager : MonoBehaviour
         }
     }
 
+    // 현재 진행중인 퀘스트 리스트 받기
     public List<Quest> GetCurrentQuests()
     {
         List<Quest> currentQuests = new List<Quest>();

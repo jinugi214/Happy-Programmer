@@ -11,6 +11,8 @@ public class CharacterLoadManager : MonoBehaviour {
     public TextMeshProUGUI windowText;
     public GameObject uiManagerPrefab;
     public GameObject questManagerPrefab;
+    public GameObject cameraManagerPrefab;
+    public GameObject characterPrefab;
     string accessToken;
 
     // 캐릭터 서버에서 불러오기
@@ -45,10 +47,19 @@ public class CharacterLoadManager : MonoBehaviour {
                 {
                     Instantiate(uiManagerPrefab);
                 }
+                if (CharacterMovement.Instance == null)
+                {
+                    Instantiate(characterPrefab);
+                }
                 // QuestManager 인스턴스 생성
                 if (QuestManager.instance == null)
                 {
                     Instantiate(questManagerPrefab);
+                }
+                // CamaeraManager 인스턴스 생성
+                if (CameraManager.instance == null)
+                {
+                    Instantiate(cameraManagerPrefab);
                 }
                 SceneManager.LoadScene(DataManager.instance.CharacterData.savepoint);
                 Debug.Log("캐릭터 불러오기 성공");

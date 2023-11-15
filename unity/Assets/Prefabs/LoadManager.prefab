@@ -48,3 +48,5 @@ MonoBehaviour:
   windowText: {fileID: 0}
   uiManagerPrefab: {fileID: 9128521086016552560, guid: 3ed940f1acebabf4f84cecc948606f6c, type: 3}
   questManagerPrefab: {fileID: 856841077437523830, guid: bce9bd20abadecc44a58b8bd128da630, type: 3}
+  cameraManagerPrefab: {fileID: 2263163089154460632, guid: 26ab07c8ea37e114fb2386ea174883e1, type: 3}
+  characterPrefab: {fileID: 8507536298031114959, guid: 74b95ec3185a51141bb8971106db76f9, type: 3}
