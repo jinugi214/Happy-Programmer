@@ -1,7 +1,7 @@
 import React from 'react';
 import Key from '../components/gameinfo/Key';
 import Story from '../components/gameinfo/Story';
-import Screen from '../components/gameinfo/Screen';
+// import Screen from '../components/gameinfo/Screen';
 
 const GameInfo: React.FC = () => {
   return (
@@ -13,7 +13,7 @@ const GameInfo: React.FC = () => {
 
       <Key/>
       <Story/>
-      <Screen/>
+      {/* <Screen/> */}
     </div>
   )
 }

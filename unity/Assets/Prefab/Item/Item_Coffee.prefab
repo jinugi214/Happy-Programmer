@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4961377699770923912}
   - component: {fileID: 1740242465735120335}
   - component: {fileID: 9162738164076879366}
+  - component: {fileID: 340726301666715795}
   m_Layer: 0
   m_Name: Item_Coffee
   m_TagString: Item
@@ -27,9 +28,9 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 332407662335749656}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 64, y: 64, z: 0}
+  m_LocalScale: {x: 50, y: 50, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -135,3 +136,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 040c3c842b15abd4e833b5ff93ab965d, type: 2}
+--- !u!114 &340726301666715795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332407662335749656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f987717e9abe9ed469b9da3c10d409b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+    situations:
+    - sentences:
+      - "'\uCEE4\uD53C'\uB97C \uD68D\uB4DD\uD588\uB2E4!"
+      - "(\uC5BC\uB978 \uACFC\uC7A5\uB2D8\uC5D0\uAC8C \uAC14\uB2E4\uC918\uC57C\uC9C0.)"
+      dialogueWindows:
+      - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}
+      - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}

@@ -144,7 +144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5375605048393083643}
   m_Layer: 0
-  m_Name: QuestWindow
+  m_Name: GameQuest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -557,7 +557,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4486604389600113005}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 821668464627267822}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4884054511537241471
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,6 +792,7 @@ GameObject:
   - component: {fileID: 7172582792411306014}
   - component: {fileID: 199354378633496398}
   - component: {fileID: 8716319449726722291}
+  - component: {fileID: 822390683250948435}
   m_Layer: 5
   m_Name: QuestBox
   m_TagString: Untagged
@@ -847,6 +860,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &822390683250948435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7672983089177807612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b830db20242ced4cbf259e96475292a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: {fileID: 7596478348849324215}
+  content: {fileID: 7368680744052320151}
 --- !u!1 &8847889734638665945
 GameObject:
   m_ObjectHideFlags: 0

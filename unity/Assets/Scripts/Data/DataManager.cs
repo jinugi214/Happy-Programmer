@@ -18,7 +18,6 @@ public class AccountData
 [System.Serializable]
 public class CharacterData
 {
-    public long id;
     public string name;
     public string gender;
     public int exp;
@@ -26,7 +25,6 @@ public class CharacterData
     public int point;
     public string savepoint;
     public int storyProgress;
-    public List<Item> itemList;
 }
 
 public class DataManager : MonoBehaviour
