@@ -7480,7 +7480,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 0.5}
   m_EdgeRadius: 0
 --- !u!114 &1721264891
 MonoBehaviour:
@@ -7495,25 +7495,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    sentences:
-    - "[\uC0AC\uC218]\n\n\uD50C\uB808\uC774\uC5B4\uB2D8?"
-    - "[\uC8FC\uC778\uACF5]\n\n\uB124! \uC81C\uAC00 \uD50C\uB808\uC774\uC5B4\uC785\uB2C8\uB2E4."
-    - "[\uC0AC\uC218]\n\n\uC548\uADF8\uB798\uB3C4 \uAE30\uB2E4\uB9AC\uACE0 \uC788\uC5C8\uC5B4\uC694!\n\uD658\uC601\uD569\uB2C8\uB2E4."
-    - "[\uC0AC\uC218]\n\n\uC81C\uAC00 \uC0AC\uC218\uC778 \u3147\u3147\u3147\uC774\uC5D0\uC694."
-    - "[\uC8FC\uC778\uACF5]\n\n\uC544, \uC548\uB155\uD558\uC2ED\uB2C8\uAE4C!\n\uB9D0
-      \uD3B8\uD558\uAC8C \uD558\uC154\uB3C4 \uB429\uB2C8\uB2E4."
-    - "[\uC0AC\uC218]\n\n\uD760, \uADF8\uB7FC \uD3B8\uD558\uAC8C \uD560\uAC8C."
-    - "[\uC0AC\uC218]\n\n\uC911\uC559\uC758 \uC5D8\uB808\uBCA0\uC774\uD130\uB97C
-      \uD0C0\uACE0 \uC0AC\uBB34\uC2E4\uB85C \uAC00\uBA74 \uB3FC.\n\uC774\uB3D9\uC740
-      WASD \uD0A4\uB098 \u2190\u2192\u2193\u2191 \uD0A4\uB85C \uD560 \uC218 \uC788\uC5B4."
-    dialogueWindos:
-    - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}
-    - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}
-    - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}
-    - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}
-    - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}
-    - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}
-    - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}
+    situations: []
 --- !u!4 &1721264892
 Transform:
   m_ObjectHideFlags: 0
@@ -7523,7 +7505,7 @@ Transform:
   m_GameObject: {fileID: 1721264889}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 657.72003, y: 332.63998, z: 8062.656}
+  m_LocalPosition: {x: 647, y: 336, z: 8062.656}
   m_LocalScale: {x: 108, y: 108, z: 108}
   m_ConstrainProportionsScale: 0
   m_Children: []

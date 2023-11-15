@@ -44,21 +44,25 @@ public class DialogueManager : MonoBehaviour
     }
 
     public void ShowDialogue(Dialogue dialogue)
+{
+    talking = true;
+
+    Dialogue.Situation situation;
+    if ((situation = dialogue.GetNextSituation()) != null)
     {
-        talking = true;
-
-        listSentences.Clear(); // 대화 시작 시 리스트 초기화
-        listDialogueWindows.Clear();
-
-        for (int i = 0; i < dialogue.sentences.Length; i++)
+        for (int i = 0; i < situation.sentences.Length; i++)
         {
-            listSentences.Add(dialogue.sentences[i]);
-            listDialogueWindows.Add(dialogue.dialogueWindos[i]);
+            listSentences.Add(situation.sentences[i]);
+            listDialogueWindows.Add(situation.dialogueWindows[i]);
         }
-
-        animDialogueWindow.SetBool("Appear", true);
-        StartCoroutine(StartDialogueCoroutine());
     }
+
+    animDialogueWindow.SetBool("Appear", true);
+    StartCoroutine(StartDialogueCoroutine());
+}
+
+
+
 
     public void ExitDialogue()
     {
