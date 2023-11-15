@@ -8,7 +8,7 @@ type NoticeBoxProps = {
 };
 
 function NoticeBox({ imgName, title, date, link }: NoticeBoxProps) {
-  const imgUrl = process.env.PUBLIC_URL + "/imgs/" + imgName + ".png";
+  const imgUrl = process.env.PUBLIC_URL + "/imgs/" + imgName + ".gif";
 
   return (
     <Link to={link}>
