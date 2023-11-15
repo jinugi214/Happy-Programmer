@@ -38,10 +38,17 @@ public class MissionController {
                 flag = true;
                 break;
             }
+            if(objects[i].equals("413")){
+                result.put("result", "다시 찍어주세요!");
+                flag = true;
+                break;
+            }
         }
 
         if (!flag)
             result.put("result", "실패");
+
+
 
         return result;
     }
