@@ -41,13 +41,8 @@ public class CameraManager : MonoBehaviour
 
     void Start()
     {
-            DontDestroyOnLoad(this.gameObject);
-            theCamera = GetComponent<Camera>();
-            minBound = bound.bounds.min;
-            maxBound = bound.bounds.max;
-
-            halfHeight = theCamera.orthographicSize;
-            halfWidth = halfHeight * Screen.width / Screen.height;
+        DontDestroyOnLoad(this.gameObject);
+        BoundResize();
     }
 
     // Update is called once per frame
@@ -68,14 +63,20 @@ public class CameraManager : MonoBehaviour
 
         if(bound == null)
         {
-            bound = BoundScript.instance.bound.GetComponent<BoxCollider2D>();
-            theCamera = GetComponent<Camera>();
-            minBound = bound.bounds.min;
-            maxBound = bound.bounds.max;
-
-            halfHeight = theCamera.orthographicSize;
-            halfWidth = halfHeight * Screen.width / Screen.height;
+            BoundResize();
         }
         
     }
+
+    private void BoundResize()
+    {
+        bound = BoundScript.instance.bound.GetComponent<BoxCollider2D>();
+        theCamera = GetComponent<Camera>();
+        minBound = bound.bounds.min;
+        maxBound = bound.bounds.max;
+
+        halfHeight = theCamera.orthographicSize;
+        halfWidth = halfHeight * Screen.width / Screen.height;
+    }
 }
+
