@@ -5870,7 +5870,7 @@ MonoBehaviour:
   m_text: "\uC624\uB298 \uB4DC\uB514\uC5B4 \uCCAB \uCD9C\uADFC\uC774\uB2E4."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d69b534065fad8344b5d5aeb7768a854, type: 2}
-  m_sharedMaterial: {fileID: 4144312639587915880, guid: d69b534065fad8344b5d5aeb7768a854, type: 2}
+  m_sharedMaterial: {fileID: -1569678166157957911, guid: d69b534065fad8344b5d5aeb7768a854, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7147,7 +7147,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.029698372, y: 0.2941165}
+  m_Offset: {x: 0.010447502, y: 0.2941165}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -7158,7 +7158,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 18.438135, y: 10.871955}
+  m_Size: {x: 19.323687, y: 10.871955}
   m_EdgeRadius: 0
 --- !u!4 &1359701853
 Transform:
