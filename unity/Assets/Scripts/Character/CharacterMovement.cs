@@ -34,6 +34,7 @@ public class CharacterMovement : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        currentMapName = DataManager.instance.CharacterData.savepoint;
     }
 
     // 씬이 로드될 때 호출되는 메소드
@@ -51,11 +52,11 @@ public class CharacterMovement : MonoBehaviour
     public void ProcessInput(float moveX, float moveY)
     {
         // 인벤토리가 열려있는 경우 움직임 중단
-        // if (inventoryUI != null && inventoryUI.IsInventoryOpen())
-        // {
-        //     movement = Vector2.zero;
-        //     return;
-        // }
+        if (UIManager.instance.gameInventory != null && UIManager.instance.gameInventory.activeSelf)
+        {
+             movement = Vector2.zero;
+             return;
+        }
 
         // 대화 중일 때는 움직임 중단
         if (DialogueManager.instance != null && DialogueManager.instance.talking)
@@ -94,21 +95,31 @@ public class CharacterMovement : MonoBehaviour
         characterAnimation.SetAttacking(isAttacking);
     }
 
+// 임시로 주석
+    // public void OnTriggerEnter2D(Collider2D collision)
+    // {
+    //     // 아이템과 충돌한 경우
+    //     if (collision.gameObject.tag == "Item")
+    //     {
+    //         // 아이템을 인벤토리에 추가
+    //         ItemPickup itemPickup = collision.gameObject.GetComponent<ItemPickup>();
+
+
+    //         if (itemPickup != null)
+    //         {
+    //             InventoryUI.AcquireItem(itemPickup.item);
+    //             // 아이템 오브젝트 삭제
+    //             Destroy(collision.gameObject);
+    //         }
+    //     }
+    // }
+
     public void OnTriggerEnter2D(Collider2D collision)
     {
         // 아이템과 충돌한 경우
         if (collision.gameObject.tag == "Item")
         {
-            // 아이템을 인벤토리에 추가
-            ItemPickup itemPickup = collision.gameObject.GetComponent<ItemPickup>();
-
-
-            if (itemPickup != null)
-            {
-                InventoryUI.AcquireItem(itemPickup.item);
-                // 아이템 오브젝트 삭제
-                Destroy(collision.gameObject);
-            }
+            Debug.Log("박스 충돌");
         }
     }
 
