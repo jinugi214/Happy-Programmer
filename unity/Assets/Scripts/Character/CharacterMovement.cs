@@ -95,21 +95,31 @@ public class CharacterMovement : MonoBehaviour
         characterAnimation.SetAttacking(isAttacking);
     }
 
+// 임시로 주석
+    // public void OnTriggerEnter2D(Collider2D collision)
+    // {
+    //     // 아이템과 충돌한 경우
+    //     if (collision.gameObject.tag == "Item")
+    //     {
+    //         // 아이템을 인벤토리에 추가
+    //         ItemPickup itemPickup = collision.gameObject.GetComponent<ItemPickup>();
+
+
+    //         if (itemPickup != null)
+    //         {
+    //             InventoryUI.AcquireItem(itemPickup.item);
+    //             // 아이템 오브젝트 삭제
+    //             Destroy(collision.gameObject);
+    //         }
+    //     }
+    // }
+
     public void OnTriggerEnter2D(Collider2D collision)
     {
         // 아이템과 충돌한 경우
         if (collision.gameObject.tag == "Item")
         {
-            // 아이템을 인벤토리에 추가
-            ItemPickup itemPickup = collision.gameObject.GetComponent<ItemPickup>();
-
-
-            if (itemPickup != null)
-            {
-                InventoryUI.AcquireItem(itemPickup.item);
-                // 아이템 오브젝트 삭제
-                Destroy(collision.gameObject);
-            }
+            Debug.Log("박스 충돌");
         }
     }
 
