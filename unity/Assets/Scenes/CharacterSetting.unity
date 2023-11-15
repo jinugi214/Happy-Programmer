@@ -258,7 +258,7 @@ MonoBehaviour:
   characterNameCheck: 0
   checkWindow: {fileID: 1719330694}
   windowText: {fileID: 1719330695}
-  characterSaveLoadManager: {fileID: 1129852774}
+  characterLoadManager: {fileID: 1129852774}
 --- !u!1 &96367781
 GameObject:
   m_ObjectHideFlags: 0
@@ -1922,6 +1922,14 @@ PrefabInstance:
       propertyPath: checkWindow
       value: 
       objectReference: {fileID: 1719330694}
+    - target: {fileID: -7551192604979187755, guid: 1835c060e566e8849a245034e9c65e9d, type: 3}
+      propertyPath: uiManagerPrefab
+      value: 
+      objectReference: {fileID: 9128521086016552560, guid: 3ed940f1acebabf4f84cecc948606f6c, type: 3}
+    - target: {fileID: -7551192604979187755, guid: 1835c060e566e8849a245034e9c65e9d, type: 3}
+      propertyPath: questManagerPrefab
+      value: 
+      objectReference: {fileID: 856841077437523830, guid: bce9bd20abadecc44a58b8bd128da630, type: 3}
     - target: {fileID: 4775403348684145467, guid: 1835c060e566e8849a245034e9c65e9d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1964,7 +1972,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7509591314899252769, guid: 1835c060e566e8849a245034e9c65e9d, type: 3}
       propertyPath: m_Name
-      value: SaveLoadManager
+      value: LoadManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

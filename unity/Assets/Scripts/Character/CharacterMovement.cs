@@ -51,11 +51,11 @@ public class CharacterMovement : MonoBehaviour
     public void ProcessInput(float moveX, float moveY)
     {
         // 인벤토리가 열려있는 경우 움직임 중단
-        // if (inventoryUI != null && inventoryUI.IsInventoryOpen())
-        // {
-        //     movement = Vector2.zero;
-        //     return;
-        // }
+        if (UIManager.instance.gameInventory != null && UIManager.instance.gameInventory.activeSelf)
+        {
+             movement = Vector2.zero;
+             return;
+        }
 
         // 대화 중일 때는 움직임 중단
         if (DialogueManager.instance != null && DialogueManager.instance.talking)

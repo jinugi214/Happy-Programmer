@@ -27,7 +27,7 @@ public class NewCharacterManager : MonoBehaviour
     public bool characterNameCheck;
     public GameObject checkWindow;
     public TextMeshProUGUI windowText;
-    public CharacterSaveLoadManager characterSaveLoadManager;
+    public CharacterLoadManager characterLoadManager;
 
     public void OnCharacterNameCheckButtonClicked()
     {
@@ -131,7 +131,7 @@ public class NewCharacterManager : MonoBehaviour
 
                 float delayTime = 2.0f; // 딜레이 시간 설정 (예: 2초)
                 yield return new WaitForSeconds(delayTime);
-                characterSaveLoadManager.LoadCharacterData();
+                characterLoadManager.LoadCharacterData();
                 
                 SceneManager.LoadScene("LobbyMap"); // 어디로 이동하지
             }
