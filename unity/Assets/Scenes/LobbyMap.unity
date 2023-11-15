@@ -7594,7 +7594,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    situations: []
+    situations:
+    - sentences:
+      - dd
+      dialogueWindows:
+      - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}
 --- !u!4 &1721264892
 Transform:
   m_ObjectHideFlags: 0
