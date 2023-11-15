@@ -53,6 +53,7 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
     private lateinit var cameraPermissionLauncher: ActivityResultLauncher<Array<String>>
     private lateinit var cameraIntent: Intent
     private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
+    private val missionLoadingDialogFragment = MissionLoadingDialogFragment()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -86,6 +87,9 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
             buttonSend.setOnClickListener {
                 if(missionViewModel.isPossibleSendPhoto()){
                     missionViewModel.sendPhoto()
+                    //여기서 로딩 다이얼로그 띄우고
+                    missionLoadingDialogFragment.isCancelable = false
+                    missionLoadingDialogFragment.show(childFragmentManager, null)
                 }else{
                     showCustomToast("사진을 다시 제출해 주세요")
                 }
@@ -102,6 +106,8 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
             }
             viewLifecycleOwner.lifecycleScope.launch {
                 resultMessage.collectLatest {
+                    //여기서 닫자
+                    missionLoadingDialogFragment.dismiss()
                     showCustomToast(it)
                 }
             }
