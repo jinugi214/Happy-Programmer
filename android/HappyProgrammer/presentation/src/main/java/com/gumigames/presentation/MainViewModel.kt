@@ -134,8 +134,13 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             getApiResult(block = {getUserInfoLocalUseCase.invoke()}){
                 _userInfo.emit(it)
+                _isBroughtUserInfo = true
             }
         }
+    }
+
+    fun getIsBroughtUserInfo(): Boolean{
+        return _isBroughtUserInfo
     }
 
     ////////////////////////////////////// 리프레시 만료됐는지 확인용 ////////////////////////////
