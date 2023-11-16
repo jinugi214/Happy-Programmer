@@ -39,22 +39,27 @@ public class CharacterService {
         return ResponseEntity.ok(characterResponse);
     }
 
-    public ResponseEntity<?> saveCharacter(CharacterRequest characterRequest, Principal principal) {
+    public ResponseEntity<?> saveCharacter(CharacterRequest request, Principal principal) {
 
         String username = principal.getName();
-        System.out.println(username);
 
-        Character character = Character.builder()
-                .name(characterRequest.getName())
-                .gender(characterRequest.getGender())
-                .level(characterRequest.getLevel())
-                .exp(characterRequest.getExp())
-                .point(characterRequest.getPoint())
-                .savepoint(characterRequest.getSavepoint())
-                .imgPath(characterRequest.getImgPath())
-                .account(accountRepository.findByUsername(username).orElseThrow(NullPointerException::new))
-                .build();
-        characterRepository.save(character);
+        Character character = characterRepository.findByAccount_Username(username).orElse(null);
+        if (character == null) {
+            Character newCharacter = Character.builder()
+                    .name(request.getName())
+                    .gender(request.getGender())
+                    .level(request.getLevel())
+                    .exp(request.getExp())
+                    .point(request.getPoint())
+                    .savepoint(request.getSavepoint())
+                    .imgPath(request.getImgPath())
+                    .account(accountRepository.findByUsername(username).orElseThrow(NullPointerException::new))
+                    .build();
+            characterRepository.save(newCharacter);
+        } else {
+            character.updateCharacter(request.getExp(), request.getLevel(), request.getSavepoint(),
+                    request.getPoint(), request.getStoryProgress(), request.getImgPath());
+        }
 
         return ResponseEntity.ok("saved");
     }

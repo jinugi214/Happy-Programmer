@@ -30,11 +30,12 @@ public class MiniGameManager : MonoBehaviour
 
     [Header("# Game Object")]
     public PoolManager pool;
-    public CharacterInput player;
+    public GameObject player;
 
     void Awake()
     {
         instance = this;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Update()
@@ -82,7 +83,6 @@ public class MiniGameManager : MonoBehaviour
 
     public void GetExp()
     {
-        exp++;
 
         if (exp == nextExp[level])
         {
@@ -109,7 +109,6 @@ public class MiniGameManager : MonoBehaviour
     public void Stop()
     {
         isLive = false;
-        Time.timeScale = 0;
     }
 
     public void Resume()

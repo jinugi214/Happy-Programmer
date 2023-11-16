@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 927fdafd7fd628a4ea1d50d82ce727ca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   direction: {x: 0, y: 0}
-  effectPrefab: {fileID: 0}
+  effectPrefab: {fileID: 2300397120003628089, guid: 296aec9305402b54fa1e26cc552b6b25, type: 3}
   weaponType: 0
   skillAudioSource: {fileID: 0}
   skillSound: {fileID: 8300000, guid: 5e17750202cc81d49b37e8e79c0c05cd, type: 3}

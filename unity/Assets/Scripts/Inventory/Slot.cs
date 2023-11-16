@@ -9,6 +9,7 @@ public class Slot : MonoBehaviour
     public CharacterAppear characterAppear;
     public AudioSource audioSource;
     public AudioClip inventorySound;
+    public Item mouse1Item;
 
     [SerializeField]
     private Text text_Count;
@@ -17,6 +18,7 @@ public class Slot : MonoBehaviour
     void Start()
     {
         characterAppear = FindObjectOfType<CharacterAppear>();
+        AddItem(mouse1Item, 1);
     }
 
     void Awake()
@@ -40,33 +42,24 @@ public class Slot : MonoBehaviour
     }
 
     // 인벤토리에 새로운 아이템 슬롯 추가
-    public void AddItem(Item _item, int _count = 1)
-    {
-        item = _item;
-        itemCount = _count;
-        itemImage.sprite = item.itemImage;
+    // 인벤토리에 새로운 아이템 슬롯 추가
+public void AddItem(Item _item, int _count = 1)
+{
+    item = _item;
+    itemCount = _count;
+    UpdateSlot(); // 아이템을 추가한 후에 슬롯의 UI를 업데이트
+}
 
-        if (item.itemType != Item.ItemType.Equipment)
-        {
-            text_Count.text = itemCount.ToString();
-        }
-        else
-        {
-            text_Count.text = "";
-        }
+// 해당 슬롯의 아이템 갯수 업데이트
+public void SetSlotCount(int _count)
+{
+    itemCount += _count;
+    UpdateSlot(); // 아이템의 갯수를 변경한 후에 슬롯의 UI를 업데이트
 
-        SetColor(1);
-    }
+    if (itemCount <= 0)
+        ClearSlot();
+}
 
-    // 해당 슬롯의 아이템 갯수 업데이트
-    public void SetSlotCount(int _count)
-    {
-        itemCount += _count;
-        text_Count.text = itemCount.ToString();
-
-        if (itemCount <= 0)
-            ClearSlot();
-    }
 
     // 해당 슬롯 하나 삭제
     private void ClearSlot()
