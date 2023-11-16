@@ -10,6 +10,26 @@ public class Slot : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip inventorySound;
     public Item mouse1Item;
+    public Item mouse2Item;
+    public Item mouse3Item;
+    public Item keyboard1Item;
+    public Item keyboard2Item;
+    public Item keyboard3Item;
+    public Item phone1Item;
+    public Item phone2Item;
+    public Item phone3Item;
+    public Item helmet1Item;
+    public Item helmet2Item;
+    public Item helmet3Item;
+    public Item coffee;
+    public Item coke;
+    public Item energy;
+    public Item box;
+    public Item doc;
+    public Item hamburger;
+    public Item choco;
+    public Item pizza;
+    public int slotId;  // 슬롯 ID
 
     [SerializeField]
     private Text text_Count;
@@ -18,8 +38,88 @@ public class Slot : MonoBehaviour
     void Start()
     {
         characterAppear = FindObjectOfType<CharacterAppear>();
-        AddItem(mouse1Item, 1);
+        if (slotId == 0)  // 첫번째 슬롯인 경우만 아이템 추가
+        {
+            AddItem(mouse1Item, 1);
+        }
+        if (slotId == 1)
+        {
+            AddItem(mouse2Item, 1);
+        }
+        if (slotId == 2)
+        {
+            AddItem(mouse3Item, 1);
+        }
+        if (slotId == 3)
+        {
+            AddItem(keyboard1Item, 1);
+        }
+        if (slotId == 4)
+        {
+            AddItem(keyboard2Item, 1);
+        }
+        if (slotId == 5)
+        {
+            AddItem(keyboard3Item, 1);
+        }
+        if (slotId == 6)
+        {
+            AddItem(phone1Item, 1);
+        }
+        if (slotId == 7)
+        {
+            AddItem(phone2Item, 1);
+        }
+        if (slotId == 8)
+        {
+            AddItem(phone3Item, 1);
+        }
+        if (slotId == 9)
+        {
+            AddItem(helmet1Item, 1);
+        }
+        if (slotId == 10)
+        {
+            AddItem(helmet2Item, 1);
+        }
+        if (slotId == 11)
+        {
+            AddItem(helmet3Item, 1);
+        }
+        if (slotId == 12)
+        {
+            AddItem(coffee, 1);
+        }
+        if (slotId == 13)
+        {
+            AddItem(coke, 1);
+        }
+        if (slotId == 14)
+        {
+            AddItem(hamburger, 1);
+        }
+        if (slotId == 15)
+        {
+            AddItem(choco, 1);
+        }
+        if (slotId == 16)
+        {
+            AddItem(energy, 1);
+        }
+        if (slotId == 17)
+        {
+            AddItem(pizza, 1);
+        }
+        if (slotId == 18)
+        {
+            AddItem(doc, 1);
+        }
+        if (slotId == 19)
+        {
+            AddItem(box, 1);
+        }
     }
+
 
     void Awake()
     {
@@ -42,23 +142,35 @@ public class Slot : MonoBehaviour
     }
 
     // 인벤토리에 새로운 아이템 슬롯 추가
-    // 인벤토리에 새로운 아이템 슬롯 추가
-public void AddItem(Item _item, int _count = 1)
-{
-    item = _item;
-    itemCount = _count;
-    UpdateSlot(); // 아이템을 추가한 후에 슬롯의 UI를 업데이트
-}
+    public bool AddItem(Item _item, int _count = 1)
+    {
+        if (item != null)
+        {
+            Debug.Log("Slot " + slotId + " is already occupied by " + item.itemName);
+            return false;  // 이미 아이템이 있으므로 추가하지 않고 false 반환
+        }
 
-// 해당 슬롯의 아이템 갯수 업데이트
-public void SetSlotCount(int _count)
-{
-    itemCount += _count;
-    UpdateSlot(); // 아이템의 갯수를 변경한 후에 슬롯의 UI를 업데이트
+        item = _item;
+        itemCount = _count;
 
-    if (itemCount <= 0)
-        ClearSlot();
-}
+        Debug.Log("Added item: " + _item.itemName + ", count: " + _count);  // 아이템 정보를 출력
+
+        UpdateSlot(); // 아이템을 추가한 후에 슬롯의 UI를 업데이트
+
+        return true;  // 아이템 추가 성공
+    }
+
+
+
+    // 해당 슬롯의 아이템 갯수 업데이트
+    public void SetSlotCount(int _count)
+    {
+        itemCount += _count;
+        UpdateSlot(); // 아이템의 갯수를 변경한 후에 슬롯의 UI를 업데이트
+
+        if (itemCount <= 0)
+            ClearSlot();
+    }
 
 
     // 해당 슬롯 하나 삭제
@@ -74,10 +186,14 @@ public void SetSlotCount(int _count)
 
     public void UpdateSlot()
     {
+        Debug.Log("Slot ID: " + slotId + ", Item: " + item + ", Count: " + itemCount);
+
         if (item != null)
         {
+            Debug.Log("slot 업뎃!");
             // 아이템이 있을 경우, 이미지/개수 표시
             itemImage.sprite = item.itemImage;
+            // Debug.Log(itemImage);
             SetColor(1);
 
             if (item.itemType != Item.ItemType.Equipment)
@@ -86,7 +202,7 @@ public void SetSlotCount(int _count)
             }
             else
             {
-                text_Count.text = "0";
+                text_Count.text = "";
             }
         }
         else
