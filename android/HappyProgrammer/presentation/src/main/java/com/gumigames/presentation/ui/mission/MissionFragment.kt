@@ -86,6 +86,7 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
             }
             // 전송 버튼 클릭
             buttonSend.setOnClickListener {
+                Log.d(TAG, "전송 클릭 : ${mainViewModel.getIsConnected()}")
                 if(!mainViewModel.getIsConnected()){ //네트워크 연결이 안되어 있다면
                     showSnackbar(this.root, "fail", "네트워크 연결 상태를 확안하세요")
                     return@setOnClickListener
