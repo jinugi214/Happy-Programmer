@@ -73,7 +73,7 @@ public class FatalController : MonoBehaviour
 
    private void OnTriggerEnter2D(Collider2D collision)
     {
-        StartCoroutine(KnockBack());
+        
 
          
         if (health > 0)
