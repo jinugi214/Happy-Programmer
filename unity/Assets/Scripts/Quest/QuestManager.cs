@@ -65,6 +65,7 @@ public class QuestManager : MonoBehaviour
         // 아직 완료하지 않은 퀘스트라면 리스트에 추가
         if (!completedQuestIds.Contains(questId))
         {
+            accpetedQuestIds.Remove(questId);
             completedQuestIds.Add(questId);
         }
     }
