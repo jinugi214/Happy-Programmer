@@ -35,10 +35,15 @@ public class TransferScences : MonoBehaviour
         theFade.FadeIn();
     }
 
-    public void TranferScene()
+    public void FightTransferScene()
     {
         thePlayer.currentMapName = transferMapName;
         SceneManager.LoadScene(transferMapName);
         DataManager.instance.CharacterData.savepoint = transferMapName;
+    }
+
+    public void TranferScene()
+    {
+        SceneManager.LoadScene(transferMapName);
     }
 }

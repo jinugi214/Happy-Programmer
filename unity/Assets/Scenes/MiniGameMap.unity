@@ -2142,7 +2142,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1075657724}
         m_TargetAssemblyTypeName: TransferScences, Assembly-CSharp
-        m_MethodName: TranferScene
+        m_MethodName: FightTransferScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3655,7 +3655,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 11
-      m_TileSpriteIndex: 23
+      m_TileSpriteIndex: 25
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -3725,7 +3725,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 16
-      m_TileSpriteIndex: 22
+      m_TileSpriteIndex: 23
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -3885,7 +3885,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 3
-      m_TileSpriteIndex: 21
+      m_TileSpriteIndex: 22
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -3915,7 +3915,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 6
-      m_TileSpriteIndex: 20
+      m_TileSpriteIndex: 21
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -4022,18 +4022,18 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 1051407890, guid: 8b7bc4c14b47e414abd54d7a5bbe5ea0, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 1246770612, guid: 8b7bc4c14b47e414abd54d7a5bbe5ea0, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -1343492476, guid: 8b7bc4c14b47e414abd54d7a5bbe5ea0, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 267722134, guid: 8b7bc4c14b47e414abd54d7a5bbe5ea0, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: -777751641, guid: 8b7bc4c14b47e414abd54d7a5bbe5ea0, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 267722134, guid: 8b7bc4c14b47e414abd54d7a5bbe5ea0, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -420663696, guid: 8b7bc4c14b47e414abd54d7a5bbe5ea0, type: 3}
   - m_RefCount: 1
