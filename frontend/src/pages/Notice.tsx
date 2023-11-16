@@ -22,7 +22,7 @@ const Notice: React.FC = () => {
         />
 
         <NoticeBox
-          imgName="n1_1(night)"
+          imgName="n1_1(afternoon)"
           title="패치 예정 사항"
           date="2023.11.17"
           link="/notice/3"
