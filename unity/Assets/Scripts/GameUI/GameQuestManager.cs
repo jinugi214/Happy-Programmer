@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class GameQuestManager : MonoBehaviour
 {
@@ -13,11 +14,12 @@ public class GameQuestManager : MonoBehaviour
 
     public void DisplayCurrentQuests()
     {
-        var currentQuests = QuestManager.instance.GetCurrentQuests();
+        List<Quest> currentQuests = QuestManager.instance.GetCurrentQuests();
 
         if (currentQuests.Count > 0)
         {
-            title.text = currentQuests[0].Name;
+            Quest quest = currentQuests[0];
+            title.text = quest.Name;
             content.text = currentQuests[0].Description;
         }
         else

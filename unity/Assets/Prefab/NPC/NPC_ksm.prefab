@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6860877492070385526}
   - component: {fileID: 7995137333252322800}
   - component: {fileID: -984523389530939164}
+  - component: {fileID: 3601119229828637379}
   m_Layer: 5
   m_Name: NPC_ksm
   m_TagString: Untagged
@@ -191,3 +192,16 @@ MonoBehaviour:
       - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}
       - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}
       - {fileID: 21300000, guid: 340b73d8e67164942bff457f4a6caca8, type: 3}
+  isInRange: 0
+--- !u!114 &3601119229828637379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7325293142718350339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc29ebe62c4f67419f642178ecdc155, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
