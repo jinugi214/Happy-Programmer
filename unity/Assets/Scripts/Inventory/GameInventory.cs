@@ -5,14 +5,14 @@ public class GameInventory : MonoBehaviour
 
     [SerializeField]
     public GameObject inventoryBase;
-    // InventoryUI ¿ÀÇÁÁ§Æ® ´ãÀ» ¿ä¼Ò
+    // InventoryUI ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
     [SerializeField]
     private GameObject SlotContent;
-    // SlotµéÀÇ ºÎ¸ðÀÎ Grid Setting 
+    // Slotï¿½ï¿½ï¿½ï¿½ ï¿½Î¸ï¿½ï¿½ï¿½ Grid Setting 
 
     private Slot[] slots;
-    // ½½·Ôµé ¹è¿­
+    // ï¿½ï¿½ï¿½Ôµï¿½ ï¿½è¿­
 
 
 
@@ -21,71 +21,54 @@ public class GameInventory : MonoBehaviour
         slots = SlotContent.GetComponentsInChildren<Slot>();
         for (int i = 0; i < slots.Length; i++)
         {
-            slots[i].item = null;  // ½½·ÔÀÇ item ÇÊµå¸¦ null·Î ÃÊ±âÈ­
+            slots[i].item = null;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ item ï¿½Êµå¸¦ nullï¿½ï¿½ ï¿½Ê±ï¿½È­
         }
     }
 
     public void AcquireItem(Item _item, int _count = 1)
-    {
-        if (_item.itemType == Item.ItemType.Food)
-        {
-            for (int i = 0; i < slots.Length; i++)
-            {
-                if (slots[i].item != null)
-                {
-                    if (slots[i].item.itemName == _item.itemName)
-                    {
-                        slots[i].SetSlotCount(_count);
-                        return;
-                    }
-                }
-            }
+{
+    Debug.Log("Item type: " + _item.itemType);  // ì•„ì´í…œ íƒ€ìž… ë¡œê·¸
 
-            for (int i = 0; i < slots.Length; i++)
+    if (_item.itemType == Item.ItemType.Food)
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].item != null)
             {
-                if (slots[i].item == null)
+                if (slots[i].item.itemName == _item.itemName)
                 {
-                    slots[i].AddItem(_item, _count);
+                    slots[i].SetSlotCount(_count);
                     return;
                 }
             }
         }
-        else if (_item.itemType == Item.ItemType.Equipment)
-        {
-            for (int i = 0; i < slots.Length; i++)
-            {
-                if (slots[i].item != null)
-                {
-                    if (slots[i].item.itemName == _item.itemName)
-                    {
-                        return;  // °°Àº ¾ÆÀÌÅÛ ÀÖÀ¸¸é Ãß°¡ X
-                    }
-                }
-            }
 
-            for (int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].item == null)
             {
-                if (slots[i].item == null)
-                {
-                    slots[i].AddItem(_item, _count);
-                    return;
-                }
+                slots[i].AddItem(_item, _count);
+                Debug.Log("Added item to slot " + i);  // ì•„ì´í…œ ì¶”ê°€ ë¡œê·¸
+                return;
             }
         }
     }
+    // ...
+}
+
 
     public void FilterInventory(Item.ItemType? itemType = null)
     {
         foreach (Slot slot in slots)
         {
-            // 'All' Ä«Å×°í¸®
+            // 'All' Ä«ï¿½×°ï¿½ï¿½ï¿½
             if (itemType == null)
             {
                 slot.gameObject.SetActive(true);
             }
             else
             {
-                // ¼±ÅÃÇÑ Ä«Å×°í¸®¿¡ ¼ÓÇÏ¸é º¸ÀÓ, ¾Æ´Ï¸é ¼û±è
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½
                 if (slot.item != null)
                 {
                     slot.gameObject.SetActive(slot.item.itemType == itemType);
