@@ -31,9 +31,16 @@ public class MiniGameHud : MonoBehaviour
             case InfoType.Level:
                 break;
             case InfoType.kill:
+                
                 myText.text = string.Format("{0} 개의 버그를 처리했습니다.", MiniGameManager.instance.kill);
+                
                 break;
             case InfoType.Time:
+                if (Mathf.Approximately(MiniGameManager.instance.gameTime, 300f))
+                {
+                    myText.text = string.Format("살아남으셨습니다! 축하합니다.");
+                    break;
+                }
                 myText.text = string.Format(" 처리 시간 : {0}", MiniGameManager.instance.gameTime);
                 break;
             case InfoType.Health:
