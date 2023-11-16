@@ -109,7 +109,6 @@ public class MiniGameManager : MonoBehaviour
     public void Stop()
     {
         isLive = false;
-        Time.timeScale = 0;
     }
 
     public void Resume()

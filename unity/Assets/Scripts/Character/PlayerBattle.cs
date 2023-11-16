@@ -39,7 +39,8 @@ public class PlayerBattle : MonoBehaviour
             for (int index = 0; index < GameObject.Find("Spawners").GetComponent<Spawner>().transform.childCount ; index++)
             {
                 Debug.Log(index);
-                GameObject.Find("Spawners").GetComponent<Spawner>().transform.GetChild(index).gameObject.SetActive(false);             }
+                GameObject.Find("Spawners").GetComponent<Spawner>().transform.GetChild(index).gameObject.SetActive(false);             
+            }
 
 
             Dead();
