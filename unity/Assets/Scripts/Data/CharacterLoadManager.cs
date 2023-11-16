@@ -41,16 +41,9 @@ public class CharacterLoadManager : MonoBehaviour {
                 Debug.Log(character);
                 DataManager.instance.CharacterData = character;
                 // UIManager 인스턴스 생성
-                if (UIManager.instance == null)
-                {
-                    Instantiate(uiManagerPrefab);
-                }
+                Instantiate(uiManagerPrefab);
                 // QuestManager 인스턴스 생성
-                if (QuestManager.instance == null)
-                {
-                    Instantiate(questManagerPrefab);
-                }
-                // CamaeraManager 인스턴스 생성
+                Instantiate(questManagerPrefab);
                 SceneManager.LoadScene(DataManager.instance.CharacterData.savepoint);
                 Debug.Log("캐릭터 불러오기 성공");
 
