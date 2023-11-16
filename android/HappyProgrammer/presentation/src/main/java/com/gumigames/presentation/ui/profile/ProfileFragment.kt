@@ -20,6 +20,8 @@ import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.FragmentProfileBinding
 import com.gumigames.presentation.ui.common.item.ItemDetailDialogFragment
 import com.gumigames.presentation.ui.common.item.ItemListApdapter
+import com.gumigames.presentation.ui.common.monster.MonsterListAdapter
+import com.gumigames.presentation.ui.common.skill.SkillListAdapter
 import com.gumigames.presentation.util.clickAnimation
 import com.gumigames.presentation.util.levelAndExpFormat
 import com.gumigames.presentation.util.nameAndGenderFormat
@@ -38,6 +40,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
     private val mainViewModel: MainViewModel by activityViewModels()
     private val profileViewModel: ProfileViewModel by viewModels()
     private lateinit var itemListAdapter: MyItemListAdapter
+    private lateinit var skillListAdapter: SkillListAdapter
+    private lateinit var monsterListAdapter: MonsterListAdapter
     private lateinit var userInfo: UserInfoDto
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,6 +58,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
         profileViewModel.getAllMyItemsLocal { itemListAdapter.currentList }
         itemListAdapter = MyItemListAdapter()
         userInfo = mainViewModel.userInfo.value!!
+        skillListAdapter = SkillListAdapter()
+        monsterListAdapter = MonsterListAdapter()
     }
 
     private fun initView(){
@@ -93,14 +99,24 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
                             recyclerviewProfile.adapter = itemListAdapter
                             profileViewModel.getAllMyItemsLocal { itemListAdapter.currentList }
                             profileViewModel.setCurrentTab("item")
+                            layoutReadyInfo.visibility = View.GONE
+                            recyclerviewProfile.visibility = View.VISIBLE
                         }
                         //스킬 조회
                         1 -> {
+                            recyclerviewProfile.adapter = skillListAdapter
+                            profileViewModel.getAllMySkillsLocal()
                             profileViewModel.setCurrentTab("skill")
+                            layoutReadyInfo.visibility = View.VISIBLE
+                            recyclerviewProfile.visibility = View.GONE
                         }
                         //몬스터 조회
                         2 -> {
+                            recyclerviewProfile.adapter = monsterListAdapter
+                            profileViewModel.getAllMyMonstersLocal()
                             profileViewModel.setCurrentTab("monster")
+                            layoutReadyInfo.visibility = View.VISIBLE
+                            recyclerviewProfile.visibility = View.GONE
                         }
                     }
                 }

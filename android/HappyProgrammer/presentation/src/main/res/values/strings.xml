@@ -50,5 +50,6 @@
     <!--setting-->
     <string name="text_setting">설정</string>
     <string name="text_logout">로그아웃</string>
+    <string name="text_ready_info">추후 업데이트 될 예정입니다!</string>
 
 </resources>
