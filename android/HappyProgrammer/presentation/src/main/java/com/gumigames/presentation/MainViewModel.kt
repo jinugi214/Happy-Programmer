@@ -154,4 +154,13 @@ class MainViewModel @Inject constructor(
             Log.d(TAG, "bringGameInfo에서 user 정보 조회 성공")
         }
     }
+
+    //////////////////////////////////// 네트워크 연결 ///////////////////////////
+    private var _isConnected = false
+    fun setIsConnected(value: Boolean){
+        _isConnected = value
+    }
+    fun getIsConnected(): Boolean{
+        return _isConnected
+    }
 }

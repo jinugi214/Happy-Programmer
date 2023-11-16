@@ -86,6 +86,10 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
             }
             // 전송 버튼 클릭
             buttonSend.setOnClickListener {
+                if(!mainViewModel.getIsConnected()){ //네트워크 연결이 안되어 있다면
+                    showSnackbar(this.root, "fail", "네트워크 연결 상태를 확안하세요")
+                    return@setOnClickListener
+                }
                 if(missionViewModel.isPossibleSendPhoto()){
                     missionViewModel.sendPhoto()
                     //여기서 로딩 다이얼로그 띄우고
@@ -110,8 +114,10 @@ class MissionFragment: BaseFragment<FragmentMissionBinding>(
                     //여기서 닫자
                     missionLoadingDialogFragment.dismiss()
                     if(it=="성공"){
+                        Log.d(TAG, "initCollect result 성공")
                         showSnackbar(binding.root, "success", "미션 성공")
                     }else{
+                        Log.d(TAG, "initCollect result 실패")
                         showSnackbar(binding.root, "fail", "미션 실패")
                     }
                 }

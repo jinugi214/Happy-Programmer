@@ -78,6 +78,7 @@ abstract class BaseFragment<B : ViewBinding>(
             }
         }
         // 텍스트 스타일 설정
+        snackbar.show()
     }
 
     fun collectErrorAndToken(
