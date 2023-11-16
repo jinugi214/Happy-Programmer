@@ -129,7 +129,7 @@ public class NewCharacterManager : MonoBehaviour
                 windowText.text = "캐릭터 생성에 성공하였습니다. 곧 게임을 시작합니다.";
                 checkWindow.SetActive(true);
 
-                float delayTime = 2.0f; // 딜레이 시간 설정 (예: 2초)
+                float delayTime = 1.0f; // 딜레이 시간 설정 (예: 1초)
                 yield return new WaitForSeconds(delayTime);
                 characterLoadManager.LoadCharacterData();
                 
