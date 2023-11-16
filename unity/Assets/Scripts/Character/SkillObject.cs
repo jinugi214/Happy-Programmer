@@ -55,7 +55,7 @@ public void Create(int weaponType)
 {
     if (other.tag == "Monster")
     {
-            Debug.Log("들어옴");
+            
         // 충돌 위치에서 랜덤한 위치를 계산
         Vector3 position = other.transform.position;
         position.x += Random.Range(-1f, 1f);
