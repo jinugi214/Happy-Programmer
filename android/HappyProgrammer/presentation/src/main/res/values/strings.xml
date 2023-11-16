@@ -49,5 +49,6 @@
 
     <!--setting-->
     <string name="text_setting">설정</string>
+    <string name="text_logout">로그아웃</string>
 
 </resources>

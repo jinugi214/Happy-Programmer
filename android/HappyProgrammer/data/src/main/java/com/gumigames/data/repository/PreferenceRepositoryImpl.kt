@@ -57,4 +57,8 @@ class PreferenceRepositoryImpl(
     override fun setIsLogined(value: Boolean) {
         preferenceDataSource.setIsLogined(value)
     }
+
+    override fun refreshPreference() {
+        preferenceDataSource.refreshPreference()
+    }
 }
