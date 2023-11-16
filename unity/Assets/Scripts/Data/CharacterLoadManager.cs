@@ -40,13 +40,14 @@ public class CharacterLoadManager : MonoBehaviour {
                 CharacterData character = JsonUtility.FromJson<CharacterData>(response);
                 Debug.Log(character);
                 DataManager.instance.CharacterData = character;
+
                 // UIManager 인스턴스 생성
                 Instantiate(uiManagerPrefab);
                 // QuestManager 인스턴스 생성
                 Instantiate(questManagerPrefab);
+
                 SceneManager.LoadScene(DataManager.instance.CharacterData.savepoint);
                 Debug.Log("캐릭터 불러오기 성공");
-
             }
         }
     }

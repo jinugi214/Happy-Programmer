@@ -131,9 +131,7 @@ public class NewCharacterManager : MonoBehaviour
 
                 float delayTime = 1.0f; // 딜레이 시간 설정 (예: 1초)
                 yield return new WaitForSeconds(delayTime);
-                characterLoadManager.LoadCharacterData();
-                
-                SceneManager.LoadScene("LobbyMap"); // 어디로 이동하지
+                characterLoadManager.StartCoroutine(characterLoadManager.LoadCharacterData());
             }
         }
     }
