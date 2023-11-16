@@ -25,6 +25,13 @@ public class SkillPlayer : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.X) && GetComponent<CharacterAppear>().IsWeaponEquipped())
         {
+            if (Mathf.Approximately(MiniGameManager.instance.mp, 0f))
+            {
+                return;
+            }
+
+            MiniGameManager.instance.mp = MiniGameManager.instance.mp - 1;
+
             SkillObject skillToUse = null; // 사용할 스킬 프리팹을 저장하는 변수
 
             var weaponType = GetComponent<CharacterAppear>().GetWeaponType();

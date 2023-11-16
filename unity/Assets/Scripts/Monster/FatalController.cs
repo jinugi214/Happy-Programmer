@@ -86,7 +86,6 @@ public class FatalController : MonoBehaviour
 
             MiniGameManager.instance.kill++;
             MiniGameManager.instance.exp++;
-            MiniGameManager.instance.mp = MiniGameManager.instance.mp - 3;
             MiniGameManager.instance.GetExp();
             Dead();
         }
