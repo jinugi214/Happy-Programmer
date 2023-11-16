@@ -37,6 +37,7 @@ public class TransferScences : MonoBehaviour
 
     public void TranferScene()
     {
+        thePlayer.currentMapName = transferMapName;
         SceneManager.LoadScene(transferMapName);
         DataManager.instance.CharacterData.savepoint = transferMapName;
     }
