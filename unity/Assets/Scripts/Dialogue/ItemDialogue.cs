@@ -8,7 +8,7 @@ public class ItemDialogue : MonoBehaviour
     private DialogueManager theDM;
 
     // 캐릭터가 범위에 들어왔는지 확인하는 변수
-    private bool isInRange = false;
+    public bool isInRange = false;
 
     void Start()
     {
