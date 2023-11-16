@@ -4,11 +4,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.gumigames.domain.model.common.ItemDto
 import com.gumigames.presentation.R
 import com.gumigames.presentation.databinding.ItemDogamBinding
@@ -32,7 +30,11 @@ class ItemListApdapter: ListAdapter<ItemDto, ItemListApdapter.ItemListHolder>(
         fun bindInfo(position: Int, item : ItemDto){
             Log.d(TAG, "bindInfo: $item")
             binding.apply {
-                if(item.imageBitmap!=null) imageItem.setImageBitmap(item.imageBitmap)
+                if(item.imageBitmap!=null) {
+                    if(item.owned) layoutItemDogam.setBackgroundResource(R.drawable.frame_border_white20)
+                    else layoutItemDogam.setBackgroundResource(R.drawable.frame_border_gray20_alpha70)
+                    imageItem.setImageBitmap(item.imageBitmap)
+                }
                 else imageItem.setImageResource(R.drawable.image_tool_profile) //TODO 추후에 로딩 이미지로 바꿔라
                 imageItem.setOnClickListener {
                     itemClickListner.onClick(it, position, item)
