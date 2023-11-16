@@ -112,8 +112,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             }
             viewLifecycleOwner.lifecycleScope.launch {
                 userInfo.collectLatest {
-                    if(it!=null) {//로그인해서 온 거 아니면 로딩창 닫자
+                    Log.d(TAG, "initCollect  userInfo...")
+                    if(it!=null && !getIsBroughtUserInfo()) { //userInfo를 조회한 게 처음이면
                         initProfileView(it)
+                        //로그인해서 온 거 아니면 로딩창 닫자
                         if(!args.isFromLogin && homeViewModel.getIsConnected()) { //로그인에서 온 게 아니고 네트워크 연결되어 있으면
                             bringGameInfoLoadingDialogFragment.isCancelable = false
                             bringGameInfoLoadingDialogFragment.setStyle(
@@ -128,6 +130,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             }
             viewLifecycleOwner.lifecycleScope.launch {
                 isPossibleLogin.collectLatest {
+                    Log.d(TAG, "initCollect isPossible... $it")
                     if(it && !args.isFromLogin) getUserInfo() //로그인해서 온 게 아니면
                 }
             }
