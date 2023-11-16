@@ -22,7 +22,15 @@ public class NPC : MonoBehaviour
             if (!dialogue.IsDone())
             {
                 theDM.ShowDialogue(dialogue);
-                
+                Debug.Log(cnt + "번 퀘스트");
+                QuestManager.instance.acceptQuest(cnt);
+                if (cnt > 0)
+                {
+                    QuestManager.instance.CompleteQuest(cnt - 1);
+
+                }
+                cnt += 1;
+
             }
         }
     }
@@ -33,8 +41,6 @@ public class NPC : MonoBehaviour
         {
             isInRange = false;
             DialogueManager.instance.ExitDialogue();
-            QuestManager.instance.acceptQuest(cnt);
-            cnt += 1;
         }
     }
 }
