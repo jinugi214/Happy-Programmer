@@ -29,7 +29,7 @@ public class CharacterMovement : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        currentMapName = DataManager.instance.CharacterData.savepoint;
+        //currentMapName = DataManager.instance.CharacterData.savepoint;
     }
 
     private void Start()
@@ -41,18 +41,18 @@ public class CharacterMovement : MonoBehaviour
     public void ProcessInput(float moveX, float moveY)
     {
         //인벤토리가 열려있는 경우 움직임 중단
-        //if (uimanager.instance.gameinventory != null && uimanager.instance.gameinventory.activeself)
-        //{
+        // if (uimanager.instance.gameinventory != null && uimanager.instance.gameinventory.activeself)
+        // {
         //    movement = vector2.zero;
         //    return;
-        //}
+        // }
 
-        //대화 중일 때는 움직임 중단
-        //if (dialoguemanager.instance != null && dialoguemanager.instance.talking)
-        //{
+        // 대화 중일 때는 움직임 중단
+        // if (dialoguemanager.instance != null && dialoguemanager.instance.talking)
+        // {
         //    movement = vector2.zero;
         //    return;
-        //}
+        // }
 
         if (moveX != 0 && moveY != 0)
         {
@@ -97,6 +97,7 @@ public class CharacterMovement : MonoBehaviour
             {
                 GameInventoryManager gameInventoryManager = UIManager.instance.gameInventory.GetComponent<GameInventoryManager>();
                 gameInventoryManager.AcquireItem(itemPickup.item);
+                Debug.Log("AcquireItem 호출");
 
                 // 아이템 오브젝트 삭제
                 Destroy(collision.gameObject);
