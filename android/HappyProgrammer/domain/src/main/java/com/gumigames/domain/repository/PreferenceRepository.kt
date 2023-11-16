@@ -14,4 +14,5 @@ interface PreferenceRepository {
     fun setIsAlreadyShowedDialog(value: Boolean)
     fun getIsLogined(): Boolean
     fun setIsLogined(value: Boolean)
+    fun refreshPreference()
 }
