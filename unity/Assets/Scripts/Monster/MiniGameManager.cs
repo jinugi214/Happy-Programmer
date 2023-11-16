@@ -49,6 +49,7 @@ public class MiniGameManager : MonoBehaviour
         if (gameTime > maxGameTime)
         {
             gameTime = maxGameTime;
+            GameOver();
         }
     }
 
