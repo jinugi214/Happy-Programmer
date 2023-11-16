@@ -11,8 +11,8 @@ const GameInfo: React.FC = () => {
         <div>주인공이 행복 코딩을 할 수 있도록 도와주세요.</div>
       </div>
 
-      <Key/>
       <Story/>
+      <Key/>
       {/* <Screen/> */}
     </div>
   )
