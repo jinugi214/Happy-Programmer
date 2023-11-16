@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   direction: {x: 0, y: 0}
-  effectPrefab: {fileID: 0}
+  effectPrefab: {fileID: 2300397120003628089, guid: 296aec9305402b54fa1e26cc552b6b25, type: 3}
   weaponType: 0
   skillAudioSource: {fileID: 0}
   skillSound: {fileID: 8300000, guid: 5e17750202cc81d49b37e8e79c0c05cd, type: 3}

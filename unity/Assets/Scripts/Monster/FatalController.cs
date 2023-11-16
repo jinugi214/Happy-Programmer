@@ -71,24 +71,27 @@ public class FatalController : MonoBehaviour
 
 
 
-    /*private void OnTriggerEnter2D(Collider2D collision)
+   private void OnTriggerEnter2D(Collider2D collision)
     {
         StartCoroutine(KnockBack());
+
          
         if (health > 0)
         {
-            anim.SetTrigger("Hit");
-            Debug.Log("¸Â¾Ò´Ù!");
+            health -= 5;
         }
         else
         {
             isLive = false;
 
             MiniGameManager.instance.kill++;
+            MiniGameManager.instance.exp++;
+            MiniGameManager.instance.mp--;
             MiniGameManager.instance.GetExp();
+            Dead();
         }
         
-    }*/
+    }
 
         IEnumerator KnockBack()
         {
