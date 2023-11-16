@@ -224,6 +224,29 @@
             android:padding="@dimen/_3sdp"
             android:background="@drawable/frame_bottom_and_right_border_white15"/>
 
+        <FrameLayout
+            android:id="@+id/layout_ready_info"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.9"
+            app:layout_constraintHeight_percent="0.6"
+            app:layout_constraintTop_toBottomOf="@id/layout_tab_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="@dimen/_3sdp"
+            android:background="@drawable/frame_bottom_and_right_border_white15"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/textview_ready_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_ready_info"
+                style="@style/Theme.AppCompat.TextView.dunggeunmo.black.Size12"
+                android:layout_gravity="center"/>
+
+        </FrameLayout>
+
 
 
 

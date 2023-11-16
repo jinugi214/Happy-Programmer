@@ -3,6 +3,8 @@ package com.gumigames.presentation.ui.profile
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.gumigames.domain.model.common.ItemDto
+import com.gumigames.domain.model.common.MonsterDto
+import com.gumigames.domain.model.common.SkillDto
 import com.gumigames.domain.model.user.UserInfoDto
 import com.gumigames.domain.usecase.dogam.litem.GetMyItemsLocalUseCase
 import com.gumigames.domain.usecase.user.GetUserInfoLocalUseCase
@@ -11,6 +13,7 @@ import com.gumigames.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -85,6 +88,8 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             Log.d(TAG, "getAllMyItemsLocal 결과 ${getMyItemsLocalUseCase.invoke()}")
             _currentMyItemList.emit(getMyItemsLocalUseCase.invoke())
+            _currentMySkillList.emit(listOf())
+            _currentMyMonsterList.emit(listOf())
         }
     }
 
@@ -94,6 +99,39 @@ class ProfileViewModel @Inject constructor(
     fun updateItemListAdapter(list: List<ItemDto>){
         viewModelScope.launch {
             _newItemList.emit(list)
+        }
+    }
+
+    ////////////////////////////// 스킬 //////////////////////////////////////
+    //현재  스킬 리스트
+    private var _currentMySkillList = MutableSharedFlow<List<SkillDto>>()
+
+    val currentMySkillList: SharedFlow<List<SkillDto>>
+        get() = _currentMySkillList.asSharedFlow()
+
+    fun getAllMySkillsLocal(){
+        viewModelScope.launch {
+            _currentMySkillList.emit(listOf())
+            _currentMyItemList.emit(listOf())
+            _currentMyMonsterList.emit(listOf())
+        }
+    }
+
+
+
+    /////////////////////////////////// 몬스터 /////////////////////////////////
+    //현재 몬스터 리스트
+    private var _currentMyMonsterList = MutableSharedFlow<List<MonsterDto>>()
+
+    val currentMyMonsterList: SharedFlow<List<MonsterDto>>
+        get() = _currentMyMonsterList.asSharedFlow()
+
+
+    fun getAllMyMonstersLocal(){
+        viewModelScope.launch {
+            _currentMyMonsterList.emit(listOf())
+            _currentMyItemList.emit(listOf())
+            _currentMySkillList.emit(listOf())
         }
     }
 
