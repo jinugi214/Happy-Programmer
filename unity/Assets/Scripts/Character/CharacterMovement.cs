@@ -97,7 +97,6 @@ public class CharacterMovement : MonoBehaviour
             {
                 GameInventoryManager gameInventoryManager = UIManager.instance.gameInventory.GetComponent<GameInventoryManager>();
                 gameInventoryManager.AcquireItem(itemPickup.item);
-                Debug.Log("AcquireItem 호출");
 
                 // 아이템 오브젝트 삭제
                 Destroy(collision.gameObject);
