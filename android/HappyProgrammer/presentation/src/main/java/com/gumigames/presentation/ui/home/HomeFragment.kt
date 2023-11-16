@@ -64,11 +64,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         isConnectingNetwork(
             context = mActivity,
             onConnect = { //네트워크 연결되어 있음 -> game 정보 받아라
-                homeViewModel.setIsConnected(true)
+                mainViewModel.setIsConnected(true)
                 checkPossibleLogin() //먼저 로그인 가능한 지 확인
             },
             onNotConnect = { //네트워크 연결 안되어 있음 -> 그냥 home으로 가라
-                homeViewModel.setIsConnected(false)
+                mainViewModel.setIsConnected(false)
                 mainViewModel.getUserInfo()
                 return@isConnectingNetwork
             }
@@ -112,11 +112,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             }
             viewLifecycleOwner.lifecycleScope.launch {
                 userInfo.collectLatest {
-                    Log.d(TAG, "initCollect  userInfo...")
+                    Log.d(TAG, "initCollect  userInfo... ${getIsBroughtUserInfo()}")
                     if(it!=null && !getIsBroughtUserInfo()) { //userInfo를 조회한 게 처음이면
                         initProfileView(it)
                         //로그인해서 온 거 아니면 로딩창 닫자
-                        if(!args.isFromLogin && homeViewModel.getIsConnected()) { //로그인에서 온 게 아니고 네트워크 연결되어 있으면
+                        if(!args.isFromLogin && getIsConnected()) { //로그인에서 온 게 아니고 네트워크 연결되어 있으면
                             bringGameInfoLoadingDialogFragment.isCancelable = false
                             bringGameInfoLoadingDialogFragment.setStyle(
                                 DialogFragment.STYLE_NORMAL,
@@ -137,5 +137,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         }
     }
 
+
+    override fun onResume() {
+        super.onResume()
+        if(mainViewModel.getIsBroughtUserInfo()) initProfileView(mainViewModel.userInfo.value!!)
+    }
 
 }
