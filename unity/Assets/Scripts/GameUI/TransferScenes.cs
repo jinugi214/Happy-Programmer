@@ -20,7 +20,7 @@ public class TransferScences : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.name == "Character")
+        if(collision.gameObject.name == "Character(Clone)")
         {
             StartCoroutine(TransferCoroutine());
         }
@@ -38,5 +38,6 @@ public class TransferScences : MonoBehaviour
     public void TranferScene()
     {
         SceneManager.LoadScene(transferMapName);
+        DataManager.instance.CharacterData.savepoint = transferMapName;
     }
 }
