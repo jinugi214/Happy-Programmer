@@ -1,8 +1,10 @@
 using UnityEngine;
+
 public class NPC : MonoBehaviour
 {
     public Dialogue dialogue;
     private DialogueManager theDM;
+    private int cnt = 0;
 
     // 캐릭터가 범위에 들어왔는지 확인하는 변수
     public bool isInRange = false;
@@ -20,6 +22,7 @@ public class NPC : MonoBehaviour
             if (!dialogue.IsDone())
             {
                 theDM.ShowDialogue(dialogue);
+                
             }
         }
     }
@@ -30,6 +33,8 @@ public class NPC : MonoBehaviour
         {
             isInRange = false;
             DialogueManager.instance.ExitDialogue();
+            QuestManager.instance.acceptQuest(cnt);
+            cnt += 1;
         }
     }
 }
