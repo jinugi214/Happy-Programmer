@@ -12,7 +12,7 @@ function NoticeBox({ imgName, title, date, link }: NoticeBoxProps) {
 
   return (
     <Link to={link}>
-      <div className="w-64">
+      <div className="w-68 hover:opacity-80">
         <img src={imgUrl} alt={title} className="h-48"/>
         <div className="bg-bgbox p-4">
           <div className="text-s mb-4">{title}</div>
