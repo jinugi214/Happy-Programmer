@@ -26,7 +26,6 @@ public class GameMenu : MonoBehaviour
         if (DataManager.instance != null)
         {
             Destroy(DataManager.instance.gameObject);
-            Destroy(UIManager.instance.gameObject);
         }
 
         SceneManager.LoadScene("GameLogin");
