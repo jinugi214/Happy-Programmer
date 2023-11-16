@@ -15,19 +15,21 @@ public class GameInventoryManager : MonoBehaviour
     // ���Ե� �迭
 
 
-    private void Awake()
+     private void Awake()
     {
         slots = SlotContent.GetComponentsInChildren<Slot>();
         for (int i = 0; i < slots.Length; i++)
         {
             slots[i].item = null;  // ������ item �ʵ带 null�� �ʱ�ȭ
+            slots[i].slotId = i;  // slotId 설정
         }
     }
 
+
     public void AcquireItem(Item _item, int _count = 1)
 {
-    Debug.Log("AcquireItem called");  // 로그 추가
     Debug.Log("_item: " + (_item == null ? "null" : "not null"));
+    
         if (_item.itemType == Item.ItemType.Food)
         {
             for (int i = 0; i < slots.Length; i++)
@@ -47,7 +49,6 @@ public class GameInventoryManager : MonoBehaviour
                 if (slots[i].item == null)
                 {
                     slots[i].AddItem(_item, _count);
-                    Debug.Log("Added item to 음식 slot " + i);  // 로그 추가
                     return;
                 }
             }
@@ -70,7 +71,6 @@ public class GameInventoryManager : MonoBehaviour
                 if (slots[i].item == null)
                 {
                     slots[i].AddItem(_item, _count);
-                    Debug.Log("Added item to 장비 slot " + i);  // 로그 추가
                     return;
                 }
             }
