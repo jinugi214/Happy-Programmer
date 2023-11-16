@@ -6,10 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class PlayerBattle : MonoBehaviour
 {
-
-
     private void Update()
     {
+        if (!MiniGameManager.instance)
+            return;
+
         if (!MiniGameManager.instance.isLive)
             return;
     }
