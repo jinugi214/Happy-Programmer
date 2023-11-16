@@ -20,7 +20,7 @@ public class TransferScences : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.name == "Character(Clone)")
+        if(collision.gameObject.name == "Character")
         {
             StartCoroutine(TransferCoroutine());
         }
