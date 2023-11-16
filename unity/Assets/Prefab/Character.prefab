@@ -2568,6 +2568,7 @@ GameObject:
   - component: {fileID: 1274472136075652106}
   - component: {fileID: 4948072990969089348}
   - component: {fileID: 3770787633416497990}
+  - component: {fileID: -7041201440503448897}
   - component: {fileID: 3680298605032586141}
   - component: {fileID: 3843418487185760326}
   - component: {fileID: 7726758639607661393}
@@ -2726,6 +2727,18 @@ MonoBehaviour:
   attackAudioSource: {fileID: 0}
   walkAudioSource: {fileID: 0}
   runAudioSource: {fileID: 0}
+--- !u!114 &-7041201440503448897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8507536298031114959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b262196f8745549aca44cd108cbd79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &3680298605032586141
 Rigidbody2D:
   serializedVersion: 4
