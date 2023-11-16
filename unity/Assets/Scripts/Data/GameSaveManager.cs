@@ -20,7 +20,7 @@ public class GameSaveManager : MonoBehaviour
 
         // 캐릭터 데이터를 JSON으로 변환
         string json = JsonUtility.ToJson(DataManager.instance.CharacterData);
-
+        Debug.Log(json);
         // POST 요청 보내기
         using (UnityWebRequest www = new UnityWebRequest(serverUrl + "/save", "POST"))
         {
