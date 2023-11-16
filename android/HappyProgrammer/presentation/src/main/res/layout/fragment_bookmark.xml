@@ -11,7 +11,7 @@
         android:id="@+id/layout_item"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/frame_border_white_alpha60"
+        android:background="@drawable/frame_border_white_alpha70"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.95"
         app:layout_constraintStart_toStartOf="parent"
