@@ -31,6 +31,7 @@ public class TransferScences : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
         thePlayer.currentMapName = transferMapName;
+        DataManager.instance.CharacterData.savepoint = transferMapName;
         SceneManager.LoadScene(transferMapName);
         theFade.FadeIn();
     }

@@ -25,6 +25,7 @@ public class CharacterData
     public int point;
     public string savepoint;
     public int storyProgress;
+    public string imgPath = "images/character/character_m.png";
 }
 
 public class DataManager : MonoBehaviour

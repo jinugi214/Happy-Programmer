@@ -15,7 +15,7 @@ const TeamInfo: React.FC = () => {
         <div className="flex justify-center w-full space-x-32 mb-10">
           <MemberBox imgName="npc_jjw" name="정진욱" position="팀장, BackEnd" msg="정진욱" />
           <MemberBox imgName="npc_ksm" name="김수민" position="팀원, FrontEnd" msg="김수민" />
-          <MemberBox imgName="npc_ksg" name="김슬기" position="팀원, FrontEnd" msg="김슬기" />
+          <MemberBox imgName="npc_ksg" name="김슬기" position="팀원, FrontEnd" msg="다들 건강하세요 :)" />
         </div>
 
         <div className="flex justify-center w-full space-x-32">

@@ -11,10 +11,11 @@ using UnityEngine.UI;
 public class NewCharacterManager : MonoBehaviour
 {
     [System.Serializable]
-    private class NewCharacter
+    public class NewCharacter
     {
         public string name;
         public string gender;
+        public int level = 1;
         public string savepoint = "LobbyMap";
         public string imgPath = "images/character/character_m.png";
     }
