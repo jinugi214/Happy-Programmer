@@ -4,9 +4,16 @@
     <color name="black">#FF000000</color>
     <color name="gray">#FF837F7F</color>
     <color name="light_gray">#DFDBDB</color>
-    <color name="gray_alpha60">#99837F7F</color>
+    <color name="gray_alpha70">#99898989</color>
     <color name="white">#FFFFFFFF</color>
     <color name="white_alpha60">#99FFFFFF</color>
+    <color name="gray_alpha60">#99525252</color>
+    <color name="white_alpha80">#CCFFFFFF</color>
+    <color name="white_alpha70">#B3FFFFFF</color>
     <color name="main_pink">#F4C4DA</color>
     <color name="main_blue">#515893</color>
+    <color name="green_mild">#76B474</color>
+    <color name="gray_mild">#ABA8A8</color>
+    <color name="red_mild">#CB5555</color>
+
 </resources>

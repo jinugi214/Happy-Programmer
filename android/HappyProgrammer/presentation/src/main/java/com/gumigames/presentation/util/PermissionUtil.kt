@@ -1,17 +1,42 @@
-package com.freeproject.happyprogrammers.util
+package com.gumigames.presentation.util
 
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.provider.Settings
+import android.util.Log
+import androidx.activity.result.ActivityResultCaller
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.gumigames.presentation.MainActivity
+import com.gumigames.presentation.MainViewModel
 
 private const val TAG = "차선호"
+
+
+const val CAMERA_PERMISSION_REJECTED = android.Manifest.permission.CAMERA
+const val GALLERY_PERMISSION_REJECTED = android.Manifest.permission.READ_EXTERNAL_STORAGE
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
+const val IMAGE_PERMISSION_REJECTED = android.Manifest.permission.READ_MEDIA_IMAGES
+val PERMISSION_LIST_UNDER32 = arrayOf(
+    CAMERA_PERMISSION_REJECTED,
+    GALLERY_PERMISSION_REJECTED
+)
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
+val PERMISSION_LIST_UP33 = arrayOf(
+    CAMERA_PERMISSION_REJECTED,
+    IMAGE_PERMISSION_REJECTED
+)
+
+
+
 fun Context.hasPermissions(permission: String): Boolean{
     return ContextCompat.checkSelfPermission(
         this,
@@ -27,16 +52,15 @@ fun Context.hasPermissions(permission: String): Boolean{
  * setIsShowedPermissionDialog -> 해당 권한에 대해서 설정으로 이동하는 dialog를 보여줘야 한다고 값 갱신하는 함수
  * isShowDialog -> 다이얼로그를 총 한 번만 띄우기 위해 실행하는 함수
  */
-fun checkAllPermission(
+fun createPermissionLauncher(
     fragment: Fragment?,
     activity: MainActivity,
-    permissionList: Array<String>,
     getPermissionRejected: (String) -> Boolean,
     setPermissionRejected: (String) -> Unit,
     getIsShowedPermissionDialog: (String) -> Boolean,
     setIsShowedPermissionDialog: (String) -> Unit,
     isShowDialog: () -> Unit
-){
+): ActivityResultLauncher<Array<String>>{
     val requestMultiplePermission =
         (fragment?:activity).registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { results ->
             var lastResult = false // 초기값을 false 설정
@@ -46,6 +70,7 @@ fun checkAllPermission(
                         setPermissionRejected(it.key) //거절했다고 값 갱신
                     }else{
                         if(!getIsShowedPermissionDialog(it.key)) { //두 번 거절해서 다이얼로그 띄운 적 없으면
+                            Log.d(TAG, "두 번째 거절 : ${it.key}")
                             setIsShowedPermissionDialog(it.key) //해당 권한에 대해서 다이얼로그 띄워야 한다고 값 갱신
                             lastResult = true // 다이얼로그 총 한 번만 띄우기 위해 값 저장
                         }
@@ -55,10 +80,11 @@ fun checkAllPermission(
             // 다이얼로그 띄워야 한다면
             if(lastResult){
                 //여기서 다이얼로그 띄우는 변수 갱신
+                Log.d(TAG, "createPermissionLauncher에서 isShowDialog 실행되야 함")
                 isShowDialog()
             }
         }
-    requestMultiplePermission.launch(permissionList)
+    return requestMultiplePermission
 }
 
 // 다이얼로그를 띄우기 위한 함수
