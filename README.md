@@ -128,7 +128,7 @@
 
 #### 팀원 소개
 
-- 자율 프로젝트 기간동안 고생한 Gumi Games 팀원들 고생 많았어요!
+- 자율 프로젝트 기간동안 고생한 Gumi Games 팀원들 고생 많았어요❤
 
 <img title="" src="./img/web)team.GIF" alt="" width="560" data-align="left">
 
