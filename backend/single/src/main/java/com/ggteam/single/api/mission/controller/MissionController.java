@@ -38,7 +38,7 @@ public class MissionController {
                 flag = true;
                 break;
             }
-            if(objects[i].equals("413")){
+            if(objects[i].equals("오류")){
                 result.put("result", "다시 찍어주세요!");
                 flag = true;
                 break;
