@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollview"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="match_parent">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     tools:background="@drawable/image_home_background"
     tools:context=".ui.home.HomeFragment">
 
     <Space
         android:id="@+id/space1"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.025"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_profile"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/frame_border_white_alpha60"
+        android:layout_height="@dimen/_220sdp"
+        android:background="@drawable/frame_border_white_alpha80"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/space1"
         app:layout_constraintWidth_percent="0.9">
@@ -51,7 +54,7 @@
                 style="@style/Theme.AppCompat.TextView.dunggeunmo.black.Size16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="홍길동님"
+                tools:text = "홍길동님"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -71,13 +74,13 @@
             android:id="@+id/image_profile"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/image_tool_profile"
+            tools:src="@drawable/image_tool_profile"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.7"
+            app:layout_constraintHeight_percent="0.6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_profile_topbar"
-            app:layout_constraintWidth_percent="0.3" />
+            app:layout_constraintWidth_percent="0.5" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -85,41 +88,67 @@
     <Space
         android:id="@+id/space2"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.025"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_profile" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_stage"
+        android:id="@+id/layout_dogam"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/frame_border_white_alpha60"
+        android:layout_height="@dimen/_60sdp"
+        android:background="@drawable/frame_border_white_alpha80"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/space2"
         app:layout_constraintWidth_percent="0.9">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.9">
+
+            <TextView
+                android:id="@+id/textview_dogam"
+                style="@style/Theme.AppCompat.TextView.dunggeunmo.black.Size16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_dogam"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/button_move_dogam_fragment"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/image_move_detail"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Space
         android:id="@+id/space3"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.025"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_stage" />
+        app:layout_constraintTop_toBottomOf="@id/layout_dogam" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_item"
+        android:id="@+id/layout_bookmark"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/frame_border_white_alpha60"
+        android:layout_height="@dimen/_60sdp"
+        android:background="@drawable/frame_border_white_alpha80"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/space3"
         app:layout_constraintWidth_percent="0.9">
@@ -134,17 +163,17 @@
             app:layout_constraintWidth_percent="0.9">
 
             <TextView
-                android:id="@+id/textview_item"
+                android:id="@+id/textview_bookmark"
                 style="@style/Theme.AppCompat.TextView.dunggeunmo.black.Size16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_item"
+                android:text="@string/text_bookmark"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/button_move_item_fragment"
+                android:id="@+id/button_move_bookmark_fragment"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:src="@drawable/image_move_detail"
@@ -156,22 +185,21 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
     <Space
         android:id="@+id/space4"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.025"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_item" />
+        app:layout_constraintTop_toBottomOf="@id/layout_bookmark" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_skill"
+        android:id="@+id/layout_mission"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/frame_border_white_alpha60"
+        android:layout_height="@dimen/_60sdp"
+        android:background="@drawable/frame_border_white_alpha80"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/space4"
         app:layout_constraintWidth_percent="0.9">
@@ -186,17 +214,17 @@
             app:layout_constraintWidth_percent="0.9">
 
             <TextView
-                android:id="@+id/textview_skill"
+                android:id="@+id/textview_mission"
                 style="@style/Theme.AppCompat.TextView.dunggeunmo.black.Size16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_skill"
+                android:text="@string/text_mission"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/button_move_skill_fragment"
+                android:id="@+id/button_move_mission_fragment"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:src="@drawable/image_move_detail"
@@ -208,22 +236,21 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
     <Space
         android:id="@+id/space5"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.025"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_skill" />
+        app:layout_constraintTop_toBottomOf="@id/layout_mission" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_monster"
+        android:id="@+id/layout_setting"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/frame_border_white_alpha60"
+        android:layout_height="@dimen/_60sdp"
+        android:background="@drawable/frame_border_white_alpha80"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/space5"
         app:layout_constraintWidth_percent="0.9">
@@ -238,17 +265,17 @@
             app:layout_constraintWidth_percent="0.9">
 
             <TextView
-                android:id="@+id/textview_monster"
+                android:id="@+id/textview_setting"
                 style="@style/Theme.AppCompat.TextView.dunggeunmo.black.Size16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_monster"
+                android:text="@string/text_setting"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/button_move_monster_fragment"
+                android:id="@+id/button_move_setting_fragment"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:src="@drawable/image_move_detail"
@@ -257,8 +284,16 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Space
+        android:id="@+id/space6"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_15sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_setting" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -7,17 +7,49 @@
     <!--profile-->
     <string name="title_profile">프로필</string>
 
+
+    <!--dogam-->
+    <string name="title_dogam">도감</string>
+
     <!--item-->
-    <string name="title_item">아이템</string>
+    <string name="text_item">아이템</string>
     <string name="text_total">전체</string>
     <string name="text_keyboard">키보드</string>
     <string name="text_mouse">마우스</string>
     <string name="text_etc">기타</string>
 
     <!--skill-->
-    <string name="title_skill">스킬</string>
+    <string name="text_skill">스킬</string>
 
     <!--monster-->
-    <string name="title_monster">몬스터</string>
+    <string name="text_monster">몬스터</string>
+
+    <!--search-->
+    <string name="text_search_record">검색 기록</string>
+    <string name="text_search_delete">모두 지우기</string>
+
+    <!--common-->
+    <string name="text_confirm">확인</string>
+    <string name="text_cancel">취소</string>
+    <string name="text_regist">등록</string>
+
+    <!--bookmark-->
+    <string name="text_bookmark">즐겨찾기</string>
+
+    <!--mission-->
+    <string name="text_title_mission">사진 제출 미션!</string>
+    <string name="text_explain_mission">요구하는 미션에 필요한 사물의\n사진을 찍어 제출해 주세요!</string>
+    <string name="text_mission">미션</string>
+    <string name="text_camera">카메라</string>
+    <string name="text_send">전송</string>
+    <string name="text_point">point</string>
+    <string name="text_story">story</string>
+    <string name="text_save_point">save point</string>
+    <string name="text_waiting_result">확인 중입니다!</string>
+
+    <!--setting-->
+    <string name="text_setting">설정</string>
+    <string name="text_logout">로그아웃</string>
+    <string name="text_ready_info">추후 업데이트 될 예정입니다!</string>
 
 </resources>

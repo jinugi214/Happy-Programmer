@@ -25,6 +25,7 @@
         android:name="com.gumigames.presentation.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
+
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
             app:destination="@id/profileFragment"
@@ -33,15 +34,37 @@
             app:popEnterAnim="@anim/enter_from_left"
             app:popExitAnim="@anim/fade_out" />
         <action
-            android:id="@+id/action_homeFragment_to_itemFragment"
-            app:destination="@id/itemFragment"
+            android:id="@+id/action_homeFragment_to_dogamFragment"
+            app:destination="@id/dogamFragment"
             app:enterAnim="@anim/enter_from_right"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/enter_from_left"
             app:popExitAnim="@anim/fade_out" />
         <action
-            android:id="@+id/action_homeFragment_to_githubFragment"
-            app:destination="@id/githubFragment" />
+            android:id="@+id/action_homeFragment_to_bookmarkFragment"
+            app:destination="@id/bookmarkFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_homeFragment_to_missionFragment"
+            app:destination="@id/missionFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingFragment"
+            app:destination="@id/settingFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/fade_out" />
+        <argument
+            android:name="isFromLogin"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -49,13 +72,22 @@
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
-        android:id="@+id/itemFragment"
-        android:name="com.gumigames.presentation.ui.item.ItemFragment"
-        android:label="fragment_item"
-        tools:layout="@layout/fragment_item" />
+        android:id="@+id/dogamFragment"
+        android:name="com.gumigames.presentation.ui.dogam.DogamFragment"
+        android:label="DogamFragment" />
     <fragment
-        android:id="@+id/githubFragment"
-        android:name="com.gumigames.presentation.ui.github.GithubFragment"
-        android:label="fragment_github"
-        tools:layout="@layout/fragment_github" />
+        android:id="@+id/bookmarkFragment"
+        android:name="com.gumigames.presentation.ui.bookmark.BookmarkFragment"
+        android:label="fragment_bookmark"
+        tools:layout="@layout/fragment_bookmark" />
+    <fragment
+        android:id="@+id/missionFragment"
+        android:name="com.gumigames.presentation.ui.mission.MissionFragment"
+        android:label="fragment_mission"
+        tools:layout="@layout/fragment_mission" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.gumigames.presentation.ui.setting.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
 </navigation>
