@@ -1,8 +1,11 @@
+import org.jetbrains.kotlin.konan.properties.Properties
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("dagger.hilt.android.plugin")
     id("kotlin-kapt")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -14,6 +17,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
     }
 
     buildTypes {
@@ -35,9 +39,9 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-
     buildFeatures{
         viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -59,8 +63,8 @@ dependencies {
 
     //navigataion
     // Jetpack Navigation Kotlin
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
-    implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
 
     //glide
     implementation("com.github.bumptech.glide:glide:4.12.0")
@@ -83,4 +87,7 @@ dependencies {
 
     //sdp
     implementation ("com.intuit.sdp:sdp-android:1.1.0")
+
+    //lottie
+    implementation ("com.airbnb.android:lottie:6.0.0")
 }

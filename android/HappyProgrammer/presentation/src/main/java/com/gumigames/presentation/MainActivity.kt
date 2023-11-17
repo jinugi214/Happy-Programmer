@@ -1,15 +1,25 @@
 package com.gumigames.presentation
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.viewModels
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.freeproject.happyprogrammers.base.BaseActivity
 import com.gumigames.presentation.databinding.ActivityMainBinding
+import com.gumigames.presentation.util.PERMISSION_LIST_UNDER32
+import com.gumigames.presentation.util.PERMISSION_LIST_UP33
+import com.gumigames.presentation.util.createPermissionLauncher
+import com.gumigames.presentation.util.isConnectingNetwork
+import com.gumigames.presentation.util.showPermissionDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -22,11 +32,28 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var navController: NavController
+    private lateinit var graph: NavGraph
+    private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestPermission()
         initNavController()
         initListener()
+        initCollector()
+    }
+    private fun requestPermission(){
+//        mainViewModel.setIsAlreadyShowedDialog(false)
+        permissionLauncher = createPermissionLauncher(
+            fragment = null,
+            activity = this,
+            getPermissionRejected = {it -> mainViewModel.getPermissionRejected(it)},
+            setPermissionRejected = {it -> mainViewModel.setPermissionRejected(it)},
+            getIsShowedPermissionDialog = {it -> mainViewModel.getIsShowedPermissionDialog(it+"show")},
+            setIsShowedPermissionDialog = {it -> mainViewModel.setIsShowedPermissionDialog(it+"show")},
+            isShowDialog = {if(!mainViewModel.isShowPermissionDialog.value) mainViewModel.setIsShowPermissionDialog(true)}
+        )
+        permissionLauncher.launch(if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) PERMISSION_LIST_UP33 else PERMISSION_LIST_UNDER32)
     }
 
     private fun initListener(){
@@ -60,7 +87,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                         buttonBack.visibility = View.VISIBLE
                         when (destination.id) {
                             R.id.profileFragment -> { textviewTopbar.text = getString(R.string.title_profile) }
-                            R.id.itemFragment -> {textviewTopbar.text = getString(R.string.title_item)}
+                            R.id.dogamFragment -> {textviewTopbar.text = getString(R.string.title_dogam)}
+                            R.id.bookmarkFragment -> {textviewTopbar.text = getString(R.string.text_bookmark)}
+                            R.id.missionFragment -> {textviewTopbar.text = getString(R.string.text_mission)}
+                            R.id.settingFragment -> {textviewTopbar.text = getString(R.string.text_setting)}
                         }
                     }
                 }
@@ -74,16 +104,30 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         navController = navHostFragment.navController
 
         val inflater = navHostFragment.navController.navInflater
-        val graph = inflater.inflate(R.navigation.nav_graph)
-        graph.startDestination = R.id.homeFragment
+        graph = inflater.inflate(R.navigation.nav_graph)
 
         if(mainViewModel.isLogined()){ //로그인이 되어 있는 상황
-            graph.startDestination = R.id.homeFragment
+            graph.setStartDestination(R.id.homeFragment)
+            navController.setGraph(graph, intent.extras)
+
         }else{ //로그인이 되어 있지 않은 상황
-            graph.startDestination = R.id.loginFragment
+            graph.setStartDestination(R.id.loginFragment)
+            navController.setGraph(graph, intent.extras)
         }
 
-        val navController = navHostFragment.navController
-        navController.setGraph(graph, intent.extras)
+    }
+
+    private fun initCollector(){
+        mainViewModel.apply {
+            lifecycleScope.launch {
+                isShowPermissionDialog.collectLatest {
+                    Log.d(TAG, "isShowPermissionDialog collect... $it")
+                    if(it){
+                        showPermissionDialog(this@MainActivity)
+                        setIsShowPermissionDialog(false)
+                    }
+                }
+            }
+        }
     }
 }

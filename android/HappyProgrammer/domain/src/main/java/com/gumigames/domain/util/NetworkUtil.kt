@@ -3,6 +3,7 @@ package com.gumigames.domain.util
 import android.util.Log
 import org.json.JSONObject
 import retrofit2.Response
+import java.net.UnknownHostException
 
 private const val TAG = "차선호"
 private fun <T> Response<T>.isDelete(): Boolean {
@@ -20,8 +21,7 @@ fun <T> Response<T>.getNetworkResult(): T {
         return this.body() ?: throw NetworkThrowable.IllegalStateThrowable()
     }
 
-
-    Log.d(TAG, "getNetworkResult not successful : ${this.errorBody()?.string()}")
+    Log.d(TAG, "getNetworkResult not successful : $this")
 
     // TODO 서버에 따라 다를수도?
 //    val errorResponse = errorBody()?.string()
@@ -31,11 +31,8 @@ fun <T> Response<T>.getNetworkResult(): T {
 
     //Github API에서는 단순히 Response{protocol=h2, code=404, message=, url=https://api.github.com/users//repos} 이렇게 반환해줌
     val code = this.code()
-    val message = this.message()
-
-
-
-    Log.e(TAG, "getNetworkResult: Error code : ${code}, message : ${message}")
+    val message = this.errorBody()?.string() ?: ""
+    Log.d(TAG, "getNetworkResult fail code: $code and message : $message")
 
     when (code) {
         in 100..199 -> { throw NetworkThrowable.Base100Throwable(code, message) }
@@ -54,6 +51,7 @@ suspend fun <T> getValueOrThrow(block: suspend () -> T): T{
     try{
         return block()
     }catch (throwable: NetworkThrowable){
+        Log.d(TAG, "getValueOrThrow : $throwable")
         throw throwable
     }
 }

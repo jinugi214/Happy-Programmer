@@ -118,7 +118,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/frame_border_pink"
+                android:background="@drawable/frame_border_pink20"
                 android:text="login" />
 
 

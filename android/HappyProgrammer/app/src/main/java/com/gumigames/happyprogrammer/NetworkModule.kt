@@ -2,7 +2,13 @@ package com.gumigames.happyprogrammer
 
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
-import com.gumigames.data.service.GithubService
+import com.gumigames.data.datasource.sharedpreference.PreferenceDataSource
+import com.gumigames.data.interceptor.AuthInterceptor
+import com.gumigames.data.service.ItemService
+import com.gumigames.data.service.MissionService
+import com.gumigames.data.service.MonsterService
+import com.gumigames.data.service.SkillService
+import com.gumigames.data.service.UserService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,12 +28,10 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
-        .readTimeout(5000, TimeUnit.MILLISECONDS)
-        .connectTimeout(5000, TimeUnit.MILLISECONDS)
-        .addInterceptor(HttpLoggingInterceptor())
-//        .addInterceptor(ResponseInterceptor(preferenceDataSource))
-//        .addInterceptor(RequestInterceptor(preferenceDataSource))
+    fun provideOkHttpClient(preferenceDataSource: PreferenceDataSource): OkHttpClient = OkHttpClient.Builder()
+        .readTimeout(10000, TimeUnit.MILLISECONDS)
+        .connectTimeout(10000, TimeUnit.MILLISECONDS)
+        .addInterceptor(AuthInterceptor(preferenceDataSource))
         .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         .build()
 //    }
@@ -35,6 +39,7 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideRetrofit(
+        preferenceDataSource: PreferenceDataSource
     ): Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(
@@ -44,13 +49,37 @@ object NetworkModule {
                     .create(),
             ),
         )
-        .client(provideOkHttpClient())
+        .client(provideOkHttpClient(preferenceDataSource))
         .build()
 
     @Singleton
     @Provides
-    fun provideGithubService(
-        retrofit: Retrofit,
-    ): GithubService = retrofit.create(GithubService::class.java)
+    fun provideItemService(
+        retrofit: Retrofit
+    ): ItemService = retrofit.create(ItemService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideMonsterService(
+        retrofit: Retrofit
+    ): MonsterService = retrofit.create(MonsterService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideSkillService(
+        retrofit: Retrofit
+    ): SkillService = retrofit.create(SkillService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideMissionService(
+        retrofit: Retrofit
+    ): MissionService = retrofit.create(MissionService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideUserService(
+        retrofit: Retrofit
+    ): UserService = retrofit.create(UserService::class.java)
 
 }

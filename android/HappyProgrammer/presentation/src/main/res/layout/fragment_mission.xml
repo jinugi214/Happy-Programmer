@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.mission.MissionFragment"
+    tools:background="@drawable/image_home_background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_mission"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/frame_border_white_alpha70"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.9">
+
+        <Space
+            android:id="@+id/space1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textview_explain_title"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.9"
+            app:layout_constraintHeight_percent="0.15"
+            android:text="@string/text_title_mission"
+            style="@style/Theme.AppCompat.TextView.dunggeunmo.black.Size24"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/space1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/textview_explain_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.9"
+            app:layout_constraintHeight_percent="0.1"
+            android:text="@string/text_explain_mission"
+            style="@style/Theme.AppCompat.TextView.dunggeunmo.black.Size12"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/textview_explain_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <Space
+            android:id="@+id/space2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.025"
+            app:layout_constraintTop_toBottomOf="@id/textview_explain_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <ImageView
+            android:id="@+id/image_mission"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.9"
+            app:layout_constraintHeight_percent="0.5"
+            app:layout_constraintTop_toBottomOf="@id/space2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <Space
+            android:id="@+id/space3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.025"
+            app:layout_constraintTop_toBottomOf="@id/image_mission"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_button_camera"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintTop_toBottomOf="@id/space3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_camera"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/frame_border_pink10"
+                android:text="@string/text_camera"
+                style="@style/Theme.AppCompat.TextView.dunggeunmo.black.Size12"
+                android:gravity="center"
+                app:layout_constraintWidth_percent="0.3"
+                app:layout_constraintHeight_percent="0.7"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/button_send"
+                android:elevation="@dimen/_15sdp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_send"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/frame_border_pink10"
+                android:text="@string/text_send"
+                style="@style/Theme.AppCompat.TextView.dunggeunmo.black.Size12"
+                android:gravity="center"
+                app:layout_constraintWidth_percent="0.3"
+                app:layout_constraintHeight_percent="0.7"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/button_camera"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:elevation="@dimen/_15sdp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

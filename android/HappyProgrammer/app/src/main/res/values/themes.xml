@@ -3,6 +3,8 @@
     <style name="Base.Theme.HappyProgrammer" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/black</item>
     </style>
 
     <style name="Theme.HappyProgrammer" parent="Base.Theme.HappyProgrammer" />

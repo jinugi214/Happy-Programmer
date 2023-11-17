@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.io.IOException
 import kotlin.math.log
 
 private const val TAG = "차선호"
@@ -19,6 +20,11 @@ abstract class BaseViewModel: ViewModel() {
 
     private val _isExpiredRefreshToken = MutableStateFlow(false)
     var isExpiredRefreshToken = _isExpiredRefreshToken.asStateFlow()
+    fun initIsExpiredRefreshToken(){
+        viewModelScope.launch {
+            _isExpiredRefreshToken.emit(false)
+        }
+    }
 
     fun <T> getApiResult(
         block: suspend () -> T, //실행할 함수
@@ -27,9 +33,23 @@ abstract class BaseViewModel: ViewModel() {
         viewModelScope.launch {
             try {
                 success(block())
-            }catch (throwable: Throwable){
+            }catch (e: IOException){
+                Log.d(TAG, "getApiResult error : ${e.cause}")
+                val throwable = e.cause
                 if (throwable is NetworkThrowable) {
-                    if(throwable.message == NetworkThrowable.REFRESH_EXPIRE_MESSAGE){
+                    if(throwable is NetworkThrowable.RefreshExpireThrowable){
+                        Log.d(TAG, "getApiResult: 이거 나오면 진짜 끝")
+                        _isExpiredRefreshToken.emit(true)
+                    }else{
+                        _error.emit(throwable)
+                    }
+                }else {
+                    _error.emit(NetworkThrowable.NetworkErrorThrowable())
+                }
+            }catch (throwable: Throwable){
+                Log.d(TAG, "getApiResult throwable : $throwable")
+                if (throwable is NetworkThrowable) {
+                    if(throwable is NetworkThrowable.RefreshExpireThrowable){
                         _isExpiredRefreshToken.emit(true)
                     }else{
                         _error.emit(throwable)
