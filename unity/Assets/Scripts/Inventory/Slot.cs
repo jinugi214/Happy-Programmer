@@ -38,7 +38,7 @@ public class Slot : MonoBehaviour
     void Start()
     {
         characterAppear = FindObjectOfType<CharacterAppear>();
-        if (slotId == 0)  // 첫번째 슬롯인 경우만 아이템 추가
+        if (slotId == 0)
         {
             AddItem(mouse1Item, 1);
         }
@@ -146,14 +146,11 @@ public class Slot : MonoBehaviour
     {
         if (item != null)
         {
-            Debug.Log("Slot " + slotId + " is already occupied by " + item.itemName);
             return false;  // 이미 아이템이 있으므로 추가하지 않고 false 반환
         }
 
         item = _item;
         itemCount = _count;
-
-        Debug.Log("Added item: " + _item.itemName + ", count: " + _count);  // 아이템 정보를 출력
 
         UpdateSlot(); // 아이템을 추가한 후에 슬롯의 UI를 업데이트
 
@@ -186,14 +183,10 @@ public class Slot : MonoBehaviour
 
     public void UpdateSlot()
     {
-        Debug.Log("Slot ID: " + slotId + ", Item: " + item + ", Count: " + itemCount);
-
         if (item != null)
         {
-            Debug.Log("slot 업뎃!");
             // 아이템이 있을 경우, 이미지/개수 표시
             itemImage.sprite = item.itemImage;
-            // Debug.Log(itemImage);
             SetColor(1);
 
             if (item.itemType != Item.ItemType.Equipment)
