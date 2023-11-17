@@ -105,30 +105,30 @@
 
 - 메인 화면에서 게임 다운로드 가능
 
-<img title="" src="./img/wmain.GIF" alt="" width="560" data-align="left">
+<img title="" src="./img/wmain.gif" alt="" width="560" data-align="left">
 
 #### 게임 정보
 
 - 게임의 스토리, 조작법 확인 가능
 
-<img title="" src="./img/wgameinfo.GIF" alt="" width="560" data-align="left">
+<img title="" src="./img/wgameinfo.gif" alt="" width="560" data-align="left">
 
 #### 어플 정보
 
 - 어플 다운로드, 어플 기능 확인 가능
 
-<img title="" src="./img/wappinfo.GIF" alt="" width="560" data-align="left">
+<img title="" src="./img/wappinfo.gif" alt="" width="560" data-align="left">
 
 #### 공지사항
 
 - 게시글 확인 가능
 
-<img title="" src="./img/wnews.GIF" alt="" width="560" data-align="left">
-<img title="" src="./img/wnewsdetail.GIF" alt="" width="560" data-align="left">
+<img title="" src="./img/wnews.gif" alt="" width="560" data-align="left">
+<img title="" src="./img/wnewsdetail.gif" alt="" width="560" data-align="left">
 
 #### 팀원 소개
 
 - 자율 프로젝트 기간동안 고생한 Gumi Games 팀원들 고생 많았어요❤
 
-<img title="" src="./img/wteam.GIF" alt="" width="560" data-align="left">
+<img title="" src="./img/wteam.gif" alt="" width="560" data-align="left">
 
