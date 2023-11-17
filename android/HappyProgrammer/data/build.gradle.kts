@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.konan.properties.Properties
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 //Properties 객체 생성
@@ -67,4 +68,10 @@ dependencies {
 
     // EncryptedSharedPreferences
     implementation ("androidx.security:security-crypto-ktx:1.1.0-alpha03")
+
+    // ROOM Database 사용
+    implementation("androidx.room:room-runtime:2.4.3")
+    annotationProcessor("androidx.room:room-compiler:2.4.3")
+    kapt("androidx.room:room-compiler:2.4.3")
+    implementation("androidx.room:room-ktx:2.4.3")
 }

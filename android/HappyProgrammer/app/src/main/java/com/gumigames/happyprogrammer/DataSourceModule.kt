@@ -1,11 +1,14 @@
 package com.gumigames.happyprogrammer
 
 import android.content.Context
-import com.gumigames.data.datasource.local.PreferenceDataSource
-import com.gumigames.data.datasource.local.PreferenceDataSourceImpl
-import com.gumigames.data.datasource.remote.GithubDataSource
-import com.gumigames.data.datasource.remote.GithubDataSourceImpl
-import com.gumigames.data.service.GithubService
+import androidx.room.Room
+import com.gumigames.data.datasource.dao.ItemDao
+import com.gumigames.data.datasource.dao.MonsterDao
+import com.gumigames.data.datasource.dao.SkillDao
+import com.gumigames.data.datasource.dao.UserDao
+import com.gumigames.data.datasource.db.DogamDatabase
+import com.gumigames.data.datasource.sharedpreference.PreferenceDataSource
+import com.gumigames.data.datasource.sharedpreference.PreferenceDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,8 +28,25 @@ object DataSourceModule {
 
     @Singleton
     @Provides
-    fun provideGithubDatasource(
-        githubService: GithubService
-    ): GithubDataSource = GithubDataSourceImpl(githubService)
+    fun provideBookmarkDatabase(
+        @ApplicationContext context: Context
+    ): DogamDatabase = Room
+        .databaseBuilder(context, DogamDatabase::class.java, "bookmarks.db")
+        .build()
+    @Singleton
+    @Provides
+    fun provideItemDao(dogamDatabase: DogamDatabase): ItemDao = dogamDatabase.itemDao()
+
+    @Singleton
+    @Provides
+    fun provideSkillDao(dogamDatabase: DogamDatabase): SkillDao = dogamDatabase.skillDao()
+
+    @Singleton
+    @Provides
+    fun provideMonsterDao(dogamDatabase: DogamDatabase): MonsterDao = dogamDatabase.monsterDao()
+
+    @Singleton
+    @Provides
+    fun provideUserDao(dogamDatabase: DogamDatabase): UserDao = dogamDatabase.userDao()
 
 }

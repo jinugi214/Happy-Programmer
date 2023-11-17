@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.gumigames.presentation.util.SquareFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/frame_border_white20"
+    android:layout_margin="@dimen/_4sdp"
+    android:padding="@dimen/_4sdp"
+    android:elevation="@dimen/_3sdp">
+
+    <ImageView
+        android:id="@+id/image_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars"
+        android:padding="@dimen/_15sdp"/>
+
+    <ImageView
+        android:id="@+id/image_bookmark"
+        android:layout_width="@dimen/_12sdp"
+        android:layout_height="@dimen/_12sdp"
+        android:src="@drawable/image_selected_bookmark"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/_2sdp"
+        android:layout_marginBottom="@dimen/_2sdp"/>
+
+</com.gumigames.presentation.util.SquareFrameLayout>
