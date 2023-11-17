@@ -13,7 +13,8 @@ const Notice1: React.FC = () => {
         <img src="../imgs/n1_1(morning).gif" alt="img" className="mt-24 mb-12"/>
         <div>게임을 다운받고 실행하면, 회원 가입을 할 수 있습니다.</div>
 
-        <img src="../imgs/n1_1(night).gif" alt="img" className="mt-24 mb-12"/>
+        <img src="../imgs/n1_1(afternoon).gif" alt="img" className="mt-24"/>
+        <img src="../imgs/n1_1(night).gif" alt="img" className="mt-8 mb-12"/>
         <div>시간대에 맞게 화면의 하늘이 달라집니다.</div>
 
         <img src="../imgs/n1_2.gif" alt="img" className="mt-24 mb-12"/>

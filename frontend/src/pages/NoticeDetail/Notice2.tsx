@@ -9,7 +9,21 @@ const Notice2: React.FC = () => {
       </div>
 
       <div className="mt-16 ml-12">
-        Happy Programmer 의 UCC가 업로드 되었습니다.
+        <div>Happy Programmer 의 UCC가 업로드 되었습니다.</div>
+        <div>이미지를 클릭하면 유튜브 링크로 이동합니다.</div>
+
+        <a
+          href="https://www.youtube.com/watch?v=dMIWamE9cqw"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            src="../imgs/n_2.gif"
+            alt="img"
+            className="mt-12 mb-12"
+          />
+        </a>
+
       </div>
     </div>
   );

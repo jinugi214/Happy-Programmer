@@ -47,11 +47,33 @@
   .hover-text {
     display: none;
     text-align: center;
-    margin-top: 140px;
   }
 
   .member-box:hover .hover-text {
     display: block;
   }
 
+  .member-box.정진욱 .hover-text {
+    margin-top: 90px;
+  }
+  
+  .member-box.김수민 .hover-text {
+    margin-top: 120px;
+  }
+
+  .member-box.김슬기 .hover-text {
+    margin-top: 140px;
+  }
+  
+  .member-box.손준배 .hover-text {
+    margin-top: 125px;
+  }
+
+  .member-box.차선호 .hover-text {
+    margin-top: 125px;
+  }
+  
+  .member-box.황하음 .hover-text {
+    margin-top: 85px;
+  }
   

@@ -9,9 +9,10 @@ type MemberBoxProps = {
 
 function MemberBox({ imgName, name, position, msg }: MemberBoxProps) {
   const imgUrl = process.env.PUBLIC_URL + "/imgs/" + imgName + ".png";
+  const className = `member-box ${name}`;
 
   return (
-    <div className="member-box">
+    <div className={className}>
       <div className="member-content-one">
         <img src={imgUrl} alt={name} className="member-img" />
       </div>

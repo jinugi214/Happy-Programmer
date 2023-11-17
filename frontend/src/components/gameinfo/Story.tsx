@@ -2,7 +2,7 @@ import React from "react";
 
 const Story: React.FC = () => {
   return (
-    <div className="mt-44 mb-32 flex justify-end">
+    <div className="mt-44 mb-32 mr-16 flex justify-end">
       <div className="mr-24">
         <div className="mt-2">
           교수님의 추천으로 세계 4대 기업 중 하나에
