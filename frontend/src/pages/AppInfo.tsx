@@ -23,7 +23,7 @@ const AppInfo: React.FC = () => {
           <img
             src="../imgs/dd.png"
             alt="img"
-            className="mt-8 w-48"
+            className="mt-8 w-48 hover:opacity-80"
             onClick={handleDownload}
             style={{ cursor: "pointer" }}
           />
