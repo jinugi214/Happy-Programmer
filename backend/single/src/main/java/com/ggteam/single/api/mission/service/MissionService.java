@@ -83,6 +83,8 @@ public class MissionService {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+            String[] extractedCharactersArray = {"오류"};
+            return extractedCharactersArray;
         }
         finally {
             if(responseCode.equals(413)){
