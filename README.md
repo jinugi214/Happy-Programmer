@@ -37,13 +37,12 @@
 | 이동방향 | 상(위) | 좌(왼쪽) | 하(아래) | 우(오른쪽) |
 | ---- | ---- | ----- | ----- | ------ |
 | 키보드  | W    | A     | S     | D      |
-| 방향키  | ⬆️   | ⬅     | ⬇️    | ➡️     |
+| 방향키  | ⬆️   | ⬅️     | ⬇️    | ➡️     |
 
 | 단축키 | 일반공격 | 스킬  | 상호작용      | 인벤토리 | 게임저장 | 설정  |
 | --- | ---- | --- | --------- | ---- | ---- | --- |
 | 키보드 | Z    | X   | SPACE BAR | I    | F5   | ESC |
 
-## 
 
 ## 실제 게임 플레이
 
@@ -74,7 +73,6 @@
 
 <img title="" src="./img/monster1.gif" alt="" width="320"><img title="" src="./img/monster2.gif" alt="" width="320">
 
-## 
 
 ## 게임 보조 어플
 
@@ -92,7 +90,6 @@
 
 <img title="" src="./img/즐겨찾기 등록 gif.GIF" alt="" width="157" data-align="inline"><img title="" src="./img/즐겨찾기 gif.GIF" alt="" width="158" data-align="inline">
 
-## 
 
 #### 게임 내 미션 연동 기능
 
@@ -101,6 +98,7 @@
 <img title="" src="./img/미션 성공 gif.GIF" alt="" width="157" data-align="inline"><img title="" src="./img/미션 실패 gif.GIF" alt="" width="158" data-align="inline">
 
 ## 게임 소개 및 다운로드 페이지
+
 #### 메인
 
 - 메인 화면에서 게임 다운로드 가능
