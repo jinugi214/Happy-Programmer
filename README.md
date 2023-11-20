@@ -50,7 +50,7 @@
 
 - 현실 시간대⏲ 에 맞게 로그인 화면이 바뀌어요!
 
-<img title="" src="./img/login.gif" alt="" width="210"><img title="" src="./img/login2.gif" alt="" width="210"> <img title="" src="./img/login3.gif" alt="" width="210">
+<img title="" src="./img/login.gif" alt="" width="210"> <img title="" src="./img/login2.gif" alt="" width="210"> <img title="" src="./img/login3.gif" alt="" width="210">
 
 #### 게임 시작 및 캐릭터 생성👨‍💼👩‍💼
 
