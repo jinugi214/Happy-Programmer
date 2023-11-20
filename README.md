@@ -23,7 +23,7 @@
 
 - 프로젝트 이름: Happy Programmer🎮
 - 프로젝트 기간: 2023.10-2023.11
-- 개발 엔진 및 언어: Unity & C# & Spring Boot & Java & Android Studio & Kotlin
+- 개발 엔진 및 언어: Unity & C# & Spring Boot & Java & Android Studio & Kotlin & React
 - 멤버: 팀 Gumi Games(정진욱, 김수민, 김슬기, 손준배, 황하음, 차선호)
 
 ## 게임 설명
